@@ -2,8 +2,8 @@ using Plots, LinearAlgebra, Statistics, LaTeXStrings
 
 println("-------------------------------")
 # -------- Paramètres --------------------------------------------------------
-const dt = 1e-4
-const Tmax = 5
+const dt = 0.001
+const Tmax = 10
 const Ntraj = 10_000
 
 # -------- Constantes --------------------------------------------------------
@@ -27,8 +27,10 @@ function singletraj(ψ, dt, Tmax)
     Tlist = 0:dt:Tmax
     nsteps = length(Tlist)
     res = nothing
+    βlist = zeros(nsteps)
 
     for k in 1:nsteps
+        βlist[k] = real(ψ'*σm'*σm*ψ)
         # println("norme ≈ ", round(real(ψ'*ψ), digits=3), " R ≈ ", round(R, digits=2)," ⚠️ ", round(k*100/nsteps, digits=2), "%", " at to ", Tlist[k],"/",Tmax, " time units")
         if real(ψ'*ψ) < R
             res = k
@@ -41,39 +43,37 @@ function singletraj(ψ, dt, Tmax)
         k2 = -im*Heff*(ψ+dt*k1/2)
         k3 = -im*Heff*(ψ+dt*k2/2)
         k4 = -im*Heff*(ψ+dt*k3)
-        ψ = ψ + dt/6*(k1+2k2+2k3+k4)
+        ψ = ψ + dt/6*(k1+2k2+2k3+k4) #RK4 Algorithm
     end
 
     if isnothing(res)
         # println("⚠️ The algorithm didn't converge ⚠️")
-        return nothing
+        return nothing, βlist
     else
-        return Tlist[res]
+        return Tlist[res], βlist
     end
 end
 
 function multitraj(N, ψ, dt, Tmax)
     JumpList = Float64[]
     notconv = 0
+    nsteps = length(0:dt:Tmax)
+    βsum = zeros(nsteps)
 
     for n in 1:N
         print("\r Calculating... ", round(n*100/N, digits=2),"%")
         flush(stdout)
-        res = singletraj(ψ, dt, Tmax)
+        res, β = singletraj(ψ, dt, Tmax)
         if isnothing(res) 
             notconv +=1 #comptabilise les non-convergences
         else
             push!(JumpList, res)
         end
+        βsum .+= β
     end
-    println("\n\n",N-notconv, " trajectories converged to a solution, out of ", N)
-    println("Success rate: ", round((N-notconv)*100/N, digits=2),"%")
-    return JumpList, notconv
-end
-
-function Representation(dt, Tmax, jumptime)
-    Tlist = 0:dt:Tmax
-    return [t < jumptime ? 1.0 : 0.0 for t in Tlist]
+    println("\n\n",N-notconv, " trajectories jumped, out of ", N)
+    println("Jump rate: ", round((N-notconv)*100/N, digits=2),"%")
+    return JumpList, notconv, βsum/N
 end
 
 function dN(dt, Tmax, jumptime)
@@ -82,36 +82,46 @@ function dN(dt, Tmax, jumptime)
 end
 
 # -------- Plots --------------------------------------------------------------
-RES, miss = multitraj(Ntraj, ψ0, dt, Tmax) # jumptimes of the (N-notconverged) trajectories
 Tlist = 0:dt:Tmax
-
-function trajplot(doplot, save)
+PATH = homedir()*"/Bureau/Github/Stage2026/MCWF/ByHands/PLOTS/"
+ext = ".png"
+dim = (1920, 1080)
+#plot style
+const style = (
+    size=dim,
+    titlefontsize=20,
+    guidefontsize=20,
+    tickfontsize=15,
+    legendfontsize=16,
+    lw=4,
+    margin=10Plots.mm
+)
+function plot_single(doplot, save)
     if doplot
-        Y = [Representation(dt, Tmax, jump) for jump in RES] # converts jumptime of one trajectory to values of excited population (1 -> 0)
-        PATH = "MCWF/"
-        rand_idx = rand(1:length(RES))
-        PLOT_single = plot(Tlist, Y[rand_idx], lw=2, title="Single trajectory - dt=$dt", label=false, xlabel="Time", ylabel="Excited population", tickfontsize=12)
-        yticks!([0,1], [L"|g\rangle", L"|e\rangle"])
-
-        PLOT_mean = plot(Tlist, mean(Y), lw=2, label=L"\left< \rho_{ee} \right>", tickfontsize=12, title="$(Ntraj-miss)/$Ntraj trajectories averaged - dt=$dt", xlabel="Time", ylabel="Excited population")
-        plot!(Tlist, exp.(-Γ*collect(Tlist)), lw=2, ls=:dot, label=L"e^{-\Gamma t}")
-        yticks!([0,1], [L"|g\rangle", L"|e\rangle"])
-
+        _, βsingle = singletraj(ψ0, dt, Tmax)
+        PLOT_single = plot(Tlist, βsingle, title="Single trajectory", label=false, xlabel="Time", ylabel=L"\sigma_-^\dagger \sigma_- (t)"; style...)
         if save
-            savefig(PLOT_single, PATH*"SingleTrajPlot.pdf")
-            savefig(PLOT_mean, PATH*"$Ntraj"*"TrajsPlot.pdf")
+            savefig(PLOT_single, PATH*"SingleTrajPlot"*ext)
+        end
+    end
+end
+
+function plotting(doplot, save)
+    if doplot
+        RES, miss, βmoy = multitraj(Ntraj, ψ0, dt, Tmax) 
+        # ^ jumptimes of the (N-notconverged) trajectories, number of missed convergence and mean of sigma+sigma- over time
+        
+        PLOT_mean = plot(Tlist, βmoy, label=L"\left< \beta (t) \right>", title="$(Ntraj-miss)/$Ntraj trajectories averaged - dt=$dt", xlabel="Time", ylabel=L"<\sigma_-^\dagger \sigma_- (t)>"; style...)
+        
+        P2 = histogram(RES, bins=200, normalize=:pdf, label="Quantum jump distribution", xlabel="Time", ylabel="Normalized count", title="Histogram of dN\n$(Ntraj-miss)/$Ntraj jumps - dt=$dt"; style..., lw=1)
+        
+        if save
+            savefig(PLOT_mean, PATH*"$(Ntraj)TrajsPlot_dt$dt"*ext)
+            savefig(P2, PATH*"$(Ntraj)HistodN_dt$dt"*ext)
         end
     end
     return nothing
 end
-trajplot(false, false)
 
-function dNplot(doplot, save)
-    if doplot
-        P2 = histogram(RES, bins=100, normalize=:pdf, label="Quantum jump distribution", xlabel="Time", ylabel="Normalized count", tickfontsize=12)
-        plot!(Tlist, Γ*exp.(-Γ*collect(Tlist)), lw=2, ls=:dash, label=L"\Gamma e^{-\Gamma t}", title="Histogram of dN\n$(Ntraj-miss)/$Ntraj trajectories averaged - dt=$dt")
-        if save
-            savefig(P2, PATH*"HistodN.pdf")
-        end
-    end
-end
+plot_single(false, false)
+plotting(true, true)
