@@ -6,7 +6,7 @@ println("---------------------")
     # Simulation Parameters
 # ===========================================
 Ntraj = 1000 # number of trajectories
-Ncut = 10 # Fock space truncation for the cavity
+Ncut = 12 # Fock space truncation for the cavity
 n_in = 5.0 # mean photon number in the input coherent state
 
     # Physical Parameters
@@ -62,7 +62,7 @@ function plotting(flag)
             inset=bbox(0.4, 0.1, 0.35, 0.35), subplot=2, lw=1, label="Error", color=palette[3]
         )
 
-        P_quadX = plot(tlist, real.(uncond[1, :]), xlabel="t", ylabel=L"\langle X \rangle", label="mesolve", lw=2, legend=:outerright)
+        P_quadX = plot(tlist, real.(uncond[1, :]), xlabel="t", ylabel=L"\langle \hat{x}_{0} \;\rangle", label="mesolve", lw=2, legend=:outerright, title=L"\hat{x}_{0} = \sqrt{k} \left( \hat{a} + \hat{a}^\dagger \right)")
         plot!(P_quadX, tlist, real.(sol_sme.expect[1, :]), label="smesolve", lw=2, ls=:dash)
         # ylims!(-0.2,0.2)
         plot!( # error plot
@@ -70,7 +70,7 @@ function plotting(flag)
             inset=bbox(0.5, 0.05, 0.25, 0.25), subplot=2, lw=1, label="Error", color=palette[3]
         )
 
-        P_quadY = plot(tlist, real.(uncond[2, :]), xlabel="t", ylabel=L"\langle Y \rangle", label="mesolve", lw=2, legend=:outerright)
+        P_quadY = plot(tlist, real.(uncond[2, :]), xlabel="t", ylabel=L"\langle \hat{x}_{\pi/2} \;\rangle", label="mesolve", lw=2, legend=:outerright, title=L"\hat{x}_{\pi/2} = i \sqrt{k} \left( \hat{a}^dagger - \hat{a} \right)")
         plot!(P_quadY, tlist, real.(sol_sme.expect[2, :]), label="smesolve", lw=2, ls=:dash)
         # ylims!(-0.2,0.2)
         plot!( # error plot
@@ -78,9 +78,9 @@ function plotting(flag)
             inset=bbox(0.5, 0.05, 0.25, 0.25), subplot=2, lw=1, label="Error", color=palette[3]
         )
 
-        savefig(P_pop, PATH*"homodyne_pop.pdf")
-        savefig(P_quadX, PATH*"homodyne_quadX.pdf")
-        savefig(P_quadY, PATH*"homodyne_quadY.pdf")
+        savefig(P_pop, PATH*"harmonic_homodyne_pop.pdf")
+        savefig(P_quadX, PATH*"harmonic_homodyne_quadX.pdf")
+        savefig(P_quadY, PATH*"harmonic_homodyne_quadY.pdf")
         closeall()
     end
 end

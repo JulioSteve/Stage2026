@@ -11,4 +11,8 @@ function P(nmoy, Ncut)
     return round(Float64(eps), digits=5)
 end
 
-P(n0, 7)
+println("The total sum of probability = 1, we calculate the rest of the series after Ncut (from Ncut to infinity summing probabilities).\n")
+
+for ncut in range(n0+1, n0+1+10)
+    println("tested Ncut: ", ncut, " error/validity: ", round((P(n0, ncut))*100, digits=2)," / ",round((1.0-P(n0, ncut))*100, digits=2), "%")
+end
