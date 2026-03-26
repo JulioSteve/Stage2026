@@ -14,10 +14,10 @@ println("---------------------")
 
     # Simulation Parameters
 # ===========================================
-Ntraj = 1000 # number of trajectories
+Ntraj = 10000 # number of trajectories
 Ncut = 12 # Fock space truncation for the cavity mode
 
-χ = 1 # ħω0/kT -> χ<<1 High temperature limit | χ>>1 Low temperature limit | χ=-1 for zero temperature case
+χ = 0.1 # ħω0/kT -> χ<<1 High temperature limit | χ>>1 Low temperature limit | χ=-1 for zero temperature case
 
     # Physical Parameters
 # ===========================================
@@ -25,7 +25,7 @@ Nth = N_BE(χ) # mean thermal photon number in the cavity
 ω_γ = 3.0 # unitless frequency system oscillation / coupling ratio (weak coupling regime if ω_γ>>1)
 γ0 = 1.0 # unitless coupling system-environment
 τ = 2/(1+2*Nth) # dephasing time
-dt = τ/100
+dt = τ/1000
 Tmax = 10.0/(1+2*Nth) # 10 times the relaxation time of steady states
 
 tlist = 0:dt:Tmax # time list
