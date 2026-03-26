@@ -1,3 +1,5 @@
+# For coherent:
+
 n0 = 5.0
 
 function P(nmoy, Ncut)

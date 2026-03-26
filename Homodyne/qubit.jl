@@ -82,16 +82,17 @@ function plotting(flag)
     moyenne100 /= 100
 
     if flag
-        P_pop = plot(tlist, real.(uncond[3, :]), xlabel=L"\gamma_0 t", ylabel="Excited population", label=L"\rho_{ee}", lw=2, legend=:outerright, top_margin=10Plots.mm)
+        P_pop = plot(tlist, real.(uncond[3, :]), xlabel=L"\gamma_0 t", ylabel="Excited population", label=L"\rho_{ee}", lw=2, legend=:outerright, top_margin=10Plots.mm, extra_kwargs=Dict(:subplot => Dict(:legend_hfactor => 1.5)))
         plot!(P_pop, tlist, real.(sol_sme.expect[3, :]), label=L"\mathbb{E}\left[\rho^{(c)}_{ee}\right]", lw=2, ls=:dot, title="Thermal state "*L"\frac{\hbar\omega_0}{k_B T}"*"$titlechi\n$Ntraj trajectories under homodyne detection\n")
-        annotate!(36, 0.4, text(L"|\psi_0\;\rangle = \frac{|e\rangle+|g\rangle}{\sqrt{2}}", 10, :white))
+        hline!(P_pop, [Nth/(1+2Nth)], label="Thermal limit", ls=:dash, z_order=1, color=palette[4])
         plot!( # error plot
             P_pop, tlist, ε(3), xticks=nothing, tickfontsize=5, xaxis=false,
-            inset=bbox(0.4, 0.3, 0.35, 0.35), subplots=2,lw=1, label="Error", color=palette[3]
+            inset=bbox(0.4, 0.3, 0.35, 0.35), subplots=2,lw=1, label=nothing, color=palette[3]
         )
+        plot!(P_pop, [], [], color=palette[3], label="Error")
 
         l = @layout [a b c{0.1w} ; d{0.3h} e{0.3h} _]
-        Pquad = plot(layout=l) 
+        Pquad = plot(layout=l, extra_kwargs=Dict(:subplot => Dict(:legend_hfactor => 1.5))) 
         
         plot!(Pquad[1,1], tlist, real.(uncond[1, :]), xlabel=L"\gamma_0 t", ylabel="Quadrature "*L"\langle \hat{x}_\theta \rangle", label=nothing, lw=2, title=L"\hat{x}_{0} = \sqrt{k} ( \sigma_- + \sigma_+ )")
         plot!(Pquad[1,1], tlist, real.(sol_sme.expect[1, :]), label=nothing, lw=2, ls=:dot, top_margin=5Plots.mm)
