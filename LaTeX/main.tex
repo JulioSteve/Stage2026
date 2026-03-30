@@ -1,0 +1,42 @@
+\documentclass[11pt,a4paper]{article}
+
+% Packages essentiels
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{csquotes}
+\usepackage{amsmath,amssymb,physics}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{indentfirst}
+\usepackage{ragged2e}
+\geometry{margin=2.5cm}
+
+% Pour figures propres
+\usepackage{caption}
+\usepackage{subcaption}
+
+% Bibliographie (moderne)
+\usepackage[backend=biber,style=numeric]{biblatex}
+\addbibresource{references.bib}
+
+\begin{document}
+\renewcommand{\thesection}{\Roman{section}}
+\renewcommand{\thesubsection}{\thesection.\roman{subsection})}
+\renewcommand{\Tr}[1]{\operatorname{Tr }\left[#1\right]}
+
+\input{frontmatter.tex}
+\clearpage
+
+\input{introduction.tex}
+\clearpage
+
+\input{appendices.tex}
+\clearpage
+
+\printbibliography
+
+
+\end{document}

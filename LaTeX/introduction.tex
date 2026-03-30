@@ -1,0 +1,42 @@
+\pagenumbering{arabic}
+\setlength{\parskip}{0.5em}
+\setcounter{page}{1}
+\section{Theory of open quantum systems and continuous measurements}
+\subsection{Introduction and motivations} \label{intro}
+
+The paper you read will read is purposely non-exhaustive ; 
+it consists of a pedagogical and demonstrative introduction to 
+\textit{quantum continuous measurements}. Talented searchers made thorough and
+detailed papers on the subjects we will tackle, but we wanted to allow mere students
+or uninitiated people to understand the basics of weak measurements.
+
+Quantum mechanics is the most fundamental physical theory humankind has developed 
+due to accurate description at the smallest scale of the Universe. 
+The primary results of quantum physics are obtained while considering a system isolated 
+in the void from any perturbation or interaction. However, 
+it seems trivial that any real physical system is ``feeling'' its surroundings 
+(light rays or magnetic field hitting the system, coupling with a cavity, etc...) 
+thus we ought to describe the impact of the environment on a system ; 
+the couple System-Environment is called as \textit{Open} Quantum System (OQS).
+Before diving more into this theory we should describe what we call a measurement \cite{Jacobs,WisemanThesis},
+the postulate of quantum measurement states that we can choose any basis to represent
+a system, living mathematically in an Hilbert space, 
+$\ket{\psi}\in \mathcal{H}$: 
+$$\ket{\psi} = \sum_n c_n \ket{\phi_n} \quad;\; c_n\in\mathbb{C}$$ 
+We can look at which eigen-state $\ket{\phi_n}$ the system is in, 
+doing so will (always) put the system in one of these states and we know the 
+probability to get this state: $|c_n|^2$. This kind of measurement is called a 
+\textit{von Neumann measurement} where the result is a state among the set of
+eigen-states. Formally, it is a Projection-Valued Measurement (PVM) where the 
+projector associated with the probability to find the result $n$ is 
+$\mathbb{P}_n = \bra{\psi}P_n\ket{\psi}$. More general \textit{quantum measurement}
+or Positive-Operator Valued Measures (POVM) $\Pi_n$ can be defined by
+$\mathbb{P}_n = \Tr{\rho\Pi_n}$ where we use a generalization of quantum
+states into density matrix $\rho$, which for pure states is 
+$\rho_{pure}=\ket{\psi}\bra{\psi}$. This new formalism of density matrix has importance
+revealed when dealing with OQS, please find Appendix \ref{Measurement_Theory} for further understanding.
+
+
+\subsection{Open quantum systems basics}
+
+\subsection{Obtaining Stochastic Master Equations (SME)}

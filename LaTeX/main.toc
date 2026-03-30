@@ -1,0 +1,7 @@
+\babel@toc {english}{}\relax 
+\thispagestyle {empty}
+\contentsline {section}{\numberline {I}Theory of open quantum systems and continuous measurements}{1}{section.1}%
+\contentsline {subsection}{\numberline {I.i)}Introduction and motivations}{1}{subsection.1.1}%
+\contentsline {subsection}{\numberline {I.ii)}Open quantum systems basics}{1}{subsection.1.2}%
+\contentsline {subsection}{\numberline {I.iii)}Obtaining Stochastic Master Equations (SME)}{1}{subsection.1.3}%
+\contentsline {section}{\numberline {A}Quantum Measurement Theory}{2}{appendix.A}%

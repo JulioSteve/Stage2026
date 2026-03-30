@@ -14,18 +14,19 @@ println("---------------------")
 
     # Simulation Parameters
 # ===========================================
-Ntraj = 10000 # number of trajectories
+Ntraj = 100 # number of trajectories
 Ncut = 12 # Fock space truncation for the cavity mode
 
-χ = 0.1 # ħω0/kT -> χ<<1 High temperature limit | χ>>1 Low temperature limit | χ=-1 for zero temperature case
+χ = 0.25 # ħω0/kT -> χ<<1 High temperature limit | χ>>1 Low temperature limit | χ=-1 for zero temperature case
 
     # Physical Parameters
 # ===========================================
 Nth = N_BE(χ) # mean thermal photon number in the cavity 
 ω_γ = 3.0 # unitless frequency system oscillation / coupling ratio (weak coupling regime if ω_γ>>1)
 γ0 = 1.0 # unitless coupling system-environment
+# ω0 = γ0*ω_γ
 τ = 2/(1+2*Nth) # dephasing time
-dt = τ/1000
+dt = τ/1
 Tmax = 10.0/(1+2*Nth) # 10 times the relaxation time of steady states
 
 tlist = 0:dt:Tmax # time list
@@ -56,7 +57,7 @@ cond_meas = sol_sme.measurement # conditional measurement record
 cond_mean = sol_sme.expect # conditional expectation value
 
 # println("unconditional: ", shape(uncond))
-# println("measure: ", shape(cond_meas))
+println("measure: ", shape(cond_meas))
 # println("moy: ", shape(cond_mean))
 
     # Plotting
@@ -88,6 +89,7 @@ function plotting(flag)
             inset=bbox(0.35, 0.3, 0.35, 0.35), subplot=2,lw=1, label=nothing, color=palette[3]
         )
         plot!(P_pop, [], [], color=palette[3], label="Error")
+        plot!(P_pop, tlist, 2*exp.(-γ0*tlist)+Nth*(1-exp.(-γ0*tlist)))
 
         l = @layout [a b c{0.2w} ; d{0.3h} e{0.3h} _]
         Pquad = plot(layout=l) 
