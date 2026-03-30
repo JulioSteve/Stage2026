@@ -1,12 +1,12 @@
 # Fdb version 4
-["biber main"] 1774875070.71814 "main.bcf" "main.bbl" "main" 1774875073.12434 0
-  "main.bcf" 1774875073.04047 108809 71114ab8ae335766944bd36f89c96e58 "pdflatex"
+["biber main"] 1774875070.71814 "main.bcf" "main.bbl" "main" 1774875880.52632 0
+  "main.bcf" 1774875880.44315 108809 71114ab8ae335766944bd36f89c96e58 "pdflatex"
   "references.bib" 1774874738.82248 1539 cfa4b397d684ade4eed54d90aef93679 ""
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1774875071.52424 "/home/jules/Bureau/Github/Stage2026/LaTeX/main.tex" "main.pdf" "main" 1774875073.12461 0
+["pdflatex"] 1774875878.94748 "/home/jules/Bureau/Github/Stage2026/LaTeX/main.tex" "main.pdf" "main" 1774875880.52659 0
   "/home/jules/Bureau/Github/Stage2026/LaTeX/main.tex" 1774874910.7354 863 af0cca72473333995f21f9dff1d85937 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1136849721 2971 def0b6c1f0b107b3b936def894055589 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -151,15 +151,15 @@
   "Images/logoPTH.png" 1774863464 10898 a7dc3786d1cd42666f8b90c0e83194ae ""
   "Images/logoUTI.jpeg" 1774863464 7288 92301a27946d2a2371b70830225f4cad ""
   "Images/logocomp.png" 1774863464 324847 bbc698bae82a253b564d1993b269899d ""
-  "appendices.tex" 1774874964.43431 269 5b4709056f0af727439475312c0836d3 ""
-  "frontmatter.tex" 1774863464 5303 62555c3e791e153cdab74c84b5343f39 ""
-  "introduction.tex" 1774875068.99297 2550 ab93da9e0af8625bbd9ee51b0e48cc91 ""
-  "main.aux" 1774875073.03847 1688 ad66c2a44b85a1298dba9329a390fea9 "pdflatex"
+  "appendices.tex" 1774875479.89972 269 5b4709056f0af727439475312c0836d3 ""
+  "frontmatter.tex" 1774875878.7751 5309 4d29915541abf85ee93d4ac37207af87 ""
+  "introduction.tex" 1774875122.91375 2550 ab93da9e0af8625bbd9ee51b0e48cc91 ""
+  "main.aux" 1774875880.44115 1688 ad66c2a44b85a1298dba9329a390fea9 "pdflatex"
   "main.bbl" 1774875071.49468 3987 6afcaed89b28edb06762add689e42438 "biber main"
-  "main.out" 1774875073.03947 1228 26e229be6de79af25a97a7c5ec99f952 "pdflatex"
-  "main.run.xml" 1774875073.04273 2305 52095dfad395b381e9a32937e764a41c "pdflatex"
+  "main.out" 1774875880.44215 1228 26e229be6de79af25a97a7c5ec99f952 "pdflatex"
+  "main.run.xml" 1774875880.44465 2305 52095dfad395b381e9a32937e764a41c "pdflatex"
   "main.tex" 1774874910.7354 863 af0cca72473333995f21f9dff1d85937 ""
-  "main.toc" 1774875073.04273 552 6ec2d31b1c20d851cc39a608dc5efc2f "pdflatex"
+  "main.toc" 1774875880.44465 552 6ec2d31b1c20d851cc39a608dc5efc2f "pdflatex"
   (generated)
   "main.aux"
   "main.bcf"
