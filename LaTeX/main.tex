@@ -1,6 +1,6 @@
 \documentclass[11pt,a4paper]{article}
 
-% Packages essentiels
+% Packages
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[english]{babel}
@@ -14,29 +14,27 @@
 \usepackage{ragged2e}
 \geometry{margin=2.5cm}
 
-% Pour figures propres
+% Clean figures
 \usepackage{caption}
 \usepackage{subcaption}
 
-% Bibliographie (moderne)
+% Bibliography (moderne)
 \usepackage[backend=biber,style=numeric]{biblatex}
 \addbibresource{references.bib}
 
 \begin{document}
 \renewcommand{\thesection}{\Roman{section}}
-\renewcommand{\thesubsection}{\thesection.\roman{subsection})}
-\renewcommand{\Tr}[1]{\operatorname{Tr }\left[#1\right]}
+\renewcommand{\thesubsection}{\thesection.\roman{subsection}\char41}
+\renewcommand{\Tr}[1]{\operatorname{Tr~}\left[#1\right]}
 
 \input{frontmatter.tex}
 \clearpage
 
-\input{introduction.tex}
+\input{academic.tex}
 \clearpage
 
 \input{appendices.tex}
 \clearpage
 
-\printbibliography
-
-
+\printbibliography%
 \end{document}
