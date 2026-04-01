@@ -1,4 +1,4 @@
-\documentclass[11pt,a4paper]{article}
+\documentclass[12pt,a4paper]{article}
 
 % Packages
 \usepackage[utf8]{inputenc}
@@ -12,6 +12,9 @@
 \usepackage{xcolor}
 \usepackage{indentfirst}
 \usepackage{ragged2e}
+\usepackage{tocloft}
+\usepackage{lastpage}
+\usepackage{fancyhdr}
 \geometry{margin=2.5cm}
 
 % Clean figures
@@ -19,15 +22,30 @@
 \usepackage{subcaption}
 
 % Bibliography (moderne)
-\usepackage[backend=biber,style=numeric]{biblatex}
+\usepackage[backend=biber,style=numeric,sorting=none]{biblatex}
 \addbibresource{references.bib}
 
 \begin{document}
 \renewcommand{\thesection}{\Roman{section}}
 \renewcommand{\thesubsection}{\thesection.\roman{subsection}\char41}
 \renewcommand{\Tr}[1]{\operatorname{Tr~}\left[#1\right]}
+\renewcommand{\cfttoctitlefont}{\Huge\bfseries\MakeUppercase}
+\renewcommand{\cftaftertoctitle}{
+  \vskip 2.5mm
+  \noindent\rule{\textwidth}{0.8pt}\\[-3    mm]
+  \noindent\rule{\textwidth}{0.8pt}
+  \vskip 5mm
+}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{---\thepage/\pageref{LastPage}---}
+\renewcommand{\headrulewidth}{0pt}
+\setlength{\cftsubsecnumwidth}{15mm}
 
 \input{frontmatter.tex}
+\clearpage
+
+\input{introduction.tex}
 \clearpage
 
 \input{academic.tex}

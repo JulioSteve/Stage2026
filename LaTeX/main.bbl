@@ -16,5 +16,172 @@
   {}
 \endgroup
 
+
+\refsection{0}
+  \datalist[entry]{none/global//global/global/global}
+    \entry{CT}{book}{}{}
+      \name{author}{3}{}{%
+        {{hash=b424d6eadf894bf83fcb843c19382d7a}{%
+           family={Cohen-Tannoudji},
+           familyi={C\bibinithyphendelim T\bibinitperiod},
+           given={Claude},
+           giveni={C\bibinitperiod}}}%
+        {{hash=1b77617a288ff1ae2dd6c4b93ff6c21c}{%
+           family={Diu},
+           familyi={D\bibinitperiod},
+           given={Bernard},
+           giveni={B\bibinitperiod}}}%
+        {{hash=bc88c0350af8e4f57c2ce6799c84f28f}{%
+           family={Laloë},
+           familyi={L\bibinitperiod},
+           given={Franck},
+           giveni={F\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {fr}%
+      }
+      \list{publisher}{1}{%
+        {Companyédition CNRS/EDP Sciences}%
+      }
+      \strng{namehash}{e5d4f56e984ae30c9e3f05c877895ee1}
+      \strng{fullhash}{e5d4f56e984ae30c9e3f05c877895ee1}
+      \strng{fullhashraw}{e5d4f56e984ae30c9e3f05c877895ee1}
+      \strng{bibnamehash}{e5d4f56e984ae30c9e3f05c877895ee1}
+      \strng{authorbibnamehash}{e5d4f56e984ae30c9e3f05c877895ee1}
+      \strng{authornamehash}{e5d4f56e984ae30c9e3f05c877895ee1}
+      \strng{authorfullhash}{e5d4f56e984ae30c9e3f05c877895ee1}
+      \strng{authorfullhashraw}{e5d4f56e984ae30c9e3f05c877895ee1}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{month}{9}
+      \field{title}{Mécanique quantique}
+      \field{year}{2018}
+    \endentry
+    \entry{Breuer}{book}{}{}
+      \name{author}{2}{}{%
+        {{hash=44be9d24e3ede84bee3691a7a300e5db}{%
+           family={Breuer},
+           familyi={B\bibinitperiod},
+           given={Heinz-Peter},
+           giveni={H\bibinithyphendelim P\bibinitperiod}}}%
+        {{hash=4b215190f542b12fd214896e21eff64b}{%
+           family={Petruccione},
+           familyi={P\bibinitperiod},
+           given={Francesco},
+           giveni={F\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Oxford University PressOxford}%
+      }
+      \strng{namehash}{fc984943b8bdb1c48eb687b8f74fd49b}
+      \strng{fullhash}{fc984943b8bdb1c48eb687b8f74fd49b}
+      \strng{fullhashraw}{fc984943b8bdb1c48eb687b8f74fd49b}
+      \strng{bibnamehash}{fc984943b8bdb1c48eb687b8f74fd49b}
+      \strng{authorbibnamehash}{fc984943b8bdb1c48eb687b8f74fd49b}
+      \strng{authornamehash}{fc984943b8bdb1c48eb687b8f74fd49b}
+      \strng{authorfullhash}{fc984943b8bdb1c48eb687b8f74fd49b}
+      \strng{authorfullhashraw}{fc984943b8bdb1c48eb687b8f74fd49b}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{9780191706349}
+      \field{month}{1}
+      \field{title}{The Theory of Open Quantum Systems}
+      \field{year}{2007}
+      \verb{doi}
+      \verb 10.1093/acprof:oso/9780199213900.001.0001
+      \endverb
+      \verb{urlraw}
+      \verb http://dx.doi.org/10.1093/acprof:oso/9780199213900.001.0001
+      \endverb
+      \verb{url}
+      \verb http://dx.doi.org/10.1093/acprof:oso/9780199213900.001.0001
+      \endverb
+    \endentry
+    \entry{Jacobs}{book}{}{}
+      \name{author}{1}{}{%
+        {{hash=cf766a0f21ee0f8c045909373d67177e}{%
+           family={Jacobs},
+           familyi={J\bibinitperiod},
+           given={Kurt},
+           giveni={K\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {en}%
+      }
+      \list{location}{1}{%
+        {Cambridge, England}%
+      }
+      \list{publisher}{1}{%
+        {Cambridge University Press}%
+      }
+      \strng{namehash}{cf766a0f21ee0f8c045909373d67177e}
+      \strng{fullhash}{cf766a0f21ee0f8c045909373d67177e}
+      \strng{fullhashraw}{cf766a0f21ee0f8c045909373d67177e}
+      \strng{bibnamehash}{cf766a0f21ee0f8c045909373d67177e}
+      \strng{authorbibnamehash}{cf766a0f21ee0f8c045909373d67177e}
+      \strng{authornamehash}{cf766a0f21ee0f8c045909373d67177e}
+      \strng{authorfullhash}{cf766a0f21ee0f8c045909373d67177e}
+      \strng{authorfullhashraw}{cf766a0f21ee0f8c045909373d67177e}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Recent experimental advances in the control of quantum superconducting circuits, nano-mechanical resonators and photonic crystals has meant that quantum measurement theory is now an indispensable part of the modelling and design of experimental technologies. This book, aimed at graduate students and researchers in physics, gives a thorough introduction to the basic theory of quantum measurement and many of its important modern applications. Measurement and control is explicitly treated in superconducting circuits and optical and opto-mechanical systems, and methods for deriving the Hamiltonians of superconducting circuits are introduced in detail. Further applications covered include feedback control, metrology, open systems and thermal environments, Maxwell's demon, and the quantum-to-classical transition.}
+      \field{month}{8}
+      \field{title}{Quantum Measurement Theory and its Applications}
+      \field{year}{2014}
+    \endentry
+    \entry{Albarelli}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=63e1d848eeb7d57e12f168babd42c4db}{%
+           family={Albarelli},
+           familyi={A\bibinitperiod},
+           given={Francesco},
+           giveni={F\bibinitperiod}}}%
+        {{hash=2fe1574f5b1248522d44924664f5f6ef}{%
+           family={Genoni},
+           familyi={G\bibinitperiod},
+           given={Marco\bibnamedelima G.},
+           giveni={M\bibinitperiod\bibinitdelim G\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Elsevier BV}%
+      }
+      \strng{namehash}{da2c70b39f28166423e4b0e2a916551b}
+      \strng{fullhash}{da2c70b39f28166423e4b0e2a916551b}
+      \strng{fullhashraw}{da2c70b39f28166423e4b0e2a916551b}
+      \strng{bibnamehash}{da2c70b39f28166423e4b0e2a916551b}
+      \strng{authorbibnamehash}{da2c70b39f28166423e4b0e2a916551b}
+      \strng{authornamehash}{da2c70b39f28166423e4b0e2a916551b}
+      \strng{authorfullhash}{da2c70b39f28166423e4b0e2a916551b}
+      \strng{authorfullhashraw}{da2c70b39f28166423e4b0e2a916551b}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{0375-9601}
+      \field{journaltitle}{Physics Letters A}
+      \field{month}{1}
+      \field{title}{A pedagogical introduction to continuously monitored quantum systems and measurement-based feedback}
+      \field{volume}{494}
+      \field{year}{2024}
+      \field{pages}{129260}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1016/j.physleta.2023.129260
+      \endverb
+      \verb{urlraw}
+      \verb http://dx.doi.org/10.1016/j.physleta.2023.129260
+      \endverb
+      \verb{url}
+      \verb http://dx.doi.org/10.1016/j.physleta.2023.129260
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
 \endinput
 

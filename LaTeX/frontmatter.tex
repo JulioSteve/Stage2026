@@ -27,14 +27,21 @@
 \vspace{2cm}
 
 {\large\textit{\textcolor{gray}{
-    Keywords: \\[0.5cm]
-    Stochastic Master Equation\\
-    Quantum Trajectories\\
-    Photodetection\\
-    Homodyne detection
-}}}
-\normalsize\par
-\vspace{7cm}
+    \underline{Keywords:} \\[0.5cm]
+    \begin{minipage}{0.5\textwidth}
+        \begin{itemize}
+        \renewcommand{\labelitemi}{--}
+        \item Open quantum systems
+        \item Weak measurements
+        \item Stochastic master equation
+        \item Quantum trajectories
+        \item Photo|homodyne detection
+        \end{itemize}
+    \end{minipage}
+}}}\par
+\normalsize
+% STUDENT + SUPERVISOR*
+\vfill
 \noindent
 \begin{minipage}[t]{0.48\textwidth}
     \raggedright% Aligné à gauche
@@ -48,7 +55,8 @@
     Bruno BELLOMO
 \end{minipage} \par
 
-\vfill
+\vspace{5mm}
+% LOGO + DATE
 \begin{minipage}[c]{0.25\textwidth}
     \flushleft\includegraphics[width=\textwidth, height=2.5cm, keepaspectratio]{Images/logoPTH.png}
 \end{minipage}
@@ -63,11 +71,19 @@
 
 \end{titlepage}
 
-\newpage \thispagestyle{empty}
-\centering {\Huge \textbf{ACKNOWLEDGEMENTS}}\par
-\vspace{0.25cm}
-\rule{\textwidth}{1pt}\par
-\vspace{0.5cm}
+\clearpage\thispagestyle{empty}\null%
+\vfill
+\begin{center}
+    \textit{\tiny~Deliberately left blank}
+\end{center}
+
+% ACKNOWLEDGEMENTS PAGE
+\newpage\thispagestyle{empty}
+\centering {\Huge \textbf{ACKNOWLEDGEMENTS}}
+\vskip 2.5mm
+\noindent\rule{\textwidth}{0.8pt}\\[-3    mm]
+\noindent\rule{\textwidth}{0.8pt}
+\vskip 5mm
 \begin{justify}
     \hspace{0.5cm}The author expresses deep gratitude to Bruno Bellomo for his guidance and support throughout this research. He is a man who always took the time to explore ideas, ensure our understanding, and seek details. His expertise in Quantum Mechanics has been fundamental to the successful completion of this Master’s thesis. I am grateful to conclude my short career as a physicist with such a demanding and rewarding journey, thanks to Bruno.\par\vspace{0.15cm}\noindent I would like to thank the members of the jury for their time and interest in this work, as well as for the opportunity to present my work in front of such esteemed peers. I also would like to thank my colleagues for their insightful discussions and moral support during this adventure: Silvio Da Silva, Jana El Badawi, Anjana Mohan, and Léo Jacquerot-Legros for welcoming me into your office. Thank you in particular for your time and the discussions we had, which greatly helped me.\par\vspace{0.15cm}\noindent Finally, I would like to thank my friends and family for their never-ending support and love: Erwan Le D{\oe}uff, Titouan Alphonse, and Nabyan Arkan for these two years of Master’s studies and friendship together; Maxence Bonin and Vincent Girod for being there like brothers when difficulties arose; my parents Catherine and Lionel for my entire life and education; my brother Pierre for his righteousness and compassion; and finally my other half, without whom I would not be who I am today, Alexiane.
 \end{justify}
@@ -82,10 +98,20 @@
     \textbf{— Proverbes 25:2}}
 \end{flushright}\newpage
 
+\Large % SIZE OF CONTENTS!!!
 \tableofcontents
 \addtocontents{toc}{\protect\thispagestyle{empty}}
 
-\clearpage\raggedright
-\section*{Context and Motivations}
-
-\section*{Introduction}
+\clearpage\thispagestyle{empty}\justify%*
+\begin{center}
+    \section*{\Huge~CONTEXT AND MOTIVATIONS}
+    \noindent\rule{\textwidth}{0.8pt}\\[-3mm]
+    \noindent\rule{\textwidth}{0.8pt}
+    \vskip 5mm
+\end{center}\vspace{5mm}
+\large
+This document is the report of an internship carried out as part of a Master's degree in fundamental and numerical physics (CompuPhys).\\
+My internship has been conducted within the team of Theorical Physics --- \textit{équipe de Physique Théorique $\Phi$}Th --- of the \textit{UTINAM Institute} in the building of the \textit{Observatory of Besançon}.\\
+It aims to study from an academical perspective at first, the subject of continuous measurement considering open quantum systems.  The main objective was to explore a subject almost-unknown in details to either my supervisor or myself. We wanted to understand the possibilities and how to handle this domain properly. This work could then lead to other searches linked to continuous measurements.
+\par\vspace{5mm}
+By familiarizing ourselves with the topic, we decided to adopt this perticular frame of report. The structure of this document is meant to help any unfamiliar reader (about continuous measurement), to discover and explore its fundamentals. We wanted to make it as illustrative and pedagogical as possible, thus, simple examples will be used to graphically depict mathematical and physical concepts. 
