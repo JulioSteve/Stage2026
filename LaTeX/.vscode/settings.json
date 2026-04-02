@@ -4,6 +4,7 @@
         "homodyne",
         "Neumann",
         "photodetection",
-        "POVM"
+        "POVM",
+        "wavefunction"
     ]
 }
