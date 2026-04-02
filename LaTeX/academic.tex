@@ -1,7 +1,21 @@
 \section[From closed systems to continuous measurements]{From closed systems to continuous measurements --- in a nutshell}
+\setlength{\parindent}{0pt}
+The examples and illustrations you can find in the following are made on \verb|Julia| using \verb|QuantumToolbox.jl| especially to simulate the dynamics.
+\subsection[Closed quantum systems]{Closed quantum systems}
 
-Test
-
+To describe a system, one can refer to the postulates of quantum mechanics~\cite{CT} summarized here:
+\begin{enumerate}
+    \item The state of a system is represented by a wavefunction $\ket{\psi}\in\mathcal{H}$ living in a Hilbert space.
+    \item Physical observables $\mathcal{A}$ are associated with Hermitian operators $\hat{A}$.
+    \item The only possible outcomes of a measurement of $\mathcal{A}$ are the eigenvalues $a$ of $\hat{A}$, defined by $\hat{A}\ket{a}=a\ket{a}$.
+    \item When measuring $\mathcal{A}$ on a normalized system $\ket{\psi}$, we know the probability to get one of the possible eigenvalues: $\mathbb{P}(a_n)$ (which depends on the spectrum of the observable).
+    \item If the measurement of the physical quantity $\mathcal{A}$ on the system in the state $\psi$ gives the result $a_n$, the state of the system immediately after the measurement becomes the eigenvector $\phi_n$.
+    \item The time evolution of the wavefunction $\ket{\psi(t)}$ is governed by the Schrödinger equation:\[
+    i\hbar\frac{\mathrm{d}\ket{\psi(t)}}{\mathrm{d} t}=\hat{H}(t)\ket{\psi(t)}
+    \]
+    where $\hat{H}$ is the hamiltonian of the system.
+\end{enumerate}
+The kind of dynamics a system follows is then unitary and deterministic. We can always solve, at least analytically, for the solution of the Schrödinger equation. 
 \subsection[Open quantum systems]{Open Quantum Systems (OQS)}
-\subsection{Quantum measurement theory}
+\subsection[Quantum measurement theory]{Quantum Measurement Theory (QMT)}
 \subsection[Stochastic master equation]{Stochastic Master Equations (SME)}
