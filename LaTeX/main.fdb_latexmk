@@ -1,12 +1,12 @@
 # Fdb version 4
-["biber main"] 1775117347.13961 "main.bcf" "main.bbl" "main" 1775118160.00985 0
-  "main.bcf" 1775118159.93569 108052 8f7c0e20b1bc368c45d6f6d165328c4c "pdflatex"
+["biber main"] 1775117347.13961 "main.bcf" "main.bbl" "main" 1775122435.04203 0
+  "main.bcf" 1775122434.79928 108052 8f7c0e20b1bc368c45d6f6d165328c4c "pdflatex"
   "references.bib" 1775113299.37672 2954 56781155736f406c1b5629a69b87434f ""
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1775118159.26653 "/home/jules/Bureau/Github/Stage2026/LaTeX/main.tex" "main.pdf" "main" 1775118160.01015 0
+["pdflatex"] 1775122432.59289 "/home/jules/Bureau/Github/Stage2026/LaTeX/main.tex" "main.pdf" "main" 1775122435.04287 0
   "/home/jules/Bureau/Github/Stage2026/LaTeX/main.tex" 1775049762.40403 1332 52d692be0dc811576f7a09c529f4c408 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1136849721 2971 def0b6c1f0b107b3b936def894055589 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -146,11 +146,11 @@
   "/usr/local/texlive/2026/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1774864832 5573038 b99aad5e4898a9034e953632f940512b ""
   "/usr/local/texlive/2026/texmf-var/web2c/pdftex/pdflatex.fmt" 1774864883 3636718 a833692971985da3ca6920e38221e99b ""
   "/usr/local/texlive/2026/texmf.cnf" 1774864828.17567 455 5b996dcaa0eb4ef14a83b026bc0a008c ""
-  "introduction.tex" 1775118159.0977 3890 8175d4cead40abdf654beaeadfccc88d ""
-  "main.aux" 1775118159.93369 1229 8ae4207e2d43cea0c0c5d2d0ec95698d "pdflatex"
+  "introduction.tex" 1775122432.23209 3723 95d8d1f404cca063433202c8b16b8244 ""
+  "main.aux" 1775122434.79328 1229 8ae4207e2d43cea0c0c5d2d0ec95698d "pdflatex"
   "main.bbl" 1775117347.94618 9369 1d4211098cb448b0c255c874c8b1c828 "biber main"
-  "main.out" 1775118159.93469 104 112c15e46550b64848bce7386adda73f "pdflatex"
-  "main.run.xml" 1775118159.93708 2305 52095dfad395b381e9a32937e764a41c "pdflatex"
+  "main.out" 1775122434.79628 104 112c15e46550b64848bce7386adda73f "pdflatex"
+  "main.run.xml" 1775122434.80209 2305 52095dfad395b381e9a32937e764a41c "pdflatex"
   "main.tex" 1775049762.40403 1332 52d692be0dc811576f7a09c529f4c408 ""
   (generated)
   "main.aux"
