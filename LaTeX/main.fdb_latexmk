@@ -1,12 +1,12 @@
 # Fdb version 4
-["biber main"] 0 "main.bcf" "main.bbl" "main" 1775136317.94575 -1
-  "main.bcf" 1775136317.8411 108109 7b1503467146c3e4e22575673eb706cb "pdflatex"
+["biber main"] 1775201847.20988 "main.bcf" "main.bbl" "main" 1775201851.3105 0
+  "main.bcf" 1775201851.21211 108109 7b1503467146c3e4e22575673eb706cb "pdflatex"
   "references.bib" 1775113299.37672 2954 56781155736f406c1b5629a69b87434f ""
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1775136316.28519 "/home/jules/Bureau/Github/Stage2026/LaTeX/main.tex" "main.pdf" "main" 1775136317.94603 0
+["pdflatex"] 1775201849.69041 "/home/jules/Bureau/Github/Stage2026/LaTeX/main.tex" "main.pdf" "main" 1775201851.31077 0
   "/home/jules/Bureau/Github/Stage2026/LaTeX/main.tex" 1775133317.95331 1340 f8332587cbf10073684b04eb77f02a84 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1136849721 2971 def0b6c1f0b107b3b936def894055589 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -173,16 +173,16 @@
   "Images/logoPTH.png" 1774863464 10898 a7dc3786d1cd42666f8b90c0e83194ae ""
   "Images/logoUTI.jpeg" 1774863464 7288 92301a27946d2a2371b70830225f4cad ""
   "Images/logocomp.png" 1774863464 324847 bbc698bae82a253b564d1993b269899d ""
-  "academic.tex" 1775136314.48955 1915 27a5a4b68862380265618e5617b1a79c ""
+  "academic.tex" 1775201644.13811 2003 895699ecafd4f94d6ab6c8a33ece1cd6 ""
   "appendices.tex" 1774949202.29551 277 59f699e375c350b61cb6b066dd10f7c3 ""
   "frontmatter.tex" 1775049874.07257 7259 2ba35ad283339f4daa26b37b42d7d222 ""
-  "introduction.tex" 1775132356.73024 3736 f138b5708585e8bc673faa6b83df4ba2 ""
-  "main.aux" 1775136317.8401 2042 a0b51903a03a5bd2177e60de737933e2 "pdflatex"
-  "main.bbl" 1775133523.06266 9369 1d4211098cb448b0c255c874c8b1c828 "biber main"
-  "main.out" 1775136317.8411 1114 32fddea5029ba1414317e91310391ab1 "pdflatex"
-  "main.run.xml" 1775136317.84348 2305 52095dfad395b381e9a32937e764a41c "pdflatex"
+  "introduction.tex" 1775201845.42618 3658 67c001e38ed37e0e1f2ca0f2466b5291 ""
+  "main.aux" 1775201851.21111 2042 a0b51903a03a5bd2177e60de737933e2 "pdflatex"
+  "main.bbl" 1775201848.06354 9369 1d4211098cb448b0c255c874c8b1c828 "biber main"
+  "main.out" 1775201851.21211 1114 32fddea5029ba1414317e91310391ab1 "pdflatex"
+  "main.run.xml" 1775201851.21402 2305 52095dfad395b381e9a32937e764a41c "pdflatex"
   "main.tex" 1775133317.95331 1340 f8332587cbf10073684b04eb77f02a84 ""
-  "main.toc" 1775136317.84348 603 f1322d0274b9ea259a4052f354b96653 "pdflatex"
+  "main.toc" 1775201851.21402 603 f1322d0274b9ea259a4052f354b96653 "pdflatex"
   (generated)
   "main.aux"
   "main.bcf"
