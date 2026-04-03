@@ -1,2 +1,12 @@
 HOMODYNE/*.pdf
 MCWF/*.pdf
+*.aux
+*.bbl*
+*.bcf
+*.fdb*
+*.fls
+*.log
+*.out
+*.run.xml
+*.synctex.gz
+*.toc

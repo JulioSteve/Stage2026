@@ -1,13 +1,13 @@
 # Fdb version 4
-["biber main"] 1775201847.20988 "main.bcf" "main.bbl" "main" 1775201851.3105 0
-  "main.bcf" 1775201851.21211 108109 7b1503467146c3e4e22575673eb706cb "pdflatex"
+["biber main"] 0 "main.bcf" "main.bbl" "main" 1775202240.26694 -1
+  "main.bcf" 1775202240.16937 108109 7b1503467146c3e4e22575673eb706cb "pdflatex"
   "references.bib" 1775113299.37672 2954 56781155736f406c1b5629a69b87434f ""
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1775201849.69041 "/home/jules/Bureau/Github/Stage2026/LaTeX/main.tex" "main.pdf" "main" 1775201851.31077 0
-  "/home/jules/Bureau/Github/Stage2026/LaTeX/main.tex" 1775133317.95331 1340 f8332587cbf10073684b04eb77f02a84 ""
+["pdflatex"] 1775202238.60496 "/home/jules/Bureau/Github/Stage2026/LaTeX/main.tex" "main.pdf" "main" 1775202240.2672 0
+  "/home/jules/Bureau/Github/Stage2026/LaTeX/main.tex" 1775202236.82301 1441 980f0e4144a2e091335444efb935731d ""
   "/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1136849721 2971 def0b6c1f0b107b3b936def894055589 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/tfm/jknappen/ec/ecbx1095.tfm" 1136768653 3584 21b378cca2e40816b0e6d74a4dc98f04 ""
@@ -173,16 +173,16 @@
   "Images/logoPTH.png" 1774863464 10898 a7dc3786d1cd42666f8b90c0e83194ae ""
   "Images/logoUTI.jpeg" 1774863464 7288 92301a27946d2a2371b70830225f4cad ""
   "Images/logocomp.png" 1774863464 324847 bbc698bae82a253b564d1993b269899d ""
-  "academic.tex" 1775201644.13811 2003 895699ecafd4f94d6ab6c8a33ece1cd6 ""
+  "academic.tex" 1775201995.46131 2053 22f97c41814cc309b29be8775ca05e3a ""
   "appendices.tex" 1774949202.29551 277 59f699e375c350b61cb6b066dd10f7c3 ""
   "frontmatter.tex" 1775049874.07257 7259 2ba35ad283339f4daa26b37b42d7d222 ""
   "introduction.tex" 1775201845.42618 3658 67c001e38ed37e0e1f2ca0f2466b5291 ""
-  "main.aux" 1775201851.21111 2042 a0b51903a03a5bd2177e60de737933e2 "pdflatex"
-  "main.bbl" 1775201848.06354 9369 1d4211098cb448b0c255c874c8b1c828 "biber main"
-  "main.out" 1775201851.21211 1114 32fddea5029ba1414317e91310391ab1 "pdflatex"
-  "main.run.xml" 1775201851.21402 2305 52095dfad395b381e9a32937e764a41c "pdflatex"
-  "main.tex" 1775133317.95331 1340 f8332587cbf10073684b04eb77f02a84 ""
-  "main.toc" 1775201851.21402 603 f1322d0274b9ea259a4052f354b96653 "pdflatex"
+  "main.aux" 1775202240.16737 2202 920ea41467a007804c3b214992c5dbe7 "pdflatex"
+  "main.bbl" 1775202076.03951 9369 1d4211098cb448b0c255c874c8b1c828 "biber main"
+  "main.out" 1775202240.16837 1355 7514984a9249aa9eb1ab5c3ad9bb14f3 "pdflatex"
+  "main.run.xml" 1775202240.17076 2305 52095dfad395b381e9a32937e764a41c "pdflatex"
+  "main.tex" 1775202236.82301 1441 980f0e4144a2e091335444efb935731d ""
+  "main.toc" 1775202240.17076 722 0380248da2cd956bcfe04c397609a1f0 "pdflatex"
   (generated)
   "main.aux"
   "main.bcf"
