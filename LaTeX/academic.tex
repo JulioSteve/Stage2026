@@ -1,12 +1,32 @@
-\section[From closed systems to continuous measurements]{From closed systems to continuous measurements --- in a nutshell}
 \setlength{\parindent}{0pt}
-The examples and illustrations you can find in the following are made on \verb|Julia| using \verb|QuantumToolbox.jl| especially to simulate the dynamics.
-\subsection[Closed quantum systems]{Closed quantum systems}
-\subsubsection{Generalities on quantum mechanics}
+\setlength{\parskip}{0pt}
+\section[From closed systems to continuous measurements]{From closed systems to continuous measurements --- in a nutshell}
 
-To describe a system, one can refer to the postulates of quantum mechanics~\cite{CT} summarized here:
+The examples and illustrations you can find in the following are made on \verb|Julia| using \verb|QuantumToolbox.jl| especially to simulate the dynamics.
+\subsection[Quantum mechanics]{Generalities on quantum mechanics}
+\subsubsection{States and time evolution}\label{Ii1}
+In quantum mechanics a physical system's state is described by a vector of a mathematical space, a Hilbert space:\[\ket{\psi}\in\mathcal{H}\]
+
+The evolution of a system depends on its energy, the Hamiltonian $H$ is an hermitian\footnote{$\hat{H}^\dagger=\hat{H}$, where $^\dagger$ is the conjugate transpose operation, defining the hermitian adjoint. } operator that accounts for the total energy of a system. The Schrödinger equation states it explicitly: \[i\hbar\frac{\mathrm{d}\ket{\psi(t)}}{\mathrm{d}t}=\hat{H}(t)\ket{\psi(t)}\]
+
+Instead of looking at the state at time $t$ we can use an unitary\footnote{$UU^\dagger=U^\dagger U=\mathbb{I}$, where $\mathbb{I}$ is the identity.} operator $\hat{U}$ such that, $\ket{\psi(t)}=\hat{U}(t,t_0)\ket{\psi(t_0)}$. From now on, we will omit the $\hat{}$ symbol over operators when it is obvious. We get,\[\dot{U}(t,t_0)=-\frac{i}{\hbar}H(t)U(t,t_0)\]
+
+
+One can solve this differential equation in general by using a chronological time-ordering operator~\cite{Breuer}. Giving for the state evolution, \[\ket{\psi(t)} = \mathcal{T}_\leftarrow \exp\left[ -\frac{i}{\hbar}\int_{t_0}^t H(s) \mathrm{d}s\right]\ket{\psi(t_0)}\] 
+
+In simpler terms, when the Hamiltonian is independent of time, \[\ket{\psi(t)} = \underbrace{e^{-\frac{iH(t-t_0)}{\hbar}}}_{U(t,t_0)}\ket{\psi(t_0)}\] 
+
+This evolution of the state through time is said \textbf{unitary and reversible} because the $U$ is unitary, and, because this equation also describe the time reversed evolution $t\rightarrow t_0$: $\ket{\psi(t_0)}=U^\dagger(t,t_0)\ket{\psi(t)}$~.
+ 
+\subsubsection{Observables and purity of states}
+Any physical quantity is represented in quantum mechanics by an \textbf{observable} which is an operator whose eigenvectors form an orthonormal basis of the Hilbert space $\mathcal{H}$~\cite{CT}. For finite dimension Hilbert space, hermitian operators\footnote{Hermitian operators always form a basis in finite dimension; we can use Gram-Schmidt process to find its orthonormal counterpart.} are observables. In the following we will consider finite dimension, non-degenerated cases to illustrate but one can generalize~\cite{CT}.\\ A natural operator whose eigenbasis is particularly interesting is the Hamiltonian, its eigenvalues correspond to the possible energy levels of a system.\par Let us call ${\left\{ \phi_n\right\}}_n$ the family of orthonormal eigenvectors of $H$ which forms a basis of $\mathcal{H}$.\\
+Since it forms a basis of the Hilbert space, one can describe any state in this very basis:\[\forall\ket{\psi}\in\mathcal{H};\qquad \ket{\psi} = \sum_{n=1}^{\dim(\mathcal{H})}  \underbrace{c_n}_{\braket{\phi_n}{\psi}}\ket{\phi_n}\]
+This kind of description in a base is obviously valid for any observable, not only with the Hamiltonian.
+
+\subsubsection{Postulates of quantum mechanics}
+Physicists developed a corpus of the main properties of quantum mechanics, here are summarized the so-called postulates of quantum mechanics~\cite{CT}:
 \begin{enumerate}
-    \item The state of a system is represented by a wavefunction $\ket{\psi}\in\mathcal{H}$ living in a Hilbert space.
+    \item The state of a system is represented by a density matrix $\rho\in\mathcal{L(H)}$; for pure states we can describe them using $\ket{\psi}$ (seen in~\ref{Ii1}), pure density matrix becomes simply $\rho=\ket{\psi}\bra{\psi}$.
     \item Physical quantities $\mathcal{A}$ are associated with operators $\hat{A}$, called observables. In the context of finite dimension space, they are simply Hermitian operators.
     \item The only possible outcomes of a measurement of $\mathcal{A}$ are the eigenvalues $a$ of $\hat{A}$, defined by $\hat{A}\ket{a}=a\ket{a}$.
     \item When measuring $\mathcal{A}$ on a normalized system $\ket{\psi}$, we know the probability to get one of the possible eigenvalues: $\mathbb{P}(a_n)$ (which depends on the spectrum of the observable).
