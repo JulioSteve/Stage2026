@@ -2,27 +2,74 @@
 \setlength{\parskip}{0pt}
 \section[From closed systems to continuous measurements]{From closed systems to continuous measurements --- in a nutshell}
 
-The examples and illustrations you can find in the following are made on \verb|Julia| using \verb|QuantumToolbox.jl| especially to simulate the dynamics.
+%The examples and illustrations you can find in the following are made on \verb|Julia| using \verb|QuantumToolbox.jl| especially to simulate the dynamics.
 \subsection[Quantum mechanics]{Generalities on quantum mechanics}
 \subsubsection{States and time evolution}\label{Ii1}
-In quantum mechanics a physical system's state is described by a vector of a mathematical space, a Hilbert space:\[\ket{\psi}\in\mathcal{H}\]
+In quantum mechanics a physical system's state is described by a vector in a Hilbert space:
+\begin{equation}
+    \ket{\psi}\in\mathcal{H}
+\end{equation}
 
-The evolution of a system depends on its energy, the Hamiltonian $H$ is an hermitian\footnote{$\hat{H}^\dagger=\hat{H}$, where $^\dagger$ is the conjugate transpose operation, defining the hermitian adjoint. } operator that accounts for the total energy of a system. The Schrödinger equation states it explicitly: \[i\hbar\frac{\mathrm{d}\ket{\psi(t)}}{\mathrm{d}t}=\hat{H}(t)\ket{\psi(t)}\]
+The evolution of a system depends on its energy, the Hamiltonian $H$ is an hermitian\footnote{$\hat{H}^\dagger=\hat{H}$, where $^\dagger$ is the conjugate transpose operation, defining the hermitian adjoint. } operator that accounts for the total energy of a system. The Schrödinger equation states it explicitly: 
+\begin{equation}
+    i\hbar\frac{\mathrm{d}\ket{\psi(t)}}{\mathrm{d}t}=\hat{H}(t)\ket{\psi(t)}
+\end{equation}
 
-Instead of looking at the state at time $t$ we can use an unitary\footnote{$UU^\dagger=U^\dagger U=\mathbb{I}$, where $\mathbb{I}$ is the identity.} operator $\hat{U}$ such that, $\ket{\psi(t)}=\hat{U}(t,t_0)\ket{\psi(t_0)}$. From now on, we will omit the $\hat{}$ symbol over operators when it is obvious. We get,\[\dot{U}(t,t_0)=-\frac{i}{\hbar}H(t)U(t,t_0)\]
+Instead of looking at the state at time $t$ we can use an unitary\footnote{$UU^\dagger=U^\dagger U=\mathbb{I}$, where $\mathbb{I}$ is the identity.} operator $\hat{U}$ such that, $\ket{\psi(t)}=\hat{U}(t,t_0)\ket{\psi(t_0)}$. From now on, we will omit the $\hat{}$ symbol over operators when it is obvious. We get, 
+\begin{equation}
+    \dot{U}(t,t_0)=-\frac{i}{\hbar}H(t)U(t,t_0)
+\end{equation}
 
 
-One can solve this differential equation in general by using a chronological time-ordering operator~\cite{Breuer}. Giving for the state evolution, \[\ket{\psi(t)} = \mathcal{T}_\leftarrow \exp\left[ -\frac{i}{\hbar}\int_{t_0}^t H(s) \mathrm{d}s\right]\ket{\psi(t_0)}\] 
+One can solve this differential equation in general by using a chronological time-ordering operator~\cite{Breuer}. Giving for the state evolution, 
+\begin{equation}
+    \ket{\psi(t)} = \mathcal{T}_\leftarrow \exp\left[ -\frac{i}{\hbar}\int_{t_0}^t H(s) \mathrm{d}s\right]\ket{\psi(t_0)}
+\end{equation}
 
-In simpler terms, when the Hamiltonian is independent of time, \[\ket{\psi(t)} = \underbrace{e^{-\frac{iH(t-t_0)}{\hbar}}}_{U(t,t_0)}\ket{\psi(t_0)}\] 
+Or, when the Hamiltonian is time-independent, 
+\begin{equation}
+    \ket{\psi(t)} = \underbrace{e^{-\frac{iH(t-t_0)}{\hbar}}}_{U(t,t_0)}\ket{\psi(t_0)}
+\end{equation} 
 
-This evolution of the state through time is said \textbf{unitary and reversible} because the $U$ is unitary, and, because this equation also describe the time reversed evolution $t\rightarrow t_0$: $\ket{\psi(t_0)}=U^\dagger(t,t_0)\ket{\psi(t)}$~.
+This evolution of the state with respect to time is said \textbf{unitary and reversible} because $U$ is unitary, and, because this equation also describe the time reversed evolution $t\rightarrow t_0$: $\ket{\psi(t_0)}=U^\dagger(t,t_0)\ket{\psi(t)}$~.
  
-\subsubsection{Observables and purity of states}
-Any physical quantity is represented in quantum mechanics by an \textbf{observable} which is an operator whose eigenvectors form an orthonormal basis of the Hilbert space $\mathcal{H}$~\cite{CT}. For finite dimension Hilbert space, hermitian operators\footnote{Hermitian operators always form a basis in finite dimension; we can use Gram-Schmidt process to find its orthonormal counterpart.} are observables. In the following we will consider finite dimension, non-degenerate cases to illustrate but one can generalize~\cite{CT}.\\ A natural operator whose eigenbasis is particularly interesting is the Hamiltonian, its eigenvalues correspond to the possible energy levels of a system.\par Let us call ${\left\{ \phi_n\right\}}_n$ the family of orthonormal eigenvectors of $H$ which forms a basis of $\mathcal{H}$.\\
-Since it forms a basis of the Hilbert space, one can describe any state in this very basis:\[\forall\ket{\psi}\in\mathcal{H};\qquad \ket{\psi} = \sum_{n=1}^{\dim(\mathcal{H})}  \underbrace{c_n}_{\braket{\phi_n}{\psi}}\ket{\phi_n}\]
-This kind of description in a base is obviously valid for any observable, not only for the Hamiltonian.
+\subsubsection{Observables}
+Any physical quantity is represented in quantum mechanics by an \textbf{observable}: an operator whose eigenvectors form an orthonormal basis of the Hilbert space $\mathcal{H}$~\cite{CT} and whose eigenvalues are positive to represent a physical measurement. For finite dimension Hilbert space, hermitian operators\footnote{Hermitian operators always form a basis in finite dimension, we can use Gram-Schmidt process to find its orthonormal counterpart and being self-adjoint implies having real eigenvalues} are observables. In the following we will consider finite dimension, non-degenerate cases to illustrate but one can generalize~\cite{CT}.\\ A natural operator whose eigenbasis is particularly interesting is the Hamiltonian, its eigenvalues correspond to the possible energy levels of a system:
+\begin{equation}
+    \forall n \in \llbracket 1;\text{dim}(\mathcal{H})\rrbracket,\quad H\ket{\phi_n} = E_n\ket{\phi_n} \label{EqPropreH}
+\end{equation}
+\par Let us call ${\left\{ \phi_n\right\}}_n$ the family of orthonormal eigenvectors of $H$ which forms a basis of $\mathcal{H}$.\\
+Since it forms a basis of the Hilbert space, one can describe any state in this very basis:
+\begin{equation}
+    \forall\ket{\psi}\in\mathcal{H},\qquad \ket{\psi} = \sum_{n=1}^{\dim(\mathcal{H})}  \underbrace{c_n}_{\braket{\phi_n}{\psi}}\ket{\phi_n}
+\end{equation}
+This kind of description in a base is obviously valid for any observable, not only for the Hamiltonian. We can complete this part with the normalization of the state, for proper handling of scalar products, we need to set $\left|\psi\right|=\sqrt{\braket{\psi}{\psi}}=1$. The condition $\braket{\psi}{\psi}=\sum_n |c_n|^2=1$ is thus equivalent.
 
+\subsubsection{Purity of states}
+Taking the qubit example, let $\alpha,\beta\in\mathbb{C}$ to write the qubit state as a superposition of excited/ground state as:
+\begin{equation}\label{superposition}
+    \ket{\psi} = \alpha\ket{e}+\beta\ket{g}\qquad\text{where, }\abs{\alpha}^2+\abs{\beta}^2=1 
+\end{equation}
+By getting ahead of QMT, we can introduce the probability to find a system in one of the possible eigenstates of an observable. Let us take the following example, what is the probability to find the energy $E_n$, defined by Eq.\ (\ref{EqPropreH}), from a system in $\ket{e}$ state? From a system in $\ket{g}$ state?
+\begin{align}
+    \mathbb{P}_e [E_n]&=\abs{\braket{\phi_n}{e}}^2\\
+    \mathbb{P}_g [E_n]&=\abs{\braket{\phi_n}{g}}^2
+\end{align}
+A physical state can be, by the concepts of quantum mechanics, a mixture of statistical probabilities~\cite{CT}. Let us now consider back the superposition from Eq.\ (\ref{superposition}), a physical mixture would be described by mixing states $\ket{e},\ket{g}$ with weights $\abs{\alpha}^2,\abs{\beta}^2$:
+\begin{equation}
+    \mathbb{P}_\psi [E_n]\overset{?}{=}\abs{\alpha}^2\mathbb{P}_e [E_n]+\abs{\beta}^2\mathbb{P}_g [E_n]
+\end{equation}
+In fact, quantum mechanics gives the exact value of this probability:
+\begin{align}
+    \mathbb{P}_\psi [E_n]&=\abs{\braket{\phi_n}{\psi}}^2\\
+    &= \abs{\alpha}^2\abs{\braket{\phi_n}{e}}^2+\abs{\beta}^2\abs{\braket{\phi_n}{g}}^2+2\Real\left\{\alpha\beta^*\braket{\phi_n}{e}\braket{\phi_n}{g}^*\right\}
+\end{align}
+The mixture term appears but the impact of cross terms also appear in the real probability to find the superposition in one of the eigenstates. This notion of hidden correlations due to superposition has been highlighted by a new formalism, \textbf{density matrices}.\par
+Basically, instead of a ket $\ket{\psi}$ we describe a system by a density matrix $\rho$ which, for \textbf{pure} systems is simply $\ketbra{\psi}{\psi}$. The density matrix thus lives in the space of linear operators of $\mathcal{H}$, denoted $\mathcal{L}(\mathcal{H})$. For a \textbf{statistical mixture}, non-pure, the density matrix is:
+\begin{equation}
+    \rho = \sum_{n=1}^{\text{dim}(\mathcal{H})} \mathbb{P}_n \rho_n 
+\end{equation}
+\textbf{The matrix is filled with probabilities to find the state in the corresponding eigenstate (depending on which basis we write the matrix in). In general, we find in the diagonal the probabilities to find the state in an eigenstate, }
 \subsubsection{Postulates of quantum mechanics}
 Physicists developed a corpus of the main properties of quantum mechanics, here are summarized the so-called postulates of quantum mechanics~\cite{CT}:
 \begin{enumerate}
