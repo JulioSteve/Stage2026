@@ -21,7 +21,7 @@ Instead of looking at the state at time $t$ we can use an unitary\footnote{$UU^\
 
 
 One can solve this differential equation in general by using a chronological time-ordering operator~\cite{Breuer}. Giving for the state evolution, 
-\begin{equation}
+\begin{equation}\label{Htimedep}
     \ket{\psi(t)} = \mathcal{T}_\leftarrow \exp\left[ -\frac{i}{\hbar}\int_{t_0}^t H(s) \mathrm{d}s\right]\ket{\psi(t_0)}
 \end{equation}
 
@@ -70,7 +70,7 @@ Basically, instead of a ket $\ket{\psi}$ we describe a system by a density matri
 \begin{equation}
     \rho_\text{p} = \ketbra{\psi}{\psi}
 \end{equation}
-The density matrix is thus an operator of Hilbert space elements\footnote{$\rho$ is also an operator of the dual, $\mathcal{H}^*$ because we find that $\bra{\phi_j}\rho\propto\bra{\phi_j}$.\\We could even ague that $\rho\in\mathcal{L(H)}$\ldots} $\rho:\mathcal{H}\rightarrow\mathcal{H}$. For a \textbf{statistical mixture}, thus non-pure, the density matrix in a basis $\left\{\phi_n\right\}_{n\in I_\mathcal{H}}$ takes the form:
+The density matrix is thus an operator of Hilbert space elements\footnote{$\rho$ is also an operator of the dual, $\mathcal{H}^*$ because we find that $\bra{\phi_j}\rho\propto\bra{\phi_j}$.\\We could even ague that $\rho\in\mathcal{L(H)}$\ldots} $\rho:\mathcal{H}\rightarrow\mathcal{H}$. For a \textbf{statistical mixture}, thus non-pure, the density matrix in a basis $\qty{\phi_n}_{n\in I_\mathcal{H}}$ takes the form:
 \begin{equation}
     \rho_\text{sm} = \sum_{n\in I_\mathcal{H}} \mathbb{P}_n \ketbra{\phi_n}{\phi_n} 
 \end{equation}
@@ -100,24 +100,38 @@ Physicists developed a corpus of the main properties of quantum mechanics, here 
     \end{equation}
     
 \end{enumerate}
-\subsection[Open quantum systems]{Open Quantum Systems (OQS)}
+\subsection[Open quantum systems]{Open Quantum Systems (OQS)}\label{OQS}
 \setlength{\parskip}{2mm}
-In the previous part, we saw that one can fully describe a system, observables, states and their evolution. We recall that this description is ideal in the sense that the system is considered to be completely isolated from any interaction with its environment. However, we will introduce the OQS theory which develops a formalism to handle interaction of the system with its environment.\\It is important to understand that the total system is a closed system, modelled by this relation on Hilbert spaces: $\mathcal{H}_T=\mathcal{H}_S\otimes\mathcal{H}_E$~. The total system $T$ thus follows a unitary time evolution, but, it is not the case for the physical system of interest $S$. We therefore call the system $S$ open quantum system.\par
+In the previous part, we saw that one can fully describe a system, observables, states and their evolution. We recall that this description is ideal in the sense that the system is considered to be completely isolated from any interaction with its environment. However, we will introduce in this section the concepts of OQS which lead to a more physical description of quantum mechanics.\par
+It is important to understand that the total system is a closed system, the total system space is mathematically $\mathcal{H}_T=\mathcal{H}_S\otimes\mathcal{H}_E$~. The total system $T$ thus follows a unitary time evolution, but, it is not the case for the physical system of interest $S$. A new kind of dynamics will arise for $S$ due to its coupling with $E$, this is why we call $S$ an open quantum system.\par
 
-In this theory, following the work of~\cite{Breuer}, we need to jump in a different representation of the equations: the interaction picture. In the \textit{Schrödinger} picture, the states evolve with respect to time but the observables are constants $\ket{\psi(t)}=U(t,t_0)\ket{\psi(t_0)}$; whereas in the \textit{Heisenberg} picture it is the opposite $A(t)=U^\dagger(t,t_0)A(t_0)U(t,t_0)$. The interaction picture is a mix of both, for further details please find Appendix~\ref{representations}.\par
+By following the work of \textit{Breuer\&Petruccione}~\cite{Breuer}, we need to jump in a different representation of the equations: the interaction picture. In the \textit{Schrödinger} picture, states evolve with respect to time, observables can be constants or depend explicitly on time. Instead, in the \textit{Heisenberg} picture it is the opposite, observables carry the whole dynamics and states are constants (see Eq.~\ref{eq:HSlink}). The interaction picture is a mix of both, where states and observables are functions of time.\par
 
-Interaction picture begins with the perturbation theory, where we split the Hamiltonian in two parts,
+Interaction picture begins with the perturbation theory, where we split the Hamiltonian in two parts, the free Hamiltonian $H_0$ and the interaction Hamiltonian $H_I$
 \begin{align}
-    H_T &= \overbrace{H_S+H_E}^{H_0}+H_I\\
-    U_T(t,t_0) &= U_0(t,t_0)U_I(t,t_0)
+    H_T &= \overbrace{H_S\otimes\mathbb{I}_E+\mathbb{I}_S\otimes H_E}^{H_0}+H_I\label{eq:Htotal}\\
+    U(t,t_0) &= U_0(t,t_0)U_I(t,t_0)\label{eq:Utotal}
 \end{align}
 We define the interaction Hamiltonian by,
 \begin{align}
     E_n(t) &= U^\dagger_0(t)E_n U_0(t)\\
-    H_I(t) &= \sum_{n\in I_\mathcal{H}} \overbrace{\ketbra{n}{n}}^{A_n}\otimes E_n(t)
+    H_I(t) &= \sum_{n\in I_\mathcal{H}}\overbrace{\ketbra{n}{n}}^{A_n}\otimes E_n(t)
 \end{align}
-The main assumption states that observables of the system $A_n$ commute with the free Hamiltonian and the total Hamiltonian $\qty[H_0+H_I,A]=\qty[H_0,A]=0$ , they are thus constant of movement for the free/total systems. Also, the free Hamiltonian is constant in average $\dert{\expval{H_S}}(t)=0$ .\par
+We can then find the useful following relations:
+\begin{align}
+    \tilde{\rho}(t)&=U_I(t)\rho_{S}U_I^\dagger(t)= U^\dagger_0(t)\rho_S(t)U_0(t)\label{eq:rhoIP}\\
+    \tilde{O}(t) &= U_0^\dagger(t)O_S(t)U_0(t)\label{eq:OIP}
+\end{align}
 
-We choose $H_E=\sum_n \hbar\omega_n(b_n^\dagger b_n)$ the harmonic oscillator model for the environment, where $b_n$ is an annihilation operator of the environment. The following derivations let $H_S$ free to pick, the interaction picture allows one to find the equation of the dynamic ...\par
+One can then find the equation that governs the dynamics of $\rho_S$\footnote{Here and in the following, $\rho_S$ is the state of the system obtained by tracing out the environnement from the total state: $\rho_S=\mathrm{Tr}_E\, [\rho]$} in the \textit{Schrödinger picture} by making progress in the \textit{interaction picture}. To find this equation, one needs to make important assumptions known as the \textit{Born-Markov} approximations and the \textit{secular} approximation.\par
+\newpage
+$\blacklozenge\quad$The \textit{Born} approximation consists in saying that the environment acts as a thermodynamical reservoir, \textit{i.e.}, the environment is so big compared to the system that the interaction does not alter its state:
+\begin{equation}
+    \tilde{\rho}_T(t) = \tilde{\rho}_S(t)\otimes\rho_E
+\end{equation}
+It describes a so-called ``weak-coupling'' between the system and the environment.\par
 
+$\blacklozenge\quad$The \textit{Markov} approximation assures that the entire system has no memory. That is to say, the environment is so rapidly agitating that it dissipates information of the system instantaneously. This implies that the environment comes back to equilibrium instantaneously after each interaction. Physically, the timescale of the reservoir correlation function decay $\tau_E$ is smaller than the timescale $\tau_R$ on which the system varies ``appreciably''.\par
+
+$\blacklozenge\quad$The \textit{secular} approximation allows the possibility to neglect rapidly oscillating terms in the Markov Master Equation.
 \subsection[Quantum measurement theory]{Quantum Measurement Theory (QMT)}

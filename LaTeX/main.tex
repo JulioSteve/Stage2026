@@ -17,11 +17,13 @@
 \usepackage{fancyhdr}
 \usepackage{framed}
 \usepackage{stmaryrd}
+\usepackage{mathtools}
 \geometry{margin=2.5cm}
 
 % Clean figures
 \usepackage{caption}
 \usepackage{subcaption}
+
 
 % Bibliography (moderne)
 \usepackage[backend=biber,style=numeric,sorting=none]{biblatex}
@@ -31,7 +33,7 @@
 \renewcommand{\thesection}{\Roman{section}}
 \renewcommand{\thesubsection}{\thesection.\roman{subsection}\char41}
 \renewcommand{\thesubsubsection}{\Roman{section}.\roman{subsection}.\arabic{subsubsection}$\rangle$}
-\renewcommand{\Tr}[1]{\operatorname{Tr~}\left[#1\right]}
+\renewcommand{\Tr}[1]{\operatorname{Tr\,}\left[#1\right]}
 \renewcommand{\cfttoctitlefont}{\Huge\bfseries\MakeUppercase}
 \renewcommand{\cftaftertoctitle}{
   \vskip 2.5mm
@@ -46,7 +48,7 @@
 \setlength{\cftsubsecnumwidth}{15mm}
 \newcommand{\Real}{\operatorname{Re}}
 \newcommand{\dert}[1]{\frac{\mathrm{d}#1}{\mathrm{d}t}}
-\newcommand{\derpart}[1]{\frac{\partial#1}{\partial t}}
+\newcommand{\derpart}[1]{\frac{\partial#1}{\partial{}t}}
 
 \input{frontmatter.tex}
 \clearpage
