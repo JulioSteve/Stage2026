@@ -1,8 +1,7 @@
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0pt}
 \section[From closed systems to continuous measurements]{From closed systems to continuous measurements --- in a nutshell}
-
-%The examples and illustrations you can find in the following are made on \verb|Julia| using \verb|QuantumToolbox.jl| especially to simulate the dynamics.
+In this section we will briefly summarize the definitions needed to our study.
 \subsection[Quantum mechanics]{Generalities on quantum mechanics}
 \subsubsection{States and time evolution}\label{Ii1}
 In quantum mechanics a physical system's state is described by a vector in a Hilbert space:
@@ -34,14 +33,16 @@ Or, when the Hamiltonian is time-independent,
 This evolution of the state with respect to time is said \textbf{unitary and reversible} because $U$ is unitary, and, because this equation also describe the time reversed evolution $t\rightarrow t_0$: $\ket{\psi(t_0)}=U^\dagger(t,t_0)\ket{\psi(t)}$~.
  
 \subsubsection{Observables}
-Any physical quantity is represented in quantum mechanics by an \textbf{observable}: an operator whose eigenvectors form an orthonormal basis of the Hilbert space $\mathcal{H}$~\cite{CT} and whose eigenvalues are positive to represent a physical measurement. For finite dimension Hilbert space, hermitian operators\footnote{Hermitian operators always form a basis in finite dimension, we can use Gram-Schmidt process to find its orthonormal counterpart and being self-adjoint implies having real eigenvalues} are observables. In the following we will consider finite dimension, non-degenerate cases to illustrate but one can generalize~\cite{CT}.\\ A natural operator whose eigenbasis is particularly interesting is the Hamiltonian, its eigenvalues correspond to the possible energy levels of a system:
+Any physical quantity is represented in quantum mechanics by an \textbf{observable}: an operator whose eigenvectors form an orthonormal basis of the Hilbert space $\mathcal{H}$~\cite{CT} and whose eigenvalues are positive to represent a physical measurement. For finite dimension Hilbert space, hermitian operators\footnote{Hermitian operators always form a basis in finite dimension, we can use Gram-Schmidt process to find its orthonormal counterpart and being self-adjoint implies having real eigenvalues} are observables. In the following we will consider finite dimension, non-degenerate cases to illustrate but one can generalize~\cite{CT}.\par
+A natural operator whose eigenbasis is particularly interesting is the Hamiltonian, its eigenvalues correspond to the possible energy levels of a system.\\
+Let us denote $I_\mathcal{H}=\llbracket 1;\text{dim}(\mathcal{H})\rrbracket$ throughout this document.
 \begin{equation}
-    \forall n \in \llbracket 1;\text{dim}(\mathcal{H})\rrbracket,\quad H\ket{\phi_n} = E_n\ket{\phi_n} \label{EqPropreH}
+    \forall n \in I_\mathcal{H},\quad H\ket{\phi_n} = E_n\ket{\phi_n} \label{EqPropreH}
 \end{equation}
-\par Let us call ${\left\{ \phi_n\right\}}_n$ the family of orthonormal eigenvectors of $H$ which forms a basis of $\mathcal{H}$.\\
+\par Let us call ${\left\{ \phi_n\right\}}_{n\in I_\mathcal{H}}$ the family of orthonormal eigenvectors of $H$ which forms a basis of $\mathcal{H}$.\\
 Since it forms a basis of the Hilbert space, one can describe any state in this very basis:
 \begin{equation}
-    \forall\ket{\psi}\in\mathcal{H},\qquad \ket{\psi} = \sum_{n=1}^{\dim(\mathcal{H})}  \underbrace{c_n}_{\braket{\phi_n}{\psi}}\ket{\phi_n}
+    \forall\ket{\psi}\in\mathcal{H},\qquad \ket{\psi} = \sum_{n\in I_\mathcal{H}} \underbrace{c_n}_{\braket{\phi_n}{\psi}}\ket{\phi_n}
 \end{equation}
 This kind of description in a base is obviously valid for any observable, not only for the Hamiltonian. We can complete this part with the normalization of the state, for proper handling of scalar products, we need to set $\left|\psi\right|=\sqrt{\braket{\psi}{\psi}}=1$. The condition $\braket{\psi}{\psi}=\sum_n |c_n|^2=1$ is thus equivalent.
 
@@ -57,7 +58,7 @@ By getting ahead of QMT, we can introduce the probability to find a system in on
 \end{align}
 A physical state can be, by the concepts of quantum mechanics, a mixture of statistical probabilities~\cite{CT}. Let us now consider back the superposition from Eq.\ (\ref{superposition}), a physical mixture would be described by mixing states $\ket{e},\ket{g}$ with weights $\abs{\alpha}^2,\abs{\beta}^2$:
 \begin{equation}
-    \mathbb{P}_\psi [E_n]\overset{?}{=}\abs{\alpha}^2\mathbb{P}_e [E_n]+\abs{\beta}^2\mathbb{P}_g [E_n]
+    \mathbb{P}_\psi [E_n]\overset{?}{=}\abs{\alpha}^2~\mathbb{P}_e [E_n]+\abs{\beta}^2~\mathbb{P}_g [E_n]
 \end{equation}
 In fact, quantum mechanics gives the exact value of this probability:
 \begin{align}
@@ -65,27 +66,58 @@ In fact, quantum mechanics gives the exact value of this probability:
     &= \abs{\alpha}^2\abs{\braket{\phi_n}{e}}^2+\abs{\beta}^2\abs{\braket{\phi_n}{g}}^2+2\Real\left\{\alpha\beta^*\braket{\phi_n}{e}\braket{\phi_n}{g}^*\right\}
 \end{align}
 The mixture term appears but the impact of cross terms also appear in the real probability to find the superposition in one of the eigenstates. This notion of hidden correlations due to superposition has been highlighted by a new formalism, \textbf{density matrices}.\par
-Basically, instead of a ket $\ket{\psi}$ we describe a system by a density matrix $\rho$ which, for \textbf{pure} systems is simply $\ketbra{\psi}{\psi}$. The density matrix thus lives in the space of linear operators of $\mathcal{H}$, denoted $\mathcal{L}(\mathcal{H})$. For a \textbf{statistical mixture}, non-pure, the density matrix is:
+Basically, instead of a ket $\ket{\psi}$ we describe a system by a density matrix $\rho$ which, for \textbf{pure} systems is simply: 
 \begin{equation}
-    \rho = \sum_{n=1}^{\text{dim}(\mathcal{H})} \mathbb{P}_n \rho_n 
+    \rho_\text{p} = \ketbra{\psi}{\psi}
 \end{equation}
-\textbf{The matrix is filled with probabilities to find the state in the corresponding eigenstate (depending on which basis we write the matrix in). In general, we find in the diagonal the probabilities to find the state in an eigenstate, }
+The density matrix is thus an operator of Hilbert space elements\footnote{$\rho$ is also an operator of the dual, $\mathcal{H}^*$ because we find that $\bra{\phi_j}\rho\propto\bra{\phi_j}$.\\We could even ague that $\rho\in\mathcal{L(H)}$\ldots} $\rho:\mathcal{H}\rightarrow\mathcal{H}$. For a \textbf{statistical mixture}, thus non-pure, the density matrix in a basis $\left\{\phi_n\right\}_{n\in I_\mathcal{H}}$ takes the form:
+\begin{equation}
+    \rho_\text{sm} = \sum_{n\in I_\mathcal{H}} \mathbb{P}_n \ketbra{\phi_n}{\phi_n} 
+\end{equation}
+The components of the matrix are precisely, on the diagonal, the probabilities to find the state of the system in one of the eigenstates of the observable. The off-diagonal components are called \textbf{coherences}, they represent interference effects between the eigenstates, they can appear when the system's state is a linear coherent superposition of these eigenstates~\cite{CT}.\par
+The mathematical definition of a density matrix is in any case~\cite{CT,Breuer}:
+\begin{itemize}
+    \item $\rho$ is hermitian $\rho^\dagger=\rho$
+    \item $\rho$ is semi-definite $\forall\ket{\alpha}\in\mathcal{H},\quad\bra{\alpha}\rho\ket{\alpha}\geq  0$
+    \item $\rho$ respects $\Tr{\rho}=1$
+\end{itemize}
+
 \subsubsection{Postulates of quantum mechanics}
 Physicists developed a corpus of the main properties of quantum mechanics, here are summarized the so-called postulates of quantum mechanics~\cite{CT}:
 \begin{enumerate}
-    \item The state of a system is represented by a density matrix $\rho\in\mathcal{L(H)}$; for pure states we can describe them using $\ket{\psi}$ (seen in~\ref{Ii1}), pure density matrix becomes simply $\rho=\ket{\psi}\bra{\psi}$.
+    \item The state of a system is represented by a density matrix $\rho\in\mathcal{L(H)}$. For pure states we can describe them using the Dirac formalism $\ket{\psi}\in\mathcal{H}$, or using the pure matrix density formalism $\rho_p=\ketbra{\psi}{\psi}$. 
     \item Physical quantities $\mathcal{A}$ are associated with operators $\hat{A}$, called observables. In the context of finite dimension space, they are simply Hermitian operators.
-    \item The only possible outcomes of a measurement of $\mathcal{A}$ are the eigenvalues $a$ of $\hat{A}$, defined by $\hat{A}\ket{a}=a\ket{a}$.
-    \item When measuring $\mathcal{A}$ on a normalized system $\ket{\psi}$, we know the probability to get one of the possible eigenvalues: $\mathbb{P}(a_n)$ (which depends on the spectrum of the observable).
-    \item If the measurement of the physical quantity $\mathcal{A}$ on the system in the state $\psi$ gives the result $a_n$, the state of the system immediately after the measurement becomes the eigenvector $\phi_n$.
-    \item The time evolution of the wavefunction $\ket{\psi(t)}$ is governed by the Schrödinger equation:\[
-    i\hbar\frac{\mathrm{d}\ket{\psi(t)}}{\mathrm{d} t}=\hat{H}(t)\ket{\psi(t)}
-    \]
-    where $\hat{H}$ is the hamiltonian of the system.
+    \item The only possible outcomes of a measurement of $\mathcal{A}$ are the eigenvalues $a$ of $\hat{A}$, defined by $\hat{A}\ket{a}=a\ket{a}$~.
+    \item When measuring $\mathcal{A}$ on a normalized state, we know the probability to get one of the possible eigenvalues: $\mathbb{P}(a_n)$ (which depends on the spectrum of the observable).
+    \item If the measurement of the physical quantity $\mathcal{A}$ on the system gives the result $a_n$, the state of the system immediately after the measurement becomes the eigenstate $\ket{\phi_n}$.
+    \item The time evolution of the wavefunction $\ket{\psi(t)}$ is governed by the \textit{Schrödinger} equation:
+    \begin{equation*}
+    \frac{\mathrm{d}\ket{\psi(t)}}{\mathrm{d} t}=-\frac{i}{\hbar}\hat{H}(t)\ket{\psi(t)}
+    \end{equation*}
+    For density matrices, the evolution is driven by the \textit{Liouville-von Neumann} equation\footnote{$[\hat{A},\hat{B}]=\hat{A}\hat{B}-\hat{B}\hat{A}$ is the commutator of $\hat{A}$ and $\hat{B}$}:
+    \begin{equation}
+        \frac{\mathrm{d}\rho}{\mathrm{d}t}(t) = -\frac{i}{\hbar}\left[ H(t),\rho(t)\right]\equiv\mathcal{L}(t)\rho(t)
+    \end{equation}
+    
 \end{enumerate}
-The kind of dynamics a system follows is then unitary and deterministic. We can always solve, at least analytically, for the solution of the Schrödinger equation. 
 \subsection[Open quantum systems]{Open Quantum Systems (OQS)}
-\subsection[Quantum measurement theory]{Quantum Measurement Theory (QMT)}
+\setlength{\parskip}{2mm}
+In the previous part, we saw that one can fully describe a system, observables, states and their evolution. We recall that this description is ideal in the sense that the system is considered to be completely isolated from any interaction with its environment. However, we will introduce the OQS theory which develops a formalism to handle interaction of the system with its environment.\\It is important to understand that the total system is a closed system, modelled by this relation on Hilbert spaces: $\mathcal{H}_T=\mathcal{H}_S\otimes\mathcal{H}_E$~. The total system $T$ thus follows a unitary time evolution, but, it is not the case for the physical system of interest $S$. We therefore call the system $S$ open quantum system.\par
 
-\newpage
-\section[Continuously measured quantum systems]{Continuously measured quantum systems --\\ obtaining a Stochastic Master Equation (SME)}
+In this theory, following the work of~\cite{Breuer}, we need to jump in a different representation of the equations: the interaction picture. In the \textit{Schrödinger} picture, the states evolve with respect to time but the observables are constants $\ket{\psi(t)}=U(t,t_0)\ket{\psi(t_0)}$; whereas in the \textit{Heisenberg} picture it is the opposite $A(t)=U^\dagger(t,t_0)A(t_0)U(t,t_0)$. The interaction picture is a mix of both, for further details please find Appendix~\ref{representations}.\par
+
+Interaction picture begins with the perturbation theory, where we split the Hamiltonian in two parts,
+\begin{align}
+    H_T &= \overbrace{H_S+H_E}^{H_0}+H_I\\
+    U_T(t,t_0) &= U_0(t,t_0)U_I(t,t_0)
+\end{align}
+We define the interaction Hamiltonian by,
+\begin{align}
+    E_n(t) &= U^\dagger_0(t)E_n U_0(t)\\
+    H_I(t) &= \sum_{n\in I_\mathcal{H}} \overbrace{\ketbra{n}{n}}^{A_n}\otimes E_n(t)
+\end{align}
+The main assumption states that observables of the system $A_n$ commute with the free Hamiltonian and the total Hamiltonian $\qty[H_0+H_I,A]=\qty[H_0,A]=0$ , they are thus constant of movement for the free/total systems. Also, the free Hamiltonian is constant in average $\dert{\expval{H_S}}(t)=0$ .\par
+
+We choose $H_E=\sum_n \hbar\omega_n(b_n^\dagger b_n)$ the harmonic oscillator model for the environment, where $b_n$ is an annihilation operator of the environment. The following derivations let $H_S$ free to pick, the interaction picture allows one to find the equation of the dynamic ...\par
+
+\subsection[Quantum measurement theory]{Quantum Measurement Theory (QMT)}

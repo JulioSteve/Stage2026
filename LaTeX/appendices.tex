@@ -1,4 +1,41 @@
 \appendix
+\renewcommand{\thesubsection}{\thesection.\alph{subsection}\char41}
+\numberwithin{equation}{section}
+\renewcommand{\theequation}{\thesection.~\arabic{equation}}
+\setlength{\parskip}{2mm}
+\section{Representations of quantum mechanics}\label{representations}
+\subsection{Schrödinger and Heisenberg pictures}
+In the \textit{Schrödinger} picture we saw that $\ket{\psi(t)}=U(t)\ket{\psi}$ where, $U(t)=e^{-\frac{i}{\hbar}Ht}$ in the case of a time-independent Hamiltonian with $t_0=0$. The following demonstration can be made in the general case where the Hamiltonian is time dependent using Eq.\ (\ref{Htimedep}).\par
+
+If we consider the average value of an observable $A$ (constant in this representation),
+\begin{align}
+    \expval{A}(t) &= \expval{A}{\psi(t)}\nonumber\\
+    &= \expval{\underbrace{U^\dagger(t)AU(t)}_{A(t)}}{\psi}
+\end{align}
+
+This naturally make appear the \textit{Heisenberg} representation of observables.\\
+We can link both representation with the following equation:
+\begin{align}
+    \dert{A(t)} &= \dert{}\left[U^\dagger(t)AU(t)\right]\nonumber\\
+    &= \dert{U^\dagger(t)}AU(t) + U^\dagger(t)\derpart{A}U(t) + \dert{U(t)}AU(t)\nonumber\\
+    &= \frac{i}{\hbar}U^\dagger(t)HAU(t) + U^\dagger(t)\derpart{A}U(t) - \frac{i}{\hbar}U^\dagger(t)AHU(t)\nonumber\\
+    &= \frac{i}{\hbar}\left[U^\dagger HUU^\dagger AU-U^\dagger AUU^\dagger HU\right](t) + \derpart{A}(t)\nonumber\\
+    &= \frac{i}{\hbar}\left[H(t)A(t)-A(t)H(t)\right] + \derpart{A}(t)\nonumber\\
+    &= \frac{i}{\hbar}\left[H(t),A(t)\right] + \derpart{A}(t)
+\end{align}
+
+This link can even lead to the famous \textit{Ehrenfest} theorem for quantum mechanics:
+\begin{equation}
+    \dert{\expval{A}}=\frac{i}{\hbar}\expval{\qty[H(t),A(t)]}+\expval{\derpart{A}}
+\end{equation}
+
+To summarize each equation for time evolution in both pictures:
+\begin{align}
+    \dert{\ket{\psi(t)}} &= \frac{i}{\hbar}H(t)\ket{\psi}\tag{\textit{Schrödinger}}\\\nonumber\\
+    \dert{\rho}(t) &= \frac{i}{\hbar}\qty[H(t),\rho]\tag{\textit{Liouville-von Neumann}}\\\nonumber\\
+    \dert{A(t)} &= \frac{i}{\hbar}\left[H(t),A(t)\right] + \derpart{A}(t)\tag{\textit{Heisenberg}}
+\end{align}
+\subsection{Interaction picture}
 
 % \section{Quantum Measurement Theory}\label{Measurement_Theory}
 
