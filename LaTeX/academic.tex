@@ -92,7 +92,7 @@ Physicists developed a corpus of the main properties of quantum mechanics, here 
     \item If the measurement of the physical quantity $\mathcal{A}$ on the system gives the result $a_n$, the state of the system immediately after the measurement becomes the eigenstate $\ket{\phi_n}$.
     \item The time evolution of the wavefunction $\ket{\psi(t)}$ is governed by the \textit{Schrödinger} equation:
     \begin{equation*}
-    \frac{\mathrm{d}\ket{\psi(t)}}{\mathrm{d} t}=-\frac{i}{\hbar}\hat{H}(t)\ket{\psi(t)}
+    \frac{\mathrm{d}\ket{\psi(t)}}{\mathrm{d} t}=-\frac{i}{\hbar}H(t)\ket{\psi(t)}
     \end{equation*}
     For density matrices, the evolution is driven by the \textit{Liouville-von Neumann} equation\footnote{$[\hat{A},\hat{B}]=\hat{A}\hat{B}-\hat{B}\hat{A}$ is the commutator of $\hat{A}$ and $\hat{B}$}:
     \begin{equation}
@@ -123,7 +123,7 @@ We can then find the useful following relations:
     \tilde{O}(t) &= U_0^\dagger(t)O_S(t)U_0(t)\label{eq:OIP}
 \end{align}
 
-One can then find the equation that governs the dynamics of $\rho_S$\footnote{Here and in the following, $\rho_S$ is the state of the system obtained by tracing out the environnement from the total state: $\rho_S=\mathrm{Tr}_E\, [\rho]$} in the \textit{Schrödinger picture} by making progress in the \textit{interaction picture}. To find this equation, one needs to make important assumptions known as the \textit{Born-Markov} approximations and the \textit{secular} approximation.\par
+One can then find the equation that governs the dynamics of $\rho_S$\footnote{Here and in the following, $\rho_S$ is the state of the system obtained by tracing out the environnement from the total state: $\rho_S=\mathrm{Tr}_E\, [\rho]$} in the \textit{Schrödinger picture} by making progress in the \textit{interaction picture}. We call this equation the \textit{Redfield Master Equation} but its expression is analytically formal. To go further, one needs to make important assumptions known as the \textit{Born-Markov} approximations and the \textit{secular} approximation.\par
 \newpage
 $\blacklozenge\quad$The \textit{Born} approximation consists in saying that the environment acts as a thermodynamical reservoir, \textit{i.e.}, the environment is so big compared to the system that the interaction does not alter its state:
 \begin{equation}
@@ -132,6 +132,6 @@ $\blacklozenge\quad$The \textit{Born} approximation consists in saying that the 
 It describes a so-called ``weak-coupling'' between the system and the environment.\par
 
 $\blacklozenge\quad$The \textit{Markov} approximation assures that the entire system has no memory. That is to say, the environment is so rapidly agitating that it dissipates information of the system instantaneously. This implies that the environment comes back to equilibrium instantaneously after each interaction. Physically, the timescale of the reservoir correlation function decay $\tau_E$ is smaller than the timescale $\tau_R$ on which the system varies ``appreciably''.\par
-
-$\blacklozenge\quad$The \textit{secular} approximation allows the possibility to neglect rapidly oscillating terms in the Markov Master Equation.
+These two last approximations lead to the \textit{Markovian quantum master equation}.\par
+$\blacklozenge\quad$The \textit{secular} approximation allows the possibility to neglect rapidly oscillating terms in the quantum \textit{Markov} master equation.
 \subsection[Quantum measurement theory]{Quantum Measurement Theory (QMT)}
