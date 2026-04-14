@@ -33,7 +33,7 @@
 \renewcommand{\thesection}{\Roman{section}}
 \renewcommand{\thesubsection}{\thesection.\roman{subsection}\char41}
 \renewcommand{\thesubsubsection}{\Roman{section}.\roman{subsection}.\arabic{subsubsection}$\rangle$}
-\renewcommand{\Tr}[1]{\operatorname{Tr\,}\left[#1\right]}
+\renewcommand{\Tr}[1]{\operatorname{Tr}\left[#1\right]}
 \renewcommand{\cfttoctitlefont}{\Huge\bfseries\MakeUppercase}
 \renewcommand{\cftaftertoctitle}{
   \vskip 2.5mm
@@ -56,7 +56,13 @@
 \input{introduction.tex}
 \clearpage
 
-\input{academic.tex}
+\input{basics.tex}
+\clearpage
+
+\input{oqs.tex}
+\clearpage
+
+\input{qmt.tex}
 \clearpage
 
 \input{sme.tex}

@@ -1,0 +1,48 @@
+\subsection[Quantum measurement theory]{Quantum Measurement Theory (QMT)}\setlength{\parindent}{2mm}
+\noindent
+We recall the Postulate~\ref{pstlt:3}, defining $a$ and $\ket{a}$ from $A\ket{a}=a\ket{a}$. In the QMT~\cite{W94,W96}, measuring consists in applying a projector to a state, thus we call this process a \textit{projective measurement}. Since an observable has a set of eigenvectors, we can build a projector corresponding to one of them:
+\begin{equation}
+    P_a = \ketbra{a}.
+\end{equation}
+This definition implies four important properties: 
+\begin{equation*}
+    P_a^\dagger = P_a, \qquad
+    P_a^2 = P_a, \qquad
+    P_a P_b = P_a \delta_{ab}, \qquad
+    \sum_n P_{a_n}=\mathbb{I}.
+\end{equation*}
+In the last property, $n$ is an index representing one measurement result among every possible result. For an observable with a non-degenerate spectrum, the set of measurement results is indexed by $I_\mathcal{H} = \llbracket 1, \dim(\mathcal{H}) \rrbracket$. The probability to measure $a$ is defined by
+\begin{align}
+    \mathbb{P}_{\ket{\psi}}[a] &= \expval{P_a}{\psi}\\
+    &= \abs{\braket{\psi}{a}}^2,\\
+    \mathbb{P}_{\rho}[a] &= \Tr{\rho P_{a}}.
+\end{align}
+The theory stipulates that states collapse after measurement. The unnormalized state (denoted by $\tilde{}\;$) is thus
+\begin{align}
+    \tilde{\ket{\psi_a}} &= P_a\ket{\psi},\\
+    \tilde{\rho_a} &= P_a\rho P_a.
+\end{align}
+The obtained state is said \textbf{conditioned by the measurement} result $a$, hence the importance of the index $a$ on the state. By normalizing we find the expression of a normalized state after a measurement with result $a$:
+\begin{align}
+    \ket{\psi_a}&=\frac{P_a\ket{\psi}}{\sqrt{\expval{P_a}{\psi}}},\\
+    \rho_a &= \frac{P_a\rho P_a}{\Tr{\rho P_a}}.
+\end{align}
+\textit{N.B. We can observe that the normalization factor is exactly the probability to measure $a$ for the density matrix (or squared probability, using ket formalism).}\\
+The projective measurement seem to model the concepts of collapse after measurement just as explained in quantum mechanics. However, projective measurement are inefficient to some extent, \textit{e.g.}, when measuring a photon on a screen we destroy it, but, with projective measurement definition we could repeat the measure $a$ infinitely without killing the state.
+
+To solve the issue of repetitive measurements, we can define another kind of measurement, using a Positive Operator-Valued Measure (POVM)~\cite{NielsenChuang}. To define a POVM, we first need to define the so-called \textit{Kraus} operators~\cite{Jacobs}. Each Kraus operator is relative to a measurement result, denoted $a$ here, but it need not to be a projector. The probability to measure $a$ is thus written in terms of Kraus operators by
+\begin{align}
+    \mathbb{P}_\psi[a]&= \expval{\overbrace{K_a^\dagger K_a}^{\Pi_a}}{\psi},\\
+    \mathbb{P}_\rho[a]&= \Tr{\rho K_a^\dagger K_a}.
+\end{align}
+The operator $\Pi_a=K_a^\dagger K_a$ is called the \textit{effect}~\cite{W96} for the result $a$. The set of all effects $\{\Pi_a\}_a$ forms a POVM. Every effect need to respect the following properties:
+\begin{equation*}
+    \text{positive semi-definite: }\forall\ket{a}\in\mathcal{H}, \expval{\Pi_a}{a},\qquad
+    \sum_a \Pi_a = \mathbb{I}.
+\end{equation*}
+The (normalized) states obtained after measuring $a$ are then, using POVM,
+\begin{align}
+    \ket{\psi_a} &= \frac{K_a\ket{\psi}}{\sqrt{\expval{\Pi_a}{\psi}}},\\
+    \rho_a &= \frac{K_a \rho K_a^\dagger}{\Tr{\rho\Pi_a}}.
+\end{align}
+POVM, unlike projective measurements, allow one to describe the process of quantum measurement while \textit{ignoring the result}. We can think of it as measuring for a ...
