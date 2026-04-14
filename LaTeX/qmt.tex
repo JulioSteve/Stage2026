@@ -1,6 +1,6 @@
 \subsection[Quantum measurement theory]{Quantum Measurement Theory (QMT)}\setlength{\parindent}{2mm}
 \noindent
-We recall the Postulate~\ref{pstlt:3}, defining $a$ and $\ket{a}$ from $A\ket{a}=a\ket{a}$. In the QMT~\cite{W94,W96}, measuring consists in applying a projector to a state, thus we call this process a \textit{projective measurement}. Since an observable has a set of eigenvectors, we can build a projector corresponding to one of them:
+We recall the Postulate~\ref{pstlt:3}, defining $a$ and $\ket{a}$ from $A\ket{a}=a\ket{a}$. In the QMT~\cite{W94,W96}, measuring consists in applying a projector to a state, thus we call this process a \textit{projective measurement}. The set of projective measurements is called a Projection-Valued Measure (PVM)~\cite{Holevo}. Since an observable has a set of eigenvectors, we can build a projector corresponding to one of them:
 \begin{equation}
     P_a = \ketbra{a}.
 \end{equation}
@@ -37,7 +37,7 @@ To solve the issue of repetitive measurements, we can define another kind of mea
 \end{align}
 The operator $\Pi_a=K_a^\dagger K_a$ is called the \textit{effect}~\cite{W96} for the result $a$. The set of all effects $\{\Pi_a\}_a$ forms a POVM. Every effect need to respect the following properties:
 \begin{equation*}
-    \text{positive semi-definite: }\forall\ket{a}\in\mathcal{H}, \expval{\Pi_a}{a},\qquad
+    \text{positive semi-definite: }\forall\ket{a}\in\mathcal{H}, \expval{\Pi_a}{a},\text{ and, }\qquad
     \sum_a \Pi_a = \mathbb{I}.
 \end{equation*}
 The (normalized) states obtained after measuring $a$ are then, using POVM,
@@ -45,4 +45,8 @@ The (normalized) states obtained after measuring $a$ are then, using POVM,
     \ket{\psi_a} &= \frac{K_a\ket{\psi}}{\sqrt{\expval{\Pi_a}{\psi}}},\\
     \rho_a &= \frac{K_a \rho K_a^\dagger}{\Tr{\rho\Pi_a}}.
 \end{align}
-POVM, unlike projective measurements, allow one to describe the process of quantum measurement while \textit{ignoring the result}. We can think of it as measuring for a ...
+POVM, unlike projective measurements, allow one to describe the process of quantum measurement while \textit{ignoring the results}. Just as the thought experiment~\ref{...} for statistical mixture of states, we can describe statistically the state without knowing the measurement results:
+\begin{equation}
+    \rho = \sum_a \mathbb{P}[a]\rho_a = \sum_a K_a \rho K_a^\dagger.
+\end{equation}
+POVM generalize PVM in the sense that projectors are special cases of POVM elements (self-adjoint and orthogonality).
