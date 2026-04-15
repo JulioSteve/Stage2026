@@ -1,52 +1,54 @@
 \subsection[Quantum measurement theory]{Quantum Measurement Theory (QMT)}\setlength{\parindent}{2mm}
 \noindent
-We recall the Postulate~\ref{pstlt:3}, defining $a$ and $\ket{a}$ from $A\ket{a}=a\ket{a}$. In the QMT~\cite{W94,W96}, measuring consists in applying a projector to a state, thus we call this process a \textit{projective measurement}. The set of projective measurements is called a Projection-Valued Measure (PVM)~\cite{Holevo}. Since an observable has a set of eigenvectors, we can build a projector corresponding to one of them:
+In the QMT~\cite{W94,W96}, measuring consists in applying a projector to a state, so, we call this process a \textit{projective measurement}. The set of projective measurements is called a Projection-Valued Measure (PVM)~\cite{Holevo}. For the sake of simplicity, we work --- as until now --- with non-degenerate spectra for the observables. Since an observable has a set of eigenvectors $\qty{\ket{a_n}}_{n\in I_\mathcal{H}}$, we can build a projector corresponding to one of them:
 \begin{equation}
-    P_a = \ketbra{a}.
+    P_{a_n} = \ketbra{a_n}.
 \end{equation}
 This definition implies four important properties: 
 \begin{equation*}
-    P_a^\dagger = P_a, \qquad
-    P_a^2 = P_a, \qquad
-    P_a P_b = P_a \delta_{ab}, \qquad
+    P_{a_n}^\dagger = P_{a_n}, \qquad
+    P_{a_n}^2 = P_{a_n}, \qquad
+    P_{a_n} P_{a_m} = P_{a_n} \delta_{nm}, \qquad
     \sum_n P_{a_n}=\mathbb{I}.
 \end{equation*}
-In the last property, $n$ is an index representing one measurement result among every possible result. For an observable with a non-degenerate spectrum, the set of measurement results is indexed by $I_\mathcal{H} = \llbracket 1, \dim(\mathcal{H}) \rrbracket$. The probability to measure $a$ is defined by
+To represent the quantum mechanics definition of a measurement, the projective measurement needs to fulfill some requirements. The first requirement is to generate the probability of observing the result of a measurement on a system. Thus, the probability to observe $a_n$ is defined by
 \begin{align}
-    \mathbb{P}_{\ket{\psi}}[a] &= \expval{P_a}{\psi}\\
-    &= \abs{\braket{\psi}{a}}^2,\\
-    \mathbb{P}_{\rho}[a] &= \Tr{\rho P_{a}}.
+    \mathbb{P}_{\ket{\psi}}[a_n] &= \expval{P_{a_n}}{\psi} = \abs{\braket{\psi}{a_n}}^2,\\
+    \mathbb{P}_{\rho}[{a_n}] &= \Tr{\rho P_{a_n}},
 \end{align}
-The theory stipulates that states collapse after measurement. The unnormalized state (denoted by $\tilde{}\;$) is thus
+where the subscripts $\ket{\psi}$ and $\rho$ refer respectively to the representation of pure states or a general density matrix. Moreover, the theory of quantum mechanics stipulates that states collapse on the eigenstate corresponding to the result after measurement, thus, their expression after collapse is
 \begin{align}
     \tilde{\ket{\psi_a}} &= P_a\ket{\psi},\\
     \tilde{\rho_a} &= P_a\rho P_a.
 \end{align}
-The obtained state is said \textbf{conditioned by the measurement} result $a$, hence the importance of the index $a$ on the state. By normalizing we find the expression of a normalized state after a measurement with result $a$:
+Here the $\tilde{\bullet}$ symbol means that the state is not normalized, which will be an important notation for later, see Section~\ref{sec:MCWF}. By normalizing we find the proper expression of a state after a measurement with result $a_n$:
 \begin{align}
     \ket{\psi_a}&=\frac{P_a\ket{\psi}}{\sqrt{\expval{P_a}{\psi}}},\\
     \rho_a &= \frac{P_a\rho P_a}{\Tr{\rho P_a}}.
 \end{align}
-\textit{N.B. We can observe that the normalization factor is exactly the probability to measure $a$ for the density matrix (or squared probability, using ket formalism).}\\
-The projective measurement seem to model the concepts of collapse after measurement just as explained in quantum mechanics. However, projective measurement are inefficient to some extent, \textit{e.g.}, when measuring a photon on a screen we destroy it, but, with projective measurement definition we could repeat the measure $a$ infinitely without killing the state.
+The obtained state is said \textbf{conditioned by the measurement} result $a_n$, hence the importance of the index $a_n$ on states obtained after measurement. We point out that the normalization factor is exactly the probability to observe the result $a_n$ for the density matrix (or the square root of the probability, when using ket formalism). In the end, projective measurement fulfill the properties of quantum mechanics by construction because they generate probabilities (respecting the fact they need to be positive and their sum is 1), and can also be used to write the expression of collapsed states after measurement.
 
-To solve the issue of repetitive measurements, we can define another kind of measurement, using a Positive Operator-Valued Measure (POVM)~\cite{NielsenChuang}. To define a POVM, we first need to define the so-called \textit{Kraus} operators~\cite{Jacobs}. Each Kraus operator is relative to a measurement result, denoted $a$ here, but it need not to be a projector. The probability to measure $a$ is thus written in terms of Kraus operators by
+However, the definition of PVM has been found too restrictive to represent every kind of measurement allowed by quantum mechanics~\cite{NielsenChuang,Bergou2021}. One can define a more general kind of measurement, that fulfills quantum mechanics needs while relaxing some properties. In particular, the orthogonality of measure elements is not required in order to generate probabilities. Therefore, one can build the so-called Positive Operator-Valued Measure (POVM), implicitly defined by the probability to observe the result $a_n$:
 \begin{align}
-    \mathbb{P}_\psi[a]&= \expval{\overbrace{K_a^\dagger K_a}^{\Pi_a}}{\psi},\\
-    \mathbb{P}_\rho[a]&= \Tr{\rho K_a^\dagger K_a}.
+    \mathbb{P}_\psi[a_n]&= \expval{\Pi_{a_n}}{\psi},\\
+    \mathbb{P}_\rho[a_n]&= \Tr{\rho \Pi_{a_n}},
 \end{align}
-The operator $\Pi_a=K_a^\dagger K_a$ is called the \textit{effect}~\cite{W96} for the result $a$. The set of all effects $\qty{\Pi_a}_a$ forms a POVM\@. Every effect needs to respect the following properties:
+where the operator $\Pi_{a_n}$ is called the \textit{effect}~\cite{W96} for the result $a$. Moreover, the set of all effects $\qty{\Pi_{a_n}}_{n\in I_\mathcal{H}}$ forms the POVM\@. As stated, the only properties we force the POVM to respect are:
 \begin{equation*}
-    \text{positive semi-definite: }\forall\ket{a}\in\mathcal{H}, \expval{\Pi_a}{a},\text{ and, }\qquad
-    \sum_a \Pi_a = \mathbb{I}.
+    \text{positive semi-definite: }\forall\ket{\phi}\in\mathcal{H}, \expval{\Pi_{a_n}}{\phi}\geq 0,\text{ and, }\qquad
+    \sum_{n\in I_\mathcal{H}} \Pi_{a_n} = \mathbb{I}.
 \end{equation*}
-The (normalized) states obtained after measuring $a$ are then, using POVM,
+These properties imply that POVM generate proper probabilities. Furthermore, the (normalized) states obtained after finding the result $a_n$ are now,
 \begin{align}
-    \ket{\psi_a} &= \frac{K_a\ket{\psi}}{\sqrt{\expval{\Pi_a}{\psi}}},\\
-    \rho_a &= \frac{K_a \rho K_a^\dagger}{\Tr{\rho\Pi_a}}.
+    \ket{\psi_{a_n}} &= \frac{K_{a_n}\ket{\psi}}{\sqrt{\expval{\Pi_{a_n}}{\psi}}},\\
+    \rho_{a_n} &= \frac{K_{a_n} \rho K_{a_n}^\dagger}{\Tr{\rho\Pi_{a_n}}},
 \end{align}
-POVM, unlike projective measurements, allow one to describe the process of quantum measurement while \textit{ignoring the results}. Just as the thought experiment~\ref{...} for statistical mixture of states, we can describe statistically the state without knowing the measurement results:
+where we introduced the operator $K_{a_n}$ called a \textit{Kraus operator}; they respect the relation $\Pi_{a_n}=K_{a_n}^\dagger K_{a_n}$.
+
+Also, POVM, just like PVM, allow one to describe the process of quantum measurement while \textit{ignoring the results}. As in the thought experiment~\ref{...} for statistical mixture of states, we can describe statistically the state without knowing the measurement results:
 \begin{equation}
-    \rho = \sum_a \mathbb{P}[a]\rho_a = \sum_a K_a \rho K_a^\dagger.
+    \rho = \sum_{n\in I_\mathcal{H}} \mathbb{P}[{a_n}]\rho_{a_n} = \sum_{n\in I_\mathcal{H}} K_{a_n} \rho K_{a_n}^\dagger.
 \end{equation}
-POVM generalize PVM in the sense that projectors are special cases of POVM elements (self-adjoint and orthogonality).
+The corresponding relation for PVM is obtained by replacing both $K_{a_n}$ and $K_{a_n}^\dagger$ by $P_{a_n}$. 
+
+Finally, one can observe that POVM generalize PVM in the sense that projectors are special cases of POVM elements (adding self-adjoint property and orthogonality to POVM gives a PVM). Furthermore, PVMs make states collapse on eigenstates that are necessarily orthogonal to each other, which is not necessarily the case for POVMs\@. A brief example of POVM forcing a state to collapse onto ``non-orthogonal states'' is when considering initially the state $\ket{\psi}=\frac{\ket{g}+\ket{e}}{\sqrt{2}}\equiv\ket{+}$. If we choose the Kraus operators $K_0=\ketbra{g}$ and $K_1=\ketbra{+}{e}$, which fulfill $K_0^\dagger K_0+K_1^\dagger K_1=\mathbb{I}$, and, that form the POVM $\qty{\ketbra{g},\ketbra{e}}$. Then, when the result of the measurement is $0$, we find that the state collapses to $\ket{\psi_0}=\ket{g}$, and when finding $1$ it collapses to $\ket{\psi_1}=\ket{+}$. However, $\braket{\psi_0}{\psi_1}=\frac{1}{\sqrt{2}}\neq 0$, thus the states on which the initial state can collapse are not orthogonal to each other.
