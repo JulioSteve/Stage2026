@@ -3,94 +3,73 @@
 \numberwithin{equation}{section}
 \renewcommand{\theequation}{\thesection.~\arabic{equation}}
 \setlength{\parskip}{2mm}
+\setlength{\parindent}{2mm}
 \section{Representations of quantum mechanics}\label{representations}
-
-\textbf{Complement of quantum mechanics}
-An average is defined in quantum mechanics by:
+\noindent
+\textbf{Complement of quantum mechanics:}\\
+An average is defined in quantum mechanics by
 \begin{align*}
-    \expval{O}_\psi&=\expval{O}{\psi}\\
-    \expval{O}_\rho&=\Tr{\rho O}
+    \expval{O}_\psi&=\expval{O}{\psi},\\
+    \expval{O}_\rho&=\Tr{\rho O}.
 \end{align*}
-We can see the two definitions are strictly equivalent, to illustrate let us pick a pure state $\rho=\ketbra{\psi}$ and the base of an Hamiltonian $\qty{\phi_n}_{n\in I_\mathcal{H}}$:
+Both definitions are strictly equivalent, to show it, let us pick a pure state $\rho=\ketbra{\psi}$ and the base of an Hamiltonian $\qty{\phi_n}_{n\in I_\mathcal{H}}$:
 \begin{align*}
     \expval{O}_\rho&=\Tr{\rho O}\\
     &= \Tr{\ketbra{\psi} O}\\
-    &= \Tr{\expval{O}{\psi}}
+    &= \Tr{\expval{O}{\psi}}.
 \end{align*}
-However,\[\expval{O}{\psi}\in\mathbb{C}\]
-Thus,
+However, trace of a scalar is equal to this scalar, thus,
 \begin{equation*}
-    \expval{O}_\rho = \expval{O}{\psi}
+    \expval{O}_\rho = \expval{O}{\psi}.
 \end{equation*}
-\hfill $\square$
+\subsection{Schrödinger and Heisenberg pictures}\noindent
+In this appendix we will denote the pictures with their acronyms, and, we lighten the notation of the total state $\rho_T\equiv\rho$ here. This could be misleading: $S$ in this appendix stands for \textit{``in the Schrödinger picture''}, whereas, $S$ in the main chapters means \textit{``state of the system S''}.\par
 
-\subsection{Schrödinger and Heisenberg pictures}
-In this appendix we will work by denoting the pictures with their acronyms, but we chose to lighten the notation of the total state $\rho_T\equiv\rho$ here. Please pay attention not to misinterpret $S$ in this part means \textit{in the Schrödinger picture}, whereas, $S$ in the main part means \textit{state of the system S}.\par
-
-In the \textit{Schrödinger} picture we saw that $\ket{\psi(t)}=U(t)\ket{\psi}$ where, $U(t)=e^{-\frac{i}{\hbar}Ht}$ in the case of a time-independent Hamiltonian with $t_0=0$. The following demonstration can be made in the general case where the Hamiltonian is time dependent using Eq.\ (\ref{Htimedep}).\par
-
-If we consider the average value of an observable $A_S(t)$ in the \textit{Schrödinger} picture,
+In the Schrödinger picture we saw that $\ket{\psi(t)}=U(t)\ket{\psi}$, where $U(t)=e^{-\frac{i}{\hbar}Ht}$ in the case of a time-independent Hamiltonian with $t_0=0$. Nevertheless, the following results can be derived in the general case of a time dependent Hamiltonian, by using Eq.\ (\ref{Htimedep}). Considering the average value of an observable $A_S(t)$ in the Schrödinger picture, we find
 \begin{align}
     \expval{A_S(t)} &= \expval{A_S}{\psi(t)}\nonumber\\
-    &= \expval{\underbrace{U^\dagger(t)A_S(t)U(t)}_{A_H(t)}}{\psi}
+    &= \expval{\underbrace{U^\dagger(t)A_S(t)U(t)}_{A_H(t)}}{\psi}.
 \end{align}
-
-This naturally let appear the \textit{Heisenberg representation} of observables and states.\\
-Indeed, we have $\forall t,\;\ket{\psi(t)}_H=\ket{\psi(t_0)}_S\equiv\ket{\psi}_H$ which links both pictures at the initial time.\\
-We can link both representation by calculating the evolution of observable in the \textit{Heisenberg picture}:
-\begin{align*}
-    \dert{A_H} &= \dert{}\left[U^\dagger A_{S}U\right]\\
-    &= \dert{U^\dagger}A_{S}U + U^\dagger\derpart{A_S}U + \dert{U}A_{S}U\\
-    &= \frac{i}{\hbar}U^\dagger H_{S}A_{S}U + U^\dagger\derpart{A}U - \frac{i}{\hbar}U^\dagger A_{S}H_{S}U\\
-    &= \frac{i}{\hbar}[U^\dagger H_S\overbrace{UU^\dagger}^{\mathbb{I}} A_{S}U-U^\dagger A_{S}\overbrace{UU^\dagger}^{\mathbb{I}} H_{S}U]+ \derpart{A_S}\\
-    &= \frac{i}{\hbar}\left[H_{H}A_{H}-A_{H}H_{H}\right] + \derpart{A_S}
-\end{align*}
-So,
+This calculation naturally reveals the Heisenberg representation of observables and states. Indeed, we have that $\forall t,\;\ket{\psi(t)}_H=\ket{\psi(t_0)}_S\equiv\ket{\psi}_H$ which links both pictures at the initial time. Furthermore, we can link both representation by calculating the evolution of an observable in the Heisenberg picture:
 \begin{equation}
-    \boxed{\dert{A_H} = \frac{i}{\hbar}\left[H_{H},A_{H}\right] + \derpart{A_S}\label{eq:HSlink}}
+    \boxed{\dert{A_H} = \frac{i}{\hbar}\left[H_{H},A_{H}\right] + \derpart{A_S}\label{eq:HSlink}}.
 \end{equation}
-
 This link can even lead to the famous \textit{Ehrenfest theorem} for quantum mechanics:
 \begin{equation}
-    \boxed{\dert{\expval{A}}=\frac{i}{\hbar}\expval{\qty[H(t),A(t)]}+\expval{\derpart{A}}}
+    \boxed{\dert{\expval{A}}=\frac{i}{\hbar}\expval{\qty[H(t),A(t)]}+\expval{\derpart{A}}}.
 \end{equation}
-We observe that if the observable doesn't depend explicitly on time (thus is constant), then the dynamics of the operator is fully describe by the \textit{Heisenberg representation}. 
+We observe that if the observable doesn't depend explicitly on time (thus constant), then the dynamics of the operator is fully describe by the Heisenberg representation. 
 
-\subsection{Interaction picture}
-As mentioned in the main part, see~\ref{OQS}, we use perturbation theory to describe the interaction between the system $S$ and the environment $E$:
+\subsection{Interaction picture}\noindent
+As mentioned in~\ref{OQS}, we use perturbation theory to describe the interaction between the system $S$ and the environment $E$,
 \begin{align}
-    H_T &= \overbrace{H_S\otimes\mathbb{I}_E+\mathbb{I}_S\otimes H_E}^{H_0}+H_I\tag{\ref{eq:Htotal}}\\
-    U(t,t_0) &= U_0(t,t_0)U_I(t,t_0)\tag{\ref{eq:Utotal}}
+    H_T &= \overbrace{H_S\otimes\mathbb{I}_E+\mathbb{I}_S\otimes H_E}^{H_0}+H_I\tag{\ref{eq:Htotal}},\\
+    U(t,t_0) &= U_0(t,t_0)U_I(t,t_0)\tag{\ref{eq:Utotal}}.
 \end{align}
-\textit{Recall:} $\ket{\psi(t)}_S=U(t)\ket{\psi}_S$
-\begin{equation}
-    \rho_S(t) = U(t)\rho_{S}U^\dagger(t)\label{eq:evolrhoU}
+Because $\ket{\psi(t)}_S=U(t)\ket{\psi}_S$, we can write that
+\begin{equation}\label{eq:evolrhoU}
+    \rho_S(t) = U(t)\rho_{S}U^\dagger(t).
 \end{equation}
-If we now try to calculate the average (in $\mathcal{H}_T$) of an operator in the \textit{Schrödinger picture}, we can find a new interesting relation:
+If we now try to calculate the average of an operator (in the total space $\mathcal{H}_T$) using the Schrödinger picture, we can find a new interesting relation by injecting Eq.~(\ref{eq:evolrhoU},\ref{eq:Utotal}) in the average:
 \begin{align*}
     \expval{O_S(t)} &= \Tr{\rho_{S}(t)O_S(t)}\\
-    &= \Tr{U(t)\rho_{S}U^\dagger(t)O_S(t)}\\
-    &= \Tr{U_0(t)U_I(t)\rho_{S}U_I^\dagger(t)U_0^\dagger(t)O_S(t)}\\
-    &= \mathrm{Tr}\,[\underbrace{U_I(t)\rho_{S}U_I^\dagger(t)}_{\tilde{\rho}(t)}\,\underbrace{U_0^\dagger(t)O_S(t)U_0(t)}_{\tilde{O}(t)}]
+    &= \mathrm{Tr}\,[\underbrace{U_I(t)\rho_{S}U_I^\dagger(t)}_{\tilde{\rho}(t)}\,\underbrace{U_0^\dagger(t)O_S(t)U_0(t)}_{\tilde{O}(t)}].
 \end{align*}
 We can thus define in the interaction picture:
 \begin{align}
-    \tilde{\rho}(t)&=U_I(t)\rho_{S}U_I^\dagger(t)\tag{\ref{eq:rhoIP}}\\
-    \tilde{O}(t) &= U_0^\dagger(t)O_S(t)U_0(t)\tag{\ref{eq:OIP}}
+    \tilde{\rho}(t)&=U_I(t)\rho_{S}U_I^\dagger(t)\tag{\ref{eq:rhoIP}},\\
+    \tilde{O}(t) &= U_0^\dagger(t)O_S(t)U_0(t)\tag{\ref{eq:OIP}}.
 \end{align}
 We can now reverse Eq.~(\ref{eq:evolrhoU}) and then use Eq.~(\ref{eq:Utotal}):
 \begin{equation*}
-    \rho_S = U^\dagger(t)\rho_S(t)U(t) = U_I^\dagger(t)U^\dagger_0(t)\rho_S(t)U_0(t)U_I(t)
+    \rho_S = U^\dagger(t)\rho_S(t)U(t) = U_I^\dagger(t)U^\dagger_0(t)\rho_S(t)U_0(t)U_I(t),
 \end{equation*}
-And, by injecting this into Eq.~(\ref{eq:rhoIP}), we get
+and, by injecting this into Eq.~(\ref{eq:rhoIP}), we get
 \begin{align}
     \tilde{\rho}(t) &= U_I(t)U_I^\dagger(t)U^\dagger_0(t)\rho_S(t)U_0(t)U_I(t)U^\dagger_I(t)\nonumber\\
-    &= U^\dagger_0(t)\rho_S(t)U_0(t)\tag{\ref{eq:rhoIP}}
+    &= U^\dagger_0(t)\rho_S(t)U_0(t)\tag{\ref{eq:rhoIP}}.
 \end{align}
 So that we find the results used in the main part of this work
-\[\tilde{\rho}(t)=U_I(t)\rho_{S}U_I^\dagger(t)= U^\dagger_0(t)\rho_S(t)U_0(t)\]
-% \section{Quantum Measurement Theory}\label{Measurement_Theory}
-
-% The introduction about measurement theory in~\ref{intro} and this appendix 
-% have been constructed from the work of \textit{K.Jacobs}~\cite{Jacobs} 
-% and \textit{H.M.Wiseman}~\cite{WisemanThesis}.
+\begin{equation}
+    \boxed{\tilde{\rho}(t)=U_I(t)\rho_{S}U_I^\dagger(t)= U^\dagger_0(t)\rho_S(t)U_0(t)}.
+\end{equation}

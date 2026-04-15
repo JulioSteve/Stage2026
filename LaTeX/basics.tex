@@ -1,38 +1,30 @@
 \section[From closed systems to continuous measurements]{From closed systems to continuous measurements --- in a nutshell}
 \noindent In this chapter we will briefly summarize the definitions needed for continuously monitored open quantum systems formalism.
 \subsection[Quantum mechanics]{Generalities on quantum mechanics}
-\subsubsection{States and time evolution}\label{Ii1}
+\subsubsection{States and time evolution}\label{Ii1}\noindent
 In quantum mechanics a physical system's state is described by a vector in a Hilbert space:
 \begin{equation}
-    \ket{\psi}\in\mathcal{H}
+    \ket{\psi}\in\mathcal{H}.
 \end{equation}
-
-%  REECRIRE
-The evolution of a system depends on its energy, the Hamiltonian $H$ is an hermitian\footnote{$\hat{H}^\dagger=\hat{H}$, where $^\dagger$ is the conjugate transpose operation, defining the hermitian adjoint. } operator that accounts for the total energy of a system. The Schrödinger equation states it explicitly: 
+The Hamiltonian $\hat{H}$ is a specific hermitian\footnote{$\hat{H}^\dagger=\hat{H}$, where $^\dagger$ denotes the conjugate transpose, defining the hermitian adjoint. } operator representing classically the total energy of a system; this relationship will be detailed in Section~\ref{sec:obs}. Physically, the evolution of a system is governed by its energy, the \textit{Schrödinger equation} states it explicitly:
 \begin{equation}
-    i\hbar\frac{\mathrm{d}\ket{\psi(t)}}{\mathrm{d}t}=\hat{H}(t)\ket{\psi(t)}
+    i\hbar\frac{\mathrm{d}\ket{\psi(t)}}{\mathrm{d}t}=\hat{H}(t)\ket{\psi(t)}.
 \end{equation}
-
-% MAL DIT
-Instead of looking at the state at time $t$ we can use an unitary\footnote{$UU^\dagger=U^\dagger U=\mathbb{I}$, where $\mathbb{I}$ is the identity.} operator $\hat{U}$ such that, $\ket{\psi(t)}=\hat{U}(t,t_0)\ket{\psi(t_0)}$. From now on, we will omit the $\hat{}$ symbol over operators when it is obvious. We get, %Plus explicite, construire une phrase 
+We can define a unitary\footnote{$\hat{U}\hat{U}^\dagger=\hat{U}^\dagger \hat{U}=\mathbb{I}$, where $\mathbb{I}$ is the identity.} operator $\hat{U}$ such that,
 \begin{equation}
-    \dot{U}(t,t_0)=-\frac{i}{\hbar}H(t)U(t,t_0)
+    \ket{\psi(t)}=\hat{U}(t,t_0)\ket{\psi(t_0)},
 \end{equation}
-
-One can solve this differential equation in general by using a chronological time-ordering operator~\cite{Breuer}. Giving for the state evolution, % Mal écrit
-\begin{equation}\label{Htimedep}
-    \ket{\psi(t)} = \mathcal{T}_\leftarrow \exp\left[ -\frac{i}{\hbar}\int_{t_0}^t H(s) \mathrm{d}s\right]\ket{\psi(t_0)}
+solving formally the Schrödinger equation. By injecting the previous relation in the state equation, we get
+\begin{equation}\label{eq:schrodU}
+    \dert{\hat{U}}(t,t_0)=-\frac{i}{\hbar}\hat{H}(t)\hat{U}(t,t_0).
 \end{equation}
-
-Or, when the Hamiltonian is time-independent, %!!
-\begin{equation}
-    \ket{\psi(t)} = \underbrace{e^{-\frac{iH(t-t_0)}{\hbar}}}_{U(t,t_0)}\ket{\psi(t_0)}
+In the general case, the Hamiltonian can depend on time, so we need the chronological time-ordering exponential~\cite{Breuer} to solve Eq.~(\ref{eq:schrodU}). However, in the simplest case, the Hamiltonian is independent of time and the solution becomes
+\begin{equation}\label{eq:solschrod}
+    \ket{\psi(t)} = \underbrace{e^{-\frac{i\hat{H}(t-t_0)}{\hbar}}}_{\hat{U}(t,t_0)}\ket{\psi(t_0)}.
 \end{equation} 
-
-% ecrire en 2 phrases (renverser l'ordre de causalité)
-This evolution of the state with respect to time is said \textbf{unitary and reversible} because $U$ is unitary, and, because this equation also describes the time reversed evolution $t\rightarrow t_0$: $\ket{\psi(t_0)}=U^\dagger(t,t_0)\ket{\psi(t)}$~. %faux mathématiquement c'est pas la même équation
+This solution of the Schrödinger equation is indeed \textbf{unitary} and we can use $\hat{U}^\dagger(t,t_0)$ on the left of both sides of Eq.~(\ref{eq:solschrod}) to obtain $\ket{\psi(t_0)}=\hat{U}^\dagger(t,t_0)\ket{\psi(t)}$, which proves that the dynamics of closed systems are \textbf{reversible}.
  
-\subsubsection{Observables}
+\subsubsection{Observables}\label{sec:obs}
 Any physical quantity is represented in quantum mechanics by an \textbf{observable}: an operator whose eigenvectors form an orthonormal basis of the Hilbert space $\mathcal{H}$~\cite{CT}. %refaire phrase suivante:
 and whose eigenvalues are positive to represent a physical measurement. 
 For finite dimension Hilbert space, hermitian operators\footnote{Hermitian operators always form a basis in finite dimension, and, we can use the Gram-Schmidt process to find its orthonormal version.Moreover, being a self-adjoint operator implies having real eigenvalues.} are observables. In the following, we will consider finite dimension and non-degenerate cases, b~\cite{CT}.\par %REECRIRE LA DERNIERE
