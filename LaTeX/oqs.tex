@@ -1,8 +1,7 @@
 \subsection[Open quantum systems]{Open Quantum Systems (OQS)}\label{OQS}
 \setlength{\parskip}{2mm}\setlength{\parindent}{6mm}
-In the previous part, we saw that one can fully describe a system, observables, states and their evolution, however, this description applies to the ideal case where the quantum system is considered isolated from any external interaction. That is why we will introduce in this section the concepts of OQS.
-
-In the OQS theory, a system is considered to interact locally with its environment, which itself interacts with a wider environment, etc\ldots To avoid considering infinite chains of interaction, the theory truncates the environment to a local vicinity of the system. Thus, we approximate the total system $T$ as a closed quantum system, whereas the quantum system of interest $S$ couples with its environment $E$ and is called a quantum open system. This coupling with the environment thus gives rise to a dynamical regime distinct from that of closed quantum systems. Fundamentally, the Hilbert space of study is divided into $\mathcal{H}_T=\mathcal{H}_S\otimes\mathcal{H}_E$. 
+\subsubsection{Finding master equations in a nutshell}
+In the previous part, we saw that one can fully describe a system, observables, states and their evolution, however, this description applies to the ideal case where the quantum system is considered isolated from any external interaction. Instead, in the OQS theory systems interact locally with an environment, which itself interacts with a wider environment, etc\ldots To avoid considering infinite chains of interaction, the theory truncates the environment to a local vicinity of the system. Thus, we approximate the total system $T$ as a closed quantum system, whereas the quantum system of interest $S$ couples with its environment $E$ and is called a quantum open system. This coupling with the environment thus gives rise to a dynamical regime distinct from that of closed quantum systems. Fundamentally, the Hilbert space of study is divided into $\mathcal{H}_T=\mathcal{H}_S\otimes\mathcal{H}_E$. 
 
 REWRITE
 
@@ -15,3 +14,19 @@ It describes a so-called ``weak-coupling'' between the system and the environmen
 $\blacklozenge\quad$The \textit{Markov} approximation assures that the entire system has no memory. That is to say, the environment is so rapidly agitating that it dissipates information of the system instantaneously. This implies that the environment comes back to equilibrium instantaneously after each interaction. Physically, the timescale of the reservoir correlation function decay $\tau_E$ is smaller than the timescale $\tau_R$ on which the system varies ``appreciably''.\par %inexact
 These two last approximations lead to the \textit{Markovian quantum master equation}.\par
 $\blacklozenge\quad$The \textit{secular} approximation allows the possibility to neglect rapidly oscillating terms in the quantum \textit{Markov} master equation.
+
+\subsubsection{Lindblad master equation using the input-output formalism}\noindent
+We will now follow a certain approach~\cite{Albarelli} in the derivation of the Lindblad master equation, using the \textit{input-output formalism}~\cite{GardinerCollett}. However, it is possible to use the \textit{collisional-model} instead~\cite{Ciccarello2017,Ciccarello2022}. Since a full derivation of the input-output formalism is mathematically challenging, we only state its key equations and provide physical intuition. Further details are available in the Appendix~\ref{ann:IOF}. In order to lighten formulae, we rescale following units so that $\hbar=1$.
+
+We firstly define the Hamiltonian of the environment by
+\begin{equation}
+    \int_0^{+\infty} b^\dagger_\omega b_\omega \omega\mathrm{d}\omega,
+\end{equation}
+where the operators of the environment $b_\omega$ satisfy $\qty[b_\omega, b_\omega^\dagger]=\delta(\omega-\omega')\neq\mathbb{I}$. Thus, these operators are not proper annihilation/creation operators. We now make an assumption on the form of the interaction Hamiltonian $H_I$:
+\begin{equation}
+    H_I = i\int_0^{+\infty} \sqrt{\frac{\kappa(\omega)}{2\pi}} \qty(c b_\omega^\dagger - c^\dagger b_\omega) \mathrm{d}\omega,
+\end{equation}
+where $c$ is the operator relative to the system $S$, and, $\kappa(\omega)$ is the coupling strength between $S$ and $E$. This linearity and crossing between adjoints terms in $H_I$ are from the Rotating Wave Approximation (RWA), valid for weak-coupling condition ($\forall \omega ; \kappa(\omega)<<1$). {\color{red} besoin validation de Bruno sur ça, pas sûr et certain}
+Using the interaction picture, {\color{red} why?}
+
+{\color{red} idée: carrément faire toute la démo OQS avec ce formalisme pour éviter de la faire 2x}
