@@ -1,29 +1,19 @@
 \appendix
+\setlength{\parskip}{2mm}\setlength{\parindent}{6mm}
 \renewcommand{\thesubsection}{\thesection.\alph{subsection}\char41}
 \numberwithin{equation}{section}
 \renewcommand{\theequation}{\thesection.~\arabic{equation}}
-\setlength{\parskip}{2mm}
-\setlength{\parindent}{2mm}
 \section{Representations of quantum mechanics}\label{representations}
-\noindent
-\textbf{Complement of quantum mechanics:}\\
+\subsection*{Brief complement of quantum mechanics}
 An average is defined in quantum mechanics by
 \begin{align*}
     \expval{O}_\psi&=\expval{O}{\psi},\\
-    \expval{O}_\rho&=\Tr{\rho O}.
+    \expval{O}_\rho&=\Tr{\rho O},
 \end{align*}
-Both definitions are strictly equivalent, to show it, let us pick a pure state $\rho=\ketbra{\psi}$ and the base of an Hamiltonian $\qty{\phi_n}_{n\in I_\mathcal{H}}$:
-\begin{align*}
-    \expval{O}_\rho&=\Tr{\rho O}\\
-    &= \Tr{\ketbra{\psi} O}\\
-    &= \Tr{\expval{O}{\psi}}.
-\end{align*}
-However, trace of a scalar is equal to this scalar, thus,
-\begin{equation*}
-    \expval{O}_\rho = \expval{O}{\psi}.
-\end{equation*}
+where the subscripts $\ket{\psi}$ and $\rho$ refer respectively to the representation of pure states or
+to density matrix more general formalism. 
 \subsection{Schrödinger and Heisenberg pictures}\noindent
-In this appendix we will denote the pictures with their acronyms, and, we lighten the notation of the total state $\rho_T\equiv\rho$ here. This could be misleading: $S$ in this appendix stands for \textit{``in the Schrödinger picture''}, whereas, $S$ in the main chapters means \textit{``state of the system S''}.\par
+In this appendix we denote the pictures with their acronyms and lighten the notation of the total state $\rho_T\equiv\rho$. However, this could be misleading because $S$ in this appendix stands for \textit{``in the Schrödinger picture''}, whereas, $S$ in the main chapters means \textit{``state of the system S''}. Nevertheless, we only consider the state in a closed quantum system in the following so we cannot encounter that kind of situation.
 
 In the Schrödinger picture we saw that $\ket{\psi(t)}=U(t)\ket{\psi}$, where $U(t)=e^{-\frac{i}{\hbar}Ht}$ in the case of a time-independent Hamiltonian with $t_0=0$. Nevertheless, the following results can be derived in the general case of a time dependent Hamiltonian,~\cite{Breuer}. Considering the average value of an observable $A_S(t)$ in the Schrödinger picture, we find
 \begin{align}
@@ -38,7 +28,7 @@ This link can even lead to the famous \textit{Ehrenfest theorem} for quantum mec
 \begin{equation}
     \boxed{\dert{\expval{A}}=\frac{i}{\hbar}\expval{\qty[H(t),A(t)]}+\expval{\derpart{A}}}.
 \end{equation}
-We observe that if the observable doesn't depend explicitly on time (thus constant), then the dynamics of the operator is fully describe by the Heisenberg representation. 
+We observe that if the observable doesn't depend explicitly on time (thus constant), then the dynamics of the operator are fully described by the Heisenberg Eq.~(\ref{eq:HSlink}).
 
 \subsection{Interaction picture}\noindent
 As mentioned in~\ref{OQS}, we use perturbation theory to describe the interaction between the system $S$ and the environment $E$,

@@ -1,32 +1,11 @@
 \subsection[Open quantum systems]{Open Quantum Systems (OQS)}\label{OQS}
-\setlength{\parskip}{2mm}
-In the previous part, we saw that one can fully describe a system, observables, states and their evolution. We recall that this description is ideal in the sense that the system is considered to be completely isolated from any interaction with its environment. %The previous description applies to the ideal case, ...
-In this section, we introduce the concepts of OQS which lead to a more physical description of quantum mechanics.\par
-It is important to understand that the total system is a closed system, the total system space is mathematically $\mathcal{H} % on tronque localement pour définir E 
-_T=\mathcal{H}_S\otimes\mathcal{H}_E$~. The total system $T$ thus follows a unitary time evolution, but, it is not the case for the physical system of interest $S$. Another of dynamics will arise for $S$ due to its coupling with $E$.
-this is why we call $S$ an open quantum system.\par %mal dit
+\setlength{\parskip}{2mm}\setlength{\parindent}{6mm}
+In the previous part, we saw that one can fully describe a system, observables, states and their evolution, however, this description applies to the ideal case where the quantum system is considered isolated from any external interaction. That is why we will introduce in this section the concepts of OQS.
 
-By following the formalism of reference~\cite{Breuer}, we need to jump in a different representation of the equations: the interaction picture. %Pour ??
-In the \textit{Schrödinger} picture, states evolve with respect to time, observables can be constants or depend explicitly on time. Instead, in the \textit{Heisenberg} picture it is the opposite, observables carry the whole dynamics and states are constants (see Eq.~\ref{eq:HSlink}). The interaction picture is a mix of both, where states and observables are functions of time.\par
+In the OQS theory, a system is considered to interact locally with its environment, which itself interacts with a wider environment, etc\ldots To avoid considering infinite chains of interaction, the theory truncates the environment to a local vicinity of the system. Thus, we approximate the total system $T$ as a closed quantum system, whereas the quantum system of interest $S$ couples with its environment $E$ and is called a quantum open system. This coupling with the environment thus gives rise to a dynamical regime distinct from that of closed quantum systems. Fundamentally, the Hilbert space of study is divided into $\mathcal{H}_T=\mathcal{H}_S\otimes\mathcal{H}_E$. 
 
-Interaction picture begins with the perturbation theory, where we split the Hamiltonian in two parts, the free Hamiltonian $H_0$ and the interaction Hamiltonian $H_I$ %Réécrire
-\begin{align}
-    H_T &= \overbrace{H_S\otimes\mathbb{I}_E+\mathbb{I}_S\otimes H_E}^{H_0}+H_I\label{eq:Htotal}\\
-    U(t,t_0) &= U_0(t,t_0)U_I(t,t_0)\label{eq:Utotal}
-\end{align}
-We define the interaction Hamiltonian by,
-\begin{align}
-    E_n(t) &= U^\dagger_0(t)E_n U_0(t)\\
-    H_I(t) &= \sum_{n\in I_\mathcal{H}}\overbrace{\ketbra{n}{n}}^{A_n}\otimes E_n(t)
-\end{align}
-We can then find the useful following relations:
-\begin{align}
-    \tilde{\rho}(t)&=U_I(t)\rho_{S}U_I^\dagger(t)= U^\dagger_0(t)\rho_S(t)U_0(t)\label{eq:rhoIP}\\
-    \tilde{O}(t) &= U_0^\dagger(t)O_S(t)U_0(t)\label{eq:OIP}
-\end{align}
+REWRITE
 
-One can then find the equation that governs the dynamics of $\rho_S$\footnote{Here and in the following, $\rho_S$ is the state of the system obtained by tracing out the environnement from the total state: $\rho_S=\mathrm{Tr}_E\, [\rho]$} in the \textit{Schrödinger picture} by making progress in the \textit{interaction picture}. We call this equation the \textit{Redfield Master Equation} but its expression is analytically formal. To go further, one needs to make important assumptions known as the \textit{Born-Markov} approximations and the \textit{secular} approximation.\par
-\newpage
 $\blacklozenge\quad$The \textit{Born} approximation consists in saying that the environment acts as a thermodynamical reservoir, \textit{i.e.}, the environment is so big compared to the system that the interaction does not alter its state:
 \begin{equation}
     \tilde{\rho}_T(t) = \tilde{\rho}_S(t)\otimes\rho_E
