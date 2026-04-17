@@ -1,4 +1,4 @@
-\subsection[Quantum measurement theory]{Quantum Measurement Theory (QMT)}\setlength{\parindent}{6mm}
+\subsection[Quantum measurement theory]{Quantum Measurement Theory (QMT)}\label{sec:qmt}\setlength{\parindent}{6mm}
 \noindent
 In the QMT~\cite{W94,W96}, measuring consists in applying a projector to a state, so, we call this process a \textit{projective measurement}. The set of projective measurements is called a Projection-Valued Measure (PVM)~\cite{Holevo}. For the sake of simplicity, we work --- as until now --- with non-degenerate spectra for the observables. Since an observable has a set of eigenvectors $\qty{\ket{a_n}}_{n\in I_\mathcal{H}}$, we can build a projector corresponding to one of them:
 \begin{equation}
@@ -19,10 +19,10 @@ To represent the quantum mechanics definition of a measurement, the projective m
 where the subscripts $\ket{\psi}$ and $\rho$ refer respectively to the representation of pure states or
 to density matrix more general formalism.
 \begin{align}
-    \tilde{\ket{\psi_{a_n}}} &= P_{a_n}\ket{\psi},\\
-    \tilde{\rho_{a_n}} &= P_{a_n}\rho P_{a_n}.
+    \overline{\ket{\psi_{a_n}}} &= P_{a_n}\ket{\psi},\\
+    \overline{\rho_{a_n}} &= P_{a_n}\rho P_{a_n}.
 \end{align}
-Here the $\tilde{\bullet}$ symbol means that the state is not normalized, which will be an important notation for later, see Section~\ref{sec:MCWF}. By normalizing we find the proper expression of a state after a measurement with result $a_n$:
+Here the $\overline{\bullet}$ symbol means that the state is not normalized, which will be an important notation for later, see Section~\ref{sec:MCWF}. By normalizing we find the proper expression of a state after a measurement with result $a_n$:
 \begin{align}
     \ket{\psi_{a_n}}&=\frac{P_{a_n}\ket{\psi}}{\sqrt{\expval{P_{a_n}}{\psi}}},\\
     \rho_{a_n} &= \frac{P_{a_n}\rho P_{a_n}}{\Tr{\rho P_{a_n}}}.
