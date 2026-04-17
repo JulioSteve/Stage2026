@@ -1,26 +1,10 @@
 \subsection[Open quantum systems]{Open Quantum Systems (OQS)}\label{OQS}
 \setlength{\parskip}{2mm}\setlength{\parindent}{6mm}
-\subsubsection{Finding master equations in a nutshell}
 In the previous part, we saw that one can fully describe a system, observables, states and their evolution, however, this description applies to the ideal case where the quantum system is considered isolated from any external interaction. Instead, in the OQS theory systems interact locally with an environment, which itself interacts with a wider environment, etc\ldots To avoid considering infinite chains of interaction, the theory truncates the environment to a local vicinity of the system. Thus, we approximate the total system $T$ as a closed quantum system, whereas the quantum system of interest $S$ couples with its environment $E$ and is called a quantum open system. This coupling with the environment thus gives rise to a dynamical regime distinct from that of closed quantum systems. Fundamentally, the Hilbert space of study is divided into $\mathcal{H}_T=\mathcal{H}_S\otimes\mathcal{H}_E$. 
 
-REWRITE
-
-$\blacklozenge\quad$The \textit{Born} approximation consists in saying that the environment acts as a thermodynamical reservoir, \textit{i.e.}, the environment is so big compared to the system that the interaction does not alter its state:
+We will now follow a certain approach~\cite{Albarelli} in the derivation of the Lindblad master equation, using the \textit{input-output formalism}~\cite{GardinerCollett}. However, it is possible to use the \textit{collisional-model} instead~\cite{Ciccarello2017,Ciccarello2022}. Since a full derivation of the input-output formalism is mathematically challenging, we only state its key equations and provide physical intuition. Further details are available in the Appendix~\ref{ann:IOF}. The approach is not the standard approach to derive the results of OQS, but, it is already aiming towards continuous measurements. In order to lighten formulae, we rescale following units so that $\hbar=1$. We firstly define the Hamiltonian of the environment by
 \begin{equation}
-    \tilde{\rho}_T(t) = \tilde{\rho}_S(t)\otimes\rho_E
-\end{equation}
-It describes a so-called ``weak-coupling'' between the system and the environment.\par
-
-$\blacklozenge\quad$The \textit{Markov} approximation assures that the entire system has no memory. That is to say, the environment is so rapidly agitating that it dissipates information of the system instantaneously. This implies that the environment comes back to equilibrium instantaneously after each interaction. Physically, the timescale of the reservoir correlation function decay $\tau_E$ is smaller than the timescale $\tau_R$ on which the system varies ``appreciably''.\par %inexact
-These two last approximations lead to the \textit{Markovian quantum master equation}.\par
-$\blacklozenge\quad$The \textit{secular} approximation allows the possibility to neglect rapidly oscillating terms in the quantum \textit{Markov} master equation.
-
-\subsubsection{Lindblad master equation using the input-output formalism}\noindent
-We will now follow a certain approach~\cite{Albarelli} in the derivation of the Lindblad master equation, using the \textit{input-output formalism}~\cite{GardinerCollett}. However, it is possible to use the \textit{collisional-model} instead~\cite{Ciccarello2017,Ciccarello2022}. Since a full derivation of the input-output formalism is mathematically challenging, we only state its key equations and provide physical intuition. Further details are available in the Appendix~\ref{ann:IOF}. In order to lighten formulae, we rescale following units so that $\hbar=1$.
-
-We firstly define the Hamiltonian of the environment by
-\begin{equation}
-    \int_0^{+\infty} b^\dagger_\omega b_\omega \omega\mathrm{d}\omega,
+    H_E=\int_0^{+\infty} b^\dagger_\omega b_\omega \omega\mathrm{d}\omega,
 \end{equation}
 where the operators of the environment $b_\omega$ satisfy $\qty[b_\omega, b_\omega^\dagger]=\delta(\omega-\omega')\neq\mathbb{I}$. Thus, these operators are not proper annihilation/creation operators. We now make an assumption on the form of the interaction Hamiltonian $H_I$:
 \begin{equation}
