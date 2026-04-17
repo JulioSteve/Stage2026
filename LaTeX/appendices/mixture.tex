@@ -1,0 +1,53 @@
+\appendix
+\setlength{\parskip}{2mm}\setlength{\parindent}{6mm}
+\renewcommand{\thesubsection}{\thesection.\alph{subsection}\char41}
+\numberwithin{equation}{section}
+\renewcommand{\theequation}{\thesection.~\arabic{equation}}
+\section{Superposition of states VS statistical mixture}\label{ann:statmix}\noindent
+In order to illustrate the concepts of superposition of states and statistical mixture, let us consider to observables $A,B$ such that
+\begin{align*}
+    \forall i\in\qty{1,2},\quad A\ket{\phi_i}&=a_i\ket{\phi_i},\\
+    \forall i\in\qty{1,2},\quad B\ket{\psi_i}&=b_i\ket{\psi_i}.
+\end{align*}
+We can define a state $\ket{\Psi}$ in superposition of the eigenstates of the observable $B$:
+\begin{equation}
+    \boxed{\ket{\Psi} = \lambda_1\ket{\psi_1}+\lambda_2\ket{\psi_2}},
+\end{equation}
+where $\qty(\lambda_1,\lambda_2)\in\mathbb{C}^2$ such that $\abs{\lambda_1}^2+\abs{\lambda_2}^2=1$. We thus observe the result $b_i$ with following probability
+\begin{equation}
+    \forall i\in\qty{1,2},\quad\mathbb{P}_\Psi[b_i]=\abs{\braket{\psi_i}{\Psi}}^2=\abs{\lambda_i}^2\equiv p_i.
+\end{equation}
+If now we measure the system in order to find one of the eigenvalues of $A$, $a_1$ for example, we find
+\begin{align}
+    \mathbb{P}_\Psi[a_1] &= \abs{\braket{\phi_1}{\Psi}}^2\\
+    &= \abs{\lambda_1\braket{\phi_1}{\psi_1}+\lambda_2\braket{\phi_1}{\psi_2}}^2\notag.
+\end{align}
+Moreover, by observing that $\forall i\in\qty{1,2},\quad\mathbb{P}_{\psi_i}[a_1]=\abs{\braket{\phi_1}{\psi_i}}^2$, we finally find that
+\begin{equation}
+    \boxed{\mathbb{P}_\Psi[a_1] = p_1\mathbb{P}_{\psi_1}[a_1]+p_2\mathbb{P}_{\psi_2}[a_1] + 2\Re{\lambda_1\lambda_2^*\braket{\phi_1}{\psi_1}\braket{\phi_1}{\psi_2}^*}}.
+\end{equation}
+We will now prepare a state with the same probabilities $\mathbb{P}[b_i]\equiv p_i$ but which is completely different.
+
+A statistical mixture can be well understood by the following thought experiment:
+\begin{itemize}
+    \item We want to prepare $N$ states in total using the eigenstates $\qty{\psi_1,\psi_2}$ of $B$.
+    \item We prepare $n_1$ states in $\ket{\psi_1}$.
+    \item We prepare $n_2$ states in $\ket{\psi_2}$, so $n_1+n_2=N$.
+\end{itemize}
+At this point, we have a set of $N$ systems that we can use. However, if we pick a state randomly the probability to pick $\ket{\psi_i}$ depends on the fraction of it $p_i=\frac{n_i}{N}$. This fraction $p_i$ coincides theoretically with the previous probability $P_\Psi[b_i]$ for the superposition of states: it represents the probability to find the state $\ket{\psi_i}$ from the general state. If we now use the observable $A$ to measure the system we picked, the probability to find the result $a_1$ becomes
+\begin{equation*}
+    \mathbb{P}_\mathrm{sm}[a_1] = \frac{n_1\mathbb{P}_{\psi_1}[a_1]+n_2\mathbb{P}_{\psi_2}[a_1]}{N} = p_1\mathbb{P}_{\psi_1}[a_1]+p_2\mathbb{P}_{\psi_2}[a_1],
+\end{equation*}
+by using the law of total probability. Therefore,
+\begin{equation}
+    \boxed{\mathbb{P}_\mathrm{sm}[a_1] =p_1\mathbb{P}_{\psi_1}[a_1]+p_2\mathbb{P}_{\psi_2}[a_1]}.
+\end{equation}
+By comparing the last two boxed equations, one can realize that the mathematical expression for the same probability is written differently depending on if we use a superposition of states or a statistical mixture. However, the probability of the statistical mixture is present in the expression of probability of the superposition of states. This difference of formula for the same probability therefore proves that the Dirac formalism $\ket{\psi}$ cannot represent the kind of system whose probability comes from a statistical mixture. It is in fact impossible to represent a statistical mixture with a pure state. Instead, we need to use the density matrix 
+\begin{equation}
+    \rho_\mathrm{sm} = p_1\ketbra{\psi_1}+p_2\ketbra{\psi_2},
+\end{equation} 
+so that,
+\begin{equation}
+    \mathbb{P}_{\rho_\mathrm{sm}}[a_1] = p_1\mathbb{P}_{\psi_1}[a_1]+p_2\mathbb{P}_{\psi_2}[a_1],
+\end{equation}
+because by definition $\mathbb{P}_{\rho_\mathrm{sm}}[a_1]=\Tr{\rho_\mathrm{sm}\ketbra{\phi_1}}$.
