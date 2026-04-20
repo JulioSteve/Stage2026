@@ -37,18 +37,18 @@ Since $\qty{\ket{\phi_n}}_\nIH$ forms a basis of the Hilbert space, one can desc
 \end{equation}
 where $c_n=\braket{\phi_n}{\psi}$. This kind of description in a base is obviously valid for any observable, not only for the Hamiltonian. 
 
-Finally, let us mention the normalization of a state which is important to handle scalar products properly. To normalize a state, we set $\norm{\psi}=\sqrt{\braket{\psi}{\psi}}=1$, the condition $\braket{\psi}{\psi}=\sum_n |c_n|^2=1$ being thus equivalent.
+Finally, we want to mention the necessity of normalizing states, which is important when calculating probabilities (Section~\ref{sec:qmt} makes this obvious). In order to normalize a state, one needs to set $\norm{\psi}=\sqrt{\braket{\psi}{\psi}}=1$, which is equivalent to the condition $\braket{\psi}{\psi}=\sum_n |c_n|^2=1$.
 
 \subsubsection{Purity of states}\noindent
-The concept of pure state arises from the need to write the state of a system in a different way than that used so far in this document. In particular, if one prepares a state in a statistical mixture it is impossible to write this state as $\ket{\psi}$\footnote{Further details are present in the Appendix~\ref{ann:statmix}, we however recommend to read the Section~\ref{sec:qmt} on quantum measurement theory before.}. Therefore, a new formalism to describe states appeared which defines density matrices $\rho$.
+The concept of \textit{pure state} arises from the necessity to write the state of a system in a different way than that used so far in this document. Indeed, certain ways of preparing a system --- such as a statistical mixture\footnote{In the Appendix~\ref{ann:statmix}, we explain how to prepare a system as a statistical mixture or as a superposition of states. However, we recommend to read the Section~\ref{sec:qmt} on quantum measurement theory before.}--- require another formalism because such processes prevent the state of the system from being expressed as a single $\ket{\psi}$ (or as a superposition of state vectors). To take into account such cases, we introduce the density matrix hereafter.
 
-A density matrix $\rho$ is an operator of the Hilbert space $\mathcal{H}$ and of its dual $\mathcal{H^*}$ which follows a set of properties:
+A density matrix $\rho$ is an operator of the Hilbert space $\mathcal{H}$ (and also an operator of the dual space $\mathcal{H^*}$), which follows a set of properties:
 \begin{itemize}\label{prop:rho}
     \item $\rho$ is Hermitian: $\rho=\rho^\dagger$, implying it can be diagonalized and necessarily with a positive eigenvalues, $\mathrm{Sp}(\rho)\subset\mathbb{R^+}$.
     \item $\Tr{\rho}=1$ necessarily.
     \item $\rho$ is positive semi-definite: $\forall\ket{\psi}\in\mathcal{H},\quad \expval{\rho}{\psi}\geq 0$.
 \end{itemize}
-This density matrix formalism is particularly useful because it generalizes Dirac formalism. Indeed, if a state can be written as $\ket{\psi}$ then $\rho=\ketbra{\psi}$ and we call it a \textbf{pure state}. Otherwise, the state is non-pure and can only be written as a density matrix. Also, pure states follow stronger properties: $\rho^2=\rho$ by construction which implies that $\Tr{\rho^2}=\Tr{\rho}=1$ for pure states.
+This density matrix formalism is particularly useful because it generalizes Dirac formalism. Indeed, if a state can be written as $\ket{\psi}$ then $\rho=\ketbra{\psi}$ and we call it a \textbf{pure state}. Otherwise, the state is non-pure and can only be expressed with a density matrix. Also, pure states satisfy stronger properties than those defining a general density matrix; specifically, being idempotent $\rho^2=\rho$ by construction, implying that $\Tr{\rho^2}=\Tr{\rho}=1$ in the case of pure states.
 \subsubsection{Postulates of quantum mechanics}\noindent
 Physicists developed a corpus of the main properties of quantum mechanics, here are summarized the so-called postulates of quantum mechanics~\cite{CT}:
 \begin{enumerate}
