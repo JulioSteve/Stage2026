@@ -59,11 +59,11 @@ Physicists developed a corpus of the main properties of quantum mechanics, here 
     \item If the measurement of the physical quantity $\mathcal{A}$ on the system gives the result $a_n$, the state of the system immediately after the measurement collapses into the eigenstate $\ket{\phi_n}$.
     \item The time evolution of the wavefunction $\ket{\psi(t)}$ is governed by the \textit{Schrödinger} equation:
     \begin{equation}
-    \frac{\mathrm{d}\ket{\psi(t)}}{\mathrm{d} t}=-\frac{i}{\hbar}H(t)\ket{\psi(t)}
+    \frac{\mathrm{d}\ket{\psi(t)}}{\mathrm{d} t}=-\frac{i}{\hbar}H(t)\ket{\psi(t)}.
     \end{equation}
-    For density matrices, the evolution is driven by the \textit{Liouville-von Neumann} equation\footnote{$[\hat{A},\hat{B}]=\hat{A}\hat{B}-\hat{B}\hat{A}$ is the commutator of $\hat{A}$ and $\hat{B}$}:
-    \begin{equation}
-        \frac{\mathrm{d}\rho}{\mathrm{d}t}(t) = -\frac{i}{\hbar}\left[ H(t),\rho(t)\right]\equiv\mathcal{L}(t)\rho(t)
+    For density matrices, the evolution is driven by the \textit{Liouville-von Neumann} equation:
+    \begin{equation}\label{eq:Liouville}
+        \frac{\mathrm{d}\rho}{\mathrm{d}t}(t) = -\frac{i}{\hbar}\left[ H(t),\rho(t)\right]\footnotemark[1].
     \end{equation}
-    
+    \footnotetext[1]{$[\hat{A},\hat{B}]=\hat{A}\hat{B}-\hat{B}\hat{A}$ is called the commutator of $\hat{A}$ and $\hat{B}$.}
 \end{enumerate}
