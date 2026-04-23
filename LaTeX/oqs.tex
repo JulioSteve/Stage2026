@@ -19,17 +19,17 @@ where $c$ is the system operator, and, $k(\omega)$ is the coupling strength betw
 \end{equation}
 By switching to the interaction picture (detailed in the Appendix~\ref{ann:pictures}), we can get rid of the free dynamics governed by $H_0$. Indeed, the Liouville-von Neumann Eq.~(\ref{eq:Liouville}) becomes
 \begin{equation}
-    \dert{\tilde{\rho}}=-\frac{i}{\hbar}\qty[\tilde{H}_I,\tilde{\rho}].
+    \dert{\tilde{\rho}}=-\frac{i}{\hbar}\qty[\tilde{H}_I,\tilde{\rho}],
 \end{equation}
-We define the input field operator $b_t$ of the environment as
+where the expression of the interaction Hamiltonian in the interaction picture will be shown below. To do so, we define the input field operator $b_t$ of the environment as
 \begin{equation}
     b_t = \frac{1}{\sqrt{2\pi}}\int_\mathcal{W} b_\omega e^{-i(\omega-\omega_0)(t-t_0)}\mathrm{d}\omega,
 \end{equation}
 where $\mathcal{W}=\qty[\omega_0-\nu;\omega_0+\nu]$ is a bandwidth centered around the natural frequency $\omega_0$ of the system. By stating $\mathcal{W}$ is large enough ($\nu$ is bigger than any typical frequency of the dynamics) and that $\omega_0\gg\nu$, we can state that $\mathcal{W}\approx\mathbb{R}$. By injecting this definition into Eq.~(\ref{eq:IHamiltonian}), we can obtain the expression of the interaction Hamiltonian in the interaction picture:
 \begin{equation}\label{eq:H_Ipicture}
-    \tilde{H}_I(t) = i\hbar\sqrt{k(\omega)}(cb_t^\dagger-c^\dagger b_t).
+    \tilde{H}_I(t) = i\hbar\sqrt{k(\omega)}(\tilde{c}b_t^\dagger-\tilde{c}^\dagger b_t),
 \end{equation}
-We can assume working in a frequency domain $\mathcal{W}$ where the interaction is strongly localized in space. This way we assume the coupling strength abides to $\forall \omega\in\mathcal{W},\quad k(\omega)\equiv k$ and is negligible outside of $\mathcal{W}$; this is called the \textit{First Markovian approximation}. Note that this approximation is only appreciable when considering weak-coupling $k\ll\nu\ll\omega_0$. The input modes $b_t$ follow a delta-commutation relation $\qty[b_t,b_t^\dagger]=\delta(t-t')$ in the time domain. They are called input modes because the input-output theory explicitly shows that they can be seen as inputs of the system~\cite{GardinerCollett}. For each time $t$, we can define the corresponding input mode of the environment $b_{in}(t)$ and calculate the output mode $b_{out}(t)$, resulting from the coupling with the system. However, due to the \textit{Born approximation} the output state of the environment is considered equal to the input {\color{red} to confirm\ldots}. This approximation is explicitly stating that
+where $\tilde{c}=U_0^\dagger(t,t_0)c U_0(t-t_0) e^{i\omega_0 (t-t_0)}$. We can assume working in a frequency domain $\mathcal{W}$ where the interaction is strongly localized in space. This way we assume the coupling strength abides to $\forall \omega\in\mathcal{W},\quad k(\omega)\equiv k$ and is negligible outside of $\mathcal{W}$; this is called the \textit{First Markovian approximation}. Note that this approximation is only appreciable when considering weak-coupling $k\ll\nu\ll\omega_0$. The input modes $b_t$ follow a delta-commutation relation $\qty[b_t,b_t^\dagger]=\delta(t-t')$ in the time domain. They are called input modes because the input-output theory explicitly shows that they can be seen as inputs of the system~\cite{GardinerCollett}. For each time $t$, we can define the corresponding input mode of the environment $b_{in}(t)$ and calculate the output mode $b_{out}(t)$, resulting from the coupling with the system. However, due to the \textit{Born approximation} the output state of the environment is considered equal to the input {\color{red} to confirm\ldots}. This approximation is explicitly stating that
 \begin{equation}
     \tilde{\rho}_T(t) = \tilde{\rho}_S(t)\otimes\rho_E,
 \end{equation}
@@ -67,7 +67,7 @@ Furthermore, we can rewrite the Eq.~(\ref{eq:lienBW}), using Eq.~(\ref{eq:dW}), 
 \end{equation}
 For the sake of clarity, the stochastic increments $\mathrm{d}B_t$ are not proper differential and in this sense, the notation is reduced to $B_t$ in the rest of this work. This decision is also motivated by the fact the previous definition of $B_t$ is never used again further below.
 \subsubsection{The Lindblad master equation}\noindent
-At this point, the formalism needed is complete enough to calculate the evolution of the state of the total system. So, it evolves in an infinitesimal time $\mathrm{d}t$ as
+At this point, we presented enough formalism to calculate the evolution of the state of the total system. So, we can apply an unitary evolution operator on the state of the system $T$ which evolves in an infinitesimal time $\mathrm{d}t$ as
 \begin{equation}\label{eq:rhoT}
     \tilde{\rho}_T(t+dt) =U_t(\mathrm{d}t)(\overbrace{\tilde{\rho}_S(t)\otimes\ketbra{0}}^{\tilde{\rho}_T(t)})U_t^\dagger(\mathrm{d}t),
 \end{equation}
@@ -77,31 +77,31 @@ where $U(t+\mathrm{d}t,t)=e^{-\frac{i}{\hbar}\tilde{H}_I(t)\mathrm{d}t}\equiv U_
 \end{equation}
 As we saw in the last section, we can use the annihilation/creation operators $B_t$/$B_t^\dagger$. By injecting results concerning these operators to the interaction Hamiltonian in the interaction picture, Eq.~(\ref{eq:H_Ipicture}), the expression of the unitary evolution operator becomes
 \begin{equation}
-    U_t(\mathrm{d}t)=\exp\qty[\sqrt{k\mathrm{d}t}\qty(c\otimes B_t^\dagger-c^\dagger\otimes B_t)].
+    U_t(\mathrm{d}t)=\exp\qty[\sqrt{k\mathrm{d}t}\qty(\tilde{c}\otimes B_t^\dagger-\tilde{c}^\dagger\otimes B_t)].
 \end{equation}
 The subtlety here is that the unitary evolution operator is depending on $\sqrt{\mathrm{d}t}$ in particular. So we should expand it to the second order (thus up to $\mathrm{d}t$), obtaining
 \begin{multline}
-    U_t(\mathrm{d}t)\approx\mathbb{I}\otimes\mathbb{I}+\qty(c\otimes B_t^\dagger-c^\dagger\otimes B_t)\sqrt{k\mathrm{d}t}+\\
-    \qty(c^{\dagger 2}\otimes B_t^2 + c^2\otimes B_t^{\dagger 2}-c c^\dagger\otimes B_t^\dagger B_t - c^\dagger c\otimes B_t B_t^\dagger)\frac{k\mathrm{d}t}{2}.
+    U_t(\mathrm{d}t)\approx\mathbb{I}\otimes\mathbb{I}+\qty(\tilde{c}\otimes B_t^\dagger-\tilde{c}^\dagger\otimes B_t)\sqrt{k\mathrm{d}t}+\\
+    \qty(\tilde{c}^{\dagger 2}\otimes B_t^2 + \tilde{c}^2\otimes B_t^{\dagger 2}-\tilde{c} \tilde{c}^\dagger\otimes B_t^\dagger B_t - \tilde{c}^\dagger \tilde{c}\otimes B_t B_t^\dagger)\frac{k\mathrm{d}t}{2}.
 \end{multline}
 We can rewrite the evolution of $\rho_T$ in the infinitesimal time $\mathrm{d}t$, Eq.~(\ref{eq:rhoT}), using the previous expansion:
 \begin{align}
     \tilde{\rho}_T(t+\mathrm{d}t)&=\tilde{\rho}_S(t)\otimes\ketbra{0}\notag\\
-    &+\qty(\tilde{\rho}_S(t) c^\dagger\otimes\ketbra{0}{1}+\mathrm{h.c.})\sqrt{k\mathrm{d}t}\notag\\
-    &+\qty{c\tilde{\rho}_S(t) c^\dagger\otimes\ketbra{1}+\qty[\sqrt{2}\qty(\tilde{\rho}_S(t) c^{\dagger 2}\otimes\ketbra{0}{2})-\tilde{\rho}_S(t) c c^\dagger\otimes\ketbra{0}+\mathrm{h.c.}]}k\mathrm{d}t.
+    &+\qty(\tilde{\rho}_S(t) \tilde{c}^\dagger\otimes\ketbra{0}{1}+\mathrm{h.c.})\sqrt{k\mathrm{d}t}\notag\\
+    &+\qty{\tilde{c}\tilde{\rho}_S(t) \tilde{c}^\dagger\otimes\ketbra{1}+\qty[\sqrt{2}\qty(\tilde{\rho}_S(t) \tilde{c}^{\dagger 2}\otimes\ketbra{0}{2})-\tilde{\rho}_S(t) \tilde{c} \tilde{c}^\dagger\otimes\ketbra{0}+\mathrm{h.c.}]}k\mathrm{d}t.
 \end{align}
 By tracing out the environment, the evolution of the system $S$ is
 \begin{equation*}
-    \tilde{\rho}_S(t+\mathrm{d}t)=\tilde{\rho}_S(t)+\qty[c\tilde{\rho}_S(t)c^\dagger - c^\dagger c\tilde{\rho}_S(t) - \tilde{\rho}_S(t)cc^\dagger]k\mathrm{d}t;
+    \tilde{\rho}_S(t+\mathrm{d}t)=\tilde{\rho}_S(t)+\qty[\tilde{c}\tilde{\rho}_S(t)\tilde{c}^\dagger - \tilde{c}^\dagger \tilde{c}\tilde{\rho}_S(t) - \tilde{\rho}_S(t)\tilde{c}\tilde{c}^\dagger]k\mathrm{d}t;
 \end{equation*}
 which we can rewrite directly as a proper differential equation:
 \begin{equation}
-    \frac{\mathrm{d}\tilde{\rho}_S}{\mathrm{d}t}(t)=k\mathcal{D}[c]\tilde{\rho}(t),
+    \frac{\mathrm{d}\tilde{\rho}_S}{\mathrm{d}t}(t)=k\mathcal{D}[\tilde{c}]\tilde{\rho}_S(t),
 \end{equation}
 where, we used the super-operator $\mathcal{D}[\hat{O}]\bullet\equiv \hat{O}\bullet\hat{O}^\dagger-\frac{\qty{\hat{O}^\dagger\hat{O},\bullet}}{2}^{\footnotemark}$.
 \footnotetext{We define the anticommutator between two operators $A$ and $B$ as $\qty{A,B}=AB+BA$.}
 All in all, by coming back to the Schrödinger representation, we find the so-called {Lindblad master equation} stating that
 \begin{equation}
-    \boxed{\frac{\mathrm{d}\rho_S}{\mathrm{d}t}(t)=-\frac{i}{\hbar}\qty[H_0, \rho_S(t)]+k\mathcal{D}[c]\rho(t)}.
+    \boxed{\frac{\mathrm{d}\rho_S}{\mathrm{d}t}(t)=-\frac{i}{\hbar}\qty[H_0, \rho_S(t)]+k\mathcal{D}[c]\rho_S(t)}.
 \end{equation}
 One can generalize this simple version of the Lindblad master equation in a multi-mode demonstration, where we would consider a temporal mode $b_t^{(i)}$ for each operator of the system $c_i$~\cite{Albarelli}.
