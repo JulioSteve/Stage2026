@@ -1,11 +1,11 @@
 \subsection[Open quantum systems]{Open Quantum Systems (OQS)}\label{OQS}
 \setlength{\parskip}{2mm}\setlength{\parindent}{6mm}\noindent
-In the previous part, we saw that one can fully describe a system, observables, states and their evolution. However, this description applies to the ideal case where the quantum system is considered isolated from any external interaction. Instead, in the OQS theory systems interact locally with an environment, which itself interacts with a wider environment, etc\ldots To avoid considering infinite chains of interaction, the theory truncates the environment to a local vicinity of the system. Thus, we approximate the total system $T$ as a closed quantum system, within which the quantum system of interest $S$ is called a quantum open system. Moreover, as explained, $S$ couples with its environment $E$, thus giving rise to a dynamical regime distinct from that of closed quantum systems.
+In the previous part, we saw that one can fully describe a system, observables, states and their evolution. However, this description applies to the ideal case where the quantum system is considered isolated from any external interaction. Instead, in the OQS theory systems interact locally with an environment, which itself interacts with a wider environment, etc\ldots To avoid considering infinite chains of interaction, the theory truncates the environment to a local vicinity of the system. Thus, we approximate the total system $T$ as a closed quantum system, within which the quantum system of interest $S$ is called a quantum open system. Moreover, as explained $S$ couples with its environment $E$, thus giving rise to a dynamical regime distinct from that of closed quantum systems.
 
 \subsubsection{Building the formalism}\noindent
 We will now follow a certain approach~\cite{Albarelli} in the derivation of the Lindblad master equation, using the \textit{input-output formalism}~\cite{GardinerCollett}. It is however possible to use the \textit{collisional model} instead~\cite{Ciccarello2017,Ciccarello2022}. Since a full derivation of the input-output formalism is mathematically challenging, we will only provide its key equations and their physical meaning; further details on the input-output theory are available in the Appendix~\ref{ann:IOF}. Furthermore, the approach of OQS followed here is not the standard approach~\cite{Breuer} that would derive every details, but, the chosen method points towards the results of continuous measurements. %From now on, in order to lighten formulae, physical units are rescaled so that $\hbar=1$.
 
-As a consequence of the explanations about system $S$ coupling with its environment $E$, the Hilbert space of study is divided into $\mathcal{H}_T=\mathcal{H}_S\otimes\mathcal{H}_E$. The system Hamiltonian $S$ depends on which physical system is studied, however, the formalism used states that the environment Hamiltonian is defined by
+As a consequence of the explanations about system $S$ coupling with its environment $E$, the Hilbert space of study is divided into $\mathcal{H}_T=\mathcal{H}_S\otimes\mathcal{H}_E$. So that $\rho_T(t)=\rho_S(t)\otimes\rho_E(t)$ is the state of the total system $T$. The system Hamiltonian $H_S$ depends on which physical system is studied and is thus let free. However, one can imagine the environment as a collection of quantum harmonic oscillators, the environment Hamiltonian being thus defined by
 \begin{equation}\label{eq:EHamiltonian}
     H_E=\int_0^{+\infty} \hbar\omega b^\dagger_\omega b_\omega\mathrm{d}\omega,
 \end{equation}
@@ -17,9 +17,9 @@ where $c$ is the system operator, and, $k(\omega)$ is the coupling strength betw
 \begin{equation}
     H_T = \overbrace{H_S\otimes\mathbb{I}_E+ \mathbb{I}_S\otimes H_E}^{H_0} + H_I.
 \end{equation}
-By switching to the interaction picture (detailed in the Appendix~\ref{ann:pictures}), we can get rid of the free dynamics governed by $H_0$. Indeed, the Liouville-von Neumann Eq.~(\ref{eq:Liouville}) becomes
+By switching to the interaction picture (detailed in the Appendix~\ref{ann:pictures}), we can get rid of the free dynamics governed by $H_0$. Indeed, in the interaction picture the Liouville-von Neumann Eq.~(\ref{eq:Liouville}) becomes
 \begin{equation}
-    \dert{\tilde{\rho}}=-\frac{i}{\hbar}\qty[\tilde{H}_I,\tilde{\rho}],
+    \dert{\tilde{\rho}_T}=-\frac{i}{\hbar}\qty[\tilde{H}_I,\tilde{\rho}_T],
 \end{equation}
 where the expression of the interaction Hamiltonian in the interaction picture will be shown below. To do so, we define the input field operator $b_t$ of the environment as
 \begin{equation}
@@ -88,11 +88,12 @@ We can rewrite the evolution of $\rho_T$ in the infinitesimal time $\dt$, Eq.~(\
 \begin{align}
     \tilde{\rho}_T(t+\dt)&=\tilde{\rho}_S(t)\otimes\ketbra{0}\notag\\
     &+\qty(\tilde{\rho}_S(t) \tilde{c}^\dagger\otimes\ketbra{0}{1}+\mathrm{h.c.})\sqrt{k\dt}\notag\\
-    &+\qty{\tilde{c}\tilde{\rho}_S(t) \tilde{c}^\dagger\otimes\ketbra{1}+\qty[\sqrt{2}\qty(\tilde{\rho}_S(t) \tilde{c}^{\dagger 2}\otimes\ketbra{0}{2})-\tilde{\rho}_S(t) \tilde{c} \tilde{c}^\dagger\otimes\ketbra{0}+\mathrm{h.c.}]}k\dt.
+    &+\qty(\tilde{c}\tilde{\rho}_S(t) \tilde{c}^\dagger\otimes\ketbra{1})k\dt\\
+    &+\qty[\sqrt{2}\qty(\tilde{\rho}_S(t) \tilde{c}^{\dagger 2}\otimes\ketbra{0}{2}+\mathrm{h.c.})-\qty(\tilde{\rho}_S(t) \tilde{c} \tilde{c}^\dagger\otimes\ketbra{0}+\mathrm{h.c.})]\frac{k\dt}{2}.
 \end{align}
 By tracing out the environment, the evolution of the system $S$ is
 \begin{equation*}
-    \tilde{\rho}_S(t+\dt)=\tilde{\rho}_S(t)+\qty[\tilde{c}\tilde{\rho}_S(t)\tilde{c}^\dagger - \tilde{c}^\dagger \tilde{c}\tilde{\rho}_S(t) - \tilde{\rho}_S(t)\tilde{c}\tilde{c}^\dagger]k\dt.
+    \tilde{\rho}_S(t+\dt)=\tilde{\rho}_S(t)+k\qty[\tilde{c}\tilde{\rho}_S(t)\tilde{c}^\dagger - \frac{\tilde{c}^\dagger \tilde{c}\tilde{\rho}_S(t)+\tilde{\rho}_S(t)\tilde{c}^\dagger\tilde{c}}{2}]\dt.
 \end{equation*}
 Let us rewrite this equation directly as a proper differential equation:
 \begin{equation}
