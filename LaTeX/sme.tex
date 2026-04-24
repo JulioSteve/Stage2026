@@ -1,8 +1,13 @@
-\section[Continuously measured quantum systems]{Continuously measured open quantum systems --\\ obtaining a Stochastic Master Equation (SME)}\noindent
-The graphical illustrations of this chapter are made on \verb|Julia| using \verb|QuantumToolbox.jl| in particular to simulate the dynamics and \verb|Plots.jl| to generate the graphs.
+\section{Continuously measured quantum systems}\noindent
+In the previous chapters, we guided the discussion in order to find the expression of the Lindblad master equation using the input-output formalism. The environment has been traced out to recover information on the system $S$ only, with a certain impact of its  with the environment in the dissipator $\mathcal{D}$. Now, we will continuously monitor the environment by measuring the quantum oscillator state of the environment, expressed as $B_t$. Also, two kind of measurements will be presented below, namely the photodetection and the homodyne detection. In each case, the reader will be able to find graphical illustrations accompanying the physical equations. These illustrations have been generated in \verb|Julia| using the packages \verb|QuantumToolbox.jl| to simulate dynamics, and \verb|Plots.jl| to generate graphs.
 
-\subsection{Photodetection SME/SSE}
+Before jumping into the explanations of each detection process, let us consider the steps from the last chapter (OQS theory) where we did not trace out the environment yet. That is to say, everything until Eq.~(\ref{eq:rhoT}). Let $\qty{\ketbra{j}}_j$ be a PVM (QMT~\ref{sec:qmt}), whose projector $\ketbra{j}$ is \textit{conditioning} the total system by the measurement result $j$. The expression of the conditional state of the total system $T$ at time $t+\dt$ is thus
+\begin{equation}
+    \rho_j^{(c)}(t+\dt)=\frac{\ketbra{j}\rho\ketbra{j}}{}
+\end{equation}
+\subsection{Photodetection}
+\subsubsection[Deriving the SME]{Deriving the Stochastic Master Equation (SME)}\noindent
 
-\subsection{Homodyne detection SME/SSE}
+\subsection{Homodyne detection}
 
 \subsection{Linear quantum trajectories}

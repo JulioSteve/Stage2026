@@ -8,7 +8,7 @@ In quantum mechanics a physical system's state is described by a vector in a Hil
 \end{equation}
 The Hamiltonian $\hat{H}$ is a specific Hermitian\footnote{$\hat{H}^\dagger=\hat{H}$, where $^\dagger$ denotes the conjugate transpose, defining the Hermitian adjoint. } operator representing classically the total energy of a system; this relationship will be detailed in Section~\ref{sec:obs}. Physically, the evolution of a system is governed by its energy, the \textit{Schrödinger equation} states it explicitly:
 \begin{equation}
-    i\hbar\frac{\mathrm{d}\ket{\psi(t)}}{\mathrm{d}t}=\hat{H}(t)\ket{\psi(t)}.
+    i\hbar\frac{\mathrm{d}\ket{\psi(t)}}{\dt}=\hat{H}(t)\ket{\psi(t)}.
 \end{equation}
 We can define a unitary\footnote{$\hat{U}\hat{U}^\dagger=\hat{U}^\dagger \hat{U}=\mathbb{I}$, where $\mathbb{I}$ is the identity.} operator $\hat{U}$ such that,
 \begin{equation}
@@ -42,8 +42,8 @@ Finally, we want to mention the necessity of normalizing states, which is import
 \subsubsection{Purity of states}\noindent
 The concept of \textit{pure state} arises from the necessity to write the state of a system in a different way than that used so far in this document. Indeed, certain ways of preparing a system --- such as a statistical mixture\footnote{In the Appendix~\ref{ann:statmix}, we explain how to prepare a system as a statistical mixture or as a superposition of states. However, we recommend to read the Section~\ref{sec:qmt} on quantum measurement theory before.}--- require another formalism because such processes prevent the state of the system from being expressed as a single $\ket{\psi}$ (or as a superposition of state vectors). To take into account such cases, we introduce the density matrix hereafter.
 
-A density matrix $\rho$ is an operator of the Hilbert space $\mathcal{H}$ (and also an operator of the dual space $\mathcal{H^*}$), which follows a set of properties:
-\begin{itemize}\label{prop:rho}
+A density matrix $\rho$ is an operator of the Hilbert space $\mathcal{H}$ (and also an operator of the dual space $\mathcal{H^*}$), which follows a set of properties:\label{prop:rho}
+\begin{itemize}
     \item $\rho$ is Hermitian: $\rho=\rho^\dagger$, implying it can be diagonalized and necessarily with a positive eigenvalues, $\mathrm{Sp}(\rho)\subset\mathbb{R^+}$.
     \item $\Tr{\rho}=1$ necessarily.
     \item $\rho$ is positive semi-definite: $\forall\ket{\psi}\in\mathcal{H},\quad \expval{\rho}{\psi}\geq 0$.
@@ -63,7 +63,7 @@ Physicists developed a corpus of the main properties of quantum mechanics, here 
     \end{equation}
     For density matrices, the evolution is driven by the \textit{Liouville-von Neumann} equation:
     \begin{equation}\label{eq:Liouville}
-        \frac{\mathrm{d}\rho}{\mathrm{d}t}(t) = -\frac{i}{\hbar}\left[ H(t),\rho(t)\right]\footnotemark[1].
+        \frac{\mathrm{d}\rho}{\dt}(t) = -\frac{i}{\hbar}\left[ H(t),\rho(t)\right]\footnotemark[1].
     \end{equation}
-    \footnotetext[1]{$[\hat{A},\hat{B}]=\hat{A}\hat{B}-\hat{B}\hat{A}$ is called the commutator of $\hat{A}$ and $\hat{B}$.}
 \end{enumerate}
+\footnotetext[1]{$[\hat{A},\hat{B}]=\hat{A}\hat{B}-\hat{B}\hat{A}$ is called the commutator of $\hat{A}$ and $\hat{B}$.}
