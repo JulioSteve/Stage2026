@@ -1,5 +1,5 @@
-\section{Representations of quantum mechanics}\label{ann:pictures}
-\subsection*{Brief complement of quantum mechanics}
+\chapter{Representations of quantum mechanics}\label{ann:pictures}
+\section*{Brief complement of quantum mechanics}
 An average is defined in quantum mechanics by
 \begin{align*}
     \expval{O}_\psi&=\expval{O}{\psi},\\
@@ -7,54 +7,62 @@ An average is defined in quantum mechanics by
 \end{align*}
 where the subscripts $\ket{\psi}$ and $\rho$ refer respectively to the representation of pure states or
 to density matrix more general formalism. 
-\subsection{Schrödinger and Heisenberg pictures}\noindent
-In this appendix we denote the pictures with their acronyms and lighten the notation of the total state $\rho_T\equiv\rho$. However, this could be misleading because $S$ in this appendix stands for \textit{``in the Schrödinger picture''}, whereas, $S$ in the main chapters means \textit{``state of the system S''}. Nevertheless, we only consider the state in a closed quantum system in the following so we cannot encounter that kind of situation.
-
-In the Schrödinger picture we saw that $\ket{\psi(t)}=U(t)\ket{\psi}$, where $U(t)=e^{-\frac{i}{\hbar}Ht}$ in the case of a time-independent Hamiltonian with $t_0=0$. Nevertheless, the following results can be derived in the general case of a time dependent Hamiltonian,~\cite{Breuer}. Considering the average value of an observable $A_S(t)$ in the Schrödinger picture, we find
+\section{Schrödinger and Heisenberg pictures}\noindent
+In the Schrödinger picture we saw that $\ket{\psi(t)}=U(t)\ket{\psi}$, where $U(t)=e^{-\frac{i}{\hbar}Ht}$ in the case of a time-independent Hamiltonian with $t_0=0$. Nevertheless, the following results can be derived in the general case of a time dependent Hamiltonian,~\cite{Breuer}. Considering the average value of an observable $A_S(t)$ in the Schrödinger picture (in this picture, the time-dependence of an observable can only be explicit), we find
 \begin{align}
-    \expval{A_S(t)} &= \expval{A_S}{\psi(t)}\nonumber\\
-    &= \expval{\underbrace{U^\dagger(t)A_S(t)U(t)}_{A_H(t)}}{\psi}.
+    \expval{A(t)} &= \expval{A_S(t)}{\psi(t)}\nonumber\\
+    &= \expval{U^\dagger(t,t_0)A_S(t)U(t,t_0)}{\psi(t_0)}\\
+    &= \expval{A_H(t)}{\psi}_H.
 \end{align}
-This calculation naturally reveals the Heisenberg representation of observables and states. Indeed, we have that $\forall t,\;\ket{\psi(t)}_H=\ket{\psi(t_0)}_S\equiv\ket{\psi}_H$ which links both pictures at the initial time. Furthermore, we can link both representation by calculating the evolution of an observable in the Heisenberg picture:
+This calculation naturally reveals the Heisenberg representation of observables and states. Indeed, we have that $\ket{\psi(t_0)}_S\equiv\ket{\psi}_H$ which links both pictures at the initial time $t_0$. Furthermore, we can link both representation at all time by calculating the evolution of an observable in the Heisenberg picture:
 \begin{equation}
     \boxed{\dert{A_H} = \frac{i}{\hbar}\left[H_{H},A_{H}\right] + \derpart{A_S}\label{eq:HSlink}}.
 \end{equation}
-This link can even lead to the famous \textit{Ehrenfest theorem} for quantum mechanics:
+This equation leads to the famous \textit{Ehrenfest theorem} analogous in quantum mechanics:
 \begin{equation}
     \boxed{\dert{\expval{A}}=\frac{i}{\hbar}\expval{\qty[H(t),A(t)]}+\expval{\derpart{A}}}.
 \end{equation}
-We observe that if the observable doesn't depend explicitly on time (thus constant), then the dynamics of the operator are fully described by the Heisenberg Eq.~(\ref{eq:HSlink}).
+We observe that if the observable doesn't depend explicitly on time, then the dynamics of the operator is fully described in the Heisenberg picture.
 
-\subsection{Interaction picture}\noindent
-As mentioned in~\ref{OQS}, we use perturbation theory to describe the interaction between the system $S$ and the environment $E$,
+\section{Interaction picture}\noindent
+As mentioned in the Section~\ref{OQS}, we can represent the coupling between $S$ and $E$ with an interaction Hamiltonian such that
 \begin{align}
-    H_T &= \overbrace{H_S\otimes\mathbb{I}_E+\mathbb{I}_S\otimes H_E}^{H_0}+H_I\tag{\ref{eq:Htotal}},\\
-    U(t,t_0) &= U_0(t,t_0)U_I(t,t_0)\tag{\ref{eq:Utotal}}.
+    H_T = \overbrace{H_S\otimes\mathbb{I}_E+\mathbb{I}_S\otimes H_E}^{H_0}+H_I.
 \end{align}
-Because $\ket{\psi(t)}_S=U(t)\ket{\psi}_S$, we can write that
+Knowing that $\ket{\psi(t)}_S=U(t,t_0)\ket{\psi}_S$, we can write that
 \begin{equation}\label{eq:evolrhoU}
-    \rho_S(t) = U(t)\rho_{S}U^\dagger(t).
+    \rho_S(t) = U(t,t_0)\rho_{S}(t_0)U^\dagger(t,t_0).
 \end{equation}
-If we now try to calculate the average of an operator (in the total space $\mathcal{H}_T$) using the Schrödinger picture, we can find a new interesting relation by injecting Eq.~(\ref{eq:evolrhoU},\ref{eq:Utotal}) in the average:
+The evolution operator $U$ is the solution of the Schrödinger equation for the total system $T$. We know that the free system (dynamically governed by $H_0$) also follows unitary dynamics, which is described by $U_0$. Thus, we can define the interaction unitary operator $U_I$ as
+\begin{align}
+    U_I(t,t_0) &= U_0^\dagger(t,t_0)U(t,t_0)\\
+    \Leftrightarrow U(t,t_0) &= U_0(t,t_0)U_I(t,t_0)\label{eq:Utotal}
+\end{align}
+If we now try to calculate the average of an operator (in the total space $\mathcal{H}_T$) using the Schrödinger picture, we can find a new interesting relation by injecting the Eq.~(\ref{eq:Utotal}) in the Eq.~(\ref{eq:evolrhoU}) and then into the following average:
 \begin{align*}
-    \expval{O_S(t)} &= \Tr{\rho_{S}(t)O_S(t)}\\
-    &= \mathrm{Tr}\,[\underbrace{U_I(t)\rho_{S}U_I^\dagger(t)}_{\tilde{\rho}(t)}\,\underbrace{U_0^\dagger(t)O_S(t)U_0(t)}_{\tilde{O}(t)}].
+    \expval{O(t)} &= \Tr{\rho_{S}(t)O_S(t)}\\
+    &= \mathrm{Tr}\,[\underbrace{U_I(t,t_0)\rho_{S}(t_0)U_I^\dagger(t,t_0)}_{\tilde{\rho}(t)}\,\underbrace{U_0^\dagger(t,t_0)O_S(t)U_0(t,t_0)}_{\tilde{O}(t)}].
 \end{align*}
 We can thus define in the interaction picture:
 \begin{align}
-    \tilde{\rho}(t)&=U_I(t)\rho_{S}U_I^\dagger(t)\tag{\ref{eq:rhoIP}},\\
-    \tilde{O}(t) &= U_0^\dagger(t)O_S(t)U_0(t)\tag{\ref{eq:OIP}}.
+    \tilde{\rho}(t)&=U_I(t,t_0)\rho_{S}(t_0)U_I^\dagger(t,t_0),\label{eq:rhoIS}\\
+    \tilde{O}(t) &= U_0^\dagger(t,t_0)O_S(t)U_0(t,t_0)\label{eq:obsIS}.
 \end{align}
-We can now reverse Eq.~(\ref{eq:evolrhoU}) and then use Eq.~(\ref{eq:Utotal}):
+We can now reverse the Eq.~(\ref{eq:evolrhoU}) and then use the Eq.~(\ref{eq:Utotal}) to get
 \begin{equation*}
-    \rho_S = U^\dagger(t)\rho_S(t)U(t) = U_I^\dagger(t)U^\dagger_0(t)\rho_S(t)U_0(t)U_I(t),
+    \rho_S(t_0) = U^\dagger(t,t_0)\rho_S(t)U(t,t_0) = U_I^\dagger(t,t_0)U^\dagger_0(t,t_0)\rho_S(t)U_0(t,t_0)U_I(t,t_0),
 \end{equation*}
-and, by injecting this into Eq.~(\ref{eq:rhoIP}), we get
-\begin{align}
-    \tilde{\rho}(t) &= U_I(t)U_I^\dagger(t)U^\dagger_0(t)\rho_S(t)U_0(t)U_I(t)U^\dagger_I(t)\nonumber\\
-    &= U^\dagger_0(t)\rho_S(t)U_0(t)\tag{\ref{eq:rhoIP}}.
-\end{align}
-So that we find the results used in the main part of this work
+and, by injecting this into the Eq.~(\ref{eq:rhoIS}), we get
 \begin{equation}
-    \boxed{\tilde{\rho}(t)=U_I(t)\rho_{S}U_I^\dagger(t)= U^\dagger_0(t)\rho_S(t)U_0(t)}.
+    \tilde{\rho}(t) = U^\dagger_0(t,t_0)\rho_S(t)U_0(t,t_0).
 \end{equation}
+This result is obvious because a density matrix is also an operator and thus respects the Eq.~(\ref{eq:obsIS}).
+In the end, we find the results used in the main part of this document:
+\begin{equation}
+    \boxed{\tilde{\rho}(t)=U_I(t,t_0)\rho_{S}(t_0)U_I^\dagger(t,t_0)= U^\dagger_0(t,t_0)\rho_S(t)U_0(t,t_0)}.
+\end{equation}
+By working on the Liouville-von Neumann equation, one can show that by jumping into the interaction picture the dynamics do not depend anymore on the free Hamiltonian $H_0$:
+\begin{equation}
+    \qty(\dert{\rho}=-\frac{i}{\hbar}\qty[H_T,\rho])\Leftrightarrow\qty(\dert{\tilde{\rho}}=-\frac{i}{\hbar}\qty[\tilde{H}_I,\tilde{\rho}]),
+\end{equation}
+where $\tilde{H}_I=U_0^\dagger(t,t_0)H_I U_0(t,t_0)$ as defined. It is thus usual to work in this representation to get rid of free dynamics terms, and then jump back to the Schrödinger picture to recover the proper dynamics of the system.

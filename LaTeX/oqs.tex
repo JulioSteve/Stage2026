@@ -1,108 +1,125 @@
-\subsection[Open quantum systems]{Open Quantum Systems (OQS)}\label{OQS}
+\section[Open quantum systems]{Open Quantum Systems (OQS)}\label{OQS}
 \setlength{\parskip}{2mm}\setlength{\parindent}{6mm}\noindent
-In the previous part, we saw that one can fully describe a system, observables, states and their evolution. However, this description applies to the ideal case where the quantum system is considered isolated from any external interaction. Instead, in the OQS theory systems interact locally with an environment, which itself interacts with a wider environment, etc\ldots To avoid considering infinite chains of interaction, the theory truncates the environment to a local vicinity of the system. Thus, we approximate the total system $T$ as a closed quantum system, within which the quantum system of interest $S$ is called a quantum open system. Moreover, as explained $S$ couples with its environment $E$, thus giving rise to a dynamical regime distinct from that of closed quantum systems.
+In the previous part, we saw that one can fully describe a system, observables, states and their evolution. However, this description applies to the ideal case where the quantum system is considered isolated from any external interaction. Instead, in the OQS theory systems interact locally with an environment, which itself interacts with a wider environment, etc\ldots To avoid considering infinite chains of interaction, the theory truncates the environment to a local vicinity of the system. Thus, we approximate the total system $T$ as a closed quantum system, within which the quantum system of interest $S$ is called an open quantum system. Moreover, as explained $S$ couples with its environment $E$, thus giving rise to a dynamical regime distinct from that of closed quantum systems.
 
-\subsubsection{Building the formalism}\noindent
-We will now follow a certain approach~\cite{Albarelli} in the derivation of the Lindblad master equation, using the \textit{input-output formalism}~\cite{GardinerCollett}. It is however possible to use the \textit{collisional model} instead~\cite{Ciccarello2017,Ciccarello2022}. Since a full derivation of the input-output formalism is mathematically challenging, we will only provide its key equations and their physical meaning; further details on the input-output theory are available in the Appendix~\ref{ann:IOF}. Furthermore, the approach of OQS followed here is not the standard approach~\cite{Breuer} that would derive every details, but, the chosen method points towards the results of continuous measurements. %From now on, in order to lighten formulae, physical units are rescaled so that $\hbar=1$.
+\subsection{Building the formalism}\noindent
+We will now follow a certain approach~\cite{Albarelli} in the derivation of the Lindblad master equation, using the \textit{input-output formalism}~\cite{GardinerCollett}. It is however possible to use the \textit{collisional model} instead~\cite{Ciccarello2017,Ciccarello2022}, or deriving the Lindblad master equation with the microscopical approach~\cite{Breuer}. Since a full derivation of the input-output formalism is mathematically challenging, we will only provide its key equations and their physical meaning; further details on the input-output theory are available in the Appendix~\ref{ann:IOF}.
 
-As a consequence of the explanations about system $S$ coupling with its environment $E$, the Hilbert space of study is divided into $\mathcal{H}_T=\mathcal{H}_S\otimes\mathcal{H}_E$. So that $\rho_T(t)=\rho_S(t)\otimes\rho_E(t)$ is the state of the total system $T$. The system Hamiltonian $H_S$ depends on which physical system is studied and is thus let free. However, one can imagine the environment as a collection of quantum harmonic oscillators, the environment Hamiltonian being thus defined by
+As a consequence of $S$ coupling with its environment $E$, the Hilbert space of study is divided into $\mathcal{H}_T=\mathcal{H}_S\otimes\mathcal{H}_E$. We consider as initial state a factorized state: $\rho_T=\rho_S\otimes\rho_E$. From now on we will use a typographic convention where $\rho_T\equiv\bm{\varrho}$ and $\rho_S\equiv\rho$, such that the last assumption rewrites $\bm{\varrho}=\rho\otimes\rho_E$. The system Hamiltonian $H_S$ depends on which physical system is studied and is thus left free. Instead, the environment is chosen as a collection of quantum harmonic oscillators, the environment Hamiltonian being thus defined by
 \begin{equation}\label{eq:EHamiltonian}
     H_E=\int_0^{+\infty} \hbar\omega b^\dagger_\omega b_\omega\mathrm{d}\omega,
 \end{equation}
-where the operators of the environment $b_\omega$ satisfy $\qty[b_\omega, b_\omega^\dagger]=\delta(\omega-\omega')$. This Hamiltonian is a continuum of bosonic modes $\omega\in\mathbb{R}^+$, constructed from the quantum harmonic oscillator\footnote{Hamiltonian of the quantum harmonic oscillator: $H(\omega)=\hbar\omega\qty(b^\dagger b+\frac{1}{2})$, where $\qty[b,b^\dagger]=\mathbb{I}$.} {\color{red} how?}. The coupling between $S$ and $E$ is treated as a perturbation (the interaction has a smaller impact on the dynamics than the free evolution), and so, is expressed by the interaction Hamiltonian:
+where the operators of the environment satisfy $\qty[b_\omega, b_{\omega'}^\dagger]=\delta(\omega-\omega')$. This Hamiltonian represents a continuum of bosonic modes of frequency $\omega\in\mathbb{R}^+$, where each mode is represented by a quantum harmonic oscillator. We define the so-called interaction Hamiltonian by
 \begin{equation}\label{eq:IHamiltonian}
     H_I = i\hbar\int_0^{+\infty} \sqrt{\frac{k(\omega)}{2\pi}} \qty(c b_\omega^\dagger - c^\dagger b_\omega) \mathrm{d}\omega,
 \end{equation}
-where $c$ is the system operator, and, $k(\omega)$ is the coupling strength between $S$ and $E$. The expression of $H_I$ comes from the Rotating Wave Approximation (RWA) {\color{red} source?}, valid for weak-coupling condition $\forall\omega,\quad k(\omega)\ll\omega_0$, where $\omega_0$ is the natural frequency of the system. Consequently, by using Eq.~(\ref{eq:EHamiltonian},\ref{eq:IHamiltonian}) we can define the total Hamiltonian:
+where $c$ is an operator of the system, and $\omega\mapsto k(\omega)$ is a function representing the coupling strength between $S$ and $E$ for each considered mode at frequency $\omega$. This coupling is treated as a perturbation: the interaction has a smaller impact on the dynamics than the free evolution. The expression of $H_I$ used in this work can be found, for example, in the case of a two-level system after using the rotating wave approximation. Consequently by using Eq.~(\ref{eq:EHamiltonian},\ref{eq:IHamiltonian}), we define the total Hamiltonian:
 \begin{equation}
     H_T = \overbrace{H_S\otimes\mathbb{I}_E+ \mathbb{I}_S\otimes H_E}^{H_0} + H_I.
 \end{equation}
-By switching to the interaction picture (detailed in the Appendix~\ref{ann:pictures}), we can get rid of the free dynamics governed by $H_0$. Indeed, in the interaction picture the Liouville-von Neumann Eq.~(\ref{eq:Liouville}) becomes
-\begin{equation}
-    \dert{\tilde{\rho}_T}=-\frac{i}{\hbar}\qty[\tilde{H}_I,\tilde{\rho}_T],
-\end{equation}
-where the expression of the interaction Hamiltonian in the interaction picture will be shown below. To do so, we define the input field operator $b_t$ of the environment as
-\begin{equation}
-    b(t)\equiv b_t = \frac{1}{\sqrt{2\pi}}\int_\mathcal{W} b_\omega e^{-i(\omega-\omega_0)(t-t_0)}\mathrm{d}\omega,
-\end{equation}
-where $\mathcal{W}=\qty[\omega_0-\nu;\omega_0+\nu]$ is a bandwidth centered around the natural frequency $\omega_0$ of the system. By stating $\mathcal{W}$ is large enough ($\nu$ is bigger than any typical frequency of the dynamics) and that $\omega_0\gg\nu$, we can state that $\mathcal{W}\approx\mathbb{R}$. By injecting this definition into Eq.~(\ref{eq:IHamiltonian}), we can obtain the expression of the interaction Hamiltonian in the interaction picture:
-\begin{equation}\label{eq:H_Ipicture}
-    \tilde{H}_I(t) = i\hbar\sqrt{k(\omega)}(\tilde{c}b_t^\dagger-\tilde{c}^\dagger b_t),
-\end{equation}
-where $\tilde{c}=U_0^\dagger(t,t_0)c U_0(t-t_0)=c e^{-i\omega_0(t-t_0)}$. We can assume working in a frequency domain $\mathcal{W}$ where the interaction is strongly localized in space. This way we assume the coupling strength abides to $\forall \omega\in\mathcal{W},\quad k(\omega)\equiv k$ and is negligible outside of $\mathcal{W}$; this is called the \textit{First Markovian approximation}. Note that this approximation is only appreciable when considering weak-coupling $k\ll\nu\ll\omega_0$. The input modes $b_t$ follow a delta-commutation relation $\qty[b_t,b_t^\dagger]=\delta(t-t')$ in the time domain~\cite{GardinerCollett}.
 
-An important result of quantum stochastic calculus and input-output theory (see Appendices~\ref{ann:stochastic} and~\ref{ann:IOF}) is that we can build the following operator, called a Wiener process:
+By switching to the interaction picture (detailed in the Appendix~\ref{ann:pictures}), we can get rid of the free dynamics governed by $H_0$. Indeed, in the interaction picture the Liouville-von Neumann of Eq.~(\ref{eq:Liouville}) becomes
 \begin{equation}
+    \dert{\tilde{\bm{\varrho}}}=-\frac{i}{\hbar}\qty[\tilde{H}_I,\tilde{\bm{\varrho}}],
+\end{equation}
+where the expression of the interaction Hamiltonian in the interaction picture $\tilde{H}_I$ will be shown below. Beforehand calculating the expression of $\tilde{H}_I$, we need to make some assumptions:
+\begin{itemize}
+    \item the \textit{first Markovian assumption}: we consider the interaction strength to be constant in a (large) bandwidth $\mathcal{W}=\qty[\omega_0-\theta; \omega_0+\theta]$ ($\omega_0$ is the natural frequency of $S$), so that $\forall k\in\mathcal{W},\quad k(\omega)\equiv k$. The coupling strength is considered negligible outside of $\mathcal{W}$;
+    \item the system operator acquires a time-dependent phase in the interaction picture: $\tilde{c}(t)=ce^{-i\omega_0 (t-t_0)}$. This kind of assumption is an ansatz, we assume the expression one can find for simple systems in the interaction picture~\cite{Albarelli};
+    \item we assume $k\ll\omega_0$, moreover, on the timescale $\tau=\frac{1}{k}$ all other time-dependencies are negligible.
+\end{itemize}
+We can then express the Hamiltonian of interaction in the interaction picture by
+\begin{equation}\label{eq:H_Ipicture}
+    \tilde{H}_I(t) = i\hbar\sqrt{k}\qty[\tilde{c}(t)b_t^\dagger-\tilde{c}(t)^\dagger b_t],
+\end{equation}
+in which we defined the input field operator $b_t$ as
+\begin{equation}
+    b_t = \frac{1}{\sqrt{2\pi}}\int_\mathcal{W} b_\omega e^{-i(\omega-\omega_0)(t-t_0)}\mathrm{d}\omega.
+\end{equation}
+In order to understand the environment operators $b_t$, we should compute its canonical commutation relation:
+\begin{align}
+    \qty[b_t,b_{t'}^\dagger] &= \frac{1}{\sqrt{2\pi}}\int_{-\theta}^{\theta}e^{-i\omega(t-t')}\mathrm{d}\omega\notag\\
+    &= \delta(t-t').\label{eq:btCCR}
+\end{align}
+To obtain the Eq.~(\ref{eq:btCCR}), we assumed the frequency bandwidth $\mathcal{W}$ to be larger than all other frequencies of the dynamics, in particular, $k\ll\theta$. This implies that we can integrate over all $\mathbb{R}$ and recover a definition of the dirac distribution. Note that by defining $\mathcal{W}=\qty[\omega_0-\theta;\omega_0+\theta]$, we implicitly state that $\omega_0\geq\theta$ (the $\omega_0-\theta$ frequency is indeed positive). This condition gives again the third assumption mentioned earlier: $k\ll\theta\leq\omega_0\Rightarrow k\ll\omega_0$. The commutator we just obtained in the Eq.~(\ref{eq:btCCR}) is not satisfying because it is a distribution, not a well-defined quantity. We will thus open a brief parenthesis on input operators, in order to introduce the concept of Wiener process and define this commutator differently.
+
+An important result of quantum stochastic calculus and input-output theory (see Appendices~\ref{ann:stochastic} and~\ref{ann:IOF}) is that we can build the following operator, called a quantum Wiener process as
+\begin{equation}\label{eq:defW}
     W(t,t_0) = \int_{t_0}^{t}b_{t'} \dt'.
 \end{equation}
-We can further build a differential quantity using calculus, called a Wiener increment:
+We can further derive a differential quantity using calculus, called a quantum Wiener increment:
 \begin{equation}\label{eq:dW}
-    \mathrm{d}W_t = W(t+dt)-W(t)=b_t \dt.
+    \mathrm{d}W_t = \lim_{\delta t\rightarrow \mathrm{d}t}\qty[W(t+\delta t,t_0)-W(t,t_0)]=b_t \dt.
 \end{equation}
-This increment follows a commutation relation:
+Using the Eq.~(\ref{eq:defW}), its canonical commutation relation is
 \begin{equation}\label{eq:commutrelationWiener}
     \qty[\mathrm{d}W_t,\mathrm{d}W_t^\dagger]=\dt.
 \end{equation}
-Moreover, the Wiener increment follows a set of properties, well understood in the \textit{\ito~calculus} (see Appendix~\ref{ann:stochastic}):
-\begin{align}
-    \mathrm{d}W_t^2\sim\dt^2&\sim 0,\notag\\
-    \mathrm{d}W_t\dt&\sim 0,\notag\\
-    \mathrm{d}W_t\mathrm{d}W_t^\dagger &\sim \dt.\label{eq:itotable}
-\end{align}
-We can obviously find equivalent relations for products with the adjoint. The \ito~table presented here is exact only when considering vacuum state. We thus need to use two approximations, the main one is called the \textit{Born approximation}:
+However, by calculating directly the same commutator with the right hand side of the Eq.~(\ref{eq:dW}), we find
 \begin{equation}
-    \tilde{\rho}_T(t) = \tilde{\rho}_S(t)\otimes\rho_E,
+    \qty[\mathrm{d}W_t,\mathrm{d}W_t^\dagger]=\qty[b_t,b_t^\dagger]\dt^2.
 \end{equation}
-which states that the environmental excitations (produced by interacting with $S$) decay over times which are not resolved~\cite{Breuer}. We assume that $\forall t,\quad\rho_E=\ketbra{0}$ in addition (by virtue of the Born approximation). So, the expressions in the \ito~table are well-justified from now on. Moreover, the terms in the Eq.~(\ref{eq:itotable}) are the last non-negligible terms --- being of order of $\dt$ --- we would consider in any expansion. Also, any term proportional to $\mathrm{d}W_t$ or $\mathrm{d}W_t^\dagger$ has a lower order than $\dt$ and is not negligible too. In fact, the goal of manipulating these increments is to build one that acts as a creation/annihilation operator\footnote{The annihilation operator acts on the Fock basis (for one mode) as $B_t\ket{n}=\sqrt{n}\ket{n-1}$, with the condition $B_t\ket{0}=0$, whereas the adjoint (creation operator) acts as $B_t\ket{n}=\sqrt{n+1}\ket{n+1}$. Together defining the number operator $\hat{n}=B_t^\dagger B_t$ for which Fock states form its eigenbasis: $\hat{n}\ket{n}=n\ket{n}$.}, and thus lastly, we implicitly define the increment $dB_t$ as
-\begin{equation}\label{eq:lienBW}
-    \mathrm{d}B_t\sqrt{\dt}=\mathrm{d}W_t.
-\end{equation}
-Because of Eq.~(\ref{eq:commutrelationWiener}), the newly built operators are proper annihilation/creation operators respecting
+When we combine this result with the Eq.~(\ref{eq:commutrelationWiener}), we get
 \begin{equation}
-        \qty[\mathrm{d}B_t,\mathrm{d}B_t^\dagger]=\mathbb{I}.
+    \qty[b_t,b_t^\dagger]\dt=\mathbb{I}.
 \end{equation}
-Furthermore, by using Eq.~(\ref{eq:dW}), we can rewrite the Eq.~(\ref{eq:lienBW}) as $\mathrm{d}B_t\sqrt{\dt}=b_t \dt$. So that,
+If we now define a set of bosonic operators $B_t$ such that $B_t=b_t\sqrt{\mathrm{d}t}$, then
 \begin{equation}
-    b_t=\frac{\mathrm{d}B_t}{\sqrt{\dt}}
+    \qty[B_t,B_t^\dagger]=\mathbb{I},
 \end{equation}
-For the sake of clarity, the stochastic increments $\mathrm{d}B_t$ are not proper differential and in this sense, the notation is reduced to $B_t$ in the rest of this work. This decision is also motivated by the fact the previous definition of $B_t$ is never used again further below.
-\subsubsection{The Lindblad master equation}\noindent
-At this point, we presented enough formalism to calculate the evolution of the state of the total system. So, we can apply an unitary evolution operator on the state of the system $T$ which evolves in an infinitesimal time $\dt$ as
+which is the canonical commutation relation of the creation/annihilation operators\footnote{The annihilation operator acts on the Fock basis (for one mode) as $B_t\ket{n}=\sqrt{n}\ket{n-1}$, with the condition $B_t\ket{0}=0$, whereas the adjoint (creation operator) acts as $B_t\ket{n}=\sqrt{n+1}\ket{n+1}$. Together defining the number operator $\hat{n}=B_t^\dagger B_t$ for which Fock states form its eigenbasis: $\hat{n}\ket{n}=n\ket{n}$.}. Because $\qty{B_t}_{t\in\mathbb{R}}$ forms a set of proper annihilation operators of quantum harmonic oscillators, we can formally describe the environnement as a quantum harmonic oscillator (labeled by $t$), whose canonical operators are $B_t$ and $B_t^\dagger$. In other words, we can formally represent the environnement as a quantum harmonic oscillator with the second quantization using these operators at all time.
+
+We now make use of two more assumptions to derive the evolution of the state $\rho(t)$ of the open quantum system $S$:
+\begin{itemize}
+    \item the \textit{Born-Markov approximation}: $\forall t\in\mathbb{R},$ the total state $\bm{\varrho}(t)$ is a factorized state with the ``same'' reduced state for the environment, that is to say
+    \begin{equation}
+        \tilde{\bm{\varrho}}(t)=\tilde{\rho}(t)\otimes \nu_t,
+    \end{equation}
+    where $\nu_t=\ketbra{0}_t$ is the vacuum state of the bosonic operator $B_t$ corresponding to time $t$. Thus, $\forall t\in\mathbb{R},\quad B_t\ket{0}_t=0$ and $B_t^\dagger\ket{0}_t=\ket{1}_t$; nothing implies we could keep the exact same vacuum state for each time $t$, we define $\nu_t$ so that it is \textbf{the vacuum state} from the basis of the environment \textbf{at time }$\bm{t}$. This implies
+    \begin{equation}
+        \expval{\qty{b_t,b_{t'}^\dagger}}=\delta(t-t')\overset{Eq.~(\ref{eq:btCCR})}{=}\qty[b_t,b_{t'}],
+    \end{equation}
+    which are the Markovian assumptions in this framework~\cite{Albarelli}. The physical meaning is that the environment subsystems interacting at different times are completely \textbf{uncorrelated} (characteristic of a white-noise) and the interaction is instantaneous.
+    \item The global state evolves in an infinitesimal time $\dt$ as
+    \begin{equation}
+        \tilde{\bm{\varrho}}(t+\dt)=U(t+\dt,t)\overbrace{\qty[\tilde{\rho}(t)\otimes \nu_t]}^{\tilde{\bm{\varrho}}(t)}U^\dagger(t+\dt,t),
+    \end{equation}
+    where $U(t+\dt,t)=e^{-\frac{i}{\hbar}\tilde{H}_I(t)dt}$.
+\end{itemize}
+\newpage
+\subsection{The Lindblad master equation}\noindent
+At this point, we presented enough formalism to calculate the evolution of the state $\bm{\varrho}$ of the total system in an infinitesimal time $\dt$. However, we are not actually interested in the evolution of the total system, we are studying $S$. The OQS theory states that we can ``trace out'' the environment by applying a partial trace\footnote{The partial trace is mathematically the operation satisfying $\rho_A = \sum_k\expval{\rho_{AB}}{b_k}$, where $\rho_{AB}\in\mathcal{H}_{AB}$ and $\qty{\ket{b_k}}_k$ is an orthonormal basis of $\mathcal{H}_B$. We thus have $\rho=\mathrm{Tr}_E\qty[\bm{\varrho}]\in\mathcal{H}_S$.}
 \begin{equation}\label{eq:rhoT}
-    \tilde{\rho}_T(t+dt) =U_t(\dt)(\overbrace{\tilde{\rho}_S(t)\otimes\ketbra{0}}^{\tilde{\rho}_T(t)})U_t^\dagger(\dt),
+    \tilde{\rho}(t+dt) = \mathrm{Tr}_E\qty[\tilde{\bm{\varrho}}(t+\dt)].
 \end{equation}
-where $U(t+\dt,t)=e^{-\frac{i}{\hbar}\tilde{H}_I(t)\dt}\equiv U_t(\dt)$. However, we are not actually interested in the evolution of the total system, we are studying $S$. The OQS theory states that we can ``trace out'' the environment by applying a partial trace\footnote{The partial trace is mathematically the operation satisfying $\rho_A = \sum_k\expval{\rho_{AB}}{b_k}$, where $\rho_{AB}\in\mathcal{H}_{AB}$ and $\qty{\ket{b_k}}_k$ is an orthonormal basis of $\mathcal{H}_B$. We thus have $\rho_S=\mathrm{Tr}_E\qty[\rho]\in\mathcal{H}_A$.}
+As explained in the last section, we can use the annihilation/creation operators $B_t$/$B_t^\dagger$ on the environment state. By injecting results concerning these operators to the interaction Hamiltonian in the interaction picture, Eq.~(\ref{eq:H_Ipicture}), the expression of the unitary evolution operator becomes
 \begin{equation}
-    \tilde{\rho}_S(t+dt) = \mathrm{Tr}_E\qty[\tilde{\rho}_T(t+\dt)].
+    U(t+\dt,t)=\exp\qty[\sqrt{k\dt}\qty(\tilde{c}(t)\otimes B_t^\dagger-\tilde{c}^\dagger(t)\otimes B_t)].
 \end{equation}
-As we saw in the last section, we can use the annihilation/creation operators $B_t$/$B_t^\dagger$. By injecting results concerning these operators to the interaction Hamiltonian in the interaction picture, Eq.~(\ref{eq:H_Ipicture}), the expression of the unitary evolution operator becomes
-\begin{equation}
-    U_t(\dt)=\exp\qty[\sqrt{k\dt}\qty(\tilde{c}\otimes B_t^\dagger-\tilde{c}^\dagger\otimes B_t)].
-\end{equation}
-The subtlety here is that the unitary evolution operator is depending on $\sqrt{\dt}$ in particular. So we should expand it to the second order (thus up to $\dt$), obtaining
+The subtlety here is that the unitary evolution operator is depending on $\sqrt{\dt}$ in particular. So we should expand it to the second order (thus up to $\dt$ terms), obtaining
 \begin{multline}
-    U_t(\dt)\approx\mathbb{I}\otimes\mathbb{I}+\qty(\tilde{c}\otimes B_t^\dagger-\tilde{c}^\dagger\otimes B_t)\sqrt{k\dt}+\\
+    U(t+\dt,t)\approx\mathbb{I}\otimes\mathbb{I}+\qty(\tilde{c}\otimes B_t^\dagger-\tilde{c}^\dagger\otimes B_t)\sqrt{k\dt}+\\
     \qty(\tilde{c}^{\dagger 2}\otimes B_t^2 + \tilde{c}^2\otimes B_t^{\dagger 2}-\tilde{c} \tilde{c}^\dagger\otimes B_t^\dagger B_t - \tilde{c}^\dagger \tilde{c}\otimes B_t B_t^\dagger)\frac{k\dt}{2}.
 \end{multline}
-We can rewrite the evolution of $\rho_T$ in the infinitesimal time $\dt$, Eq.~(\ref{eq:rhoT}), using the previous expansion:
+Note that we dropped the time-dependency $\tilde{c}(t)$ notation for the more convenient $\tilde{c}$.
+We can rewrite the evolution of $\tilde{\bm{\varrho}}$ in the infinitesimal time $\dt$, Eq.~(\ref{eq:rhoT}), using the previous expansion:
 \begin{align}
-    \tilde{\rho}_T(t+\dt)&=\tilde{\rho}_S(t)\otimes\ketbra{0}\notag\\
-    &+\qty(\tilde{\rho}_S(t) \tilde{c}^\dagger\otimes\ketbra{0}{1}+\mathrm{h.c.})\sqrt{k\dt}\notag\\
-    &+\qty(\tilde{c}\tilde{\rho}_S(t) \tilde{c}^\dagger\otimes\ketbra{1})k\dt\\
-    &+\qty[\sqrt{2}\qty(\tilde{\rho}_S(t) \tilde{c}^{\dagger 2}\otimes\ketbra{0}{2}+\mathrm{h.c.})-\qty(\tilde{\rho}_S(t) \tilde{c} \tilde{c}^\dagger\otimes\ketbra{0}+\mathrm{h.c.})]\frac{k\dt}{2}.
+    \tilde{\bm{\varrho}}(t+\dt)&=\tilde{\rho}(t)\otimes\ketbra{0}_t\notag\\
+    &+\qty[\tilde{\rho}(t) \tilde{c}^\dagger\otimes\ketbra{0}{1}_t+\mathrm{h.c.}]\sqrt{k\dt}\notag\\
+    &+\qty{\sqrt{2}\qty[\tilde{\rho}(t) \tilde{c}^{\dagger 2}\otimes\ketbra{0}{2}_t+\mathrm{h.c.}]-\qty[\tilde{\rho}(t) \tilde{c} \tilde{c}^\dagger\otimes\ketbra{0}_t+\mathrm{h.c.}]}\frac{k\dt}{2}\notag\\
+    &+\qty[\tilde{c}\tilde{\rho}(t) \tilde{c}^\dagger\otimes\ketbra{1}_t]k\dt.
 \end{align}
 By tracing out the environment, the evolution of the system $S$ is
 \begin{equation*}
-    \tilde{\rho}_S(t+\dt)=\tilde{\rho}_S(t)+k\qty[\tilde{c}\tilde{\rho}_S(t)\tilde{c}^\dagger - \frac{\tilde{c}^\dagger \tilde{c}\tilde{\rho}_S(t)+\tilde{\rho}_S(t)\tilde{c}^\dagger\tilde{c}}{2}]\dt.
+    \tilde{\rho}(t+\dt)=\tilde{\rho}(t)+k\qty[\tilde{c}\tilde{\rho}(t)\tilde{c}^\dagger - \frac{\tilde{c}^\dagger \tilde{c}\tilde{\rho}(t)+\tilde{\rho}(t)\tilde{c}^\dagger\tilde{c}}{2}]\dt.
 \end{equation*}
 Let us rewrite this equation directly as a proper differential equation:
 \begin{equation}
-    \frac{\mathrm{d}\tilde{\rho}_S}{\dt}(t)=k\mathcal{D}[\tilde{c}]\tilde{\rho}_S(t),
+    \frac{\mathrm{d}\tilde{\rho}}{\dt}(t)=k\mathcal{D}[\tilde{c}]\tilde{\rho}(t),
 \end{equation}
 where, we used the super-operator $\mathcal{D}[\hat{O}]\bullet\equiv \hat{O}\bullet\hat{O}^\dagger-\frac{\qty{\hat{O}^\dagger\hat{O},\bullet}}{2}^{\footnotemark}$.
 \footnotetext{We define the anticommutator between two operators $A$ and $B$ as $\qty{A,B}=AB+BA$.}
 All in all, by coming back to the Schrödinger representation, we find the so-called {Lindblad master equation} stating that
 \begin{equation}
-    \boxed{\frac{\mathrm{d}\rho_S}{\dt}(t)=-\frac{i}{\hbar}\qty[H_0, \rho_S(t)]+k\mathcal{D}[c]\rho_S(t)}.
+    \boxed{\frac{\mathrm{d}\rho}{\dt}(t)=-\frac{i}{\hbar}\qty[H_0, \rho(t)]+k\mathcal{D}[c]\rho(t)}.
 \end{equation}
-One can generalize this simple version of the Lindblad master equation in a multi-mode demonstration, where we would consider a temporal mode $b_t^{(i)}$ for each operator of the system $c_i$~\cite{Albarelli}.

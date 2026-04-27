@@ -1,7 +1,6 @@
-\section[From closed systems to continuous measurements]{From closed systems to continuous measurements --- in a nutshell}\setlength{\parindent}{6mm}\setlength{\parskip}{2mm}
-\noindent In this chapter we will briefly summarize the definitions needed for continuously monitored open quantum systems formalism.
-\subsection[Quantum mechanics]{Generalities on quantum mechanics}
-\subsubsection{States and time evolution}\label{Ii1}\noindent
+\chapter{Basics of quantum mechanics}\setlength{\parindent}{6mm}\setlength{\parskip}{2mm}
+\section{Generalities on closed quantum systems}
+\subsection{States and time evolution}\label{Ii1}\noindent
 In quantum mechanics a physical system's state is described by a vector in a Hilbert space:
 \begin{equation}
     \ket{\psi}\in\mathcal{H}.
@@ -10,24 +9,23 @@ The Hamiltonian $\hat{H}$ is a specific Hermitian\footnote{$\hat{H}^\dagger=\hat
 \begin{equation}
     i\hbar\frac{\mathrm{d}\ket{\psi(t)}}{\dt}=\hat{H}(t)\ket{\psi(t)}.
 \end{equation}
-We can define a unitary\footnote{$\hat{U}\hat{U}^\dagger=\hat{U}^\dagger \hat{U}=\mathbb{I}$, where $\mathbb{I}$ is the identity.} operator $\hat{U}$ such that,
+The solution of the Schrödinger equation can be expressed as an unitary\footnote{$\hat{U}\hat{U}^\dagger=\hat{U}^\dagger \hat{U}=\mathbb{I}$, where $\mathbb{I}$ is the identity.} operator $\hat{U}$ such that,
 \begin{equation}
     \ket{\psi(t)}=\hat{U}(t,t_0)\ket{\psi(t_0)},
 \end{equation}
-solving formally the Schrödinger equation. By injecting the previous relation in the state equation, we get
+with initial condition $U(t_0,t_0)=\mathbb{I}$. By injecting the previous relation in the state equation, we get
 \begin{equation}\label{eq:schrodU}
     \dert{\hat{U}}(t,t_0)=-\frac{i}{\hbar}\hat{H}(t)\hat{U}(t,t_0).
 \end{equation}
-In the general case, the Hamiltonian can depend on time, so we need the chronological time-ordering exponential~\cite{Breuer} to solve Eq.~(\ref{eq:schrodU}). However, in the simplest case, the Hamiltonian is independent of time and the solution becomes
+We will simply assume the Hamiltonian to be time-independent in the following, nevertheless, solutions exist in the time-dependent case~\cite{Breuer}. For us, the equation of evolution, solution of the Schrödinger equation, is
 \begin{equation}\label{eq:solschrod}
     \ket{\psi(t)} = \underbrace{e^{-\frac{i\hat{H}(t-t_0)}{\hbar}}}_{\hat{U}(t,t_0)}\ket{\psi(t_0)}.
 \end{equation} 
-This solution of the Schrödinger equation is indeed \textbf{unitary} and we can use $\hat{U}^\dagger(t,t_0)$ on the left of both sides of Eq.~(\ref{eq:solschrod}) to obtain $\ket{\psi(t_0)}=\hat{U}^\dagger(t,t_0)\ket{\psi(t)}$, which proves that the dynamics of closed quantum systems are \textbf{reversible}.
- 
-\subsubsection{Observables}\label{sec:obs}\noindent
-In quantum mechanics, any physical quantity is represented by an \textbf{observable} which is an operator fulfilling two properties: the eigenvectors of the observable form an orthonormal basis of the Hilbert space $\mathcal{H}$, and, the corresponding eigenvalues are necessarily real~\cite{CT}. In finite-dimensional Hilbert spaces, the definition of Hermitian operator\footnote{The eigenvectors of a Hermitian operator always span the entire Hilbert space (Spectral Theorem). Using the Gram-Schmidt process, we can always find a complete orthonormal basis from the operator's eigenspaces.} is sufficient for it to be an observable. Moreover, in the case of non-finite dimension Hilbert spaces, the definition of an observable requires more rigorous mathematical foundations (notably the property of being self-adjoint), the details of which lie beyond the purview of this study. In this sense and to lighten notations, we will only consider finite dimension cases in the following.
+This solution is indeed \textbf{unitary} and we can use $\hat{U}^\dagger(t,t_0)$ on the left of both sides of the Eq.~(\ref{eq:solschrod}) to obtain $\ket{\psi(t_0)}=\hat{U}^\dagger(t,t_0)\ket{\psi(t)}$, i.e., we described \textbf{reversible} dynamics.\newpage 
+\subsection{Observables}\label{sec:obs}\noindent
+In quantum mechanics, any physical quantity is represented by an \textbf{observable} which is an operator fulfilling two properties: the eigenvectors of the observable form an orthonormal basis of the Hilbert space $\mathcal{H}$, and, the corresponding eigenvalues are necessarily real~\cite{CT}. In finite-dimensional Hilbert spaces, the definition of Hermitian operator\footnote{The eigenvectors of a Hermitian operator always span the entire Hilbert space (Spectral Theorem). Using the Gram-Schmidt process, we can always find a complete orthonormal basis from the operator's eigenspaces.} is sufficient for it to be an observable. In the case of infinite dimension Hilbert spaces, the definition of an observable requires more rigorous mathematical foundations (self-adjoint operators, the details of which lie beyond the purview of this study). In this sense, we only consider finite dimension cases in the following. We thus define the interval $I_\mathcal{H}=\llbracket 1;\text{dim}(\mathcal{H})\rrbracket$ throughout this document, also, we lighten the notation by omitting $\hat{\bullet}$ symbols on operators hereafter.
 
-Let us denote $I_\mathcal{H}=\llbracket 1;\text{dim}(\mathcal{H})\rrbracket$ throughout this document; furthermore, $\hat{\bullet}$ symbols on operators are omitted hereafter for notational convenience. A natural operator whose eigenbasis $\qty{\ket{\phi_n}}_\nIH$ is particularly significant is the Hamiltonian $H$, as its eigenvalues $\qty{E_n}_\nIH$ correspond to the allowed energy values of a system. So, the Hamiltonian is well-described by its corresponding eigenequation
+ A natural operator whose eigenbasis $\qty{\ket{\phi_n}}_\nIH$ is particularly significant is the Hamiltonian $H$, as its eigenvalues $\qty{E_n}_\nIH$ correspond to the allowed energy values of a system. We can understand the relation between an operator, its eigenvectors and eigenvalues with its corresponding eigenequation:
 \begin{equation}\label{eq:PropreH}
     \forall n \in I_\mathcal{H},\quad H\ket{\phi_n} = E_n\ket{\phi_n} .
 \end{equation}
@@ -37,9 +35,9 @@ Since $\qty{\ket{\phi_n}}_\nIH$ forms a basis of the Hilbert space, one can desc
 \end{equation}
 where $c_n=\braket{\phi_n}{\psi}$. This kind of description in a base is obviously valid for any observable, not only for the Hamiltonian. 
 
-Finally, we want to mention the necessity of normalizing states, which is important when calculating probabilities (Section~\ref{sec:qmt} makes this obvious). In order to normalize a state, one needs to set $\norm{\psi}=\sqrt{\braket{\psi}{\psi}}=1$, which is equivalent to the condition $\braket{\psi}{\psi}=\sum_n |c_n|^2=1$.
+Finally, we mention the necessity of normalizing states, which is important when calculating probabilities (the Section~\ref{sec:qmt} makes it obvious). In order to normalize a state, one needs to set $\norm{\psi}=\sqrt{\braket{\psi}{\psi}}=1$, which is equivalent to the condition $\braket{\psi}{\psi}=\sum_n |c_n|^2=1$.
 
-\subsubsection{Purity of states}\noindent
+\subsection{Purity of states}\noindent
 The concept of \textit{pure state} arises from the necessity to write the state of a system in a different way than that used so far in this document. Indeed, certain ways of preparing a system --- such as a statistical mixture\footnote{In the Appendix~\ref{ann:statmix}, we explain how to prepare a system as a statistical mixture or as a superposition of states. However, we recommend to read the Section~\ref{sec:qmt} on quantum measurement theory before.}--- require another formalism because such processes prevent the state of the system from being expressed as a single $\ket{\psi}$ (or as a superposition of state vectors). To take into account such cases, we introduce the density matrix hereafter.
 
 A density matrix $\rho$ is an operator of the Hilbert space $\mathcal{H}$ (and also an operator of the dual space $\mathcal{H^*}$), which follows a set of properties:\label{prop:rho}
@@ -47,9 +45,9 @@ A density matrix $\rho$ is an operator of the Hilbert space $\mathcal{H}$ (and a
     \item $\rho$ is Hermitian: $\rho=\rho^\dagger$, implying it can be diagonalized and necessarily with a positive eigenvalues, $\mathrm{Sp}(\rho)\subset\mathbb{R^+}$.
     \item $\Tr{\rho}=1$ necessarily.
     \item $\rho$ is positive semi-definite: $\forall\ket{\psi}\in\mathcal{H},\quad \expval{\rho}{\psi}\geq 0$.
-\end{itemize}
-This density matrix formalism is particularly useful because it generalizes Dirac formalism. Indeed, if a state can be written as $\ket{\psi}$ then $\rho=\ketbra{\psi}$ and we call it a \textbf{pure state}. Otherwise, the state is non-pure and can only be expressed with a density matrix. Also, pure states satisfy stronger properties than those defining a general density matrix; specifically, being idempotent $\rho^2=\rho$ by construction, implying that $\Tr{\rho^2}=\Tr{\rho}=1$ in the case of pure states.
-\subsubsection{Postulates of quantum mechanics}\noindent
+\end{itemize}\newpage\noindent
+The density matrix formalism is particularly useful because it generalizes Dirac formalism. Indeed, if a state can be written as $\ket{\psi}$ then $\rho=\ketbra{\psi}$ and we call it a \textbf{pure state}. Otherwise, the state is non-pure and can only be expressed with a density matrix. Also, pure states satisfy stronger properties than those defining a general density matrix; specifically, being idempotent $\rho^2=\rho$ by construction, implying that $\Tr{\rho^2}=\Tr{\rho}=1$ in the case of pure states.
+\subsection{Postulates of quantum mechanics}\noindent
 Physicists developed a corpus of the main properties of quantum mechanics, here are summarized the so-called postulates of quantum mechanics~\cite{CT}:
 \begin{enumerate}
     \item The state of a system is represented by a density matrix $\rho\in\mathrm{End}(\mathcal{H})$ respecting Properties~\ref{prop:rho}. For pure states we can describe them $\ket{\psi}\in\mathcal{H}$, or, by using the pure matrix density formalism $\rho_p=\ketbra{\psi}{\psi}$. 
