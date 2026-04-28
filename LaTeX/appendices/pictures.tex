@@ -66,3 +66,9 @@ By working on the Liouville-von Neumann equation, one can show that by jumping i
     \qty(\dert{\rho}=-\frac{i}{\hbar}\qty[H_T,\rho])\Leftrightarrow\qty(\dert{\tilde{\rho}}=-\frac{i}{\hbar}\qty[\tilde{H}_I,\tilde{\rho}]),
 \end{equation}
 where $\tilde{H}_I=U_0^\dagger(t,t_0)H_I U_0(t,t_0)$ as defined. It is thus usual to work in this representation to get rid of free dynamics terms, and then jump back to the Schrödinger picture to recover the proper dynamics of the system.
+\subsubsection{Further discussion}\noindent
+As seen in Eq.~(\ref{eq:rhoIS}), a state evolves in the interaction picture with a relation depending on $U_I$, which has been defined as $U_I=U_0^\dagger U$. It is possible to show from this definition that $U_I$ is subject to the following differential equation
+\begin{equation}
+    \dert{U_I}=-\frac{i}{\hbar}\tilde{H}_I U_I,
+\end{equation}
+where we recall that $\tilde{H}_I=U_0^\dagger H_I U_0$ by definition of the interaction picture. If we now consider the evolution  
