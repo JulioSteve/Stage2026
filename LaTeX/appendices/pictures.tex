@@ -33,7 +33,8 @@ Knowing that $\ket{\psi(t)}_S=U(t,t_0)\ket{\psi}_S$, we can write that
 \begin{equation}\label{eq:evolrhoU}
     \rho_S(t) = U(t,t_0)\rho_{S}(t_0)U^\dagger(t,t_0).
 \end{equation}
-The evolution operator $U$ is the solution of the Schrödinger equation for the total system $T$. We know that the free system (dynamically governed by $H_0$) also follows unitary dynamics, which is described by $U_0$. Thus, we can define the interaction unitary operator $U_I$ as
+The evolution operator $U$ is the solution of the Schrödinger equation for the total system $T$. We know from Section~\ref{Ii1} that we can write the solution of the Schrödinger equation when having a time-independent Hamiltonian as an exponential. However here, the total Hamiltonian $H_T$ is obviously not time independent (only $H_0$ is assumed constant in time); nevertheless, a unitary solution still exists in this case~\cite{Breuer}.
+We know that the free system (dynamically governed by $H_0$) follows unitary dynamics, which is described by $U_0(t,t_0)=e^{-\frac{i}{\hbar}H_0 (t-t_0)}$. Thus, we can define the interaction unitary operator $U_I$ as
 \begin{align}
     U_I(t,t_0) &= U_0^\dagger(t,t_0)U(t,t_0)\\
     \Leftrightarrow U(t,t_0) &= U_0(t,t_0)U_I(t,t_0)\label{eq:Utotal}
@@ -67,8 +68,28 @@ By working on the Liouville-von Neumann equation, one can show that by jumping i
 \end{equation}
 where $\tilde{H}_I=U_0^\dagger(t,t_0)H_I U_0(t,t_0)$ as defined. It is thus usual to work in this representation to get rid of free dynamics terms, and then jump back to the Schrödinger picture to recover the proper dynamics of the system.
 \subsubsection{Further discussion}\noindent
+We used in Eq.~(\ref{eq:rhoTevol}) the following approximation: $U_I(t+\dt,t)\approx e^{-\frac{i}{\hbar}\tilde{H}_I(t)\dt}$, and we would like to explain it here. 
 As seen in Eq.~(\ref{eq:rhoIS}), a state evolves in the interaction picture with a relation depending on $U_I$, which has been defined as $U_I=U_0^\dagger U$. It is possible to show from this definition that $U_I$ is subject to the following differential equation
-\begin{equation}
+\begin{equation}\label{eq:UI}
     \dert{U_I}=-\frac{i}{\hbar}\tilde{H}_I U_I,
 \end{equation}
-where we recall that $\tilde{H}_I=U_0^\dagger H_I U_0$ by definition of the interaction picture. If we now consider the evolution  
+where we recall that $\tilde{H}_I=U_0^\dagger H_I U_0$ by definition of the interaction picture. This equation is subject to the condition $U_I(t_0,t_0)=\mathbb{I}$. We can now work on the operator $U_I(t+\dt,t_0)$, which can be expressed by a Taylor expansion up to order $\dt$ as
+\begin{equation}
+    U_I(t+\dt,t_0)=U_I(t,t_0)+\dert{U_I}(t,t_0)\dt + o(\dt).
+\end{equation}
+We can then inject Eq.~(\ref{eq:UI}) into this expansion to get
+\begin{equation}
+    U_I(t+\dt,t_0)=U_I(t,t_0)-\frac{i}{\hbar}\tilde{H}_I(t,t_0)U_I(t,t_0)\dt + o(\dt).
+\end{equation}
+By setting $t=t_0$ and using the condition on unitary operator $U_I(t_0,t_0)$ we obtain
+\begin{equation}
+    U_I(t+\dt,t)=\mathbb{I}-\frac{i}{\hbar}\tilde{H}_I(t)\dt + o(\dt).
+\end{equation}
+Note that technically, $\tilde{H}_I(t_0,t_0)=H_I(t_0)$ for the same reason because of $U_0$. However we are interested into using the expression of $\tilde{H}_I$ in the calculation of Section~\ref{OQS} and so, we decide to keep the expression in the interaction picture. We can observe that this expansion corresponds to the expansion of the exponential at the same order, indeed
+\begin{equation}
+    e^{-\frac{i}{\hbar}\tilde{H}_I(t)\dt}=\mathbb{I}-\frac{i}{\hbar}\tilde{H}_I(t)\dt + o(\dt),
+\end{equation}
+thus proving the expression we used:
+\begin{equation}
+    U_I(t+\dt,t)\approx e^{-\frac{i}{\hbar}\tilde{H}_I(t)\dt}.
+\end{equation}

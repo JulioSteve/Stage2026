@@ -76,54 +76,46 @@ We now make use of one more assumption to derive the evolution of the state $\rh
     \begin{equation}
         \forall t\in\mathbb{R},\quad\tilde{\bm{\varrho}}(t)=\tilde{\rho}(t)\otimes \nu_t,
     \end{equation}
-    where $\nu_t=\ketbra{0}_t$ is the vacuum state of the bosonic operator $B_t$. Coupling at time $t$ with the corresponding $\nu_t$ implies that
+    where $\nu_t=\ketbra{0}_t$ is the vacuum state of the bosonic operator $B_t$. Coupling with the corresponding vacuum state (at time $t$) implies that the average of the input modes canonical anticommutator\footnote{We define the anticommutator between two operators $A$ and $B$ as $\qty{A,B}=AB+BA$.} is
     \begin{equation}
         \expval{\qty{b_t,b_{t'}^\dagger}}=\delta(t-t').
     \end{equation}
     This equation and Eq.~(\ref{eq:btCCR}) form the Markovian assumptions of this framework~\cite{Albarelli}: the bosonic mode $B_t$ is completely uncorrelated with the other modes at different times due to the delta-correlation of $b_t$.
 The global state evolves over an infinitesimal time $\dt$ as
-\begin{equation}
+\begin{equation}\label{eq:rhoTevol}
     \tilde{\bm{\varrho}}(t+\dt)=U_I(t+\dt,t)\overbrace{\qty[\tilde{\rho}(t)\otimes \nu_t]}^{\tilde{\bm{\varrho}}(t)}U_I^\dagger(t+\dt,t),
 \end{equation}
-where $U_I(t+\dt,t)=e^{-\frac{i}{\hbar}\tilde{H}_I(t)dt}$, as explained in Appendix~\ref{ann:pictures}.
+where $U_I(t+\dt,t)\approx e^{-\frac{i}{\hbar}\tilde{H}_I(t)dt}$, as explained in Appendix~\ref{ann:pictures}.
 \end{itemize}
 \subsection{The Lindblad master equation}\noindent
-At this point, we presented enough formalism %trop oral
-to calculate the evolution of the state $\bm{\varrho}$ of the total system in an infinitesimal time $\dt$. However, we are not actually interested in the evolution of the total system, we are studying $S$. %bof la fin de phrase
-The OQS theory states that we can ``trace out'' the environment by applying a partial trace\footnote{The partial trace is  the mathematical operation defined by $\rho_A = \sum_k\expval{\rho_{AB}}{b_k}$, where $\rho_{AB}\in\mathcal{H}_{AB}$ and $\qty{\ket{b_k}}_k$ is an orthonormal basis of $\mathcal{H}_B$. We thus have $\rho=\mathrm{Tr}_E\qty[\bm{\varrho}]\in\mathcal{H}_S$.}
-\begin{equation}\label{eq:rhoT}
+We just calculated the evolution of the state $\bm{\varrho}$ of the total system over an infinitesimal time $\dt$. In order to obtain the evolved state $\rho(t+\dt)$ of the system $S$, we want to ``trace out'' the environment (as explained in Section~\ref{sec:multipartite}) by applying the following partial trace
+\begin{equation}\label{eq:rhoSTrace}
     \tilde{\rho}(t+dt) = \mathrm{Tr}_E\qty[\tilde{\bm{\varrho}}(t+\dt)].
 \end{equation}
-As explained in the last section, we can use the annihilation/creation operators $B_t$/$B_t^\dagger$ on the environment state. By injecting results concerning these operators to the interaction Hamiltonian in the interaction picture, Eq.~(\ref{eq:H_Ipicture}), the expression of the unitary evolution operator becomes
-% réécrire en une phrase simple, comment écrire R(t+dt) bah en définissant ... 
+To write this expression into explicit terms, we develop the evolved total state and thus, we need to explicit the expression of $U_I(t+\dt,t)$. To do so, we can rewrite it using the environmental ladder operators, using Eq.~(\ref{eq:H_Ipicture}), as 
 \begin{equation}
-    U(t+\dt,t)=\exp\qty[\sqrt{k\dt}\qty(c\otimes B_t^\dagger-c\dagger\otimes B_t)].
+    U_I(t+\dt,t)=\exp\qty[\sqrt{k\dt}\qty(c\otimes B_t^\dagger-c^\dagger\otimes B_t)].
 \end{equation}
-The subtlety here is that the unitary evolution operator is depending on $\sqrt{\dt}$ in particular. So we should expand it to the second order (thus up to $\dt$ terms), obtaining % transition avec la deuxième phrase mhee 
+The subtlety here is that the unitary evolution operator scales with $\sqrt{\dt}$. Consequently, we must expand the exponential to second order to capture all terms up to $\dt$.
 \begin{multline}
-    U(t+\dt,t)\approx\mathbb{I}\otimes\mathbb{I}+\qty(\tilde{c}\otimes B_t^\dagger-\tilde{c}^\dagger\otimes B_t)\sqrt{k\dt}+\\
-    \qty(\tilde{c}^{\dagger 2}\otimes B_t^2 + \tilde{c}^2\otimes B_t^{\dagger 2}-\tilde{c} \tilde{c}^\dagger\otimes B_t^\dagger B_t - \tilde{c}^\dagger \tilde{c}\otimes B_t B_t^\dagger)\frac{k\dt}{2}.
+    U_I(t+\dt,t)\approx\mathbb{I}\otimes\mathbb{I}+\qty(c\otimes B_t^\dagger-c^\dagger\otimes B_t)\sqrt{k\dt}+\\
+    \qty(c^{\dagger 2}\otimes B_t^2 + c^2\otimes B_t^{\dagger 2}-c c^\dagger\otimes B_t^\dagger B_t - c^\dagger c\otimes B_t B_t^\dagger)\frac{k\dt}{2}.
 \end{multline}
-Note that we dropped the time-dependency $\tilde{c}(t)$ notation for the more convenient $\tilde{c}$.
-We can rewrite the evolution of $\tilde{\bm{\varrho}}$ during the infinitesimal time $\dt$, Eq.~(\ref{eq:rhoT}), using the previous expansion:
-\begin{align}
-    \tilde{\bm{\varrho}}(t+\dt)&\approx\tilde{\rho}(t)\otimes\ketbra{0}_t\notag\\
-    &+\qty[\tilde{\rho}(t) \tilde{c}^\dagger\otimes\ketbra{0}{1}_t+\mathrm{h.c.}]\sqrt{k\dt}\notag\\
-    &+\qty{\sqrt{2}\qty[\tilde{\rho}(t) \tilde{c}^{\dagger 2}\otimes\ketbra{0}{2}_t+\mathrm{h.c.}]-\qty[\tilde{\rho}(t) \tilde{c} \tilde{c}^\dagger\otimes\ketbra{0}_t+\mathrm{h.c.}]}\frac{k\dt}{2}\notag\\
-    &+\qty[\tilde{c}\tilde{\rho}(t) \tilde{c}^\dagger\otimes\ketbra{1}_t]k\dt.
-\end{align} %virer le align
-By tracing out the environment, the evolved state of the system $S$ is
+We can then rewrite the evolution of $\tilde{\bm{\varrho}}$ during the infinitesimal time $\dt$, Eq.~(\ref{eq:rhoTevol}), using the previous expansion:
+\begin{multline}
+    \tilde{\bm{\varrho}}(t+\dt)\approx \qty[\tilde{\rho}(t)\otimes\ketbra{0}_t]\times 1
+    +\qty[\tilde{\rho}(t) c^\dagger\otimes\ketbra{0}{1}_t+\mathrm{h.c.}]\times\sqrt{k\dt}\\
+    +\qty[\frac{\sqrt{2}}{2}\tilde{\rho}(t) c^{\dagger 2}\otimes\ketbra{0}{2}_t+\mathrm{h.c.}-\frac{1}{2}\tilde{\rho}(t) c c^\dagger\otimes\ketbra{0}_t+\mathrm{h.c.}+c\tilde{\rho}(t) c^\dagger\otimes\ketbra{1}_t]\times k\dt,
+\end{multline}
+where ``h.c.'' stands for hermitian conjugate of the last term. We can now apply the partial trace, the evolved state of the system $S$ is thus expressed as
 \begin{equation*}
-    \tilde{\rho}(t+\dt)=\tilde{\rho}(t)+k\qty[\tilde{c}\tilde{\rho}(t)\tilde{c}^\dagger - \frac{\tilde{c}^\dagger \tilde{c}\tilde{\rho}(t)+\tilde{\rho}(t)\tilde{c}^\dagger\tilde{c}}{2}]\dt,
+    \tilde{\rho}(t+\dt)=\tilde{\rho}(t)+k\qty[c\tilde{\rho}(t)c^\dagger - \frac{c^\dagger c\tilde{\rho}(t)+\tilde{\rho}(t)c^\dagger c}{2}]\dt.
 \end{equation*}
-where h.c. ...
-Now, we can rewrite this equation directly as a proper differential equation: %redire mieux
+If we now form the difference quotient $\frac{\tilde{\rho}(t+\dt)-\tilde{\rho}(t)}{dt}$, in the infinitesimal limit, we find the differential equation followed by the state $\rho$ at all time 
 \begin{equation}
-    \frac{\mathrm{d}\tilde{\rho}}{\dt}(t)=k\mathcal{D}[\tilde{c}]\tilde{\rho}(t),
+    \frac{\mathrm{d}\tilde{\rho}}{\dt}(t)=k\mathcal{D}[c]\tilde{\rho}(t),
 \end{equation}
-where, we used the super-operator $\mathcal{D}[\hat{O}]\bullet\equiv \hat{O}\bullet\hat{O}^\dagger-\frac{\qty{\hat{O}^\dagger\hat{O},\bullet}}{2}^{\footnotemark}$.
-\footnotetext{We define the anticommutator between two operators $A$ and $B$ as $\qty{A,B}=AB+BA$.} %déjà utiliser avant!
-Finally, by coming back to the Schrödinger representation, we find the so-called {Lindblad master equation}:
+in which we used the definition of the super-operator $\mathcal{D}[\hat{O}]\bullet\equiv \hat{O}\bullet\hat{O}^\dagger-\frac{\qty{\hat{O}^\dagger\hat{O},\bullet}}{2}$, called the dissipator. Finally, by coming back into the Schrödinger representation, we find the so-called {Lindblad master equation}:
 \begin{equation}
     \boxed{\frac{\mathrm{d}\rho}{\dt}(t)=-\frac{i}{\hbar}\qty[H_0, \rho(t)]+k\mathcal{D}[c]\rho(t)}.
 \end{equation}
