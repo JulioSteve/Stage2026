@@ -100,7 +100,7 @@ The subtlety here is that the unitary evolution operator scales with $\sqrt{\dt}
 \begin{multline}
     U_I(t+\dt,t)\approx\mathbb{I}\otimes\mathbb{I}+\qty(c\otimes B_t^\dagger-c^\dagger\otimes B_t)\sqrt{k\dt}+\\
     \qty(c^{\dagger 2}\otimes B_t^2 + c^2\otimes B_t^{\dagger 2}-c c^\dagger\otimes B_t^\dagger B_t - c^\dagger c\otimes B_t B_t^\dagger)\frac{k\dt}{2}.
-\end{multline}
+\end{multline}\label{eq:expansion}
 We can then rewrite the evolution of $\tilde{\bm{\varrho}}$ during the infinitesimal time $\dt$, Eq.~(\ref{eq:rhoTevol}), using the previous expansion:
 \begin{multline}
     \tilde{\bm{\varrho}}(t+\dt)\approx \qty[\tilde{\rho}(t)\otimes\ketbra{0}_t]\times 1
@@ -113,9 +113,9 @@ where ``h.c.'' stands for hermitian conjugate of the last term. We can now apply
 \end{equation*}
 If we now form the difference quotient $\frac{\tilde{\rho}(t+\dt)-\tilde{\rho}(t)}{dt}$, in the infinitesimal limit, we find the differential equation followed by the state $\rho$ at all time 
 \begin{equation}
-    \frac{\mathrm{d}\tilde{\rho}}{\dt}(t)=k\mathcal{D}[c]\tilde{\rho}(t),
+    \frac{\mathrm{d}\tilde{\rho}}{\dt}(t)=k\mathfrak{D}[c]\tilde{\rho}(t),
 \end{equation}
-in which we used the definition of the super-operator $\mathcal{D}[\hat{O}]\bullet\equiv \hat{O}\bullet\hat{O}^\dagger-\frac{\qty{\hat{O}^\dagger\hat{O},\bullet}}{2}$, called the dissipator. Finally, by coming back into the Schrödinger representation, we find the so-called {Lindblad master equation}:
+in which we used the definition of the super-operator $\mathfrak{D}[\hat{O}]\bullet\equiv \hat{O}\bullet\hat{O}^\dagger-\frac{\qty{\hat{O}^\dagger\hat{O},\bullet}}{2}$, called the dissipator. Finally, by coming back into the Schrödinger representation, we find the so-called {Lindblad master equation}:
 \begin{equation}
-    \boxed{\frac{\mathrm{d}\rho}{\dt}(t)=-\frac{i}{\hbar}\qty[H_0, \rho(t)]+k\mathcal{D}[c]\rho(t)}.
+    \boxed{\frac{\mathrm{d}\rho}{\dt}(t)=-\frac{i}{\hbar}\qty[H_0, \rho(t)]+k\mathfrak{D}[c]\rho(t)}.
 \end{equation}
