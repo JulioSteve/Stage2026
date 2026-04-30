@@ -21,7 +21,7 @@ We will simply assume the Hamiltonian to be time-independent in the following, n
 \begin{equation}\label{eq:solschrod}
     \ket{\psi(t)} = \underbrace{e^{-\frac{i\hat{H}(t-t_0)}{\hbar}}}_{\hat{U}(t,t_0)}\ket{\psi(t_0)}.
 \end{equation} 
-This solution is indeed \textbf{unitary} and we can use $\hat{U}^\dagger(t,t_0)$ on the left of both sides of the Eq.~(\ref{eq:solschrod}) to obtain $\ket{\psi(t_0)}=\hat{U}^\dagger(t,t_0)\ket{\psi(t)}$, i.e., we described \textbf{reversible} dynamics.\newpage 
+This solution is indeed \textbf{unitary} and we can use $\hat{U}^\dagger(t,t_0)$ on the left of both sides of the Eq.~(\ref{eq:solschrod}) to obtain $\ket{\psi(t_0)}=\hat{U}^\dagger(t,t_0)\ket{\psi(t)}$, i.e., we described \textbf{reversible} dynamics.
 \subsection{Observables}\label{sec:obs}\noindent
 In quantum mechanics, any physical quantity is represented by an \textbf{observable} which is an operator fulfilling two properties: the eigenvectors of the observable form an orthonormal basis of the Hilbert space $\mathcal{H}$, and, the corresponding eigenvalues are necessarily real~\cite{CT}. In finite-dimensional Hilbert spaces, the definition of Hermitian operator\footnote{The eigenvectors of a Hermitian operator always span the entire Hilbert space (Spectral Theorem). Using the Gram-Schmidt process, we can always find a complete orthonormal basis from the operator's eigenspaces.} is sufficient for it to be an observable. In the case of infinite dimension Hilbert spaces, the definition of an observable requires more rigorous mathematical foundations (self-adjoint operators, the details of which lie beyond the purview of this study). In this sense, we only consider finite dimension cases in the following. We thus define the interval $I_\mathcal{H}=\llbracket 1;\text{dim}(\mathcal{H})\rrbracket$ throughout this document, also, we lighten the notation by omitting $\hat{\bullet}$ symbols on operators hereafter.
 
@@ -66,4 +66,15 @@ Physicists developed a corpus of the main properties of quantum mechanics, here 
 \end{enumerate}
 \footnotetext[1]{$[\hat{A},\hat{B}]=\hat{A}\hat{B}-\hat{B}\hat{A}$ is called the commutator of $\hat{A}$ and $\hat{B}$.}
 
-\section{Multipartite systems}\label{sec:multipartite}
+\subsection{Multipartite systems}\label{sec:multipartite}
+In quantum mechanics a system can be composed of multiple subsystems, we then call the global composition a multipartite system. The density matrix introduced in the previous sections is a useful tool to describe the state of such system and subsystems. If we consider an Hilbert space $\mathcal{H_{AB}}$ composed of two physical systems $A$ and $B$: $\mathcal{H_{AB}}=\mathcal{H}_A\otimes\mathcal{H}_B$. Note that this implies $\dim(\mathcal{H}_{AB})=\dim(\mathcal{H}_A)\times\dim(\mathcal{H}_B)$. The total system state is therefore represented by a density matrix $\rho_{AB}\in\mathcal{H}_A\otimes\mathcal{H}_B$. The expression of the density matrix representing the state of the subsystem $A$ is defined by
+\begin{equation}
+    \rho_A = \mathrm{Tr}_B\qty[\rho_{AB}],
+\end{equation}
+and is called a \textit{reduced density matrix}; moreover, we defined in this equation a new function called a \textit{partial trace}. The idea behind the notation is to get rid of the $B$ components in the tensor product of the total state $\rho_{AB}$. Explicitly, we can express the mean value of an operator of the subsystem $A$  in the total space. Let $\hat{O}=\hat{O}_A\otimes\mathbb{I}_B$, and specify the bases of $A$ and $B$: namely $\qty{\ket{\phi_a}}_a$ and $\qty{\ket{\phi_b}}_b$. The average of the operator $\hat{O}$ is expressed as
+\begin{multline}
+    \expval{\hat{O}} = \Tr{\rho_{AB}\hat{O}} = \sum_{a=1}^{\mathcal{H}_A}\sum_{b=1}^{\mathcal{H}_B}\bra{\phi_a}\bra{\phi_b}\rho_{AB}\qty(\hat{O}_A\otimes\mathbb{I}_B)\ket{\phi_b}\ket{\phi_a}\\= \sum_{a=1}^{\mathcal{H}_A}\bra{\phi_a}\underbrace{\sum_{b=1}^{\mathcal{H}_B}\bra{\phi_b}\rho_{AB}\ket{\phi_b}}_{\rho_A}\hat{O}_A\ket{\phi_a} = \mathrm{Tr}_A\qty[\rho_A \hat{O}_A].
+\end{multline}
+Therefore, for any local observable of $A$, the expectation value is encoded by the reduced density matrix $\rho_A$. Note that this average of a local observable does not require explicit knowledge on the total state, while the average still takes into account the correlations between $A$ and $B$ (due to $\rho_A=\mathrm{Tr}_B\qty[\rho_{AB}]$).
+
+The bipartite results shown above can be generalized to multipartite systems; however in the following, we will consider a system $S$ coupled to an environnement $E$ only, which is thus bipartite. 
