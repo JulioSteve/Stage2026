@@ -96,12 +96,12 @@ To write this expression into explicit terms, we develop the evolved total state
 \begin{equation}
     U_I(t+\dt,t)=\exp\qty[\sqrt{k\dt}\qty(c\otimes B_t^\dagger-c^\dagger\otimes B_t)].
 \end{equation}
-The subtlety here is that the unitary evolution operator scales with $\sqrt{\dt}$. Consequently, we must expand the exponential to second order to capture all terms up to $\dt$.
+The subtlety here is that the unitary evolution operator scales with $\sqrt{\dt}$, and because $\dt=o(\sqrt{dt})$ expanding to order $\dt$ is already a fine description of the dynamics. Consequently, we expand the exponential to second order so that we capture all terms up to $\dt$, giving
 \begin{multline}
     U_I(t+\dt,t)\approx\mathbb{I}\otimes\mathbb{I}+\qty(c\otimes B_t^\dagger-c^\dagger\otimes B_t)\sqrt{k\dt}+\\
     \qty(c^{\dagger 2}\otimes B_t^2 + c^2\otimes B_t^{\dagger 2}-c c^\dagger\otimes B_t^\dagger B_t - c^\dagger c\otimes B_t B_t^\dagger)\frac{k\dt}{2}.
-\end{multline}\label{eq:expansion}
-We can then rewrite the evolution of $\tilde{\bm{\varrho}}$ during the infinitesimal time $\dt$, Eq.~(\ref{eq:rhoTevol}), using the previous expansion:
+\end{multline}\label{eq:expansion}\noindent
+We can now rewrite the evolution of $\tilde{\bm{\varrho}}$ during the infinitesimal time $\dt$, i.e.~Eq.~(\ref{eq:rhoTevol}), using the previous expansion:
 \begin{multline}
     \tilde{\bm{\varrho}}(t+\dt)\approx \qty[\tilde{\rho}(t)\otimes\ketbra{0}_t]\times 1
     +\qty[\tilde{\rho}(t) c^\dagger\otimes\ketbra{0}{1}_t+\mathrm{h.c.}]\times\sqrt{k\dt}\\

@@ -3,26 +3,26 @@ In the previous chapters, we went through the steps leading to the Lindblad mast
 
 We should now calculate the expression of the conditional state obtained at time $t+\dt$. Let $\qty{\ketbra{j}_t}_j$ be a PVM (see Section~\ref{sec:qmt}). The measurement projects the environment with corresponding oscillator $B_t$ on the PVM element $\ketbra{j}_t$. After the measurement on the total state and after applying the partial trace $\mathrm{Tr}_E$, we find
 \begin{equation}
-    \rho_j(t+\dt)=\frac{\bra{j}_t\bm{\varrho}(t+\dt)\ket{j}_t}{p_j(t+\dt)},
+    \rho_j(t+\dt)=\frac{\bra{j}_t\bm{\varrho}_c(t+\dt)\ket{j}_t}{p_j(t+\dt)},
 \end{equation}
-where $p_j(t+\dt)=\Tr{\bm{\varrho}(t+\dt)\qty(\mathbb{I}\otimes\ketbra{j}_t)}$. Note that in this expression 
+where $p_j(t+\dt)=\Tr{\bm{\varrho}_c(t+\dt)\qty(\mathbb{I}\otimes\ketbra{j}_t)}$. Note that in this expression 
 \begin{equation}
-    \bm{\varrho}(t+\dt)=U_I(t+\dt,t)\overbrace{\qty[\rho_c(t)\otimes\ketbra{0}_t]}^{\bm{\varrho}_c(t)}U_I^\dagger(t+\dt,t),
+    \bm{\varrho}_c(t+\dt)=U_I(t+\dt,t)\overbrace{\qty[\rho_c(t)\otimes\ketbra{0}_t]}^{\bm{\varrho}_c(t)}U_I^\dagger(t+\dt,t),
 \end{equation}
-where the subscript $c$ indicates the system state is conditional. If the condition is obvious, we choose not to write this subscript explicitly, instead we write for example $\rho_j$.
+where the subscript $c$ indicates the system state is conditional. If the condition is obvious, we choose not to write this subscript explicitly, instead we write for example $\rho_j$. The system in this calculation is indeed conditional because we consider the measurement already present in the evolution before time $t$.
 \section{Photodetection}
-\subsection[Deriving the SME]{Deriving the Stochastic Master Equation (SME)}\noindent
-In the case where an open quantum system is continuously monitored by a photo-detector, the mathematical impact is a projection of the environment on the corresponding Fock basis $\qty{\ketbra{n}_t}_{n\in\mathbb{N}}$: we actually measure the environment and not the system. The Eq.~(\ref{eq:expansion}) shows that only projections on $\ketbra{0}_t$ and $\ketbra{1}_t$ contribute to the result. We will show this separately for each measurement result ($0$ or $1$).
+\subsection[Unravelling the SME]{Unravelling the Stochastic Master Equation (SME)}\noindent
+In the case where an open quantum system is continuously monitored by a photo-detector, the mathematical impact is a projection of the environment on the corresponding Fock basis $\qty{\ketbra{n}_t}_{n\in\mathbb{N}}$: we actually measure the environment and not the system. The Eq.~(\ref{eq:expansion}) shows that only projections on $\ketbra{0}_t$ and $\ketbra{1}_t$ contribute to the result, which will be shown hereafter for each measurement result separately.
 \subsubsection{Measurement result 0:}\noindent
 From the expansion in Eq.~(\ref{eq:expansion}), we find
 \begin{equation}
-    \rho_0(t+\dt)=\frac{\bra{0}_t\bm{\varrho}(t+\dt)\ket{0}_t}{p_0(t+\dt)}= \frac{\rho_c(t)-\qty{\rho_c(t),c^\dagger c}\frac{k\dt}{2}}{p_0(t+\dt)}.
+    \rho_0(t+\dt)=\frac{\bra{0}_t\bm{\varrho}_c(t+\dt)\ket{0}_t}{p_0(t+\dt)}= \frac{\rho_c(t)-\qty{\rho_c(t),c^\dagger c}\frac{k\dt}{2}}{p_0(t+\dt)}.
 \end{equation}
-The same expansion allows to calculate 
+The normalization is found using the same expansion, giving
 \begin{equation}
     p_0(t+\dt)=1-\expval{c^\dagger c}_t k\dt,
 \end{equation}
-where we defined the average labelled by $t$ as $\expval{\bullet}_t=\Tr{\rho_c(t)\bullet}$. In the infinitesimal limit, we can also expand the denominator in the evolved conditional state, giving
+where we defined the average labelled by $t$ as $\expval{\hat{O}}_t=\Tr{\rho_c(t)\hat{O}}$. In the infinitesimal limit, we can also expand the denominator in the evolved conditional state, giving
 \begin{equation}
     \rho_0(t+\dt)\approx\bar{\rho}_0(t+\dt)\times\qty(1-\expval{c^\dagger c}_t k\dt),
 \end{equation}
@@ -45,17 +45,17 @@ Combined, they give the normalized conditional state
 \end{equation} 
 \subsubsection{Mixing the results:}\noindent
 If we observe from a statistical point of view the last results, we have a measurement outcome at time $t+\dt$ that can be $0$ with a probability $p_0(t+\dt)$ or $1$ with probability $p_1(t+\dt)$. We can imagine a process where we count how many times the result $1$ appears, storing the result in a random variable $N(t,t_0)$. In an infinitesimal slice of time $\dt$, the increment $\mathrm{d}N_t=N(t+\dt,t_0)-N(t,t_0)$ is either $1$ or $0$, and so we have the fundamental relation $\mathrm{d}N_t^2=\mathrm{d}N_t$. These are respectively called Poisson process and Poisson increment\footnotemark[1]. For now, we can calculate the stochastic average of $\mathrm{d}N_t$ to get
+\footnotetext[1]{The Poisson increment follows a Poisson distribution with rate $\Lambda_t\in\mathbb{R}$: $\forall n\in\mathbb{N},\quad\mathbb{P}\qty[\mathrm{d}N_t=n]=\frac{\Lambda_t^n}{n!}e^{-\Lambda_t}$. However because we only have possible outcomes (0 or 1), the parameter is forced to be $\Lambda_t=0$ in our case. We can state that $\mathbb{P}\qty[\mathrm{d}N_t=1]=\lambda_t\dt\approx 0$ and $\mathbb{P}\qty[\mathrm{d}N_t=0]=1-\lambda_t\dt\approx 1$ to obtain the Poisson distribution results on an infinitesimal scale. It is trivial that $\mathbb{E}\qty[\mathrm{d}N_t]=\lambda_t\dt$, which corresponds to results found in Eq~(\ref{eq:avPoisson}).} 
 \begin{equation}\label{eq:avPoisson}
     \mathbb{E}\qty[\mathrm{d}N_t]=0\times p_0(t+\dt)+1\times p_1(t+\dt) = \expval{c^\dagger c}_t k\dt.
 \end{equation}
-\footnotetext[1]{The Poisson increment follows a Poisson distribution with rate $\Lambda_t\in\mathbb{R}$: $\forall n\in\mathbb{N},\quad\mathbb{P}\qty[\mathrm{d}N_t=n]=\frac{\Lambda_t^n}{n!}e^{-\Lambda_t}$. However because we only have possible outcomes (0 or 1), the parameter is forced to be $\Lambda_t=0$ in our case. We can state that $\mathbb{P}\qty[\mathrm{d}N_t=1]=\lambda_t\dt\approx 0$ and $\mathbb{P}\qty[\mathrm{d}N_t=0]=1-\lambda_t\dt\approx 1$ to obtain the Poisson distribution results on an infinitesimal scale. It is trivial that $\mathbb{E}\qty[\mathrm{d}N_t]=\lambda_t\dt$, which corresponds to results found in Eq~(\ref{eq:avPoisson}).} 
-This Poisson increment will allow us to write the differential conditional state $\mathrm{d}\rho_c(t+\dt)$ with respect to each possible result, because $\mathrm{d}N_t=0$ means the differential is $\mathrm{d}\rho_0(t)=\rho_0(t+\dt)-\rho_c(t)$, instead $\mathrm{d}N_t=1$ means we the differential is $\mathrm{d}\rho_1(t)=\rho_1(t+\dt)-\rho_c(t)$ state. Indeed, 
+\textbf{Note that by experimentally averaging $\mathrm{d}N_t$, we find the expectation value $\expval{c^\dagger c}_t$ which is the mean occupation number at time $t$ of the system $S$}. This Poisson increment will allow us to write the differential conditional state $\mathrm{d}\rho_c(t+\dt)$ with respect to each possible result, because $\mathrm{d}N_t=0$ means the differential is $\mathrm{d}\rho_0(t)=\rho_0(t+\dt)-\rho_c(t)$, instead $\mathrm{d}N_t=1$ means we the differential is $\mathrm{d}\rho_1(t)=\rho_1(t+\dt)-\rho_c(t)$ state. Indeed, 
 \begin{equation}
     \mathrm{d}\rho_c(t)=\mathrm{d}N_t\qty[\rho_1(t+\dt)-\rho_c(t)]+\qty(1-\mathrm{d}N_t)\qty[\rho_0(t+\dt)-\rho_c(t)].
 \end{equation}
 We can inject in this last equation the results of Eq.~(\ref{eq:rho0},\ref{eq:rho1}) to get (in the Schrödinger picture),
 \begin{equation}
-    \boxed{\mathrm{d}\rho_c=-i\qty[H_0,\rho_c]\dt-\frac{k}{2}\mathfrak{H}\qty[c^\dagger c]\rho_c\dt + \qty(\frac{c\rho_cc^\dagger}{\expval{c^\dagger c}_t}-\rho_c)\mathrm{d}N_t},
+    \boxed{\mathrm{d}\rho_c=-i\qty[H_0,\rho_c]\dt-\frac{k}{2}\mathfrak{H}\qty[c^\dagger c]\rho_c\dt + \qty(\frac{c\rho_c c^\dagger}{\expval{c^\dagger c}_t}-\rho_c)\mathrm{d}N_t},
 \end{equation}
 in which we discarded terms of order $\mathrm{d}N_t\dt$ (this can be understood informally because $\mathbb{E}\qty[\mathrm{d}N_t]=\lambda_t\dt$ and $\mathbb{V}\qty[\mathrm{d}N_t]\approx\lambda_t\dt$). This equation is called the photo-detection Stochastic Master Equation (SME). The importance of this equation is double because it contains in average the \textbf{unconditional} dynamics: $\rho(t)=\mathbb{E}\qty[\rho_c(t)]$. Finally, when derived for a pure state the expression simplifies to a Stochastic Schrödinger Equation (SSE):
 \begin{equation}
@@ -76,21 +76,41 @@ Physically, averaging over all possible conditional trajectories gives the uncon
 which is exactly the Lindblad master equation. We can see the conditional trajectory as one path followed by the system among the infinite possibilities. In this sense we will refer to $\rho_c$ as an \textit{unravelling of the source dynamics} (or a \textit{quantum trajectory}) since it decomposes the solutions of the Lindblad master equation~\cite{Carmichael}. Therefore, it is common to call the process of finding the expression of a quantum trajectory as \textit{an} unravelling of the master equation; here we presented an unravelling based on continuous jump evolution.
 \section{Homodyne detection}\noindent
 In quantum optics~\cite{Barnett}, the \textit{quadrature operator} is well-known and a useful operator {\color{red} REWRITE}
-that we use in this section to measure the environment continuously, when doing so we call the physical process a \textit{homodyne measurement}. The quadrature operator is defined by $\hat{x}_\theta=(e^{-i\theta}B_t+e^{i\theta}B_t^\dagger)/\sqrt{2}$ where $\theta\in\mathbb{R}$, and verifies $\qty[\hat{x}_\theta,\hat{x}_{\theta+\frac{\pi}{2}}]=i$. Even if it is not possible to construct normalized eigenstates of this operator, we can build the states $\ket{x_\theta}$ satisfying $\hat{x}_\theta\ket{x_\theta}=x_\theta\ket{x_\theta}$ such that $\ketbra{x_\theta}{x_\lambda}=\delta(\theta-\lambda)$, verifying $\int_\mathbb{R}\ketbra{x_\theta}\mathrm{d}x_\theta=1$. We will use the following overlapping property between these states and the Fock states:
+that we use in this section to measure the environment continuously, when doing so we call the physical process a \textit{homodyne measurement}. The quadrature operator is defined by $\hat{x}_\theta=(e^{-i\theta}B_t+e^{i\theta}B_t^\dagger)/\sqrt{2}$ where $\theta\in\mathbb{R}$, and verifies $\qty[\hat{x}_\theta,\hat{x}_{\theta+\frac{\pi}{2}}]=i$. Even if it is not possible to construct normalized eigenstates of this operator, we can build the states $\ket{x_\theta}$ satisfying $\hat{x}_\theta\ket{x_\theta}=x_\theta\ket{x_\theta}$ such that $\ketbra{x_\theta}{x_\lambda}=\delta(\theta-\lambda)$, verifying $\int_\mathbb{R}\ketbra{x_\theta}\mathrm{d}x_\theta=1$. We will use the following overlapping property~\cite{Barnett} between these states and the Fock states:
 \begin{equation}
     \braket{x_\theta}{n}_t = \frac{e^{-\frac{x_\theta}{2}}H_n(x)e^{-in\theta}}{\sqrt{2^n n!}\pi^{\frac{1}{4}}},
 \end{equation}
-where $H_n(x)$ is the Hermite polynomial of order $n$. In particular we will later use the fact that $\abs{\braket{x_\theta}{0}_t}^2=\frac{e^{-x_\theta^2}}{\sqrt{\pi}}$ and that $\braket{x_\theta}{1}_t=\sqrt{2}x_\theta e^{i\theta}\braket{x_\theta}{0}_t$.
+where $H_n(x)$ is the Hermite polynomial of order $n$. In particular we will later use the fact that 
+\begin{equation}\label{eq:overlapping}
+    \braket{x_\theta}{0}_t=\pi^{-\frac{1}{4}}e^{-\frac{x_\theta^2}{2}},\text{ and that }\braket{x_\theta}{1}_t=\sqrt{2}x_\theta e^{-i\theta}\braket{x_\theta}{0}_t.
+\end{equation}
+Note that because the state of the environnement at time $t$ is the corresponding vacuum state, we have 
+\begin{equation}\label{eq:initprob}
+    p_{x_\theta}(t)=\abs{\braket{x_\theta}{0}_t}^2=\frac{e^{-x_\theta^2}}{\sqrt{\pi}}
+\end{equation}
 
-As explained, we measure the environment by projecting it at each time on the quadrature states, giving the conditional (unnormalized) state
+In order to express the continuous homodyne measurement, the environment is projected at each time on the quadrature states, giving the conditional (unnormalized) state
 \begin{align}
-    \bar{\rho}_c(t+\dt)&=\mathrm{Tr}\qty[U_I(t+\dt,t)\bm{\varrho}(t)U_I^\dagger(t+\dt,t)\qty(\mathbb{I}\otimes\ketbra{x_\theta})]\notag\\
+    \bar{\rho}_c(t+\dt)&=\mathrm{Tr}\qty[U_I(t+\dt,t)\bm{\varrho}_c(t)U_I^\dagger(t+\dt,t)\qty(\mathbb{I}\otimes\ketbra{x_\theta})]\notag\\
     &= \expval{U_I(t+\dt,t)\qty[\rho_c(t)\otimes\ketbra{0}_t]U_I^\dagger(t+\dt,t)}{x_\theta},
 \end{align}
 with a corresponding normalization (probability)
 \begin{equation}
     p_{x_\theta}(t+\dt) = \Tr{\bar{\rho}_c(t+\dt)}.
 \end{equation}
+We will now use the expansion of the Eq.~(\ref{eq:expansion}), however we truncate it to the most dominant terms ($\sqrt{dt}$), giving for the conditional unnormalized evolved state
+\begin{equation}
+    \bar{\rho}_c(t+\dt) = \abs{\braket{x_\theta}{0}_t}^2\rho_c(t) + \qty[c\rho_c(t)\braket{x_\theta}{1}_t\braket{0}{x_\theta}+\rho_c(t)c^\dagger\braket{x_\theta}{0}_t\braket{1}{x_\theta}]\sqrt{k\dt}+o\qty(\sqrt{\dt}).
+\end{equation}
+Simplifying this expression and factorizing it using Eq.~(\ref{eq:overlapping},\ref{eq:initprob}), we find
+\begin{equation}
+    \bar{\rho}_c(t+\dt)= p_{x_\theta}(t)\qty{\rho_c(t)+x_\theta\sqrt{2k\dt}\qty[c\rho_c(t)e^{-i\theta}+\rho_c(t)c^\dagger e^{i\theta}]}+o\qty(\sqrt{dt}),
+\end{equation}
+with a normalization
+\begin{align}
+    p_{x_\theta}(t+\dt) &= p_{x_\theta}(t)\qty{1+x_\theta\sqrt{2k\dt}\expval{ce^{-i\theta}+c^\dagger e^{i\theta}}_t}+o\qty(\sqrt{\dt})\\
+    &\approx .
+\end{align}
 
 
 \section{Linear quantum trajectories}\label{sec:Linear}
