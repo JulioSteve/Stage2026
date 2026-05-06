@@ -89,7 +89,7 @@ Note that because the state of the environnement at time $t$ is the correspondin
     p_{x_\theta}(t)=\abs{\braket{x_\theta}{0}_t}^2=\frac{e^{-x_\theta^2}}{\sqrt{\pi}}
 \end{equation}
 
-In order to express the continuous homodyne measurement, the environment is projected at each time on the quadrature states, giving the conditional (unnormalized) state
+Continuous homodyne measurement is by definition the projection of the environment at each time on the quadrature states, giving the conditional (unnormalized) state
 \begin{align}
     \bar{\rho}_c(t+\dt)&=\mathrm{Tr}\qty[U_I(t+\dt,t)\bm{\varrho}_c(t)U_I^\dagger(t+\dt,t)\qty(\mathbb{I}\otimes\ketbra{x_\theta})]\notag\\
     &= \expval{U_I(t+\dt,t)\qty[\rho_c(t)\otimes\ketbra{0}_t]U_I^\dagger(t+\dt,t)}{x_\theta},
@@ -98,19 +98,34 @@ with a corresponding normalization (probability)
 \begin{equation}
     p_{x_\theta}(t+\dt) = \Tr{\bar{\rho}_c(t+\dt)}.
 \end{equation}
-We will now use the expansion of the Eq.~(\ref{eq:expansion}), however we truncate it to the most dominant terms ($\sqrt{dt}$), giving for the conditional unnormalized evolved state
+We will now use the expansion of the Eq.~(\ref{eq:expansion}) to develop the previous expression. However, we truncate it to $o\qty(\sqrt{dt})$ because $\dt$ is negligible compared to $\sqrt{\dt}$, giving for the conditional unnormalized evolved state
 \begin{equation}
     \bar{\rho}_c(t+\dt) = \abs{\braket{x_\theta}{0}_t}^2\rho_c(t) + \qty[c\rho_c(t)\braket{x_\theta}{1}_t\braket{0}{x_\theta}+\rho_c(t)c^\dagger\braket{x_\theta}{0}_t\braket{1}{x_\theta}]\sqrt{k\dt}+o\qty(\sqrt{\dt}).
 \end{equation}
 Simplifying this expression and factorizing it using Eq.~(\ref{eq:overlapping},\ref{eq:initprob}), we find
-\begin{equation}
+\begin{equation}\label{eq:homrhou}
     \bar{\rho}_c(t+\dt)= p_{x_\theta}(t)\qty{\rho_c(t)+x_\theta\sqrt{2k\dt}\qty[c\rho_c(t)e^{-i\theta}+\rho_c(t)c^\dagger e^{i\theta}]}+o\qty(\sqrt{dt}),
 \end{equation}
 with a normalization
-\begin{align}
-    p_{x_\theta}(t+\dt) &= p_{x_\theta}(t)\qty{1+x_\theta\sqrt{2k\dt}\expval{ce^{-i\theta}+c^\dagger e^{i\theta}}_t}+o\qty(\sqrt{\dt})\\
-    &\approx .
+\begin{align}\label{eq:homprob}
+    p_{x_\theta}(t+\dt) &= p_{x_\theta}(t)\qty{1+x_\theta\sqrt{2k\dt}\expval{ce^{-i\theta}+c^\dagger e^{i\theta}}_t}+o\qty(\sqrt{\dt})\notag\\
+    &\approx \frac{1}{\sqrt{\pi}}\times\exp\qty{-\qty[x_\theta-\sqrt{\frac{k\dt}{2}}\expval{ce^{-i\theta}+c^\dagger e^{i\theta}}_t]^2}.
 \end{align}
-
+\subsubsection{Wiener increments:}
+We can deduce from Eq.~(\ref{eq:homprob}) that the probability to find the result $x_\theta$ at time $t+\dt$ corresponds to a Gaussian distribution\footnote{A Gaussian distribution is characterized by the following probability density function:\\$x\mapsto\frac{1}{\sqrt{2\pi\sigma^2}}\exp\qty[-\frac{\qty(x-\mu)^2}{2\sigma^2}]$, where $\mu$ is the mean and $\sigma^2$ is the variance of the distribution.} (up to order $\sqrt{\dt}$), which is followed by the random variable $x_\theta$. This distribution is characterized by having a variance $\frac{1}{2}$ and a mean value $\sqrt{\frac{k\dt}{2}}\expval{ce^{-i\theta}+c^\dagger e^{i\theta}}_t$. By defining the random variable $\mathrm{d}y_t=\sqrt{2\dt}x_\theta$, we can calculate that $\mathbb{E}\qty[\mathrm{d}y_t]=\sqrt{k}\expval{ce^{-i\theta}+c^\dagger e^{i\theta}}_t\dt$ and $\mathbb{V}\qty[\mathrm{d}y_t]=\dt$. Consequently, we can statistically express this random variable as
+\begin{equation}\label{eq:homodynesignal}
+    \mathrm{d}y_t = \sqrt{k}\expval{ce^{-i\theta}+c^\dagger e^{i\theta}}_t\dt + \mathrm{d}w_t,    
+\end{equation}
+where $\mathrm{d}w_t$ is a classical Wiener increment following the \ito~rule\footnote{This can be shown in the distribution meaning as $\int_0^t\mathrm{d}w_{t'}^2=\int_0^t\dt'$ which works for any interval $[0,t]$ so we can state that $\mathrm{d}w_t^2=\dt$~\cite{Jacobs2006}. This property shows in particular that the random variable $\mathrm{d}w_t$ becomes a deterministic value when squared.}: $\mathrm{d}w_t^2=dt$. This Wiener increment follows a Gaussian distribution characterized by $\mathbb{E}\qty[\mathrm{d}w_t]=0$ and $\mathbb{V}\qty[\mathrm{d}w_t]=\dt$. Experimentally, the quantity $y_T=\int_0^T\mathrm{d}y_t$ is the integrated photo-current of homodyne detection, each $\mathrm{d}y_t$ is the infinitesimal recording of the measurement process at time $t$, which encodes the expectation value at time $t$ of the system quadrature.
+\subsubsection{Homodyne SME:}
+The SME is then found by inserting Eq.~(\ref{eq:homodynesignal}) into Eq.~(\ref{eq:homrhou},\ref{eq:homprob}) which are divided to find the normalized evolved state. We can then expand the denominator and find
+\begin{equation}{\label{eq:SMEhom1}}
+    \mathrm{d}\rho_c(t) = \sqrt{k}\mathfrak{H}\qty[ce^{-i\theta}]\rho_c(t) \mathrm{d}w_t + o(\sqrt{\dt}).
+\end{equation}
+The terms of order $o(\dt)$ are obtained directly from the unconditional Lindblad master equation because averaging over all the measurement results gives back this equation. Indeed, the average of the Eq.~(\ref{eq:SMEhom1}) gives 0, so the correct SME (in the Schrödinger picture) is
+\begin{align}
+    \boxed{\mathrm{d}\rho_c=-i\qty[H_0,\rho_c]\dt + k\mathfrak{D}[c]\rho_c\dt + \sqrt{k}\mathfrak{H}\qty[ce^{-i\theta}]\rho_c\mathrm{d}w_t},
+\end{align}
+where we have seen that ${d}w_t=\mathrm{d}y_t - \sqrt{k}\expval{ce^{-i\theta}+c^\dagger e^{i\theta}}_t \dt$. If the photo-detection SME unravelling was characterized by jump-like measurement, this one is called a \textit{diffusive} unravelling due to the impact of Wiener process in a diffusive term.
 
 \section{Linear quantum trajectories}\label{sec:Linear}
