@@ -32,8 +32,8 @@
 
 \begin{document}
 \renewcommand{\thechapter}{\Roman{chapter}}
-\renewcommand{\thesection}{\thechapter.\roman{section}}
-\renewcommand{\thesubsection}{\Roman{chapter}.\roman{section}.\arabic{subsection}}
+% \renewcommand{\thesection}{\thechapter.\roman{section}}
+% \renewcommand{\thesubsection}{\Roman{chapter}.\roman{section}.\arabic{subsection}}
 \renewcommand{\Tr}[1]{\operatorname{Tr}\left[#1\right]}
 \renewcommand{\cfttoctitlefont}{\Huge\bfseries\MakeUppercase}
 \renewcommand{\cftaftertoctitle}{
@@ -44,6 +44,13 @@
 \pagestyle{fancy}
 \fancyhf{}
 \fancyfoot[C]{---\thepage/\pageref{LastPage}---}
+\fancypagestyle{plain}{
+  \fancyhf{}
+  \fancyfoot[C]{---\thepage/\pageref{LastPage}---}
+  \renewcommand{\headrulewidth}{0pt}
+}
+
+
 \renewcommand{\headrulewidth}{0pt}
 \setlength{\cftsubsecnumwidth}{15mm}
 \newcommand{\Real}{\operatorname{Re}}
@@ -57,22 +64,22 @@
 \clearpage
 
 \input{introduction.tex}
-\clearpage
+\newpage
 
 \input{basics.tex}
 \input{qmt.tex}
 \input{oqs.tex}
-\clearpage
+\newpage
 
 \input{sme.tex}
-\clearpage
+\newpage
 
 \input{appendices/mixture.tex}
 \newpage
 \input{appendices/pictures.tex}
 \newpage
 \input{appendices/inputoutput.tex}
-\clearpage
+\newpage
 
 \printbibliography%
 \end{document}

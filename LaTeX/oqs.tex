@@ -35,7 +35,7 @@ We can now express the interaction Hamiltonian in the interaction picture by
     \tilde{H}_I(t) = i\hbar\sqrt{k}\qty[c b_t^\dagger-c^\dagger b_t],
 \end{equation}
 in which we defined the input field operator $b_t$ as
-\begin{equation}
+\begin{equation}\label{eq:inputmodes}
     b_t = \frac{1}{\sqrt{2\pi}}\int_\mathcal{W} b_\omega e^{-i(\omega-\omega_0)(t-t_0)}\mathrm{d}\omega.
 \end{equation}
 To characterize the environmental operators $b_t$, we can compute their canonical commutation relation: 
@@ -100,9 +100,9 @@ The subtlety here is that the unitary evolution operator scales with $\sqrt{\dt}
 \begin{multline}
     U_I(t+\dt,t)\approx\mathbb{I}\otimes\mathbb{I}+\qty(c\otimes B_t^\dagger-c^\dagger\otimes B_t)\sqrt{k\dt}+\\
     \qty(c^{\dagger 2}\otimes B_t^2 + c^2\otimes B_t^{\dagger 2}-c c^\dagger\otimes B_t^\dagger B_t - c^\dagger c\otimes B_t B_t^\dagger)\frac{k\dt}{2}.
-\end{multline}\label{eq:expansion}\noindent
+\end{multline}\noindent
 We can now rewrite the evolution of $\tilde{\bm{\varrho}}$ during the infinitesimal time $\dt$, i.e.~Eq.~(\ref{eq:rhoTevol}), using the previous expansion:
-\begin{multline}
+\begin{multline}\label{eq:expansion}
     \tilde{\bm{\varrho}}(t+\dt)\approx \qty[\tilde{\rho}(t)\otimes\ketbra{0}_t]\times 1
     +\qty[\tilde{\rho}(t) c^\dagger\otimes\ketbra{0}{1}_t+\mathrm{h.c.}]\times\sqrt{k\dt}\\
     +\qty[\frac{\sqrt{2}}{2}\tilde{\rho}(t) c^{\dagger 2}\otimes\ketbra{0}{2}_t+\mathrm{h.c.}-\frac{1}{2}\tilde{\rho}(t) c c^\dagger\otimes\ketbra{0}_t+\mathrm{h.c.}+c\tilde{\rho}(t) c^\dagger\otimes\ketbra{1}_t]\times k\dt,
