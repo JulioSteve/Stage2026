@@ -1,8 +1,8 @@
 \section[Open quantum systems]{Open Quantum Systems (OQS)}\label{OQS}
-\setlength{\parskip}{2mm}\setlength{\parindent}{6mm}\noindent
+\setlength{\parskip}{2mm}\setlength{\parindent}{6mm}
 In the previous part, we saw that one can fully describe a system, observables, states and their evolution. However, this description applies to the ideal case where the quantum system is considered isolated from any external interaction. Instead, in the OQS theory systems interact locally with an environment, which itself interacts with a wider environment, etc\ldots To avoid considering infinite chains of interaction, the theory truncates the environment to a local vicinity of the system. Thus, we approximate the total system $T$ as a closed quantum system, within which the quantum system of interest $S$ is called an open quantum system. Moreover, as explained $S$ couples with its environment $E$, thus giving rise to a dynamical regime distinct from that of closed quantum systems.
 
-\subsection{Building the formalism}\noindent
+\subsection{Building the formalism}
 We will present here a derivation of the Lindblad master equation using the \textit{input-output formalism}~\cite{Albarelli,GardinerCollett}. This derivation can alternatively be carried out using a microscopic approach~\cite{Breuer}. Since a full derivation of the input-output formalism is mathematically challenging, we will only provide its key equations and their physical meaning. Further details on the input-output theory and quantum stochastic calculus are available in Appendix~\ref{ann:IOF}.
 
 As seen in Section~\ref{sec:multipartite}, the Hilbert space of the total system is divided into $\mathcal{H}_T=\mathcal{H}_S\otimes\mathcal{H}_E$. We consider as initial state a factorized state: $\rho_T=\rho_S\otimes\rho_E$. From now on we will use a typographic convention where $\rho_T\equiv\bm{\varrho}$ and $\rho_S\equiv\rho$, such that the last assumption rewrites $\bm{\varrho}=\rho\otimes\rho_E$. The system Hamiltonian $H_S$ depends on which physical system is studied and is left free. Instead, the environment is chosen as a collection of quantum harmonic oscillators, the environment Hamiltonian being thus defined by
@@ -87,7 +87,7 @@ The global state evolves over an infinitesimal time $\dt$ as
 \end{equation}
 where $U_I(t+\dt,t)\approx e^{-\frac{i}{\hbar}\tilde{H}_I(t)dt}$, as explained in Appendix~\ref{ann:pictures}.
 \end{itemize}
-\subsection{The Lindblad master equation}\noindent
+\subsection{The Lindblad master equation}
 We just calculated the evolution of the state $\bm{\varrho}$ of the total system over an infinitesimal time $\dt$. In order to obtain the evolved state $\rho(t+\dt)$ of the system $S$, we want to ``trace out'' the environment (as explained in Section~\ref{sec:multipartite}) by applying the following partial trace
 \begin{equation}\label{eq:rhoSTrace}
     \tilde{\rho}(t+dt) = \mathrm{Tr}_E\qty[\tilde{\bm{\varrho}}(t+\dt)].
@@ -100,7 +100,7 @@ The subtlety here is that the unitary evolution operator scales with $\sqrt{\dt}
 \begin{multline}
     U_I(t+\dt,t)\approx\mathbb{I}\otimes\mathbb{I}+\qty(c\otimes B_t^\dagger-c^\dagger\otimes B_t)\sqrt{k\dt}+\\
     \qty(c^{\dagger 2}\otimes B_t^2 + c^2\otimes B_t^{\dagger 2}-c c^\dagger\otimes B_t^\dagger B_t - c^\dagger c\otimes B_t B_t^\dagger)\frac{k\dt}{2}.
-\end{multline}\noindent
+\end{multline}
 We can now rewrite the evolution of $\tilde{\bm{\varrho}}$ during the infinitesimal time $\dt$, i.e.~Eq.~(\ref{eq:rhoTevol}), using the previous expansion:
 \begin{multline}\label{eq:expansion}
     \tilde{\bm{\varrho}}(t+\dt)\approx \qty[\tilde{\rho}(t)\otimes\ketbra{0}_t]\times 1

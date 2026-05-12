@@ -7,7 +7,7 @@ An average is defined in quantum mechanics by
 \end{align*}
 where the subscripts $\ket{\psi}$ and $\rho$ refer respectively to the representation of pure states or
 to density matrix more general formalism. 
-\section{Schrödinger and Heisenberg pictures}\noindent
+\section{Schrödinger and Heisenberg pictures}
 In the Schrödinger picture we saw that $\ket{\psi(t)}=U(t)\ket{\psi}$, where $U(t)=e^{-\frac{i}{\hbar}Ht}$ in the case of a time-independent Hamiltonian with $t_0=0$. Nevertheless, the following results can be derived in the general case of a time dependent Hamiltonian,~\cite{Breuer}. Considering the average value of an observable $A_S(t)$ in the Schrödinger picture (in this picture, the time-dependence of an observable can only be explicit), we find
 \begin{align}
     \expval{A(t)} &= \expval{A_S(t)}{\psi(t)}\nonumber\\
@@ -24,7 +24,7 @@ This equation leads to the famous \textit{Ehrenfest theorem} analogous in quantu
 \end{equation}
 We observe that if the observable doesn't depend explicitly on time, then the dynamics of the operator is fully described in the Heisenberg picture.
 
-\section{Interaction picture}\noindent
+\section{Interaction picture}
 As mentioned in the Section~\ref{OQS}, we can represent the coupling between $S$ and $E$ with an interaction Hamiltonian such that
 \begin{align}
     H_T = \overbrace{H_S\otimes\mathbb{I}_E+\mathbb{I}_S\otimes H_E}^{H_0}+H_I.
@@ -67,7 +67,7 @@ By working on the Liouville-von Neumann equation, one can show that by jumping i
     \qty(\dert{\rho}=-\frac{i}{\hbar}\qty[H_T,\rho])\Leftrightarrow\qty(\dert{\tilde{\rho}}=-\frac{i}{\hbar}\qty[\tilde{H}_I,\tilde{\rho}]),
 \end{equation}
 where $\tilde{H}_I=U_0^\dagger(t,t_0)H_I U_0(t,t_0)$ as defined. It is thus usual to work in this representation to get rid of free dynamics terms, and then jump back to the Schrödinger picture to recover the proper dynamics of the system.
-\subsubsection{Further discussion}\noindent
+\subsubsection{Further discussion}
 We used in Eq.~(\ref{eq:rhoTevol}) the following approximation: $U_I(t+\dt,t)\approx e^{-\frac{i}{\hbar}\tilde{H}_I(t)\dt}$, and we would like to explain it here. 
 As seen in Eq.~(\ref{eq:rhoIS}), a state evolves in the interaction picture with a relation depending on $U_I$, which has been defined as $U_I=U_0^\dagger U$. It is possible to show from this definition that $U_I$ is subject to the following differential equation
 \begin{equation}\label{eq:UI}

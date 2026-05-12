@@ -1,0 +1,20 @@
+\chapter{Simple stochastic differential equations}\label{ann:stieltjes}
+We want here to justify the expression of Eq.~(\ref{eq:SMEphotodet}) where we discarded terms proportional to $\mathrm{d}N_t \dt$. We recall that $\mathrm{d}N_t$ is a Poisson increment, meaning that $\mathrm{d}N_t^2 = \mathrm{d}N_t$. Moreover, we work in a case where the only values this increment can have is 0 or 1, with probability $\mathbb{P}\qty[\mathrm{d}N_t=0] = 1-\lambda_t \dt\approx 1$ and $\mathbb{P}\qty[\mathrm{d}N_t=1] = \lambda_t \dt\approx 0$.
+
+When dealing with stochastic master equation, it is useful to integrate them in order to understand the underlying mathematical background. Note that the real interest of the SME is to integrate it in order to find the expression of a state. We consider the case of a stochastic differential equation, such as
+\begin{equation}
+    \mathrm{d}f = a~\dt + b~\mathrm{d}N_t + c~\mathrm{d}N_t\dt,
+\end{equation}
+where $a,b,c\in\mathbb{R}$, they could be functions of time but we prefer to simplify the discussion. We are going to integrate this equation from $t_0$ to $T$, to do so we discretize the time as $t_0<t_1<\cdots<t_n=T$. We thus express the $i$-th time as $t_i = t_0+i\delta t$, in particular when $i=n$: $T=t_0+n\delta t \Leftrightarrow n = \frac{T-t_0}{\delta t}$. This shows that when $n\rightarrow +\infty$, we automatically have $\delta t\rightarrow 0^+$. This discretization allows us to define the first integral with measure $\dt$ as
+\begin{equation}
+    \int_{t_0}^T a~\dt = a \lim_{n\rightarrow +\infty} \sum_{i=0}^{n-1} (t_{i+1}-t_i) = a \lim_{n\rightarrow +\infty} (t_n-t_0) = a (T-t_0),
+\end{equation}
+which is simply a Riemann integral. The reason we find a finite quantity is hidden in the fact that we sum infinitely $\delta t$ while $\delta t$ is going to 0 at the same time. If we now consider the second integral, that we understand as a Stieltjes integral, we obtain
+\begin{equation}
+    \int_{t_0}^T b~\mathrm{d}N_t = b \lim_{n\rightarrow +\infty} \sum_{i=0}^{n-1}\qty[N(t_{i+1},t_0)-N(t_i,t_0)] = b \sum_{j=0}^{k-1} 1 = bk,
+\end{equation}
+where $N(t_{i+1},t_0)-N(t_i,t_0)=0$ most of the time and $1$ only $k$ times, according to the probability law followed by the Poisson increment. This result, when applied to the third integral, gives 
+\begin{equation}
+    \int_{t_0}^T c~\mathrm{d}N_t\dt = c \sum_{j=0}^{k-1}\dt=c k \dt\approx 0,
+\end{equation}
+in the Stieltjes definition of the integral, which explains why we can neglect $\mathrm{d}N_t\dt$ in the photo-detection SME.

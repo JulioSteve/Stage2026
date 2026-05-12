@@ -1,6 +1,6 @@
 \chapter{Basics of quantum mechanics}\setlength{\parindent}{6mm}\setlength{\parskip}{2mm}
 \section{Generalities on closed quantum systems}
-\subsection{States and time evolution}\label{Ii1}\noindent
+\subsection{States and time evolution}\label{Ii1}
 In quantum mechanics a physical system's state is described by a vector in a Hilbert space:
 \begin{equation}
     \ket{\psi}\in\mathcal{H}.
@@ -22,7 +22,7 @@ We will simply assume the Hamiltonian to be time-independent in the following, n
     \ket{\psi(t)} = \underbrace{e^{-\frac{i\hat{H}(t-t_0)}{\hbar}}}_{\hat{U}(t,t_0)}\ket{\psi(t_0)}.
 \end{equation} 
 This solution is indeed \textbf{unitary} and we can use $\hat{U}^\dagger(t,t_0)$ on the left of both sides of the Eq.~(\ref{eq:solschrod}) to obtain $\ket{\psi(t_0)}=\hat{U}^\dagger(t,t_0)\ket{\psi(t)}$, i.e., we described \textbf{reversible} dynamics.
-\subsection{Observables}\label{sec:obs}\noindent
+\subsection{Observables}\label{sec:obs}
 In quantum mechanics, any physical quantity is represented by an \textbf{observable} which is an operator fulfilling two properties: the eigenvectors of the observable form an orthonormal basis of the Hilbert space $\mathcal{H}$, and, the corresponding eigenvalues are necessarily real~\cite{CT}. In finite-dimensional Hilbert spaces, the definition of Hermitian operator\footnote{The eigenvectors of a Hermitian operator always span the entire Hilbert space (Spectral Theorem). Using the Gram-Schmidt process, we can always find a complete orthonormal basis from the operator's eigenspaces.} is sufficient for it to be an observable. In the case of infinite dimension Hilbert spaces, the definition of an observable requires more rigorous mathematical foundations (self-adjoint operators, the details of which lie beyond the purview of this study). In this sense, we only consider finite dimension cases in the following. We thus define the interval $I_\mathcal{H}=\llbracket 1;\text{dim}(\mathcal{H})\rrbracket$ throughout this document, also, we lighten the notation by omitting $\hat{\bullet}$ symbols on operators hereafter.
 
  A natural operator whose eigenbasis $\qty{\ket{\phi_n}}_\nIH$ is particularly significant is the Hamiltonian $H$, as its eigenvalues $\qty{E_n}_\nIH$ correspond to the allowed energy values of a system. We can understand the relation between an operator, its eigenvectors and eigenvalues with its corresponding eigenequation:
@@ -37,7 +37,7 @@ where $c_n=\braket{\phi_n}{\psi}$. This kind of description in a base is obvious
 
 Finally, we mention the necessity of normalizing states, which is important when calculating probabilities (the Section~\ref{sec:qmt} makes it obvious). In order to normalize a state, one needs to set $\norm{\psi}=\sqrt{\braket{\psi}{\psi}}=1$, which is equivalent to the condition $\braket{\psi}{\psi}=\sum_n |c_n|^2=1$.
 
-\subsection{Purity of states}\noindent
+\subsection{Purity of states}
 The concept of \textit{pure state} arises from the necessity to write the state of a system in a different way than that used so far in this document. Indeed, certain ways of preparing a system --- such as a statistical mixture\footnote{In the Appendix~\ref{ann:statmix}, we explain how to prepare a system as a statistical mixture or as a superposition of states. However, we recommend to read the Section~\ref{sec:qmt} on quantum measurement theory before.}--- require another formalism because such processes prevent the state of the system from being expressed as a single $\ket{\psi}$ (or as a superposition of state vectors). To take into account such cases, we introduce the density matrix hereafter.
 
 A density matrix $\rho$ is an operator of the Hilbert space $\mathcal{H}$ (and also an operator of the dual space $\mathcal{H^*}$), which follows a set of properties:\label{prop:rho}
@@ -47,7 +47,7 @@ A density matrix $\rho$ is an operator of the Hilbert space $\mathcal{H}$ (and a
     \item $\rho$ is positive semi-definite: $\forall\ket{\psi}\in\mathcal{H},\quad \expval{\rho}{\psi}\geq 0$.
 \end{itemize}
 The density matrix formalism is particularly useful because it generalizes Dirac formalism. Indeed, if a state can be written as $\ket{\psi}$ then $\rho=\ketbra{\psi}$ and we call it a \textbf{pure state}. Otherwise, the state is non-pure and can only be expressed with a density matrix. Also, pure states satisfy stronger properties than those defining a general density matrix; specifically, being idempotent $\rho^2=\rho$ by construction, implying that $\Tr{\rho^2}=\Tr{\rho}=1$ in the case of pure states.
-\subsection{Postulates of quantum mechanics}\noindent
+\subsection{Postulates of quantum mechanics}
 Physicists developed a corpus of the main properties of quantum mechanics, here are summarized the so-called postulates of quantum mechanics~\cite{CT}:
 \begin{enumerate}
     \item The state of a system is represented by a density matrix $\rho\in\mathrm{End}(\mathcal{H})$ respecting properties~\ref{prop:rho}. For pure states we can describe them $\ket{\psi}\in\mathcal{H}$, or, by using the pure matrix density formalism $\rho_p=\ketbra{\psi}{\psi}$. 
