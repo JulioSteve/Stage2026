@@ -1,57 +1,53 @@
 \chapter{Continuously measured open quantum systems}
-In the previous chapter, we went through the steps leading to the Lindblad master equation using the input-output formalism. In this derivation, the environment has been traced out to recover information on the system $S$ from the global coupled system, leaving an impact on the dynamics of $S$, crystallized in the expression of a dissipator $\mathfrak{D}$. In the following we will focus on the impact of continuously monitoring the environment on the dynamics of the system $S$. Indeed, states of systems on which we do continuous measurement follow other differential equations than the Lindblad master equation. % reformuler
-However, we will see in the following how any differential equation obtained from continuously monitoring the environment is strongly linked to the Lindblad master equation.
+In the previous chapter, we went through the steps leading to the Lindblad master equation using the input-output formalism. In this derivation, the environment has been traced out to recover information on the system $S$ from the global coupled system, leaving an impact on the dynamics of $S$, crystallized in the expression of a dissipator $\mathfrak{D}$. In the following we will focus on the impact of continuously monitoring the environment on the dynamics of the system $S$. Indeed, in the case of continuous measurement of the environment, the system state cannot follow the Lindblad master equation, we expect to find a differential equation that takes into account the impact of the measurement. However, we will see in the following that any differential equation obtained from continuously monitoring the environment is strongly linked to the Lindblad master equation.
 
-Specifically in Chapter I, we have developed the input-output formalism in which the system $S$ interacts sequentially in time with harmonic oscillators. Indeed, at each time the environment is represented by an harmonic oscillator represented by the annihilation operator $B_t$. This operator combines all environmental frequency modes by construction, as defined in Eq.~(\ref{eq:inputmodes}). A fundamental property we have explained is that these operators are mutually uncorrelated. Consequently, the environment is ``refreshed'' after each evolution, ensuring no memory effects or temporal dependence of environmental operators. We can therefore represent the evolution of our system as being coupled at time $t$ to $B_t$, evolving according to the Lindblad master equation. Immediately after this evolution, at time $t+\dt$, the system uncouples from $B_t$ to couple with $B_{t+\dt}$, evolving again, and so forth. % Faire attention a qui est couplé
-Going one step further, we consider measurement of the environment after each coupled evolution step, as seen on Figure~\ref{fig:scheme}. 
+In Chapter I, we have developed the input-output formalism in which the system $S$ interacts sequentially in time with harmonic oscillators. Indeed, at each time the environment is represented by an harmonic oscillator represented by the annihilation operator $B_t$. This operator combines all environmental frequency modes by construction, as defined in Eq.~(\ref{eq:inputmodes}). A fundamental property we have explained is that these operators are mutually uncorrelated. Consequently, the environment is ``refreshed'' after each evolution, ensuring no memory effects or temporal dependence of environmental operators. Therefore, initially the system $S$ couples to $B_t$ at time $t$, then the total system evolves according to the Lindblad master equation over the period of time $\dt$. Immediately after this evolution, at time $t+\dt$, the system uncouples from $B_t$ to couple with a fresh $B_{t+\dt}$, evolving again, and so forth. In the following, we will go one step further by measuring the environment after each coupled evolution step, as schematized in Figure~\ref{fig:scheme}. 
 
-In this chapter, two kind of measurements will be presented: the photo-detection and the homodyne detection. For each case, the reader will find graphical illustrations accompanying the equations, which have been generated in \verb|Julia| using the packages \verb|QuantumToolbox.jl| to simulate dynamics, and \verb|Plots.jl| to generate graphs. % parler de la linéarisation dans le futur ici
+In this chapter, two kind of measurements will be presented: the photo-detection and the homodyne detection. For each case, the reader will find graphical illustrations accompanying the equations, which have been generated in \verb|Julia| using the packages \verb|QuantumToolbox.jl| to simulate dynamics, and \verb|Plots.jl| to generate graphs. After presenting the two measurement processes, we will tackle the notion of linear quantum trajectories. We will see that they allow numerical schemes of simulation which we have used to generate the aforementioned illustrations.\newpage
 
+\section{Unconditional dynamics}
 The evolution of unmonitored open quantum systems is described by the Lindblad master equation, as seen in Section~\ref{OQS}. However, performing a measurement after each infinitesimal step makes the evolution dependent on each outcome, thereby altering the system's trajectory. If we consider the state of the system at time $t$, the state is conditional because of all the measurement outcomes from $t_0$ to $t$ and is therefore noted as  $\rho_c(t)$. The sequence of conditional states followed by a system is therefore called \textit{a quantum trajectory}
-because the set of measurement outcomes gives a specific dynamical trajectory. 
+because the set of measurement outcomes gives a specific dynamical trajectory.
 
-% trouver où mettre ça 
-One can show that the Lindblad master equation can be rewritten to let conditional states appear relative to every possible conditional evolution~\cite{Carmichael}. This result shows that the Lindblad master equation is decomposable into quantum trajectories that evolve relative to it in the absence of monitoring; therefore, we refer to quantum trajectories as \textit{an unravelling of the source dynamics} because it is one trajectory among the many paths coming from the same equation. In this sense, when describing photo-detection or homodyne detection, we unravel the master equation relative to a specific measurement choice; nevertheless, \textbf{on average, they recover the same Lindblad master equation, i.e. the unconditional dynamics}. We will show this result in the case of photo-detection and homodyne detection below.\\
-Note that in order to lighten notations, we stop specifying by $\tilde{\bullet}$ the interaction picture, however when a change of representation occurs, it will be specified. Furthermore, we work from now on in natural units where $\hbar=1$.
+It is possible to rewrite the Lindblad master equation to yield the conditional states inside this unconditional equation~\cite{Carmichael}. This rewriting shows that the Lindblad master equation is decomposable into quantum trajectories that evolve in the absence of monitoring. Therefore, we refer to quantum trajectories as \textit{an unravelling of the source dynamics} because it is one trajectory among the many paths coming from the same equation. In this sense, when describing photo-detection or homodyne detection, we unravel the master equation of a specific measurement. Nevertheless, \textbf{on average, they recover the same Lindblad master equation, i.e.\ the unconditional dynamics}. We will show this result in the case of photo-detection and homodyne detection below. 
+
+Note that in order to lighten notations, we stop specifying the interaction picture by $\tilde{\bullet}$ in the following. However, when a change of representation occurs it will be specified. Furthermore, we work from now on in natural units where $\hbar=1$.
 
 \section{Photo-detection}
-\subsection[Photo-detection Unravelling]{Derivation of the stochastic master equation}
-In the case where the environment is continuously monitored by a photo-detector, the mathematical impact is a projection of the environment on the corresponding Fock basis $\qty{\ketbra{n}_t}_{n\in\mathbb{N}}$. Indeed, photo-detection is a way to measure the number operator $B_t^\dagger B_t$ because the Fock basis is the eigenbasis of this operator. At first glance the measurement would only give information about the occupation number of the harmonic oscillator representing the environment. However, by performing a partial trace $\mathrm{Tr}_E$ over the total evolved state, we recover information on the system due to coupling. % reformuler
-% c'est pas grâce au couplage directement mais plutôt la mesure ...
+In the case where the environment is continuously monitored by a photo-detector, the mathematical impact is a projection of the environment on the corresponding Fock basis $\qty{\ketbra{n}_t}_{n\in\mathbb{N}}$. Indeed, photo-detection is a way to measure the number operator $B_t^\dagger B_t$ because the Fock basis is the eigenbasis of this operator. At first glance the measurement would only give information about the environnement. However, by performing a partial trace $\mathrm{Tr}_E$ over the total evolved state, we can extract information on the system. Without the evolution of the couple system-environment, the partial trace on the evolved total state would not give any information on the system whatsoever.
 
-In the following, we find the expression of the conditional state obtained at time $t+\dt$. Let $\qty{\ketbra{j}_t}_j$ be a PVM (see Section~\ref{sec:qmt}), so that the measurement projects the environment at time $t$ on the PVM element $\ketbra{j}_t$. According to Eq.~(\ref{eq:rhoTevol}), the total evolved system is expressed as
-\begin{equation}
+In the following, we find the expression of the conditional state obtained at time $t+\dt$ in the case of photo-detection. Let $\qty{\ketbra{j}_t}_j$ be a PVM (see Section~\ref{sec:qmt}), so that the measurement projects the environment at time $t$ on the PVM element $\ketbra{j}_t$. According to Eq.~(\ref{eq:rhoTevol}), the total evolved system is expressed as
+\begin{equation}\label{eq:condevol}
     \bm{\varrho}_c(t+\dt)= U_I(t+\dt,t)\overbrace{\qty[\rho_c(t)\otimes\ketbra{0}_t]}^{\bm{\varrho}_c(t)}U_I^\dagger(t+\dt,t),
 \end{equation}
-where the subscript $c$ indicates that the system state is conditional. If the condition is obvious, we choose not to write this subscript explicitly, instead we write for example $\rho_j$ if the outcome is $j$. %expliquer qu'au temps suivant on écrit "c" qui encode la liste des conditions et plus j
- The system in this calculation is indeed conditional because we consider the measurement already present in the evolution before time $t$. After the projection on $\ketbra{j}_t$ and after applying the partial trace $\mathrm{Tr}_E$, we find
-\begin{equation}
+where the subscript $c$ indicates that the system state is conditional. If the condition is obvious, we choose not to write this subscript explicitly, instead we write for example $\rho_j$ if the outcome is $j$. Note that our convention of notation about conditional states means that at time $t+\dt$, we denote the state as $\rho_c(t)$ instead of $\rho_j(t)$; the symbol $c$ encodes the list of all measurement outcomes. We observe that the state in Eq.~(\ref{eq:condevol}) is indeed conditional because we consider the measurement already present in the evolution before time $t$. After the projection on $\ketbra{j}_t$ and after applying the partial trace $\mathrm{Tr}_E$, we find
+\begin{equation}\label{eq:evolrho0}
     \rho_j(t+\dt)=\frac{\bra{j}_t\bm{\varrho}_c(t+\dt)\ket{j}_t}{p_j(t+\dt)},
 \end{equation}
 where $p_j(t+\dt)=\Tr{\bm{\varrho}_c(t+\dt)\qty(\mathbb{I}\otimes\ketbra{j}_t)}$. Eq.~(\ref{eq:expansion}) shows that only projections on $\ketbra{0}_t$ and $\ketbra{1}_t$ are relevant to compute $\rho_j(t+\dt)$, as shown in the following.
 \subsubsection{Measurement result 0}
 From the expansion in Eq.~(\ref{eq:expansion}), we find
 \begin{equation}
-    \rho_0(t+\dt)=\frac{\bra{0}_t\bm{\varrho}_c(t+\dt)\ket{0}_t}{p_0(t+\dt)}= \frac{\rho_c(t)-\qty{\rho_c(t),c^\dagger c}\frac{k\dt}{2}}{p_0(t+\dt)}.
+    \rho_0(t+\dt)=\frac{\bra{0}_t\bm{\varrho}_c(t+\dt)\ket{0}_t}{p_0(t+\dt)}\approx \frac{\rho_c(t)-\qty{\rho_c(t),c^\dagger c}\frac{k\dt}{2}}{p_0(t+\dt)}.
 \end{equation}
-The normalization is obtained using the same expansion, giving
+The normalization is obtained using the same expansion, it gives
 \begin{equation}
-    p_0(t+\dt)=1-\expval{c^\dagger c}_t k\dt,
+    p_0(t+\dt)\approx1-\expval{c^\dagger c}_t k\dt,
 \end{equation}
-where we have defined the average labelled by $t$ as $\expval{\hat{O}}_t=\Tr{\rho_c(t)\hat{O}}$. In the infinitesimal limit, we expand the denominator in the evolved conditional state, obtaining
+where we have defined the average labelled by $t$ as $\expval{\hat{O}}_t=\Tr{\rho_c(t)\hat{O}}$. In the infinitesimal limit, we expand the denominator in Eq.~(\ref{eq:evolrho0}), obtaining
 \begin{equation}
     \rho_0(t+\dt)\approx\bar{\rho}_0(t+\dt)\times\qty(1-\expval{c^\dagger c}_t k\dt),
 \end{equation}
 where we used the same notation as in Section~\ref{sec:qmt}, $\bar{\rho}$ indicating an unnormalized state (here in the interaction picture). In particular, $\bar{\rho}_0(t+\dt)$ is the numerator of $\rho_0(t+\dt)$. Finally, by introducing the measurement super-operator $\mathfrak{H}[\hat{O}]\bullet=\hat{O}\bullet + \bullet \hat{O}^\dagger - \expval{\hat{O}+\hat{O}^\dagger}_t\bullet$, we can write at first order in $\dt$
 \begin{equation}\label{eq:rho0}
     \rho_0(t+\dt) = \rho_c(t)-\frac{k\dt}{2}\mathfrak{H}\qty[c^\dagger c]\rho_c(t).
-\end{equation} % approx ?
+\end{equation}
 \subsubsection{Measurement result 1}
 For this outcome, the same calculation method than the one used before still applies, and the conditional (unnormalized) state is expressed as
 \begin{equation}
-    \bar{\rho}_1(t)=\bra{1}_t\bm{\varrho}(t+dt)\ket{1}_t=c\rho_c(t)c^\dagger k\dt.
+    \bar{\rho}_1(t)=\bra{1}_t\bm{\varrho}(t+dt)\ket{1}_t\approx c\rho_c(t)c^\dagger k\dt.
 \end{equation}
-The normalization is then
+The normalization is thus
 \begin{equation}
     p_1(t+\dt)=\expval{c^\dagger c}_t k\dt.
 \end{equation}
@@ -73,7 +69,7 @@ We can inject the results of Eqs.~(\ref{eq:rho0},\ref{eq:rho1}) in the last equa
 \begin{equation}\label{eq:SMEphotodet}
     \boxed{\mathrm{d}\rho_c=-i\qty[H_0,\rho_c]\dt-\frac{k}{2}\mathfrak{H}\qty[c^\dagger c]\rho_c\dt + \qty(\frac{c\rho_c c^\dagger}{\expval{c^\dagger c}_t}-\rho_c)\mathrm{d}N_t}.
 \end{equation}
-This equation is called the photo-detection SME, note that we went into the Schrödinger picture to obtain this expression. Moreover, we have discarded terms of order $\mathrm{d}N_t\dt$ when calculating the expression of this SME. Indeed, we have shown that $\mathbb{E}\qty[\mathrm{d}N_t]\propto\dt$, so $\mathbb{E}\qty[\mathrm{d}N_t\dt]=(\dt)^2$, but also, since we can show that $\mathbb{V}[\mathrm{d}N_t]\propto\dt+o(\dt)$, it implies that $\mathbb{V}[\mathrm{d}N_t\dt]\propto(\dt)^2\qty[\dt+o(\dt)]\propto\dt^3+o(\dt^3)$. Thus, statistical terms as $\mathrm{d}N_t\dt$ are negligible compared to $\dt$ in average, Appendix~\ref{ann:stieltjes} details why we can also neglect these terms locally. Finally, when derived for a pure state the expression simplifies to the Stochastic Schrödinger Equation (SSE)
+This equation is called the photo-detection SME, note that we went into the Schrödinger picture to obtain this expression. Moreover, we have discarded terms of order $\mathrm{d}N_t\dt$ when calculating the expression of this SME. Indeed, we have shown that $\mathbb{E}\qty[\mathrm{d}N_t]\propto\dt$, so $\mathbb{E}\qty[\mathrm{d}N_t\dt]=(\dt)^2$, also since we can show that $\mathbb{V}[\mathrm{d}N_t]\propto\dt+o(\dt)$, it implies that $\mathbb{V}[\mathrm{d}N_t\dt]\propto(\dt)^2\qty[\dt+o(\dt)]\propto\dt^3+o(\dt^3)$. Thus, statistical terms as $\mathrm{d}N_t\dt$ are negligible compared to $\dt$ in average, Appendix~\ref{ann:stieltjes} details why we can also neglect these terms locally. Finally, when derived for a pure state the expression simplifies to the Stochastic Schrödinger Equation (SSE)
 \begin{equation}
     \mathrm{d}\ket{\psi_c}=\qty[-iH_0\dt+\frac{k}{2}\qty(\expval{c^\dagger c}_t-c^\dagger c)\dt + \qty(\frac{c}{\sqrt{\expval{c^\dagger c}_t}}-1)\mathrm{d}N_t]\ket{\psi_c},
 \end{equation}
@@ -84,17 +80,22 @@ which conserves the purity of the state during the stochastic evolution. Note th
     +\mathrm{d}\ket{\psi_c}\mathrm{d}\bra{\psi_c}.
 \end{equation}
 The importance of the SME and of the SSE is double because these equations also contain in average the \textbf{unconditional} dynamics, as shown in the following.
-\subsection{The unconditional evolution}
-% ecrire ça directement et simplement - corriger R(t) pas du tout au bon endroit
-For now, we formally write $R(t)\equiv\mathbb{E}\qty[\rho_c(t)]$ and show that this is the unconditional state $\rho(t)$ for photo-detection. To do so, we use the expectation value of Eq.~(\ref{eq:avPoisson}), giving
-\begin{equation*}
-    R(t)=-i\qty[H_0,\rho(t)]\dt+k\mathfrak{D}[c]\rho(t)\dt,
-\end{equation*}
-which is exactly the Lindblad master equation, implying that $R(t)=\rho(t)$. Thus, 
+
+We will now show briefly that we can write $\mathbb{E}[\rho_c]=\rho$, where $\rho$ is the unconditional state following the Lindblad master equation. If we average the photo-detection SME over all possible conditions we find
+\begin{multline}\label{eq:preuvephotodet}
+    \mathbb{E}[\mathrm{d}\rho_c](t) = -i\qty[H_0,R(t)]\dt-\frac{k}{2}\qty{c^\dagger c R(t) + R(t)c^\dagger c - 2\mathbb{E}\qty[\expval{c^\dagger c}_t \rho_c(t)]}\dt\\
+    + \mathbb{E}\qty{\qty[\frac{c\rho_c(t)c^\dagger}{\expval{c^\dagger c}_t}-\rho_c(t)]\mathrm{d}N_t},
+\end{multline}
+where $R(t)=\mathbb{E}[\rho_c(t)]$. To explicit the last term, we need the following relation $\mathbb{E}\qty[f(\rho_c)(t)\mathrm{d}N_t]=k\mathbb{E}\qty[\expval{c^\dagger c}_t f(\rho_c)(t)]\dt$, where $f$ is a generic function~\cite{WM}. So we obtain for the last term
+\begin{multline}
+    \mathbb{E}\qty{\qty[\frac{c\rho_c(t)c^\dagger}{\expval{c^\dagger c}_t}-\rho_c(t)]\mathrm{d}N_t} = k \mathbb{E}\qty{\expval{c^\dagger c}_t \qty[\frac{c\rho_c(t)c^\dagger}{\expval{c^\dagger c}_t}-\rho_c(t)]}\dt \\
+    = kcR(t)c^\dagger\dt - k\mathbb{E}\qty[\expval{c^\dagger c}_t\rho_c(t)]\dt.
+\end{multline}
+By injecting this result in Eq.~(\ref{eq:preuvephotodet}), we find
 \begin{equation}
-    \mathbb{E}\qty[\rho_c(t)]=-i\qty[H_0,\rho(t)]\dt+k\mathfrak{D}[c]\rho(t)\dt=\rho(t).
+    \mathbb{E}[\mathrm{d}\rho_c](t) = -i\qty[H_0,R(t)]\dt + k\mathfrak{D}[c]R(t)\dt,
 \end{equation}
-Therefore for photo-detection, we have shown that averaging over all the quantum trajectories reforms the unconditional Lindblad master equation. This property is also valid for homodyne detection~\cite{W96,Jacobs2006,Rouchon2022} and will be used without proper demonstration in the following section. 
+which is exactly the Lindblad master equation for the state $R(t)$. We know that this equation is the expression of an unconditional state evolution, thus we can state that $\mathbb{E}\qty[\rho_c(t)]=\rho(t)$. Therefore for photo-detection, we have shown that averaging over all the quantum trajectories reforms the unconditional Lindblad master equation, and that the average over all possibilities of the conditional state is the unconditional state. This property is also valid for homodyne detection~\cite{W96,Jacobs2006,Rouchon2022} and will be used without proper demonstration in the following section. 
 \section{Homodyne detection}
 In the previous section, we derived the SME in the case of photo-detection and showed its link to the Lindblad master equation. While photo-detection monitors the number of excitations, the homodyne detection targets field quadratures. This process involves mixing the signal with a strong local oscillator before measurement~\cite{W96}. By measuring the global output signal, we have access to the quadrature of the physical system of interest, as shown in Figure~\ref{fig:homodyne}.
 
@@ -104,7 +105,8 @@ This kind of measurement corresponds to projecting the environmental oscillator 
 \end{equation}
 where $H_n(x)$ is the (physical) Hermite polynomial of order $n$. In particular, we will later use:
 \begin{equation}\label{eq:overlapping}
-    \braket{x_\theta}{0}_t=\pi^{-\frac{1}{4}}e^{-\frac{x_\theta^2}{2}}\qquad \braket{x_\theta}{1}_t=\sqrt{2}x_\theta e^{-i\theta}\braket{x_\theta}{0}_t.
+    \braket{x_\theta}{0}_t=\pi^{-\frac{1}{4}}e^{-\frac{x_\theta^2}{2}},\qquad
+    \braket{x_\theta}{1}_t=\sqrt{2}x_\theta e^{-i\theta}\braket{x_\theta}{0}_t.
 \end{equation}
 Note that since the state of the environnement at time $t$ is the corresponding vacuum state, the probability to find the outcome $x_\theta$ at time $t$ (before evolving) is
 \begin{equation}\label{eq:initprob}
@@ -124,7 +126,7 @@ We will now use the expansion of the Eq.~(\ref{eq:expansion}) to develop Eq.~(\r
 \begin{equation}
     \bar{\rho}_c(t+\dt) = \abs{\braket{x_\theta}{0}_t}^2\rho_c(t) + \qty[c\rho_c(t)\braket{x_\theta}{1}_t\braket{0}{x_\theta}+\rho_c(t)c^\dagger\braket{x_\theta}{0}_t\braket{1}{x_\theta}]\sqrt{k\dt}+o\qty(\sqrt{\dt}).
 \end{equation}
-Simplifying this expression and factorizing it, using Eqs.~(\ref{eq:overlapping},\ref{eq:initprob}), we find % voir comment écrire les doubles equations
+Simplifying this expression and factorizing it, using Eqs.~(\ref{eq:overlapping},\ref{eq:initprob}), we find
 \begin{equation}\label{eq:homrhou}
     \bar{\rho}_c(t+\dt)= p_{x_\theta}(t)\qty{\rho_c(t)+x_\theta\sqrt{2k\dt}\qty[c\rho_c(t)e^{-i\theta}+\rho_c(t)c^\dagger e^{i\theta}]}+o\qty(\sqrt{dt}),
 \end{equation}
@@ -132,20 +134,28 @@ with the normalization
 \begin{align}
     p_{x_\theta}(t+\dt) &= p_{x_\theta}(t)\qty{1+x_\theta\sqrt{2k\dt}\expval{ce^{-i\theta}+c^\dagger e^{i\theta}}_t}+o\qty(\sqrt{\dt})\label{eq:homproblin}\\
     &\approx \frac{1}{\sqrt{\pi}}\times\exp\qty{-\qty[x_\theta-\sqrt{\frac{k\dt}{2}}\expval{ce^{-i\theta}+c^\dagger e^{i\theta}}_t]^2}.\label{eq:homprobexp}
-\end{align} We can deduce from Eq.~(\ref{eq:homprobexp}) that the probability to find the result $x_\theta$ at time $t+\dt$ corresponds to a Gaussian distribution\footnote{A Gaussian distribution is characterized by the following probability density function:\\$x\mapsto\frac{1}{\sqrt{2\pi\sigma^2}}\exp\qty[-\frac{\qty(x-\mu)^2}{2\sigma^2}]$, where $\mu$ is the mean and $\sigma^2$ is the variance of the distribution.} (up to order $\sqrt{\dt}$). In this sense, the outcome of measurement is a random variable such that $x_\theta\hookrightarrow\mathcal{N}\qty(\sqrt{\frac{k\dt}{2}}\expval{ce^{-i\theta}+c^\dagger e^{i\theta}}_t, \frac{1}{2})$. By defining the random variable $\mathrm{d}y_t=\sqrt{2\dt}x_\theta$, we find $\mathbb{E}\qty[\mathrm{d}y_t]=\sqrt{k}\expval{ce^{-i\theta}+c^\dagger e^{i\theta}}_t\dt$ and $\mathbb{V}\qty[\mathrm{d}y_t]=\dt$. Consequently, we can statistically express this random variable as
+\end{align} We can deduce from Eq.~(\ref{eq:homprobexp}) that the probability to find the result $x_\theta$ at time $t+\dt$ corresponds to a Gaussian distribution\footnote{A Gaussian or normal distribution of mean $\mu$ and variance $\sigma^2$ is characterized by the following probability density function: $X\mapsto\frac{1}{\sqrt{2\pi\sigma^2}}\exp\qty[-\frac{\qty(X-\mu)^2}{2\sigma^2}]$. We denote by $X\hookrightarrow\mathcal{N}(\mu,\sigma^2)$ the fact that the random variable $X$ follows a normal distribution with mean $\mu$ and variance $\sigma^2$.} (up to order $\sqrt{\dt}$). In this sense, the outcome of measurement is a random variable such that $x_\theta\hookrightarrow\mathcal{N}\qty(\sqrt{\frac{k\dt}{2}}\expval{ce^{-i\theta}+c^\dagger e^{i\theta}}_t, \frac{1}{2})$. By defining the random variable $\mathrm{d}y_t=\sqrt{2\dt}x_\theta$, we find $\mathbb{E}\qty[\mathrm{d}y_t]=\sqrt{k}\expval{ce^{-i\theta}+c^\dagger e^{i\theta}}_t\dt$ and $\mathbb{V}\qty[\mathrm{d}y_t]=\dt$. Consequently, we can statistically express this random variable as
 \begin{equation}\label{eq:homodynesignal}
     \mathrm{d}y_t = \sqrt{k}\expval{ce^{-i\theta}+c^\dagger e^{i\theta}}_t\dt + \mathrm{d}w_t,    
-\end{equation} %vérifier la phraase suivante en anglais qui semble incorrecte
-where $\mathrm{d}w_t$ is a classical Wiener increment, implying it follows the \ito~rule\footnote{This can be shown in the distribution meaning as. Indeed, since $\int_0^t\mathrm{d}w_{t'}^2=\int_0^t\dt'$ which works for any interval $[0,t]$, then we can state that $\mathrm{d}w_t^2=\dt$~\cite{Jacobs2006}.}: $\mathrm{d}w_t^2=dt$. This property states that the random variable $\mathrm{d}w_t$, when squared, becomes deterministic. Furthermore, the Wiener increment follows a Gaussian distribution, as observed in Eq.~(\ref{eq:homodynesignal}), characterized by $\mathbb{E}\qty[\mathrm{d}w_t]=0$ and $\mathbb{V}\qty[\mathrm{d}w_t]=\dt$. Experimentally, the quantity $y_T=\int_0^T\mathrm{d}y_t$ represents the integrated photo-current of homodyne detection; each $\mathrm{d}y_t$ is the infinitesimal recording of the measurement process at time $t$, which encodes (proportionally) the expectation value at time $t$ of the system quadrature $\expval{\frac{ce^{-i\theta}+c^\dagger e^{i\theta}}{\sqrt{2}}}_t$.
+\end{equation}
+where $\mathrm{d}w_t$ is a classical Wiener increment, it obeys the \ito~rule\footnotemark[2]: $\mathrm{d}w_t^2=dt$. This property states that the random variable $\mathrm{d}w_t$, when squared, becomes deterministic. Furthermore, the Wiener increment follows a Gaussian distribution, as observed in Eq.~(\ref{eq:homodynesignal}), characterized by $\mathbb{E}\qty[\mathrm{d}w_t]=0$ and $\mathbb{V}\qty[\mathrm{d}w_t]=\dt$. Experimentally, the quantity $y_T=\int_0^T\mathrm{d}y_t$ represents the integrated photo-current of homodyne detection; each $\mathrm{d}y_t$ is the infinitesimal recording of the measurement process at time $t$, which encodes (proportionally) the expectation value at time $t$ of the system quadrature $\expval{\frac{ce^{-i\theta}+c^\dagger e^{i\theta}}{\sqrt{2}}}_t$.
+\footnotetext[2]{This can be shown in the distribution meaning. Indeed, since $\int_0^t\mathrm{d}w_{t'}^2=\int_0^t\dt'$ (valid for any interval $[0,t]$), we can state that $\mathrm{d}w_t^2=\dt$~\cite{Jacobs2006}.}
 \subsubsection{Homodyne SME:}
 The SME is found by inserting Eq.~(\ref{eq:homodynesignal}) into Eq.~(\ref{eq:homrhou},\ref{eq:homproblin}) which form the normalized evolved state. We can then expand the denominator and find
 \begin{equation}{\label{eq:SMEhom1}}
     \mathrm{d}\rho_c(t) = \sqrt{k}\mathfrak{H}\qty[ce^{-i\theta}]\rho_c(t) \mathrm{d}w_t + o(\sqrt{\dt}).
 \end{equation}
 The terms of order $o(\dt)$ are obtained directly from the unconditional Lindblad master equation because averaging over all the measurement results gives back this equation. The average of Eq.~(\ref{eq:SMEhom1}) trivially gives 0, so the correct SME (in the Schrödinger picture) is
-\begin{align}
+\begin{align}\label{eq:SMEhom2}
     \boxed{\mathrm{d}\rho_c=-i\qty[H_0,\rho_c]\dt + k\mathfrak{D}[c]\rho_c\dt + \sqrt{k}\mathfrak{H}\qty[ce^{-i\theta}]\rho_c\mathrm{d}w_t},
 \end{align}
 where we detail that $\mathrm{d}w_t=\mathrm{d}y_t - \sqrt{k}\expval{ce^{-i\theta}+c^\dagger e^{i\theta}}_t \dt$. If the photo-detection SME unravelling was characterized by jump-like measurement, this one is called a \textit{diffusive} unravelling due to the impact of Wiener process in a diffusive term.
 
 \section{Linear quantum trajectories}\label{sec:Linear}
+The previous SMEs obtained are non-linear in $\rho_c$ which involves heavy computational work in order to simulate a trajectory. Indeed, if we observe the two SME obtained in the previous sections, we can remark their non-linearity in $\rho_c$: for photo-detection, Eq.~(\ref{eq:SMEphotodet}) is non-linear because of the term $\expval{c^\dagger c}_t=\Tr{c^\dagger c \rho_c(t)}$ which is multiplied by $\rho_c(t)$ in $\mathfrak{H}\qty[c^\dagger c]\rho_c(t)$, or at the denominator in the term proportional to $\mathrm{d}N_t$. While for homodyne detection, Eq.~(\ref{eq:SMEhom2}) is non-linear because of $\expval{ce^{-i\theta}+c^\dagger e^{i\theta}}_t=\Tr{(ce^{-i\theta}+c^\dagger e^{i\theta})\rho_c(t)}$ appearing in $\mathfrak{H}[ce^{_i\theta}]\rho_c(t)$ and in $\mathrm{d}w_t$. 
+
+We start by focusing on the homodyne measurement, if we replace $\expval{ce^{-i\theta}+c^\dagger e^{i\theta}}_t$ by $\mu\in\mathbb{R}$ in the homodyne SME, we obtain a linear stochastic differential equation. However, this term we replaced is involved in the correct normalization of the state at time $t+\dt$, see Eq.~(\ref{eq:homprobexp}), we also have $\mathrm{d}y_t = \sqrt{k}\mu\dt +\mathrm{d}w_t$ automatically. A natural choice is $\mu=0$ so the signal we measure is only a white noise, the linear SME becomes
+\begin{equation}
+    \mathrm{d}\bar{\rho}_c = -i\qty[H_0, \bar{\rho}_c]\dt + k\mathfrak{D}\qty[c]\bar{\rho}_c \dt+ \sqrt{k}\qty(ce^{-i\theta}\bar{\rho_c}+\bar{\rho}_c c^\dagger e^{i\theta})\mathrm{d}y_t.
+\end{equation}
+Therefore, we can numerically generate a signal as a purely classical white-noise and integrate this linear SME to find $\bar{\rho}_c(t+\dt)$. The error made by using an incorrect normalization is included in the norm of the state generated, and because the relation $\rho_c(t+\dt)=\frac{\bar{\rho}_c(t+\dt)}{\Tr{\bar{\rho}_c(t+\dt)}}$ stands, we can always numerically calculate the normalized state. 

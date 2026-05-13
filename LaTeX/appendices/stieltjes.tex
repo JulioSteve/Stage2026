@@ -1,5 +1,5 @@
-\chapter{Simple stochastic differential equations}\label{ann:stieltjes}
-We want here to justify the expression of Eq.~(\ref{eq:SMEphotodet}) where we discarded terms proportional to $\mathrm{d}N_t \dt$. We recall that $\mathrm{d}N_t$ is a Poisson increment, meaning that $\mathrm{d}N_t^2 = \mathrm{d}N_t$. Moreover, we work in a case where the only values this increment can have is 0 or 1, with probability $\mathbb{P}\qty[\mathrm{d}N_t=0] = 1-\lambda_t \dt\approx 1$ and $\mathbb{P}\qty[\mathrm{d}N_t=1] = \lambda_t \dt\approx 0$.
+\chapter{Some stochastic differential integration}\label{ann:stieltjes}
+We want here to justify the expression of Eq.~(\ref{eq:SMEphotodet}) where we discarded terms proportional to $\mathrm{d}N_t \dt$. We recall that $\mathrm{d}N_t$ is a Poisson increment, meaning that $\mathrm{d}N_t^2 = \mathrm{d}N_t$. Moreover, we work in a case where the only values this increment can have is 0 or 1, with probability $\mathbb{P}\qty[\mathrm{d}N_t=0] = 1-\lambda_t \dt\approx 1$ and $\mathbb{P}\qty[\mathrm{d}N_t=1] = \lambda_t \dt\approx 0$, where $\lambda_t\in\mathbb{R}$ such that $\lambda_t\gg \dt$.
 
 When dealing with stochastic master equation, it is useful to integrate them in order to understand the underlying mathematical background. Note that the real interest of the SME is to integrate it in order to find the expression of a state. We consider the case of a stochastic differential equation, such as
 \begin{equation}
@@ -17,4 +17,4 @@ where $N(t_{i+1},t_0)-N(t_i,t_0)=0$ most of the time and $1$ only $k$ times, acc
 \begin{equation}
     \int_{t_0}^T c~\mathrm{d}N_t\dt = c \sum_{j=0}^{k-1}\dt=c k \dt\approx 0,
 \end{equation}
-in the Stieltjes definition of the integral, which explains why we can neglect $\mathrm{d}N_t\dt$ in the photo-detection SME.
+in the Stieltjes definition of the integral, which explains why we can neglect $\mathrm{d}N_t\dt$ in the photo-detection SME. 
