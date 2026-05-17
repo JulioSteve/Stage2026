@@ -152,10 +152,36 @@ The terms of order $o(\dt)$ are obtained directly from the unconditional Lindbla
 where we detail that $\mathrm{d}w_t=\mathrm{d}y_t - \sqrt{k}\expval{ce^{-i\theta}+c^\dagger e^{i\theta}}_t \dt$. If the photo-detection SME unravelling was characterized by jump-like measurement, this one is called a \textit{diffusive} unravelling due to the impact of Wiener process in a diffusive term.
 
 \section{Linear quantum trajectories}\label{sec:Linear}
-The previous SMEs obtained are non-linear in $\rho_c$ which involves heavy computational work in order to simulate a trajectory. Indeed, if we observe the two SME obtained in the previous sections, we can remark their non-linearity in $\rho_c$: for photo-detection, Eq.~(\ref{eq:SMEphotodet}) is non-linear because of the term $\expval{c^\dagger c}_t=\Tr{c^\dagger c \rho_c(t)}$ which is multiplied by $\rho_c(t)$ in $\mathfrak{H}\qty[c^\dagger c]\rho_c(t)$, or at the denominator in the term proportional to $\mathrm{d}N_t$. While for homodyne detection, Eq.~(\ref{eq:SMEhom2}) is non-linear because of $\expval{ce^{-i\theta}+c^\dagger e^{i\theta}}_t=\Tr{(ce^{-i\theta}+c^\dagger e^{i\theta})\rho_c(t)}$ appearing in $\mathfrak{H}[ce^{_i\theta}]\rho_c(t)$ and in $\mathrm{d}w_t$. 
+The previously obtained SMEs are non-linear in $\rho_c$ which involves heavy computational work in order to simulate a trajectory. Indeed, if we observe the two SME obtained in the previous sections, we can remark their non-linearity in $\rho_c$: for photo-detection, Eq.~(\ref{eq:SMEphotodet}) is non-linear because of the term $\expval{c^\dagger c}_t=\Tr{c^\dagger c \rho_c(t)}$ which is multiplied by $\rho_c(t)$ in $\mathfrak{H}\qty[c^\dagger c]\rho_c(t)$, or at the denominator in the term proportional to $\mathrm{d}N_t$. While for homodyne detection, Eq.~(\ref{eq:SMEhom2}) is non-linear because of $\expval{ce^{-i\theta}+c^\dagger e^{i\theta}}_t=\Tr{(ce^{-i\theta}+c^\dagger e^{i\theta})\rho_c(t)}$ appearing in $\mathfrak{H}[ce^{-i\theta}]\rho_c(t)$ and also in $\mathrm{d}w_t$. 
 
-We start by focusing on the homodyne measurement, if we replace $\expval{ce^{-i\theta}+c^\dagger e^{i\theta}}_t$ by $\mu\in\mathbb{R}$ in the homodyne SME, we obtain a linear stochastic differential equation. However, this term we replaced is involved in the correct normalization of the state at time $t+\dt$, see Eq.~(\ref{eq:homprobexp}), we also have $\mathrm{d}y_t = \sqrt{k}\mu\dt +\mathrm{d}w_t$ automatically. A natural choice is $\mu=0$ so the signal we measure is only a white noise, the linear SME becomes
-\begin{equation}
+We start by focusing on the homodyne measurement, if we replace $\expval{ce^{-i\theta}+c^\dagger e^{i\theta}}_t$ by $\mu\in\mathbb{R}$ in the homodyne SME, we obtain a linear stochastic differential equation. However, this term we replace is involved in the correct normalization of the state at time $t+\dt$, see Eq.~(\ref{eq:homprobexp}), we also have $\mathrm{d}y_t = \sqrt{k}\mu\dt +\mathrm{d}w_t$ automatically. A natural choice is $\mu=0$ so the signal we measure is only a white noise, the linear SME becomes
+\begin{equation}\label{eq:linhom}
     \mathrm{d}\bar{\rho}_c = -i\qty[H_0, \bar{\rho}_c]\dt + k\mathfrak{D}\qty[c]\bar{\rho}_c \dt+ \sqrt{k}\qty(ce^{-i\theta}\bar{\rho_c}+\bar{\rho}_c c^\dagger e^{i\theta})\mathrm{d}y_t.
 \end{equation}
-Therefore, we can numerically generate a signal as a purely classical white-noise and integrate this linear SME to find $\bar{\rho}_c(t+\dt)$. The error made by using an incorrect normalization is included in the norm of the state generated, and because the relation $\rho_c(t+\dt)=\frac{\bar{\rho}_c(t+\dt)}{\Tr{\bar{\rho}_c(t+\dt)}}$ stands, we can always numerically calculate the normalized state. 
+Therefore, we can numerically generate a classical white-noise $\mathrm{d}w_t$ and calculate iteratively $\bar{\rho}_c(t+\dt)=\bar{\rho}_c(t)+\mathrm{d}\bar{\rho}_c(t)$ for each timestep. Then, we can simply divide $\bar{\rho}_c(t+\dt)$ by its trace to find the expected (normalized) state $\rho_c(t+\dt)$. Furthermore, we observe that averaging Eq.~(\ref{eq:linhom}) gives {\color{red} vérifier que c'est bien en moyennant cette equation, pas sûr du tout. Peut être un raisonnement plus général avec mu}
+\begin{equation}\label{eq:ptruepost}
+    \mathbb{E}_{p_\text{ost}}[\mathrm{d}\bar{\rho}_c]= -i\qty[H_0, \bar{\rho}_c]\dt + k\mathfrak{D}\qty[c]\bar{\rho}_c \dt,
+\end{equation}
+where $p_\text{ost}$ is the so-called ``ostensible'' probability recovering the Lindblad master equation. By denoting as $p_\text{true}$ the true probability distribution followed by $\mathrm{d}y_t$ (in the normalized expressions), we can write any unconditional state as
+\begin{equation}
+    \rho = \mathbb{E}_{p_\text{true}}\qty[\rho_c] = \mathbb{E}_{p_\text{ost}}\qty[\bar{\rho}_c].
+\end{equation}
+The link between these two probability distributions is the same than between $\bar{\rho_c}$ and $\rho_c$: the normalization. Indeed, the last equation and $\Tr{\bar{\rho}_c}\rho_c=\bar{\rho}_c$ give
+\begin{equation}
+p_\text{true} = p_\text{ost}\Tr{\bar{\rho}_c}.
+\end{equation}
+To show this, we can denote $Y=\mathrm{d}y_t$ for convenience and explicit the expressions of the averages 
+\begin{equation}
+    \mathbb{E}_{p_\text{true}}\qty[\rho_c(t)] = \int_\mathbb{R} \rho_c(t) p_\text{true}(Y)\mathrm{d}Y,\qquad
+    \mathbb{E}_{p_\text{ost}}\qty[\bar{\rho}_c(t)] = \int_\mathbb{R} \bar{\rho}_c(t) p_\text{ost}(Y)\mathrm{d}Y.
+\end{equation}
+
+Likewise, the linear SME for photo-detection can be obtained by replacing $\expval{c^\dagger c}_t$ by $\mu'$ with the choice $\mu'=1$. This choice implies
+\begin{equation}
+    \mathbb{E}\qty[\mathrm{d}N_t]=k\dt,
+\end{equation}
+and the linear SME becomes
+\begin{equation}
+    \mathrm{d}\bar{\rho}_c = -i\qty[H_0, \bar{\rho}_c]\dt - \frac{k}{2}\qty{c^\dagger c,\bar{\rho}_c}\dt + k\bar{\rho}_c\dt +\qty(c\bar{\rho}_c c^\dagger-\bar{\rho}_c)\mathrm{d}N_t.
+\end{equation}
+In this case, the unconditional master equation is obtained by averaging the linear SME over an ostensible probability such that $\mathbb{E}_{p_\text{ost}}\qty[\mathrm{d}N_t]=k\dt$.
