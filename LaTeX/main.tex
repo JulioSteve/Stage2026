@@ -24,7 +24,9 @@
 % Clean figures
 \usepackage{caption}
 \usepackage{subcaption}
-
+\usepackage{chngcntr}
+\counterwithout{figure}{chapter}
+\counterwithout{table}{chapter}
 
 % Bibliography (moderne)
 \usepackage[backend=biber,style=numeric,sorting=none]{biblatex}
@@ -74,11 +76,12 @@
 \input{sme.tex}
 \newpage
 
+\input{conclusion}
+\newpage
+
 \input{appendices/mixture.tex}
 \newpage
 \input{appendices/pictures.tex}
-\newpage
-\input{appendices/inputoutput.tex}
 \newpage
 \input{appendices/stieltjes.tex}
 
