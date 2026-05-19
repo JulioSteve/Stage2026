@@ -19,7 +19,7 @@ It is possible to rewrite the Lindblad master equation to yield the conditional 
 
 Note that in order to lighten notations, we stop specifying the interaction picture by $\tilde{\bullet}$ in the following. However, when a change of representation occurs it will be specified. Furthermore, we work from now on in natural units where $\hbar=1$.
 
-\section{Photo-detection}
+\section{Photo-detection}\label{sec:photodet}
 In the case where the environment is continuously monitored by a photo-detector, the mathematical impact is a projection of the environment on the corresponding Fock basis $\qty{\ketbra{n}_t}_{n\in\mathbb{N}}$. Indeed, photo-detection is a way to measure the number operator $B_t^\dagger B_t$ because the Fock basis is the eigenbasis of this operator. At first glance the measurement would only give information about the environnement. However, by performing a partial trace $\mathrm{Tr}_E$ over the total evolved state, we can extract information on the system. Without the evolution of the couple system-environment, the partial trace on the evolved total state would not give any information on the system whatsoever.
 
 In the following, we find the expression of the conditional state obtained at time $t+\dt$ in the case of photo-detection. Let $\qty{\ketbra{m}_t}_m$ be a PVM (see Section~\ref{sec:qmt}), so that the measurement projects the environment at time $t$ on the PVM element $\ketbra{m}_t$. According to Eq.~(\ref{eq:rhoTevol}), the total evolved system is expressed as
@@ -102,8 +102,13 @@ By injecting this result in Eq.~(\ref{eq:preuvephotodet}), we find
     \mathbb{E}[\mathrm{d}\rho_c](t) = -i\qty[H_0,R(t)]\dt + k\mathfrak{D}[c]R(t)\dt,
 \end{equation}
 which is exactly the Lindblad master equation for the state $R(t)$. We know that this equation is the expression of an unconditional state evolution, thus we can state that $\mathbb{E}\qty[\rho_c(t)]=\rho(t)$. Therefore for photo-detection, we have shown that averaging over all the quantum trajectories reforms the unconditional Lindblad master equation, and that the average over all possibilities of the conditional state is the unconditional state. This property is also valid for homodyne detection~\cite{W96,Jacobs2006,Rouchon2022} and will be used without proper demonstration in the following section. 
-\section{Homodyne detection}
-In the previous section, we derived the SME in the case of photo-detection and showed its link to the Lindblad master equation. While photo-detection monitors the number of excitations, the homodyne detection targets field quadratures. This process involves mixing the signal with a strong local oscillator before measurement~\cite{W96}. By measuring the global output signal, we have access to the quadrature of the physical system of interest, as shown in Figure~\ref{fig:homodyne}.
+\section{Homodyne detection}\label{sec:homodyne}
+In the previous section, we derived the SME in the case of photo-detection and showed its link to the Lindblad master equation. While photo-detection monitors the number of excitations, the homodyne detection targets field quadratures. This process involves mixing the signal with a strong local oscillator before measurement~\cite{W96}. By measuring the global output signal, we have access to the quadrature of the physical system of interest~\cite{Gerry2023}. We depict the homodyne detection scheme in Figure~\ref{fig:homodyne}.
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.6\textwidth]{Images/Homodyne.pdf}
+    \caption{Schematic of the balanced homodyne detection method. The input $\hat{a}$ comes from the total system $S+E$ while $\hat{b}$ is a strong coherent field. The boxes represent photo-detectors measuring the fields after they passed through a beam-splitter (the box with a diagonal at the center). The apparatus calculates the difference of the photo-currents to obtain a (continuous) signal proportional to the quadrature of the system's field. We detail briefly this relationship in Appendix~\ref{app:homodyne}.}\label{fig:homodyne}
+\end{figure}
 
 This kind of measurement corresponds to projecting the environmental oscillator --- associated with $B_t$ --- on the eigenvectors of the quadrature operator $\hat{x}_\theta$. This operator is defined by $\hat{x}_\theta=(e^{-i\theta}B_t+e^{i\theta}B_t^\dagger)/\sqrt{2}$, where $\theta\in\mathbb{R}$, and verifies $\qty[\hat{x}_\theta,\hat{x}_{\theta+\frac{\pi}{2}}]=i$. Even if it is not possible to construct normalized eigenstates of this operator, we can build the states $\ket{x_\theta}$ satisfying $\hat{x}_\theta\ket{x_\theta}=x_\theta\ket{x_\theta}$ in such a way that $\ketbra{x_\theta}{x_\lambda}=\delta(\theta-\lambda)$, and verifying the closure relation $\int_\mathbb{R}\ketbra{x_\theta}\mathrm{d}x_\theta=1$. We will use the following overlapping property~\cite{Barnett} between these states and the Fock states:
 \begin{equation}

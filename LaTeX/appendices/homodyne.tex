@@ -1,0 +1,20 @@
+\chapter{Homodyne detection in quantum optics}\label{app:homodyne}
+As explained in Section~\ref{sec:homodyne}, homodyne detection creates a continuous signal containing information on the quadrature of the physical system of interest. We use the notations of Figure~\ref{fig:homodyne}, i.e.\ the system field is labelled by the system annihilation operator $\hat{a}$ (and is now an input of the homodyne detection process), also we use another input signal which is a coherent field labelled by its annihilation operator $\hat{b}$. Moreover, we use a 50:50 beam-splitter to form two output fields labelled $\hat{c}$ and $\hat{d}$ which are then measured by two photo-detector, as depicted in the aforementioned figure. The quadrature of the system is defined by
+\begin{equation}
+    \hat{a}_\theta=\frac{\hat{a}^\dagger e^{i\theta}+\hat{a}e^{-i\theta}}{\sqrt{2}}.
+\end{equation}
+
+Quantum optics~\cite{Gerry2023} assures that, after the beam-splitter, the output fields are 
+\begin{equation}
+    \hat{c}=\frac{\hat{a}+i\hat{b}}{\sqrt{2}},\qquad
+    \hat{d}=\frac{\hat{b}+i\hat{a}}{\sqrt{2}}.
+\end{equation}
+These relations hold when the beam-splitter is 50:50. Hence, this exact process is called ``balanced'' homodyne detection. We explained in Section~\ref{sec:photodet} that the photo-detector signal is proportional to the mean value of the occupation number. Thus, $I_c \propto \expval{\hat{c}^\dagger \hat{c}}$ and $I_d \propto \expval{\hat{d}^\dagger \hat{d}}$. Therefore, the difference of photo-currents is
+\begin{equation}\label{eq:D2}
+    I_d-I_c \propto i\expval{\hat{a}^\dagger\otimes\hat{b}-\hat{a}\otimes\hat{b}^\dagger}.
+\end{equation}
+As explained, the field input labelled by $\hat{b}$ is a coherent field. Let us note it as $\ket{\beta}$, this state respects: $\hat{b}\ket{\beta}=\beta\ket{\beta}$, where $\beta=\abs{\beta}e^{i\phi}\in\mathbb{C}$. If we denote as $\ket{\psi}$ the input state of the system, then the total input state is $\ket{\psi_\text{in}}=\ket{\psi} \otimes \ket{\beta}$. We can therefore explicit the average in Eq.~(\ref{eq:D2}) as
+\begin{equation}
+    I_d-I_c \propto i\abs{\beta}\expval{(\hat{a}^\dagger e^{i\phi}-\hat{a}e^{-i\phi})}{\psi} = \abs{\beta}\expval{(\hat{a}^\dagger e^{i\theta}+\hat{a}e^{-i\theta})}{\psi},
+\end{equation}
+where we introduced $\theta=\phi-\pi$. Therefore, we have briefly shown that homodyne detection signal is proportional to the quadrature of the system $\hat{a}_\theta$.
