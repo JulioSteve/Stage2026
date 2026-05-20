@@ -29,42 +29,41 @@ As mentioned in the Section~\ref{OQS}, we can represent the coupling between $S$
 \begin{align}
     H_T = \overbrace{H_S\otimes\mathbb{I}_E+\mathbb{I}_S\otimes H_E}^{H_0}+H_I.
 \end{align}
-Knowing that $\ket{\psi(t)}_S=U(t,t_0)\ket{\psi}_S$, we can write that
+From now on, we denote the state of the total system as $\bm{\varrho}$. Knowing that $\ket{\psi(t)}=U(t,t_0)\ket{\psi}$, we can write that
 \begin{equation}\label{eq:evolrhoU}
-    \rho_S(t) = U(t,t_0)\rho_{S}(t_0)U^\dagger(t,t_0).
+    \bm{\varrho}(t) = U(t,t_0)\bm{\varrho}(t_0)U^\dagger(t,t_0).
 \end{equation}
-The evolution operator $U$ is the solution of the Schrödinger equation for the total system $T$. We know from Section~\ref{Ii1} that we can write the solution of the Schrödinger equation when having a time-independent Hamiltonian as an exponential. However here, the total Hamiltonian $H_T$ is obviously not time independent (only $H_0$ is assumed constant in time). Nevertheless, a unitary solution still exists in this case~\cite{Breuer}.
-We know that the free system (dynamically governed by $H_0$) follows unitary dynamics, which is described by $U_0(t,t_0)=e^{-\frac{i}{\hbar}H_0 (t-t_0)}$. Thus, we can define the interaction unitary operator $U_I$ as
+The evolution operator $U$ is the solution of the Schrödinger equation for the total system $T$. We know from Section~\ref{Ii1} that we can write the solution of the Schrödinger equation when having a time-independent Hamiltonian as an exponential. However here, the total Hamiltonian $H_T$ is obviously time-dependent (only $H_0$ is assumed constant in time). Nevertheless, a unitary solution still exists in this case~\cite{Breuer}: the free system (dynamically governed by $H_0$) follows unitary dynamics described by $U_0(t,t_0)=e^{-\frac{i}{\hbar}H_0 (t-t_0)}$. Thus, we can define the interaction unitary operator $U_I$ as
 \begin{align}
     U_I(t,t_0) &= U_0^\dagger(t,t_0)U(t,t_0)\\
     \Leftrightarrow U(t,t_0) &= U_0(t,t_0)U_I(t,t_0)\label{eq:Utotal}
 \end{align}
 If we now try to calculate the average of an operator (in the total space $\mathcal{H}_T$) using the Schrödinger picture, we can find a new interesting relation by injecting the Eq.~(\ref{eq:Utotal}) in the Eq.~(\ref{eq:evolrhoU}) and then into the following average:
 \begin{align*}
-    \expval{O(t)} &= \Tr{\rho_{S}(t)O_S(t)}\\
-    &= \mathrm{Tr}\,[\underbrace{U_I(t,t_0)\rho_{S}(t_0)U_I^\dagger(t,t_0)}_{\tilde{\rho}(t)}\,\underbrace{U_0^\dagger(t,t_0)O_S(t)U_0(t,t_0)}_{\tilde{O}(t)}].
+    \expval{O(t)} &= \Tr{\bm{\varrho}(t)O(t)}\\
+    &= \mathrm{Tr}\,[\underbrace{U_I(t,t_0)\bm{\varrho}(t_0)U_I^\dagger(t,t_0)}_{\tilde{\bm{\varrho}}(t)}\,\underbrace{U_0^\dagger(t,t_0)O(t)U_0(t,t_0)}_{\tilde{O}(t)}].
 \end{align*}
 We can thus define in the interaction picture:
 \begin{align}
-    \tilde{\rho}(t)&=U_I(t,t_0)\rho_{S}(t_0)U_I^\dagger(t,t_0),\label{eq:rhoIS}\\
-    \tilde{O}(t) &= U_0^\dagger(t,t_0)O_S(t)U_0(t,t_0)\label{eq:obsIS}.
+    \tilde{\bm{\varrho}}(t)&=U_I(t,t_0)\bm{\varrho}(t_0)U_I^\dagger(t,t_0),\label{eq:rhoIS}\\
+    \tilde{O}(t) &= U_0^\dagger(t,t_0)O(t)U_0(t,t_0)\label{eq:obsIS}.
 \end{align}
 We can now reverse the Eq.~(\ref{eq:evolrhoU}) and then use the Eq.~(\ref{eq:Utotal}) to get
 \begin{equation*}
-    \rho_S(t_0) = U^\dagger(t,t_0)\rho_S(t)U(t,t_0) = U_I^\dagger(t,t_0)U^\dagger_0(t,t_0)\rho_S(t)U_0(t,t_0)U_I(t,t_0),
+    \bm{\varrho}(t_0) = U^\dagger(t,t_0)\bm{\varrho}(t)U(t,t_0) = U_I^\dagger(t,t_0)U^\dagger_0(t,t_0)\bm{\varrho}(t)U_0(t,t_0)U_I(t,t_0),
 \end{equation*}
 and, by injecting this into the Eq.~(\ref{eq:rhoIS}), we get
 \begin{equation}
-    \tilde{\rho}(t) = U^\dagger_0(t,t_0)\rho_S(t)U_0(t,t_0).
+    \tilde{\bm{\varrho}}(t) = U^\dagger_0(t,t_0)\bm{\varrho}(t)U_0(t,t_0).
 \end{equation}
 This result is obvious because a density matrix is also an operator and thus respects the Eq.~(\ref{eq:obsIS}).
 In the end, we find the results used in the main part of this document:
 \begin{equation}
-    \boxed{\tilde{\rho}(t)=U_I(t,t_0)\rho_{S}(t_0)U_I^\dagger(t,t_0)= U^\dagger_0(t,t_0)\rho_S(t)U_0(t,t_0)}.
+    \boxed{\tilde{\bm{\varrho}}(t)=U_I(t,t_0)\bm{\varrho}(t_0)U_I^\dagger(t,t_0)= U^\dagger_0(t,t_0)\bm{\varrho}(t)U_0(t,t_0)}.
 \end{equation}
 By working on the Liouville-von Neumann equation, one can show that by jumping into the interaction picture the dynamics do not depend anymore on the free Hamiltonian $H_0$:
 \begin{equation}
-    \qty(\dert{\rho}=-\frac{i}{\hbar}\qty[H_T,\rho])\Leftrightarrow\qty(\dert{\tilde{\rho}}=-\frac{i}{\hbar}\qty[\tilde{H}_I,\tilde{\rho}]),
+    \qty(\dert{\bm{\varrho}}=-\frac{i}{\hbar}\qty[H_T,\bm{\varrho}])\Leftrightarrow\qty(\dert{\tilde{\bm{\varrho}}}=-\frac{i}{\hbar}\qty[\tilde{H}_I,\tilde{\bm{\varrho}}]),
 \end{equation}
 where $\tilde{H}_I=U_0^\dagger(t,t_0)H_I U_0(t,t_0)$ as defined. It is thus usual to work in this representation to get rid of free dynamics terms, and then jump back to the Schrödinger picture to recover the proper dynamics of the system.
 \subsubsection{Further discussion}

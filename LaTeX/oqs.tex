@@ -107,15 +107,15 @@ We can now rewrite the evolution of $\tilde{\bm{\varrho}}$ during the infinitesi
     +\qty[\tilde{\rho}(t) c^\dagger\otimes\ketbra{0}{1}_t+\mathrm{h.c.}]\times\sqrt{k\dt}\\
     +\qty[\frac{\sqrt{2}}{2}\tilde{\rho}(t) c^{\dagger 2}\otimes\ketbra{0}{2}_t+\mathrm{h.c.}-\frac{1}{2}\tilde{\rho}(t) c c^\dagger\otimes\ketbra{0}_t+\mathrm{h.c.}+c\tilde{\rho}(t) c^\dagger\otimes\ketbra{1}_t]\times k\dt,
 \end{multline}
-where ``h.c.'' stands for hermitian conjugate of the last term. We can now apply the partial trace, the evolved state of the system $S$ is thus expressed as
+where ``h.c.'' stands for hermitian conjugate of the last term. We can now apply the partial trace $\mathrm{Tr}_E$ on the last equation. The evolved state of the system $S$ is thus expressed as
 \begin{equation*}
     \tilde{\rho}(t+\dt)=\tilde{\rho}(t)+k\qty[c\tilde{\rho}(t)c^\dagger - \frac{c^\dagger c\tilde{\rho}(t)+\tilde{\rho}(t)c^\dagger c}{2}]\dt.
 \end{equation*}
-If we now form the difference quotient $\frac{\tilde{\rho}(t+\dt)-\tilde{\rho}(t)}{dt}$, in the infinitesimal limit, we find the differential equation followed by the state $\rho$ at all time 
+If we now form the difference quotient $\frac{\tilde{\rho}(t+\dt)-\tilde{\rho}(t)}{dt}$, in the infinitesimal limit, we find the differential equation followed by the state $\rho$ at all time, i.e
 \begin{equation}
     \frac{\mathrm{d}\tilde{\rho}}{\dt}(t)=k\mathfrak{D}[c]\tilde{\rho}(t),
 \end{equation}
-in which we used the definition of the super-operator $\mathfrak{D}[\hat{O}]\bullet\equiv \hat{O}\bullet\hat{O}^\dagger-\frac{\qty{\hat{O}^\dagger\hat{O},\bullet}}{2}$, called the dissipator. Finally, by coming back into the Schrödinger representation, we find the so-called {Lindblad master equation}:
+where we defined the super-operator $\mathfrak{D}[\hat{O}]\bullet\equiv \hat{O}\bullet\hat{O}^\dagger-\frac{\qty{\hat{O}^\dagger\hat{O},\bullet}}{2}$ called the dissipator. Finally, by coming back into the Schrödinger representation, we find the so-called {Lindblad master equation}:
 \begin{equation}
-    \boxed{\frac{\mathrm{d}\rho}{\dt}(t)=-\frac{i}{\hbar}\qty[H_0, \rho(t)]+k\mathfrak{D}[c]\rho(t)}.
+    \boxed{\frac{\mathrm{d}\rho}{\dt}(t)=-\frac{i}{\hbar}\qty[H_S, \rho(t)]+k\mathfrak{D}[c]\rho(t)}.
 \end{equation}

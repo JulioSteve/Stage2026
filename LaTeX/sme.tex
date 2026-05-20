@@ -71,13 +71,13 @@ From a statistical perspective, the measurement outcome at time $t+\dt$ is a Ber
 \begin{equation}
     \mathrm{d}\rho_c(t)=\mathrm{d}N_t\qty[\rho_1(t+\dt)-\rho_c(t)]+\qty(1-\mathrm{d}N_t)\qty[\rho_0(t+\dt)-\rho_c(t)].
 \end{equation}
-We can inject the results of Eqs.~(\ref{eq:rho0},\ref{eq:rho1}) in the last equation to obtain
+We can inject the results of Eqs.~(\ref{eq:rho0},\ref{eq:rho1}) in the last equation and by going back in the Schrödinger picture, we obtain
 \begin{equation}\label{eq:SMEphotodet}
-    \boxed{\mathrm{d}\rho_c=-i\qty[H_0,\rho_c]\dt-\frac{k}{2}\mathfrak{H}\qty[c^\dagger c]\rho_c\dt + \qty(\frac{c\rho_c c^\dagger}{\expval{c^\dagger c}_t}-\rho_c)\mathrm{d}N_t}.
+    \boxed{\mathrm{d}\rho_c=-i\qty[H_S,\rho_c]\dt-\frac{k}{2}\mathfrak{H}\qty[c^\dagger c]\rho_c\dt + \qty(\frac{c\rho_c c^\dagger}{\expval{c^\dagger c}_t}-\rho_c)\mathrm{d}N_t}.
 \end{equation}
 This equation is called the photo-detection SME, note that we went into the Schrödinger picture to obtain this expression. Moreover, we have discarded terms of order $\mathrm{d}N_t\dt$ when calculating the expression of this SME. Indeed, we have shown that $\mathbb{E}\qty[\mathrm{d}N_t]\propto\dt$, so $\mathbb{E}\qty[\mathrm{d}N_t\dt]=(\dt)^2$, also since we can show that $\mathbb{V}[\mathrm{d}N_t]\propto\dt+o(\dt)$, it implies that $\mathbb{V}[\mathrm{d}N_t\dt]\propto(\dt)^2\qty[\dt+o(\dt)]\propto\dt^3+o(\dt^3)$. Thus, statistical terms as $\mathrm{d}N_t\dt$ are negligible compared to $\dt$ in average, Appendix~\ref{ann:stieltjes} details why we can also neglect these terms locally. Finally, when derived for a pure state the expression simplifies to the Stochastic Schrödinger Equation (SSE)
 \begin{equation}
-    \mathrm{d}\ket{\psi_c}=\qty[-iH_0\dt+\frac{k}{2}\qty(\expval{c^\dagger c}_t-c^\dagger c)\dt + \qty(\frac{c}{\sqrt{\expval{c^\dagger c}_t}}-1)\mathrm{d}N_t]\ket{\psi_c},
+    \mathrm{d}\ket{\psi_c}=\qty[-iH_S\dt+\frac{k}{2}\qty(\expval{c^\dagger c}_t-c^\dagger c)\dt + \qty(\frac{c}{\sqrt{\expval{c^\dagger c}_t}}-1)\mathrm{d}N_t]\ket{\psi_c},
 \end{equation}
 which conserves the purity of the state during the stochastic evolution. Note that we can derive the SME from the SSE using \ito~calculus rule~\cite{Albarelli}:
 \begin{equation}
@@ -89,7 +89,7 @@ The importance of the SME and of the SSE is double because these equations also 
 
 We will now show briefly that we can write $\mathbb{E}[\rho_c]=\rho$, where $\rho$ is the unconditional state following the Lindblad master equation. If we average the photo-detection SME over all possible conditions we find
 \begin{multline}\label{eq:preuvephotodet}
-    \mathbb{E}[\mathrm{d}\rho_c](t) = -i\qty[H_0,R(t)]\dt-\frac{k}{2}\qty{c^\dagger c R(t) + R(t)c^\dagger c - 2\mathbb{E}\qty[\expval{c^\dagger c}_t \rho_c(t)]}\dt\\
+    \mathbb{E}[\mathrm{d}\rho_c](t) = -i\qty[H_S,R(t)]\dt-\frac{k}{2}\qty{c^\dagger c R(t) + R(t)c^\dagger c - 2\mathbb{E}\qty[\expval{c^\dagger c}_t \rho_c(t)]}\dt\\
     + \mathbb{E}\qty{\qty[\frac{c\rho_c(t)c^\dagger}{\expval{c^\dagger c}_t}-\rho_c(t)]\mathrm{d}N_t},
 \end{multline}
 where $R(t)=\mathbb{E}[\rho_c(t)]$. To explicit the last term, we need the following relation $\mathbb{E}\qty[f(\rho_c)(t)\mathrm{d}N_t]=k\mathbb{E}\qty[\expval{c^\dagger c}_t f(\rho_c)(t)]\dt$, where $f$ is a generic function~\cite{WM}. So we obtain for the last term
@@ -99,7 +99,7 @@ where $R(t)=\mathbb{E}[\rho_c(t)]$. To explicit the last term, we need the follo
 \end{multline}
 By injecting this result in Eq.~(\ref{eq:preuvephotodet}), we find
 \begin{equation}
-    \mathbb{E}[\mathrm{d}\rho_c](t) = -i\qty[H_0,R(t)]\dt + k\mathfrak{D}[c]R(t)\dt,
+    \mathbb{E}[\mathrm{d}\rho_c](t) = -i\qty[H_S,R(t)]\dt + k\mathfrak{D}[c]R(t)\dt,
 \end{equation}
 which is exactly the Lindblad master equation for the state $R(t)$. We know that this equation is the expression of an unconditional state evolution, thus we can state that $\mathbb{E}\qty[\rho_c(t)]=\rho(t)$. Therefore for photo-detection, we have shown that averaging over all the quantum trajectories reforms the unconditional Lindblad master equation, and that the average over all possibilities of the conditional state is the unconditional state. This property is also valid for homodyne detection~\cite{W96,Jacobs2006,Rouchon2022} and will be used without proper demonstration in the following section. 
 \section{Homodyne detection}\label{sec:homodyne}
@@ -158,7 +158,7 @@ The SME is found by inserting Eq.~(\ref{eq:homodynesignal}) into Eq.~(\ref{eq:ho
 \end{equation}
 The terms of order $o(\dt)$ are obtained directly from the unconditional Lindblad master equation because averaging over all the measurement results gives back this equation. The average of Eq.~(\ref{eq:SMEhom1}) trivially gives 0, so the correct SME (in the Schrödinger picture) is
 \begin{align}\label{eq:SMEhom2}
-    \boxed{\mathrm{d}\rho_c=-i\qty[H_0,\rho_c]\dt + k\mathfrak{D}[c]\rho_c\dt + \sqrt{k}\mathfrak{H}\qty[ce^{-i\theta}]\rho_c\mathrm{d}w_t},
+    \boxed{\mathrm{d}\rho_c=-i\qty[H_S,\rho_c]\dt + k\mathfrak{D}[c]\rho_c\dt + \sqrt{k}\mathfrak{H}\qty[ce^{-i\theta}]\rho_c\mathrm{d}w_t},
 \end{align}
 where we detail that $\mathrm{d}w_t=\mathrm{d}y_t - \sqrt{k}\expval{ce^{-i\theta}+c^\dagger e^{i\theta}}_t \dt$. If the photo-detection SME unravelling was characterized by jump-like measurement, this one is called a \textit{diffusive} unravelling due to the impact of Wiener process in a diffusive term.
 
@@ -167,11 +167,11 @@ The previously obtained SMEs are non-linear in $\rho_c$ which involves heavy com
 
 We start by focusing on the homodyne measurement, if we replace $\expval{ce^{-i\theta}+c^\dagger e^{i\theta}}_t$ by $\mu\in\mathbb{R}$ in the homodyne SME, we obtain a linear stochastic differential equation. However, this term we replace is involved in the correct normalization of the state at time $t+\dt$, see Eq.~(\ref{eq:homprobexp}), we also have $\mathrm{d}y_t = \sqrt{k}\mu\dt +\mathrm{d}w_t$ automatically. A natural choice is $\mu=0$ so the signal we measure is only a white noise, the linear SME becomes
 \begin{equation}\label{eq:linhom}
-    \mathrm{d}\bar{\rho}_c = -i\qty[H_0, \bar{\rho}_c]\dt + k\mathfrak{D}\qty[c]\bar{\rho}_c \dt+ \sqrt{k}\qty(ce^{-i\theta}\bar{\rho_c}+\bar{\rho}_c c^\dagger e^{i\theta})\mathrm{d}y_t.
+    \mathrm{d}\bar{\rho}_c = -i\qty[H_S, \bar{\rho}_c]\dt + k\mathfrak{D}\qty[c]\bar{\rho}_c \dt+ \sqrt{k}\qty(ce^{-i\theta}\bar{\rho_c}+\bar{\rho}_c c^\dagger e^{i\theta})\mathrm{d}y_t.
 \end{equation}
 Therefore, we can numerically generate a classical white-noise $\mathrm{d}w_t$ and calculate iteratively $\bar{\rho}_c(t+\dt)=\bar{\rho}_c(t)+\mathrm{d}\bar{\rho}_c(t)$ for each timestep. Then, we can simply divide $\bar{\rho}_c(t+\dt)$ by its trace to find the expected (normalized) state $\rho_c(t+\dt)$. Furthermore, we observe that averaging Eq.~(\ref{eq:linhom}) gives\footnote[10]{At time $t$, $\bar{\rho}_c(t)$ is uncorrelated with $\mathrm{d}w_t$. Indeed, this Wiener increment is a random number independent of the state at time $t$, and only the state at time $t+\dt$ depends on $\mathrm{d}w_t$.}
 \begin{equation}\label{eq:ptruepost}
-    \mathbb{E}_{p_\text{ost}}[\mathrm{d}\rho_c]= -i\qty[H_0, \rho_c]\dt + k\mathfrak{D}\qty[c]\rho_c \dt,
+    \mathbb{E}_{p_\text{ost}}[\mathrm{d}\rho_c]= -i\qty[H_S, \rho_c]\dt + k\mathfrak{D}\qty[c]\rho_c \dt,
 \end{equation}
 where $p_\text{ost}$ is the so-called ``ostensible'' probability recovering the Lindblad master equation. By denoting as $p_\text{true}$ the true probability distribution followed by $\mathrm{d}y_t$ (in the normalized expressions), we can write any unconditional state as
 \begin{equation}
@@ -193,6 +193,6 @@ Likewise, the linear SME for photo-detection can be obtained by replacing $\expv
 \end{equation}
 and the linear SME becomes
 \begin{equation}
-    \mathrm{d}\bar{\rho}_c = -i\qty[H_0, \bar{\rho}_c]\dt - \frac{k}{2}\qty{c^\dagger c,\bar{\rho}_c}\dt + k\bar{\rho}_c\dt +\qty(c\bar{\rho}_c c^\dagger-\bar{\rho}_c)\mathrm{d}N_t.
+    \mathrm{d}\bar{\rho}_c = -i\qty[H_S, \bar{\rho}_c]\dt - \frac{k}{2}\qty{c^\dagger c,\bar{\rho}_c}\dt + k\bar{\rho}_c\dt +\qty(c\bar{\rho}_c c^\dagger-\bar{\rho}_c)\mathrm{d}N_t.
 \end{equation}
 In this case, the unconditional master equation is obtained by averaging the linear SME over an ostensible probability such that $\mathbb{E}_{p_\text{ost}}\qty[\mathrm{d}N_t]=k\dt$.
