@@ -28,6 +28,8 @@
 \usepackage{chngcntr}
 \counterwithout{figure}{chapter}
 \counterwithout{table}{chapter}
+\counterwithout{footnote}{chapter}
+
 
 % Bibliography (moderne)
 \usepackage[backend=biber,style=numeric,sorting=none]{biblatex}
@@ -62,6 +64,7 @@
 \newcommand{\nIH}{{n\in{I_\mathcal{H}}}}
 \newcommand{\ito}{It\={o}}
 \newcommand{\dt}{\mathrm{d}t}
+\newcommand{\boldsection}[1]{\textbf{\boldmath #1}}
 
 \input{frontmatter.tex}
 \clearpage

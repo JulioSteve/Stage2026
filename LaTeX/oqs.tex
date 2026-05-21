@@ -76,11 +76,11 @@ We now make use of one more assumption to derive the evolution of the state $\rh
     \begin{equation}
         \forall t\in\mathbb{R},\quad\tilde{\bm{\varrho}}(t)=\tilde{\rho}(t)\otimes \nu_t,
     \end{equation}
-    where $\nu_t=\ketbra{0}_t$ is the vacuum state of the bosonic operator $B_t$. Coupling with the corresponding vacuum state (at time $t$) implies that the average of the input modes canonical anticommutator\footnote{We define the anticommutator between two operators $A$ and $B$ as $\qty{A,B}=AB+BA$.} is
+    where $\nu_t=\ketbra{0}_t$ is the vacuum state of the bosonic operator $B_t$. Coupling with the corresponding vacuum state (at time $t$) implies that the average of the input modes canonical anticommutator is
     \begin{equation}
-        \expval{\qty{b_t,b_{t'}^\dagger}}=\delta(t-t').
+        \expval{\qty{b_t,b_{t'}^\dagger}}=\delta(t-t'),
     \end{equation}
-    This equation and Eq.~(\ref{eq:btCCR}) form the Markovian assumptions of this framework~\cite{Albarelli}: the bosonic mode $B_t$ is completely uncorrelated with the other modes at different times due to the delta-correlation of $b_t$.
+    where by definition the anticommutator of $A$ and $B$ is $\qty{A,B}=AB+BA$. This equation and Eq.~(\ref{eq:btCCR}) form the Markovian assumptions of this framework~\cite{Albarelli}: the bosonic mode $B_t$ is completely uncorrelated with the other modes at different times due to the delta-correlation of $b_t$.
 The global state evolves over an infinitesimal time $\dt$ as
 \begin{equation}\label{eq:rhoTevol}
     \tilde{\bm{\varrho}}(t+\dt)=U_I(t+\dt,t)\overbrace{\qty[\tilde{\rho}(t)\otimes \nu_t]}^{\tilde{\bm{\varrho}}(t)}U_I^\dagger(t+\dt,t),
@@ -119,4 +119,4 @@ where we defined the super-operator $\mathfrak{D}[\hat{O}]\bullet\equiv \hat{O}\
 \begin{equation}
     \boxed{\frac{\mathrm{d}\rho}{\dt}(t)=-\frac{i}{\hbar}\qty[H_S, \rho(t)]+k\mathfrak{D}[c]\rho(t)}.
 \end{equation}
-The proof is not hard but one should pay attention to the compensation of complex exponential when calculating $U_0cU^\dagger_0$. Note that actually, because $\rho$ and $c$ are operators of $\mathcal{H}_S$ we should replace $H_0$ in the equations by $H_S$.
+The proof is straightforward, however one should pay attention to the compensation of complex exponential when calculating $U_0cU^\dagger_0$, using the ansatz $\tilde{c}(t)=ce^{-i\omega_0(t-t_0)}$. Note that since $\rho$ and $c$ are operators on $\mathcal{H}_S$, any commutator with $H_0$ simplifies into a commutator with $H_S$.

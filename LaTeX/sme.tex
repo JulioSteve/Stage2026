@@ -6,7 +6,7 @@ In Chapter I, we have developed the input-output formalism in which the system $
 \begin{figure}[t]
     \centering
     \includegraphics[width=\textwidth]{Images/Scheme.pdf}
-    \caption{Scheme of continuous monitoring. In the first place the total system evolves from time $t$ to $t+\dt$ according to the Lindblad master equation (denoted as $\mathfrak{L}$). We then measure the observable $\hat{M}$ on the total state, noting the outcome as $m$. Then, by tracing out the environment, we find \textcolor[HTML]{3681e3}{$\rho_c(t+\dt)$} but it instantaneously couples with the next temporal mode \textcolor[HTML]{14b119}{$B_{t+\dt}$}. This process is repeated until the end of the monitoring. Note that before applying the partial trace, the system state is entangled with the environmental state due to the dynamics, this entanglement is represented by a gradient of color on the scheme. Moreover, as denoted on the top right corner, the index $c$ includes the result $m$ after doing the partial trace.}\label{fig:scheme}
+    \caption{Scheme of continuous monitoring. In the first place the total system evolves from time $t$ to $t+\dt$ according to the Lindblad master equation (denoted as $\mathfrak{L}$). We then measure the observable $\hat{M}$ on the total state, noting the outcome as $m$. Then, by tracing out the environment, we find \textcolor[HTML]{3681e3}{$\rho_c(t+\dt)$} but it instantaneously couples with the next temporal mode \textcolor[HTML]{14b119}{$B_{t+\dt}$}. This process is repeated until the end of the monitoring. Note that before applying the partial trace, the system state is entangled with the environmental state due to the dynamics, this entanglement is represented by a gradient of color on the scheme. Moreover, the index \textcolor[HTML]{ff1d1d}{$c$} includes the result \textcolor[HTML]{b11414}{$m$} when considering the next step of the process.}\label{fig:scheme}
 \end{figure}
 
 In this chapter, two kind of measurements will be presented: the photo-detection and the homodyne detection. For each case, the reader will find graphical illustrations accompanying the equations, which have been generated in \verb|Julia| using the packages \verb|QuantumToolbox.jl| to simulate dynamics, and \verb|Plots.jl| to generate graphs. After presenting the two measurement processes, we will tackle the notion of linear quantum trajectories. We will see that they allow numerical schemes of simulation which we have used to generate the aforementioned illustrations.\newpage
@@ -62,12 +62,12 @@ Combined, the two above equations give the normalized conditional state
     \rho_1(t+\dt)=\frac{c\rho_c(t)c^\dagger}{\expval{c^\dagger c}_t}.
 \end{equation} 
 \subsubsection{Mixing the results}
-From a statistical perspective, the measurement outcome at time $t+\dt$ is a Bernoulli-like process, yielding either 0 with probability $p_0(t+\dt)$ or 1 with probability $p_1(t+\dt)$. The full set of results up to time $T$ is captured by the ``sum'' of results obtained between times $t_0$ and $T$. If for example we discretize time allowing to measure the system 30 times and that the sum of results is 20, it is obvious that it is composed of 10$\times$0 outcomes and 20$\times$1 outcomes. In this sense, we define the random variable $N(T,t_0)=\int_{t_0}^T \mathrm{d}N_t$, where in an infinitesimal slice of time $\dt$, the increment $\mathrm{d}N_t=N(t+\dt,t_0)-N(t,t_0)$ is either $0$ or $1$. This last observation leads to the fundamental relation: $\mathrm{d}N_t^2=\mathrm{d}N_t$.  In effect, $N(T,t_0)$ is a Poisson process and  $\mathrm{d}N_t$ is a Poisson increment\footnotemark[7]. With the probabilities found above, we can calculate the stochastic average of $\mathrm{d}N_t$ to get
-\footnotetext[7]{A Poisson increment follows a Poisson distribution with rate $\Lambda_t\in\mathbb{R}$: $\forall n\in\mathbb{N},\quad\mathbb{P}\qty[\mathrm{d}N_t=n]=\frac{\Lambda_t^n}{n!}e^{-\Lambda_t}$. However, since we only have two possible outcomes (0 or 1), the rate is forced to be $\Lambda_t=0$ because the sum of probabilities gives 1. By setting $\Lambda_t=\lambda_t\dt\rightarrow 0$ in the infinitesimal limit, we can find that $\mathbb{P}\qty[\mathrm{d}N_t=0]\approx 1-\lambda_t\dt\rightarrow 1$ and $\mathbb{P}\qty[\mathrm{d}N_t=1]\approx\lambda_t\dt\rightarrow 0$. It is therefore trivial to show that $\mathbb{E}\qty[\mathrm{d}N_t]=\lambda_t\dt$, and also that $\mathbb{V}\qty[\mathrm{d}N_t]=\lambda_t\dt+\lambda^2_t\dt^2$.} 
+From a statistical perspective, the measurement outcome at time $t+\dt$ is a Bernoulli-like process, yielding either 0 with probability $p_0(t+\dt)$ or 1 with probability $p_1(t+\dt)$. The full set of results up to time $T$ is captured by the ``sum'' of results obtained between times $t_0$ and $T$. If for example we discretize time allowing to measure the system 30 times and that the sum of results is 20, it is obvious that it is composed of 10$\times$0 outcomes and 20$\times$1 outcomes. In this sense, we define the random variable $N(T,t_0)=\int_{t_0}^T \mathrm{d}N_t$, where in an infinitesimal slice of time $\dt$, the increment $\mathrm{d}N_t=N(t+\dt,t_0)-N(t,t_0)$ is either $0$ or $1$. This last observation leads to the fundamental relation: $\mathrm{d}N_t^2=\mathrm{d}N_t$.  In effect, $N(T,t_0)$ is a Poisson process and  $\mathrm{d}N_t$ is a Poisson increment\footnotemark. With the probabilities found above, we can calculate the stochastic average of $\mathrm{d}N_t$ to get
+\footnotetext{A Poisson increment follows a Poisson distribution with rate $\Lambda_t\in\mathbb{R}$: $\forall n\in\mathbb{N},\quad\mathbb{P}\qty[\mathrm{d}N_t=n]=\frac{\Lambda_t^n}{n!}e^{-\Lambda_t}$. However, since we only have two possible outcomes (0 or 1), the rate is forced to be $\Lambda_t=0$ because the sum of probabilities gives 1. By setting $\Lambda_t=\lambda_t\dt\rightarrow 0$ in the infinitesimal limit, we can find that $\mathbb{P}\qty[\mathrm{d}N_t=0]\approx 1-\lambda_t\dt\rightarrow 1$ and $\mathbb{P}\qty[\mathrm{d}N_t=1]\approx\lambda_t\dt\rightarrow 0$. It is therefore trivial to show that $\mathbb{E}\qty[\mathrm{d}N_t]=\lambda_t\dt$, and also that $\mathbb{V}\qty[\mathrm{d}N_t]=\lambda_t\dt+\lambda^2_t\dt^2$.} 
 \begin{equation}\label{eq:avPoisson}
     \mathbb{E}\qty[\mathrm{d}N_t]=0\times p_0(t+\dt)+1\times p_1(t+\dt) = \expval{c^\dagger c}_t k\dt.
 \end{equation}
-\textbf{Note that the expression of $\mathbb{E}\qty[\mathrm{d}N_t]$ is proportional to the expectation value $\expval{c^\dagger c}_t$: in a system where $c$ is the annihilation operator, it means that we can experimentally access to the mean occupation number}. Therefore, the Poisson increment allows to write the differential conditional state $\mathrm{d}\rho_c(t+\dt)$ with respect to each possible outcome. In particular, $\mathrm{d}N_t=0$ means that the differential conditional state is $\mathrm{d}\rho_0(t)=\rho_0(t+\dt)-\rho_c(t)$, while $\mathrm{d}N_t=1$ means that $\mathrm{d}\rho_1(t)=\rho_1(t+\dt)-\rho_c(t)$. Consequently, 
+\boldsection{Note that the expression of $\mathbb{E}\qty[\mathrm{d}N_t]$ is proportional to the expectation value $\expval{c^\dagger c}_t$. If we consider a system where $c$ is the annihilation operator, this proportionality means that we can experimentally access to the mean occupation number}. Therefore, the Poisson increment allows to write the differential conditional state $\mathrm{d}\rho_c(t+\dt)$ with respect to each possible outcome. In particular, $\mathrm{d}N_t=0$ means that the differential conditional state is $\mathrm{d}\rho_0(t)=\rho_0(t+\dt)-\rho_c(t)$, while $\mathrm{d}N_t=1$ means that $\mathrm{d}\rho_1(t)=\rho_1(t+\dt)-\rho_c(t)$. Consequently, 
 \begin{equation}
     \mathrm{d}\rho_c(t)=\mathrm{d}N_t\qty[\rho_1(t+\dt)-\rho_c(t)]+\qty(1-\mathrm{d}N_t)\qty[\rho_0(t+\dt)-\rho_c(t)].
 \end{equation}
@@ -87,7 +87,7 @@ which conserves the purity of the state during the stochastic evolution. Note th
 \end{equation}
 The importance of the SME and of the SSE is double because these equations also contain in average the \textbf{unconditional} dynamics, as shown in the following.
 
-We will now show briefly that we can write $\mathbb{E}[\rho_c]=\rho$, where $\rho$ is the unconditional state following the Lindblad master equation. If we average the photo-detection SME over all possible conditions we find
+We will now show briefly that we can write $\mathbb{E}[\rho_c]=\rho$, where $\rho$ is the unconditional state following the Lindblad master equation. If we average the photo-detection SME over all possible trajectories we find
 \begin{multline}\label{eq:preuvephotodet}
     \mathbb{E}[\mathrm{d}\rho_c](t) = -i\qty[H_S,R(t)]\dt-\frac{k}{2}\qty{c^\dagger c R(t) + R(t)c^\dagger c - 2\mathbb{E}\qty[\expval{c^\dagger c}_t \rho_c(t)]}\dt\\
     + \mathbb{E}\qty{\qty[\frac{c\rho_c(t)c^\dagger}{\expval{c^\dagger c}_t}-\rho_c(t)]\mathrm{d}N_t},
@@ -106,15 +106,15 @@ which is exactly the Lindblad master equation for the state $R(t)$. We know that
 In the previous section, we derived the SME in the case of photo-detection and showed its link to the Lindblad master equation. While photo-detection monitors the number of excitations, the homodyne detection targets field quadratures. This process involves mixing the signal with a strong local oscillator before measurement~\cite{W96}. By measuring the global output signal, we have access to the quadrature of the physical system of interest~\cite{Gerry2023}. We depict the homodyne detection scheme in Figure~\ref{fig:homodyne}.
 \begin{figure}[t]
     \centering
-    \includegraphics[width=0.6\textwidth]{Images/Homodyne.pdf}
+    \includegraphics[width=0.5\textwidth]{Images/Homodyne.pdf}
     \caption{Schematic of the balanced homodyne detection method. The input $\hat{a}$ comes from the total system $S+E$ while $\hat{b}$ is a strong coherent field. The boxes represent photo-detectors measuring the fields after they passed through a beam-splitter (the box with a diagonal at the center). The apparatus calculates the difference of the photo-currents to obtain a (continuous) signal proportional to the quadrature of the system's field. We detail briefly this relationship in Appendix~\ref{app:homodyne}.}\label{fig:homodyne}
 \end{figure}
 
-This kind of measurement corresponds to projecting the environmental oscillator --- associated with $B_t$ --- on the eigenvectors of the quadrature operator $\hat{x}_\theta$. This operator is defined by $\hat{x}_\theta=(e^{-i\theta}B_t+e^{i\theta}B_t^\dagger)/\sqrt{2}$, where $\theta\in\mathbb{R}$, and verifies $\qty[\hat{x}_\theta,\hat{x}_{\theta+\frac{\pi}{2}}]=i$. Even if it is not possible to construct normalized eigenstates of this operator, we can build the states $\ket{x_\theta}$ satisfying $\hat{x}_\theta\ket{x_\theta}=x_\theta\ket{x_\theta}$ in such a way that $\ketbra{x_\theta}{x_\lambda}=\delta(\theta-\lambda)$, and verifying the closure relation $\int_\mathbb{R}\ketbra{x_\theta}\mathrm{d}x_\theta=1$. We will use the following overlapping property~\cite{Barnett} between these states and the Fock states:
+This kind of measurement corresponds to projecting the environmental oscillator --- associated with $B_t$ --- on the eigenvectors of the quadrature operator $\hat{x}_\theta$. This operator is defined by $\hat{x}_\theta=(e^{-i\theta}B_t+e^{i\theta}B_t^\dagger)/\sqrt{2}$, where $\theta\in\mathbb{R}$, and verifies $\qty[\hat{x}_\theta,\hat{x}_{\theta+\frac{\pi}{2}}]=i$. Even if it is not possible to construct normalized eigenstates of this operator, we can build the states $\ket{x_\theta}$ satisfying $\hat{x}_\theta\ket{x_\theta}=x_\theta\ket{x_\theta}$ in such a way that $\braket{x_\theta}{x_\lambda}=\delta(\theta-\lambda)$, and verifying the closure relation $\int_\mathbb{R}\ketbra{x_\theta}\mathrm{d}x_\theta=1$. We will use the following overlapping property~\cite{Barnett} between these states and the Fock states,
 \begin{equation}
     \braket{x_\theta}{n}_t = \frac{e^{-\frac{x_\theta}{2}}H_n(x)e^{-in\theta}}{\sqrt{2^n n!}\pi^{\frac{1}{4}}},
 \end{equation}
-where $H_n(x)$ is the (physical) Hermite polynomial of order $n$. In particular, we will later use:
+where $H_n(x)$ is the (physical) Hermite polynomial of order $n$. In particular, we will later use
 \begin{equation}\label{eq:overlapping}
     \braket{x_\theta}{0}_t=\pi^{-\frac{1}{4}}e^{-\frac{x_\theta^2}{2}},\qquad
     \braket{x_\theta}{1}_t=\sqrt{2}x_\theta e^{-i\theta}\braket{x_\theta}{0}_t.
@@ -124,7 +124,7 @@ Note that since the state of the environnement at time $t$ is the corresponding 
     p_{x_\theta}(t)=\abs{\braket{x_\theta}{0}_t}^2=\frac{e^{-x_\theta^2}}{\sqrt{\pi}}.
 \end{equation}
 
-Continuous homodyne measurement is by definition the projection of the environment at each time on the quadrature states, giving the conditional (unnormalized) state
+Continuous homodyne measurement corresponds by definition to the projection of the environment at each time on the quadrature states, giving the conditional (unnormalized) state
 \begin{align}\label{eq:homorho}
     \bar{\rho}_c(t+\dt)&=\mathrm{Tr}_E\qty[U_I(t+\dt,t)\bm{\varrho}_c(t)U_I^\dagger(t+\dt,t)\qty(\mathbb{I}\otimes\ketbra{x_\theta})]\notag\\
     &= \expval{U_I(t+\dt,t)\qty[\rho_c(t)\otimes\ketbra{0}_t]U_I^\dagger(t+\dt,t)}{x_\theta},
@@ -133,7 +133,7 @@ with the corresponding normalization (probability)
 \begin{equation}
     p_{x_\theta}(t+\dt) = \mathrm{Tr}_S\qty[\bar{\rho}_c(t+\dt)].
 \end{equation}
-We will now use the expansion of the Eq.~(\ref{eq:expansion}) to develop Eq.~(\ref{eq:homorho}). However, we truncate it to $o\qty(\sqrt{dt})$ because $\dt$ is negligible compared to $\sqrt{\dt}$, giving for the conditional unnormalized evolved state
+We will now use the expansion of Eq.~(\ref{eq:expansion}) to develop Eq.~(\ref{eq:homorho}). However, we truncate it to $o\qty(\sqrt{dt})$ because $\dt$ is negligible compared to $\sqrt{\dt}$, giving for the conditional unnormalized evolved state
 \begin{equation}
     \bar{\rho}_c(t+\dt) = \abs{\braket{x_\theta}{0}_t}^2\rho_c(t) + \qty[c\rho_c(t)\braket{x_\theta}{1}_t\braket{0}{x_\theta}+\rho_c(t)c^\dagger\braket{x_\theta}{0}_t\braket{1}{x_\theta}]\sqrt{k\dt}+o\qty(\sqrt{\dt}).
 \end{equation}
@@ -145,34 +145,48 @@ with the normalization
 \begin{align}
     p_{x_\theta}(t+\dt) &= p_{x_\theta}(t)\qty{1+x_\theta\sqrt{2k\dt}\expval{ce^{-i\theta}+c^\dagger e^{i\theta}}_t}+o\qty(\sqrt{\dt})\label{eq:homproblin}\\
     &\approx \frac{1}{\sqrt{\pi}}\times\exp\qty{-\qty[x_\theta-\sqrt{\frac{k\dt}{2}}\expval{ce^{-i\theta}+c^\dagger e^{i\theta}}_t]^2}.\label{eq:homprobexp}
-\end{align} We can deduce from Eq.~(\ref{eq:homprobexp}) that the probability to find the result $x_\theta$ at time $t+\dt$ corresponds to a Gaussian distribution\footnote[8]{A Gaussian or normal distribution of mean $\mu$ and variance $\sigma^2$ is characterized by the following probability density function: $X\mapsto\frac{1}{\sqrt{2\pi\sigma^2}}\exp\qty[-\frac{\qty(X-\mu)^2}{2\sigma^2}]$. We denote by $X\hookrightarrow\mathcal{N}(\mu,\sigma^2)$ the fact that the random variable $X$ follows a normal distribution with mean $\mu$ and variance $\sigma^2$.} (up to order $\sqrt{\dt}$). In this sense, the outcome of measurement is a random variable such that $x_\theta\hookrightarrow\mathcal{N}\qty(\sqrt{\frac{k\dt}{2}}\expval{ce^{-i\theta}+c^\dagger e^{i\theta}}_t, \frac{1}{2})$. By defining the random variable $\mathrm{d}y_t=\sqrt{2\dt}x_\theta$, we find $\mathbb{E}\qty[\mathrm{d}y_t]=\sqrt{k}\expval{ce^{-i\theta}+c^\dagger e^{i\theta}}_t\dt$ and $\mathbb{V}\qty[\mathrm{d}y_t]=\dt$. Consequently, we can statistically express this random variable as
+\end{align} We can deduce from Eq.~(\ref{eq:homprobexp}) that the probability to find the result $x_\theta$ at time $t+\dt$ corresponds to a Gaussian distribution\footnote{A Gaussian or normal distribution of mean $\mu$ and variance $\sigma^2$ is characterized by the following probability density function: $X\mapsto\frac{1}{\sqrt{2\pi\sigma^2}}\exp\qty[-\frac{\qty(X-\mu)^2}{2\sigma^2}]$. We denote by $X\hookrightarrow\mathcal{N}(\mu,\sigma^2)$ the fact that the random variable $X$ follows a normal distribution with mean $\mu$ and variance $\sigma^2$.} (up to order $\sqrt{\dt}$). In this sense, the outcome of measurement is a random variable such that $x_\theta\hookrightarrow\mathcal{N}\qty(\sqrt{\frac{k\dt}{2}}\expval{ce^{-i\theta}+c^\dagger e^{i\theta}}_t, \frac{1}{2})$. By defining the random variable $\mathrm{d}y_t=\sqrt{2\dt}x_\theta$, we find $\mathbb{E}\qty[\mathrm{d}y_t]=\sqrt{k}\expval{ce^{-i\theta}+c^\dagger e^{i\theta}}_t\dt$ and $\mathbb{V}\qty[\mathrm{d}y_t]=\dt$. Consequently, we can statistically express this random variable as
 \begin{equation}\label{eq:homodynesignal}
     \mathrm{d}y_t = \sqrt{k}\expval{ce^{-i\theta}+c^\dagger e^{i\theta}}_t\dt + \mathrm{d}w_t,    
 \end{equation}
-where $\mathrm{d}w_t$ is a classical Wiener increment, it obeys the \ito~rule\footnotemark[9]: $\mathrm{d}w_t^2=dt$. This property states that the random variable $\mathrm{d}w_t$, when squared, becomes deterministic. Furthermore, the Wiener increment follows a Gaussian distribution, as observed in Eq.~(\ref{eq:homodynesignal}), characterized by $\mathbb{E}\qty[\mathrm{d}w_t]=0$ and $\mathbb{V}\qty[\mathrm{d}w_t]=\dt$. Experimentally, the quantity $y_T=\int_0^T\mathrm{d}y_t$ represents the integrated photo-current of homodyne detection; each $\mathrm{d}y_t$ is the infinitesimal recording of the measurement process at time $t$, which encodes (proportionally) the expectation value at time $t$ of the system quadrature $\expval{\frac{ce^{-i\theta}+c^\dagger e^{i\theta}}{\sqrt{2}}}_t$.
-\footnotetext[9]{This can be shown in the distribution meaning. Indeed, since $\int_0^t\mathrm{d}w_{t'}^2=\int_0^t\dt'$ (valid for any interval $[0,t]$), we can state that $\mathrm{d}w_t^2=\dt$~\cite{Jacobs2006}.}
-\subsubsection{Homodyne SME:}
-The SME is found by inserting Eq.~(\ref{eq:homodynesignal}) into Eq.~(\ref{eq:homrhou},\ref{eq:homproblin}) which form the normalized evolved state. We can then expand the denominator and find
+where $\mathrm{d}w_t$ follows a Gaussian distribution characterized by $\mathbb{E}\qty[\mathrm{d}w_t]=0$ and $\mathbb{V}\qty[\mathrm{d}w_t]=\dt$. Such a random variable is called a classical Wiener increment and obeys the \ito~rule $\mathrm{d}w_t^2=dt$. This rule should be understood in the distribution meaning as $\int_0^t\mathrm{d}w_{t'}^2=\int_0^t\dt'$ (valid for any interval $[0,t]$)~\cite{Jacobs2006}. Experimentally, we obtain at time $t$ a photocurrent $I(t)$ from the apparatus of homodyne detection process. To make this photocurrent appear, we define the integrated result of homodyne detection at time $T$ as
+\begin{equation}\label{eq:yT}
+    y_T = \int_0^T\mathrm{d}y_t = \int_0^T I(t)\dt.
+\end{equation}
+Using Eq.~(\ref{eq:homodynesignal}), we can define the photocurrent in the distribution meaning as
+\begin{equation}
+    I(t) = \sqrt{k}\expval{ce^{-i\theta}+c^\dagger e^{i\theta}}_t+\xi(t),
+\end{equation}
+where $\xi(t)=\frac{\mathrm{d}w_t}{\dt}$ is a classical white noise\footnote{The definition of $\xi(t)$ implies $\mathbb{E}\qty[\xi(t)]=0$ and $\mathbb{V}\qty[\xi(t)]=\frac{1}{\dt}\rightarrow +\infty$ (due to the \ito~rule). However when integrated inside Eq.~(\ref{eq:yT}), the variance becomes a finite quantity.} such that $\mathbb{E}\qty[\xi(t)\xi(t')]=\delta(t-t')$~\cite{Albarelli}. \boldsection{Note that, up to a factor $1/\sqrt{2}$, the photocurrent $I(t)$ contains the system's average quadrature.} Indeed, the average of the quadrature operator for the system $S$ is defined as
+\begin{equation}
+    \expval{\frac{ce^{-i\theta}+c^\dagger e^{i\theta}}{\sqrt{2}}}_t.
+\end{equation}
+
+To find the homodyne SME, we inject Eq.~(\ref{eq:homodynesignal}) into Eqs.~(\ref{eq:homrhou},\ref{eq:homproblin}). By dividing these new equations, we form the normalized evolved state. We can then expand the denominator and find
 \begin{equation}{\label{eq:SMEhom1}}
     \mathrm{d}\rho_c(t) = \sqrt{k}\mathfrak{H}\qty[ce^{-i\theta}]\rho_c(t) \mathrm{d}w_t + o(\sqrt{\dt}).
 \end{equation}
-The terms of order $o(\dt)$ are obtained directly from the unconditional Lindblad master equation because averaging over all the measurement results gives back this equation. The average of Eq.~(\ref{eq:SMEhom1}) trivially gives 0, so the correct SME (in the Schrödinger picture) is
+The terms of order $o(\dt)$ are inferred as we known that the average over all trajectories should recover the Lindblad master equation. However, the average of Eq.~(\ref{eq:SMEhom1}) trivially gives $0$, so the correct SME (in the Schrödinger picture) is
 \begin{align}\label{eq:SMEhom2}
     \boxed{\mathrm{d}\rho_c=-i\qty[H_S,\rho_c]\dt + k\mathfrak{D}[c]\rho_c\dt + \sqrt{k}\mathfrak{H}\qty[ce^{-i\theta}]\rho_c\mathrm{d}w_t},
 \end{align}
-where we detail that $\mathrm{d}w_t=\mathrm{d}y_t - \sqrt{k}\expval{ce^{-i\theta}+c^\dagger e^{i\theta}}_t \dt$. If the photo-detection SME unravelling was characterized by jump-like measurement, this one is called a \textit{diffusive} unravelling due to the impact of Wiener process in a diffusive term.
+where we recall that $\mathrm{d}w_t=\mathrm{d}y_t - \sqrt{k}\expval{ce^{-i\theta}+c^\dagger e^{i\theta}}_t \dt$. 
 
+If we consider the previous case of measurement, the photo-detection, we observe that the unravelling obeys to a jump-like process. Indeed, the integral $N(T)=\int_0^T \mathrm{d}N_t$ consists in a sum of quantities jumping from 0 to 1. Instead, the homodyne unravelling is following a diffusive process because $W(T)=\int_0^T \mathrm{d}w_t$ is a Gaussian white noise with variance $T$, thus linearly increasing with time. In this sense, the same Lindblad master equation can be unravelled via two different physical process (jump-like and diffusive), resulting in two different SMEs (photo-detection and homodyne detection respectively).
 \section{Linear quantum trajectories}\label{sec:Linear}
-The previously obtained SMEs are non-linear in $\rho_c$ which involves heavy computational work in order to simulate a trajectory. Indeed, if we observe the two SME obtained in the previous sections, we can remark their non-linearity in $\rho_c$: for photo-detection, Eq.~(\ref{eq:SMEphotodet}) is non-linear because of the term $\expval{c^\dagger c}_t=\Tr{c^\dagger c \rho_c(t)}$ which is multiplied by $\rho_c(t)$ in $\mathfrak{H}\qty[c^\dagger c]\rho_c(t)$, or at the denominator in the term proportional to $\mathrm{d}N_t$. While for homodyne detection, Eq.~(\ref{eq:SMEhom2}) is non-linear because of $\expval{ce^{-i\theta}+c^\dagger e^{i\theta}}_t=\Tr{(ce^{-i\theta}+c^\dagger e^{i\theta})\rho_c(t)}$ appearing in $\mathfrak{H}[ce^{-i\theta}]\rho_c(t)$ and also in $\mathrm{d}w_t$. 
-
-We start by focusing on the homodyne measurement, if we replace $\expval{ce^{-i\theta}+c^\dagger e^{i\theta}}_t$ by $\mu\in\mathbb{R}$ in the homodyne SME, we obtain a linear stochastic differential equation. However, this term we replace is involved in the correct normalization of the state at time $t+\dt$, see Eq.~(\ref{eq:homprobexp}), we also have $\mathrm{d}y_t = \sqrt{k}\mu\dt +\mathrm{d}w_t$ automatically. A natural choice is $\mu=0$ so the signal we measure is only a white noise, the linear SME becomes
+The previously obtained SMEs are non-linear in $\rho_c$, implying heavy computational work in order to simulate a trajectory. Indeed, if we observe the two SMEs obtained in the previous sections, we can remark their non-linearity in $\rho_c$. For photo-detection, Eq.~(\ref{eq:SMEphotodet}) is non-linear because of the term $\expval{c^\dagger c}_t=\Tr{c^\dagger c \rho_c(t)}$ which is multiplied by $\rho_c(t)$ in $\mathfrak{H}\qty[c^\dagger c]\rho_c(t)$, and at the denominator in the term proportional to $\mathrm{d}N_t$. %ajuster la phrase
+ Instead, for homodyne detection, Eq.~(\ref{eq:SMEhom2}) is non-linear because of $\expval{ce^{-i\theta}+c^\dagger e^{i\theta}}_t=\Tr{(ce^{-i\theta}+c^\dagger e^{i\theta})\rho_c(t)}$ appearing in $\mathfrak{H}[ce^{-i\theta}]\rho_c(t)$ and also in $\mathrm{d}w_t$. %ajouter la volonté de linéariser
+% mettre dans l'ordre photodet puis homodyne
+ 
+We start by focusing on the homodyne measurement. If we replace $\expval{ce^{-i\theta}+c^\dagger e^{i\theta}}_t$ by $\mu\in\mathbb{R}$ in the homodyne SME %plutot ref equation
+, we obtain a linear stochastic differential equation. However, the replaced term is also involved in the normalization of the state at time $t+\dt$, as shown in Eq.~(\ref{eq:homprobexp}). We also have $\mathrm{d}y_t = \sqrt{k}\mu\dt +\mathrm{d}w_t$ automatically. A natural choice is $\mu=0$, so the signal we measure is only a white noise. Thus, the linear SME is %réecrire ce paragraphe 
 \begin{equation}\label{eq:linhom}
     \mathrm{d}\bar{\rho}_c = -i\qty[H_S, \bar{\rho}_c]\dt + k\mathfrak{D}\qty[c]\bar{\rho}_c \dt+ \sqrt{k}\qty(ce^{-i\theta}\bar{\rho_c}+\bar{\rho}_c c^\dagger e^{i\theta})\mathrm{d}y_t.
 \end{equation}
-Therefore, we can numerically generate a classical white-noise $\mathrm{d}w_t$ and calculate iteratively $\bar{\rho}_c(t+\dt)=\bar{\rho}_c(t)+\mathrm{d}\bar{\rho}_c(t)$ for each timestep. Then, we can simply divide $\bar{\rho}_c(t+\dt)$ by its trace to find the expected (normalized) state $\rho_c(t+\dt)$. Furthermore, we observe that averaging Eq.~(\ref{eq:linhom}) gives\footnote[10]{At time $t$, $\bar{\rho}_c(t)$ is uncorrelated with $\mathrm{d}w_t$. Indeed, this Wiener increment is a random number independent of the state at time $t$, and only the state at time $t+\dt$ depends on $\mathrm{d}w_t$.}
+Therefore, we can numerically generate a classical white noise $\mathrm{d}w_t$ and calculate iteratively $\bar{\rho}_c(t+\dt)=\bar{\rho}_c(t)+\mathrm{d}\bar{\rho}_c(t)$ for each timestep. Then, we can simply divide $\bar{\rho}_c(t+\dt)$ by its trace to find the expected (normalized) state $\rho_c(t+\dt)$. Furthermore, we observe that averaging Eq.~(\ref{eq:linhom}) gives\footnote[10]{At time $t$, $\bar{\rho}_c(t)$ is uncorrelated with $\mathrm{d}w_t$. Indeed, this Wiener increment is a random number independent of the state at time $t$, and only the state at time $t+\dt$ depends on $\mathrm{d}w_t$.}
 \begin{equation}\label{eq:ptruepost}
-    \mathbb{E}_{p_\text{ost}}[\mathrm{d}\rho_c]= -i\qty[H_S, \rho_c]\dt + k\mathfrak{D}\qty[c]\rho_c \dt,
-\end{equation}
+    \mathbb{E}_{p_\text{ost}}[\mathrm{d}\bar{\rho}_c]= -i\qty[H_S, \rho_c]\dt + k\mathfrak{D}\qty[c]\rho_c \dt,
+\end{equation} %Regarder équation 
 where $p_\text{ost}$ is the so-called ``ostensible'' probability recovering the Lindblad master equation. By denoting as $p_\text{true}$ the true probability distribution followed by $\mathrm{d}y_t$ (in the normalized expressions), we can write any unconditional state as
 \begin{equation}
     \rho = \mathbb{E}_{p_\text{true}}\qty[\rho_c] = \mathbb{E}_{p_\text{ost}}\qty[\bar{\rho}_c].
@@ -189,9 +203,9 @@ To show this, we can denote $Y=\mathrm{d}y_t$ for convenience and explicit the e
 
 Likewise, the linear SME for photo-detection can be obtained by replacing $\expval{c^\dagger c}_t$ by $\mu'$ with the choice $\mu'=1$, implying
 \begin{equation}
-    \mathbb{E}\qty[\mathrm{d}N_t]=k\dt,
+    \mathbb{E}\qty[\mathrm{d}N_t]=k\dt.
 \end{equation}
-and the linear SME becomes
+It follow that the linear SME for photo-detection is
 \begin{equation}
     \mathrm{d}\bar{\rho}_c = -i\qty[H_S, \bar{\rho}_c]\dt - \frac{k}{2}\qty{c^\dagger c,\bar{\rho}_c}\dt + k\bar{\rho}_c\dt +\qty(c\bar{\rho}_c c^\dagger-\bar{\rho}_c)\mathrm{d}N_t.
 \end{equation}

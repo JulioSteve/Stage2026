@@ -61,10 +61,10 @@ Physicists developed a corpus of the main properties of quantum mechanics, here 
     \end{equation}
     For density matrices, the evolution is driven by the \textit{Liouville-von Neumann} equation:
     \begin{equation}\label{eq:Liouville}
-        \frac{\mathrm{d}\rho}{\dt}(t) = -\frac{i}{\hbar}\left[ H(t),\rho(t)\right]\footnotemark[1].
+        \frac{\mathrm{d}\rho}{\dt}(t) = -\frac{i}{\hbar}\left[ H(t),\rho(t)\right],
     \end{equation}
+    where $[\hat{A},\hat{B}]=\hat{A}\hat{B}-\hat{B}\hat{A}$ is called the commutator of $\hat{A}$ and $\hat{B}$.
 \end{enumerate}
-\footnotetext[1]{$[\hat{A},\hat{B}]=\hat{A}\hat{B}-\hat{B}\hat{A}$ is called the commutator of $\hat{A}$ and $\hat{B}$.}
 
 \subsection{Multipartite systems}\label{sec:multipartite}
 In quantum mechanics a system can be composed of multiple subsystems, we then call the global composition a multipartite system. The density matrix introduced in the previous sections is a useful tool to describe the state of such system and subsystems. If we consider an Hilbert space $\mathcal{H_{AB}}$ composed of two physical systems $A$ and $B$: $\mathcal{H_{AB}}=\mathcal{H}_A\otimes\mathcal{H}_B$. Note that this implies $\dim(\mathcal{H}_{AB})=\dim(\mathcal{H}_A)\times\dim(\mathcal{H}_B)$. The total system state is therefore represented by a density matrix $\rho_{AB}\in\mathcal{H}_A\otimes\mathcal{H}_B$. The expression of the density matrix representing the state of the subsystem $A$ is defined by
