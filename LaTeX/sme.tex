@@ -179,20 +179,22 @@ The previously obtained SMEs are non-linear in $\rho_c$, implying heavy computat
  
 We consider at first the homodyne SME where we replace $\expval{ce^{-i\theta}+c^\dagger e^{i\theta}}_t$ by $\mu\in\mathbb{R}$ in Eq.~(\ref{eq:SMEhom2}), thus becoming linear. However, the replaced term is also involved in the normalization of the state at time $t+\dt$, as shown in Eq.~(\ref{eq:homprobexp}). Therefore, the linear equation describes the evolution of non-normalized states, denoted as $\breve{\rho}_c$. We distinguish these non-normalized states from the ones introduced in Section~\ref{sec:qmt} noted $\bar{\rho}$ because their trace is not equal to the probability to find this trajectory, this will be made clear a bit further below. If we observe the effect of changing the non-linear term into a constant, we realize that the homodyne outcome becomes $\mathrm{d}y_t = \sqrt{k}\mu\dt +\mathrm{d}w_t$. Therefore, a natural choice is to set $\mu=0$, yielding $\mathrm{d}y_t=\mathrm{d}w_t$. Consequently, the linear SME is expressed as
 \begin{equation}\label{eq:linhom}
-    \mathrm{d}\breve{\rho}_c = -i\qty[H_S, \breve{\rho}_c]\dt + k\mathfrak{D}\qty[c]\breve{\rho}_c \dt+ \sqrt{k}\qty(ce^{-i\theta}\breve{\rho_c}+\breve{\rho}_c c^\dagger e^{i\theta})\mathrm{d}y_t.
+    \mathrm{d}\breve{\rho}_c = -i\qty[H_S, \breve{\rho}_c]\dt + k\mathfrak{D}\qty[c]\breve{\rho}_c \dt+ \sqrt{k}\qty(ce^{-i\theta}\breve{\rho}_c+\breve{\rho}_c c^\dagger e^{i\theta})\mathrm{d}y_t.
 \end{equation}
 This SME allows one to numerically generate a classical white noise $\mathrm{d}w_t$ and calculate iteratively $\breve{\rho}_c(t+\dt)=\breve{\rho}_c(t)+\mathrm{d}\breve{\rho}_c(t)$ for each timestep. Then, by dividing $\breve{\rho}_c(t+\dt)$ by its trace, one can find the expected (normalized) state $\rho_c(t+\dt)$. 
 
-In fact, building the linear SME requires introducing a different probability law than the one truly followed by the outcomes and states in the normalized case. Indeed, the outcome $\mathrm{d}y_t$ has to follow a different probability distribution when it simply equals $\mathrm{d}w_t$. We denote as $p_\text{true}$ the distribution which gives the relationship $\mathbb{E}_{p_\text{true}}\qty[\rho_c(t)]=\rho(t)$, and the distribution which gives $\mathbb{E}_{p_\text{ost}}\qty[\breve{\rho}_c(t)]=\rho(t)$ as $p_\text{ost}$ (``ost'' stands for ostensible~\cite{WM}). 
-
-% A refaire
+In fact, building the linear SME introduces a different probability law than the one truly followed by the outcomes and states in the normalized case. Indeed, the outcome $\mathrm{d}y_t$ has to follow a different probability distribution when it simply equals $\mathrm{d}w_t$ according to the linear SME. We denote as $p_\text{true}$ the distribution which gives the relationship $\mathbb{E}_{p_\text{true}}\qty[\rho_c(t)]=\rho(t)$, and the distribution which gives $\mathbb{E}_{p_\text{ost}}\qty[\breve{\rho}_c(t)]=\rho(t)$ as $p_\text{ost}$ (``ost'' stands for ostensible~\cite{WM}). The relationship between these two probabilities is
+\begin{equation}\label{eq:linkprob}
+    p_\text{true}(\text{traj.})=p_\text{ost}(\text{traj.})\times\Tr{\breve{\rho}_c(t)},
+\end{equation} 
+where ``traj.'' stands for the quantum trajectory whose state at time $t$ is $\breve{\rho}_c(t)$. This last equation shows how the trace of the solution of the linear SME encode the (true) probability of the conditional state $\rho_c(t)$. If we explicit the expectation values according to the distributions $p_\text{true}$ and $p_\text{ost}$, one can show that Eq.~(\ref{eq:linkprob}) can be used to prove\footnotemark that $\mathbb{E}_{p_\text{true}}=\mathbb{E}_{p_\text{ost}}$ and we have shown in the previous sections that $\mathbb{E}_{p_\text{true}}=\rho(t)$.\footnotetext{We can explicit the expression of the expected value of a continuous random variable, such that $X:\Omega\rightarrow\mathbb{R}$ with probability density function $p$, as $\mathbb{E}_p\qty[X]=\int_\Omega X\mathrm{d}P=\int_\mathbb{R} xp(x)\mathrm{d}x$. In the case of the states (normalized or not), we should integrate over all possible trajectories (so every possible measurement outcome).}
 
 Likewise, the linear SME for photo-detection can be obtained by replacing $\expval{c^\dagger c}_t$ by $\mu'$ with the choice $\mu'=1$, implying
 \begin{equation}
-    \mathbb{E}\qty[\mathrm{d}N_t]=k\dt.
+    \mathbb{E}_{p_\text{ost}}\qty[\mathrm{d}N_t]=k\dt.
 \end{equation}
 It follows that the linear SME for photo-detection is
 \begin{equation}
     \mathrm{d}\breve{\rho}_c = -i\qty[H_S, \breve{\rho}_c]\dt - \frac{k}{2}\qty{c^\dagger c,\breve{\rho}_c}\dt + k\breve{\rho}_c\dt +\qty(c\breve{\rho}_c c^\dagger-\breve{\rho}_c)\mathrm{d}N_t.
 \end{equation}
-In this case, the unconditional master equation is obtained by averaging the linear SME over an ostensible probability such that $\mathbb{E}_{p_\text{ost}}\qty[\mathrm{d}N_t]=k\dt$.
+In the case of photo-detection, we simulated trajectories using a MonteCarlo WaveFunction (MCWF) method~\cite{WM} instead of solving the linear SME, which is lightweight in terms of computation and allows to build histograms of jumps by hand as shown in Figure~\ref{fig:histo}.
