@@ -24,7 +24,7 @@ const Heff = H - 1im*Γ/2*(σm'*σm)
 # -------- Code --------------------------------------------------------------
 function singletraj(ψ::Vector{Complex{Float64}}, dt::Float64, Tmax::Float64)
     """
-    Simule une trajectoire quantique unique selon la méthode de Monte Carlo Wave Function (MCWF) pour un système à deux niveaux soumis à une dissipation.
+    Simule une trajectoire quantique unique selon la méthode de Monte Carlo Wave Function (MCWF) pour un système à deux niveaux soumis à une photo-detection.
 
         Arguments:
         - `ψ`: état quantique initial du système (vecteur de dimension 2)
