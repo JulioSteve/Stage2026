@@ -157,8 +157,8 @@ Using Eq.~(\ref{eq:homodynesignal}), we can define the photocurrent in the distr
 \begin{equation}
     I(t) = \sqrt{k}\expval{ce^{-i\theta}+c^\dagger e^{i\theta}}_t+\xi(t),
 \end{equation}
-where $\xi(t)=\frac{\mathrm{d}w_t}{\dt}$ is a classical white noise\footnotemark such that $\mathbb{E}\qty[\xi(t)\xi(t')]=\delta(t-t')$~\cite{Albarelli}. \boldsection{Note that, up to a factor $1/\sqrt{2}$, the photocurrent $I(t)$ contains the system's average quadrature.} Indeed, the average of the quadrature operator for the system $S$ is defined as
-\footnotetext{The definition of $\xi(t)$ implies $\mathbb{E}\qty[\xi(t)]=0$ and $\mathbb{V}\qty[\xi(t)]=\frac{1}{\dt}\rightarrow +\infty$ (due to the \ito~rule). However when integrated inside Eq.~(\ref{eq:yT}), the variance becomes a finite quantity. Moreover, the notation seems to define $\xi$ as the derivative of $w_t$ which is wrong because a white-noise is not derivable anywhere. The correct usage of $\xi$ is really as an integrand multiplied by $\dt$, as in Eq.~(\ref{eq:yT}).}
+where $\xi(t)=\frac{\mathrm{d}w_t}{\dt}$ is a classical white noise such that $\mathbb{E}\qty[\xi(t)\xi(t')]=\delta(t-t')$~\cite{Albarelli}. The definition of $\xi(t)$ implies $\mathbb{E}\qty[\xi(t)]=0$ and $\mathbb{V}\qty[\xi(t)]=\frac{1}{\dt}\rightarrow +\infty$ (due to the \ito~rule). However, when integrated inside of Eq.~(\ref{eq:yT}), the variance becomes a finite quantity. Moreover, the notation seems to define $\xi$ as the derivative of $w_t$ which is wrong because a Wiener process is not differentiable anywhere. Indeed, we can see it unformally by forming the rate of change $\frac{W_{t+\dt}-W_t}{\dt}=\frac{\mathrm{d}w_t}{\dt}\sim\frac{1}{\sqrt{\dt}}\underset{\dt\rightarrow 0}{\longrightarrow}+\infty$. The correct usage of $\xi$ is really as an integrand multiplied by $\dt$, as in Eq.~(\ref{eq:yT}).
+\boldsection{Note that, up to a factor $1/\sqrt{2}$, the photocurrent $I(t)$ contains the system's average quadrature.} Indeed, the average of the quadrature operator for the system $S$ is defined as
 \begin{equation}
     \expval{\frac{ce^{-i\theta}+c^\dagger e^{i\theta}}{\sqrt{2}}}_t.
 \end{equation}
