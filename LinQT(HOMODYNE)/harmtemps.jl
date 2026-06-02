@@ -1,5 +1,5 @@
 ENV["GKSwstype"] = "100"
-using QuantumToolbox, Plots, LaTeXStrings, Printf, Random, Base.Threads
+using QuantumToolbox, Plots, LaTeXStrings, Printf, Random, Distributions, Base.Threads, CurveFit
 theme(:dao)
 palette = theme_palette(:dao)
 
@@ -53,10 +53,12 @@ function J(A::QuantumObject)
 end
 
 function dw_L(variance::Float64, length::Int64)
-    return √(variance).*randn(length)
+    σ=√(variance)
+    d = Normal(0.0, σ)
+    return rand(d, length)
 end
 
-function single_sim(θ::Float64, q::QuantumObject)
+function single_sim(θ::Float64)
     DW=dw_L(dt, length(tlist))
 
     # ρ_L = Vector{QuantumObject}(undef, length(tlist))
@@ -70,38 +72,52 @@ function single_sim(θ::Float64, q::QuantumObject)
 
         ###
         ρ_n = ρ/tr(ρ)
-        meanquad_L[i] = real(tr(ρ_n*q))
+        meanquad_L[i] = real(tr(ρ_n*quad(θ)))
     end
     return meanquad_L
 end
 
 function sim(Ntraj::Int64, θ::Float64)
-    q = quad(θ)
     results = [zeros(length(tlist)) for _ in 1:Ntraj]
     Threads.@threads for k in 1:Ntraj
-        results[k] = single_sim(θ, q)
+        results[k] = single_sim(θ)
     end
     return sum(results) ./ Ntraj
 end
 
-function plotting(Ntraj::Int64)
+function plotting()
     thsim = mesolve(H, ρ0, tlist, c_ops, e_ops=[quad(0.0)], progress_bar=Val(false))
 
     thquadx = real.(thsim.expect[1, :])
 
     P1 = plot(tlist, thquadx, label=L"\left\langle \hat{x}_0(\tau)\right\rangle_\mathrm{th}", xlabel=L"$\tau=kt$ (unitless)", ylabel="0-Quadrature", ylims=(-3,3))
 
-    Y = sim(Ntraj, 0.0)
+    Y = sim(100_000, 0.0)
 
     plot!(P1, tlist, Y, label=L"\mathbb{E}[\langle \hat{x}_0(\tau)\rangle]")
 
     savefig(P1, "pop.svg")
 end
 
-mesolve(H, ρ0, tlist[1:5], c_ops, e_ops=[quad(0.0)], progress_bar=Val(false)) #warmup
-single_sim(0.0, quad(0.0)) #warmup
+ran=1:2:100
 
+Time_to_exec = zeros(length(ran))
+sim(1, 0.0) #warmup
+for (i,ntraj) in enumerate(ran)
+    t_iter = @elapsed begin
+        sim(ntraj, 0.0)
+    end
+    Time_to_exec[i] = t_iter
+end
 
-plotting(100_000)
+prob = CurveFitProblem(ran, Time_to_exec)
+sol = solve(prob, LinearCurveFitAlgorithm())
+slope = round(sol.u[1], sigdigits=4)
+intercept = round(sol.u[2], sigdigits=4)
+
+Ptest = plot(ran, Time_to_exec, title=L"%$slope x+%$intercept", xlabel=L"Number of trajectories ($x$)", ylabel="Time (s)", lw=3)
+plot!(Ptest, ran, sol.(ran), lw=1)
+savefig(Ptest, "Timetoexec.svg")
+
 
 println("----------STOP---------")
