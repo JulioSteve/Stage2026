@@ -23,7 +23,7 @@ Nth = N_BE(χ) # mean thermal photon number in the cavity
 
 Ncut = Nth + 4*√(Nth*(1+Nth)) + abs(α0)^2+4*abs(α0) # Dimension cutoff in the operators: μ+4σ of thermal state (steady state) + μ+4σ of initial coherent state
 
-prct = 0.0 # POURCENTAGE DE TRONCATURE EN PLUS
+prct = 100.0 # POURCENTAGE DE TRONCATURE EN PLUS
 factor = 1.0+prct/100.0
 Ncut = Int(ceil(Ncut*factor)) # We take +prct% of the maximal population and round it to the upper value
 # println("⚠ Nth≈$(Int(ceil(Nth))) => Ncut=$Ncut")
@@ -48,12 +48,14 @@ function quad(θ::Float64)
     return (a*exp(-im*θ)+a'*exp(im*θ))/sqrt(2)
 end
 
-function J(A::QuantumObject)
-    return spre(A)+spost(A')
-end
-
 function dw_L(variance::Float64, length::Int64)
     return √(variance).*randn(length)
+end
+
+function D(op::QuantumObject, ρ::QuantumObject)
+    t1 = op*ρ*op'
+    t2 = op'*op*ρ + ρ*op'*op
+    return t1-t2/2
 end
 
 function single_sim(θ::Float64, q::QuantumObject)
@@ -68,9 +70,9 @@ function single_sim(θ::Float64, q::QuantumObject)
         ρ = ρ/real(tr(ρ)) # Renormalization (else trace explodes)
         meanquad_L[i] = real(tr(ρ*q))
 
-        # ρ_L[i] = ρ #saving the state
-        Milstein = (J(cθ)*ρ)*(J(cθ)*eye(Ncut))*(DW[i]^2-dt)/2
-        dρ = -im*commutator(H,ρ)*dt+(lindblad_dissipator(c_decay)+lindblad_dissipator(c_excite))*ρ*dt+J(cθ)*ρ*DW[i] + Milstein
+        diffusion = cθ*ρ+ρ*cθ'
+
+        dρ = -im*commutator(H,ρ)*dt+(D(c_decay, ρ)+D(c_excite, ρ))*dt+diffusion*DW[i]
 
         ρ = ρ + dρ # Evolution
     end
@@ -103,7 +105,7 @@ end
 mesolve(H, ρ0, tlist[1:5], c_ops, e_ops=[quad(0.0)], progress_bar=Val(false)) #warmup
 single_sim(0.0, quad(0.0)) #warmup
 
-number_traj = 100
+number_traj = 10
 quad_sim, std_sim = sim(number_traj, 0.0)
-plotting(quad_sim, (0.0,0.2), (-500.0,500.0), number_traj, std_sim)
+plotting(quad_sim, (0.0,0.1), (-5.0,5.0), number_traj, std_sim)
 println("----------STOP---------")
