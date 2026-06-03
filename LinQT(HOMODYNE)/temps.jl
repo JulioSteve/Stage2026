@@ -63,12 +63,12 @@ function single_sim(θ::Float64, q::QuantumObject)
     meanquad_L = zeros(Float64, length(tlist))
 
     ρ = ρ0 #initial state
-    cθ = c_decay*exp(-im*θ)
     for i in eachindex(tlist)
         ρ = ρ/real(tr(ρ)) # Renormalization (else trace explodes)
         meanquad_L[i] = real(tr(ρ*q))
 
         # ρ_L[i] = ρ #saving the state
+        cθ = c_decay*exp(-im*θ)
         Milstein = (J(cθ)*ρ)*(J(cθ)*eye(Ncut))*(DW[i]^2-dt)/2
         dρ = -im*commutator(H,ρ)*dt+(lindblad_dissipator(c_decay)+lindblad_dissipator(c_excite))*ρ*dt+J(cθ)*ρ*DW[i] + Milstein
 
@@ -89,21 +89,26 @@ function sim(Ntraj::Int64, θ::Float64)
     return moy, standdev
 end
 
-function plotting(QuadX::Vector{Float64}, xlims::Tuple{Float64, Float64}, ylims::Tuple{Float64, Float64},Ntraj::Int64, StdX::Vector{Float64})
-    thsim = mesolve(H, ρ0, tlist, c_ops, e_ops=[quad(0.0)], progress_bar=Val(false))
-
-    thquadx = real.(thsim.expect[1, :])
-
-    P1 = plot(tlist, thquadx, label=L"\left\langle \hat{x}_0(\tau)\right\rangle_\mathrm{th}", xlabel=L"$\tau=kt$ (unitless)", ylabel="0-Quadrature", ylims=ylims)
-
-    plot!(P1, tlist, QuadX, label=L"\mathbb{E}[\langle \hat{x}_0(\tau)\rangle]", xlims=xlims, ribbon=StdX)
-    savefig(P1, "pop_$(Ntraj).svg")
-end
-
 mesolve(H, ρ0, tlist[1:5], c_ops, e_ops=[quad(0.0)], progress_bar=Val(false)) #warmup
 single_sim(0.0, quad(0.0)) #warmup
 
-number_traj = 100
-quad_sim, std_sim = sim(number_traj, 0.0)
-plotting(quad_sim, (0.0,0.2), (-500.0,500.0), number_traj, std_sim)
+ran=1:2:100
+Time_to_exec = zeros(length(ran))
+for (i,ntraj) in enumerate(ran)
+    t_iter = @elapsed begin
+        sim(ntraj, 0.0)
+    end
+    Time_to_exec[i] = t_iter
+end
+
+prob = CurveFitProblem(ran, Time_to_exec)
+sol = solve(prob, LinearCurveFitAlgorithm())
+slope = round(sol.u[1], sigdigits=4)
+intercept = round(sol.u[2], sigdigits=4)
+
+Ptest = plot(ran, Time_to_exec, title=L"%$slope x+%$intercept", xlabel=L"Number of trajectories ($x$)", ylabel="Time (s)", lw=3)
+plot!(Ptest, ran, sol.(ran), lw=1)
+savefig(Ptest, "Timetoexec_mano.svg")
+
+
 println("----------STOP---------")

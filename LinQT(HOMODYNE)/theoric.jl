@@ -1,5 +1,5 @@
 ENV["GKSwstype"] = "100"
-using QuantumToolbox, Plots, LaTeXStrings, Printf, Random, Distributions, Base.Threads, CurveFit
+using QuantumToolbox, Plots, LaTeXStrings, Printf, Random, Base.Threads
 theme(:dao)
 palette = theme_palette(:dao)
 
@@ -53,71 +53,55 @@ function J(A::QuantumObject)
 end
 
 function dw_L(variance::Float64, length::Int64)
-    σ=√(variance)
-    d = Normal(0.0, σ)
-    return rand(d, length)
+    return √(variance).*randn(length)
 end
 
-function single_sim(θ::Float64)
+function single_sim(θ::Float64, q::QuantumObject)
     DW=dw_L(dt, length(tlist))
 
     # ρ_L = Vector{QuantumObject}(undef, length(tlist))
     meanquad_L = zeros(Float64, length(tlist))
 
     ρ = ρ0 #initial state
+    cθ = c_decay*exp(-im*θ)
     for i in eachindex(tlist)
-        # ρ_L[i] = ρ #saving the state
-        dρ = -im*commutator(H,ρ)*dt+(lindblad_dissipator(c_decay)+lindblad_dissipator(c_excite))*ρ*dt+J(c_decay*exp(-im*θ))*ρ*DW[i]
-        ρ = ρ + dρ # Evolution
+        ρ = ρ/real(tr(ρ)) # Renormalization (else trace explodes)
+        meanquad_L[i] = real(tr(ρ*q))
 
-        ###
-        ρ_n = ρ/tr(ρ)
-        meanquad_L[i] = real(tr(ρ_n*quad(θ)))
+        # ρ_L[i] = ρ #saving the state
+        Milstein = (J(cθ)*ρ)*(J(cθ)*eye(Ncut))*(DW[i]^2-dt)/2
+        dρ = -im*commutator(H,ρ)*dt+(lindblad_dissipator(c_decay)+lindblad_dissipator(c_excite))*ρ*dt+J(cθ)*ρ*DW[i] + Milstein
+
+        ρ = ρ + dρ # Evolution
     end
     return meanquad_L
 end
 
 function sim(Ntraj::Int64, θ::Float64)
+    q = quad(θ)
     results = [zeros(length(tlist)) for _ in 1:Ntraj]
     Threads.@threads for k in 1:Ntraj
-        results[k] = single_sim(θ)
+        results[k] = single_sim(θ, q)
     end
-    return sum(results) ./ Ntraj
+    moy = sum(results) ./ Ntraj
+    moy_quad = sum(r .^2 for r in results)./Ntraj
+    standdev = .√(moy_quad .-(moy .^2))
+    return moy, standdev
 end
 
-function plotting()
+function plotting(xlims::Tuple{Float64, Float64}, ylims::Tuple{Float64, Float64})
     thsim = mesolve(H, ρ0, tlist, c_ops, e_ops=[quad(0.0)], progress_bar=Val(false))
 
     thquadx = real.(thsim.expect[1, :])
 
-    P1 = plot(tlist, thquadx, label=L"\left\langle \hat{x}_0(\tau)\right\rangle_\mathrm{th}", xlabel=L"$\tau=kt$ (unitless)", ylabel="0-Quadrature", ylims=(-3,3))
+    P1 = plot(tlist, thquadx, label=L"\left\langle \hat{x}_0(\tau)\right\rangle_\mathrm{th}", xlabel=L"$\tau=kt$ (unitless)", ylabel="0-Quadrature", ylims=ylims, xlims=xlims)
 
-    Y = sim(100_000, 0.0)
-
-    plot!(P1, tlist, Y, label=L"\mathbb{E}[\langle \hat{x}_0(\tau)\rangle]")
-
-    savefig(P1, "pop.svg")
+    # plot!(P1, tlist, QuadX, label=L"\mathbb{E}[\langle \hat{x}_0(\tau)\rangle]", ribbon=StdX)
+    savefig(P1, "pop_th.svg")
 end
 
-ran=1:2:100
+mesolve(H, ρ0, tlist[1:5], c_ops, e_ops=[quad(0.0)], progress_bar=Val(false)) #warmup
+single_sim(0.0, quad(0.0)) #warmup
 
-Time_to_exec = zeros(length(ran))
-sim(1, 0.0) #warmup
-for (i,ntraj) in enumerate(ran)
-    t_iter = @elapsed begin
-        sim(ntraj, 0.0)
-    end
-    Time_to_exec[i] = t_iter
-end
-
-prob = CurveFitProblem(ran, Time_to_exec)
-sol = solve(prob, LinearCurveFitAlgorithm())
-slope = round(sol.u[1], sigdigits=4)
-intercept = round(sol.u[2], sigdigits=4)
-
-Ptest = plot(ran, Time_to_exec, title=L"%$slope x+%$intercept", xlabel=L"Number of trajectories ($x$)", ylabel="Time (s)", lw=3)
-plot!(Ptest, ran, sol.(ran), lw=1)
-savefig(Ptest, "Timetoexec.svg")
-
-
+plotting((0.0,1.0), (-3.0,3.0))
 println("----------STOP---------")
