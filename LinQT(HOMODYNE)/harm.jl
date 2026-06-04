@@ -41,7 +41,7 @@ n_op = a'*a
 e_ops=[n_op]
 H = ω_k*a'*a 
 
-dt = 2π/(100.0*ω_k) #1/100 of the unitless "frequency"
+dt = 2π/(10.0*ω_k) #1/100 of the unitless "frequency"
 tlist = 0.0:dt:10.0
 
 function quad(θ::Float64)
@@ -61,20 +61,39 @@ end
 function single_sim(θ::Float64, q::QuantumObject)
     DW=dw_L(dt, length(tlist))
 
-    # ρ_L = Vector{QuantumObject}(undef, length(tlist))
+    ρ_L = Vector{QuantumObject}(undef, length(tlist))
     meanquad_L = zeros(Float64, length(tlist))
 
-    ρ = ρ0 #initial state
+    ρ = ρ0-eye(Ncut)./Ncut #initial state
+    # ρ=ρ0
     cθ = c_decay*exp(-im*θ)
     for i in eachindex(tlist)
-        ρ = ρ/real(tr(ρ)) # Renormalization (else trace explodes)
+        # ρ = ρ/real(tr(ρ)) # Renormalization (else trace explodes)
         meanquad_L[i] = real(tr(ρ*q))
 
-        diffusion = cθ*ρ+ρ*cθ'
+        diffusion = cθ*ρ + ρ*cθ'
+        Free = -im*commutator(H,ρ)
+        Diss = (D(c_decay, ρ)+D(c_excite, ρ))
 
-        dρ = -im*commutator(H,ρ)*dt+(D(c_decay, ρ)+D(c_excite, ρ))*dt+diffusion*DW[i]
+        dρ = Free*dt + Diss*dt + diffusion*DW[i]
 
+        if i == 1 || i==2 || i==3
+            # println(i)
+            # println(real(tr(ρ)))
+            println("dw$i:$(DW[i])")
+            println("TrFree: $(real(tr(Free*dt)))")
+            println("TrDiss: $(real(tr(Diss*dt)))")
+            println("TrStoch: $(real(tr(diffusion*DW[i])))")
+            println("dρ$i:$(real(tr(dρ)))\n")
+
+        end
+        
+        if i==2
+            println("Calc:$(real(tr(ρ_L[1]/(tr(ρ_L[1]))*(cθ+cθ')))*(1+4DW[1])*DW[2])")
+        end
         ρ = ρ + dρ # Evolution
+
+        ρ_L[i] = ρ
     end
     return meanquad_L
 end
@@ -86,9 +105,9 @@ function sim(Ntraj::Int64, θ::Float64)
         results[k] = single_sim(θ, q)
     end
     moy = sum(results) ./ Ntraj
-    moy_quad = sum(r .^2 for r in results)./Ntraj
-    standdev = .√(moy_quad .-(moy .^2))
-    return moy, standdev
+    # moy_quad = sum(r .^2 for r in results)./Ntraj
+    # standdev = .√(moy_quad .-(moy .^2))
+    return moy#, standdev
 end
 
 function plotting(QuadX::Vector{Float64}, xlims::Tuple{Float64, Float64}, ylims::Tuple{Float64, Float64},Ntraj::Int64, StdX::Vector{Float64})
@@ -99,13 +118,28 @@ function plotting(QuadX::Vector{Float64}, xlims::Tuple{Float64, Float64}, ylims:
     P1 = plot(tlist, thquadx, label=L"\left\langle \hat{x}_0(\tau)\right\rangle_\mathrm{th}", xlabel=L"$\tau=kt$ (unitless)", ylabel="0-Quadrature", ylims=ylims)
 
     plot!(P1, tlist, QuadX, label=L"\mathbb{E}[\langle \hat{x}_0(\tau)\rangle]", xlims=xlims, ribbon=StdX)
-    savefig(P1, "pop_$(Ntraj).svg")
+    savefig(P1, "test_$(Ntraj).svg")
 end
 
-mesolve(H, ρ0, tlist[1:5], c_ops, e_ops=[quad(0.0)], progress_bar=Val(false)) #warmup
-single_sim(0.0, quad(0.0)) #warmup
+function plotting2(QuadX::Vector{Float64}, xlims::Tuple{Float64, Float64}, ylims::Tuple{Float64, Float64},Ntraj::Int64)
+    thsim = mesolve(H, ρ0, tlist, c_ops, e_ops=[quad(0.0)], progress_bar=Val(false))
 
-number_traj = 10
-quad_sim, std_sim = sim(number_traj, 0.0)
-plotting(quad_sim, (0.0,0.1), (-5.0,5.0), number_traj, std_sim)
+    thquadx = real.(thsim.expect[1, :])
+
+    P1 = plot(tlist, thquadx, label=L"\left\langle \hat{x}_0(\tau)\right\rangle_\mathrm{th}", xlabel=L"$\tau=kt$ (unitless)", ylabel="0-Quadrature", ylims=ylims)
+
+    plot!(P1, tlist, QuadX, label=L"\mathbb{E}[\langle \hat{x}_0(\tau)\rangle]", xlims=xlims)
+    savefig(P1, "test_$(Ntraj).svg")
+end
+
+# mesolve(H, ρ0, tlist[1:5], c_ops, e_ops=[quad(0.0)], progress_bar=Val(false)) #warmup
+# single_sim(0.0, quad(0.0)) #warmup
+
+number_traj = 1
+# quad_sim, std_sim = sim(number_traj, 0.0)
+quad_sim = sim(number_traj, 0.0)
+
+# plotting(quad_sim, (0.0,0.1), (-5.0,5.0), number_traj, std_sim)
+plotting2(quad_sim, (0.0,10.0), (-5.0,5.0), number_traj)
+
 println("----------STOP---------")
