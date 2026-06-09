@@ -1,0 +1,3 @@
+Ntraj = 50
+ω = 10×k
+Number of points per oscillation: 50.0
