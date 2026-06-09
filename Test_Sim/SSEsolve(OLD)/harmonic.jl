@@ -2,13 +2,7 @@ using QuantumToolbox, Plots, LaTeXStrings
 theme(:dark)
 palette = theme_palette(:dark)
 
-function N_BE(x)
-    if x == -1
-        return 0
-    else
-        return 1/(exp(x)-1)
-    end
-end
+N_BE(x) = 1.0/(exp(x)-1.0)
 
 println("---------------------")
 
@@ -17,7 +11,7 @@ println("---------------------")
 Ntraj = 100 # number of trajectories
 Ncut = 12 # Fock space truncation for the cavity mode
 
-χ = 0.25 # ħω0/kT -> χ<<1 High temperature limit | χ>>1 Low temperature limit | χ=-1 for zero temperature case
+χ = 0.25 # ħω0/kT -> χ<<1 High temperature limit | χ>>1 Low temperature limit | χ=Inf for zero temperature case
 
     # Physical Parameters
 # ===========================================
