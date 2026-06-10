@@ -9,7 +9,9 @@ In Chapter I, we have developed the input-output formalism in which the system $
     \caption{Scheme of continuous monitoring. In the first place the total system evolves from time $t$ to $t+\dt$ according to the Lindblad master equation (denoted as $\mathfrak{L}$). We then measure the observable $\hat{M}$ on the total state and we denote the outcome as $m$. Then, by tracing out the environment, we find $\rho_c(t+\dt)$. To form the next total system $\bm{\varrho}_c(t+\dt)$, the system couples instantaneously with the next temporal mode $B_{t+\dt}$, and so on. The process is repeated until the end of the monitoring. Note that before applying the partial trace, the system state is entangled with the environmental state due to the dynamics, this entanglement is represented by a gradient of color on the scheme. Moreover, it is important to realize that the index $c$ at $t+\dt$ has been updated and includes the series of measurements up to time $t+\dt$ (and thus $m$ obtained at time $t$ in particular).}\label{fig:scheme}
 \end{figure}
 
-In this chapter, two kind of measurements will be presented: the photo-detection and the homodyne detection. After presenting the two measurement processes, we will tackle the notion of linear quantum trajectories. Finally, we will present a section of numerical simulations to illustrate the different measurement schemes.\newpage
+In this chapter, two kind of measurements will be presented: the photo-detection and the homodyne detection. After presenting the two measurement processes, we will tackle the notion of linear quantum trajectories. Finally, we will present a section of numerical simulations to illustrate the different measurement schemes.
+
+\section{State of the art}
 
 \section{Unconditional dynamics}
 The evolution of unmonitored open quantum systems is described by the Lindblad master equation, as seen in Section~\ref{OQS}. However, performing a measurement after each infinitesimal step makes the evolution dependent on each outcome, thereby altering the system's trajectory. If we consider the state of the system at time $t$, the state is conditional because of all the measurement outcomes from $t_0$ to $t$ and is therefore noted as  $\rho_c(t)$. The sequence of conditional states followed by a system is therefore called \textit{a quantum trajectory}
@@ -201,74 +203,74 @@ by replacing $\expval{c^\dagger c}_t$ by $\mu'$ in the photo-detection SME, i.e.
 In the simulations we present in the last section of this chapter, we could use these linear quantum trajectories. However, we chose to use a Monte Carlo method that will be introduced in the following section, also, we will use a non-linear solver available in the \verb|QuantumToolbox.jl| package.
 
 \section{Evolution in terms of Kraus operators}
-In the literature, one of the best solution to simulate the photo-detection process developped in Section~\ref{sec:photodet} is the Monte Carlo method. Nevertheless, we need to use Kraus operators in order to find the linear expression of this method. Let us tackle the photo-detection case at first. Indeed, the results of the QMT Section~\ref{sec:qmt} are going to be use hereafter.
+In the literature, one of the best solution to simulate the photo-detection process, which we developped in Section~\ref{sec:photodet}, is the so-called Monte Carlo method~\cite{WM}. Nevertheless, we need to use Kraus operators in order to find the expression needed in the Monte Carlo simulation. Let us tackle the photo-detection case at first. Indeed, the results of the QMT Section~\ref{sec:qmt} are going to be use hereafter.
 \subsection{Photo-detection}
-We define the Kraus operators accounting for the result 0 as
+We define the Kraus operators yielding the result 0 as
 \begin{equation}\label{eq:defM0}
-    M_0(\dt)=\mathbb{I}-\qty(k\frac{c^\dagger c}{2}+i H_S)\dt,
+    K_0(\dt)=\mathbb{I}-\qty(k\frac{c^\dagger c}{2}+i H_S)\dt,
 \end{equation}
-together with its adjoint $M_0^\dagger(\dt)$. For the result 1, we define
+together with its adjoint $K_0^\dagger(\dt)$. For the result 1, we define
 \begin{equation}\label{eq:defM1}
-    M_1(\dt) = \sqrt{k}c\dt,
+    K_1(\dt) = \sqrt{k\dt}c,
 \end{equation}
-and its adjoint $M_1^\dagger(\dt)$. We recall that the POVM must sums to $\mathbb{I}$, in particular here 
+and its adjoint $K_1^\dagger(\dt)$. We recall that the POVM must respect 
 \begin{equation}
-    M_0^\dagger(\dt) M_0(\dt) + M_1^\dagger(\dt) M_1(\dt) = \mathbb{I}+o(\dt),
+    K_0^\dagger(\dt) K_0(\dt) + K_1^\dagger(\dt) K_1(\dt) = \mathbb{I}+o(\dt).
 \end{equation}
-this last equation is verified at fist order in $\dt$. Thus, the ensemble of Kraus operators is a valid POVM. We can look at the probabilities to find each outcome with respect to the Kraus operators formalism. We can show that
+Indeed, this last equation is verified at fist order in $\dt$ using the definition of Kraus operators. Thus, the ensemble of Kraus operators is a valid POVM. We can look at the probabilities to find each outcome with respect to the Kraus operators formalism. We can show that
 \begin{equation}
-    p_1(\dt) = k\expval{c^\dagger c}\dt + o(\dt).
+    p_0(\dt) = \Tr{K_0^\dagger(\dt)\rho_c(t) K_0(\dt)} = 1-k\expval{c^\dagger c}_t\dt + o(\dt).
 \end{equation}
-Also we calculate the probability of outcome 0, giving
+Also we calculate the probability of outcome 1, giving
 \begin{equation}
-    p_0(\dt) = 1-k\expval{c^\dagger c}\dt + o(\dt),
+    p_1(\dt) = \Tr{K_1^\dagger(\dt)\rho_c(t) K_1(\dt)} = k\expval{c^\dagger c}_t\dt + o(\dt).
 \end{equation}
-and so we verified that $p_0(\dt)+p_1(\dt)=1+o(\dt)$ as expected. One can observe from Eq.~(\ref{eq:avPoisson}) that $p_1(\dt) = \mathbb{E}\qty[\mathrm{d}N_t]$. We can now rewrite the evolved conditional state with these operators and with the Poisson increment $\mathrm{d}N_t$ as
+Therefore, we can calculate $p_0(\dt)+p_1(\dt)=1+o(\dt)$ as expected. One can observe from Eq.~(\ref{eq:avPoisson}) that $p_1(\dt) = \mathbb{E}\qty[\mathrm{d}N_t]$ in particular. We now rewrite the evolved conditional state with these Kraus operators and with the Poisson increment $\mathrm{d}N_t$ as
 \begin{equation}
-    \rho_c(t+\dt) = \underbrace{\frac{M_1(\dt)\rho_c(t)M_1^\dagger(\dt)}{p_1(\dt)}}_{\rho_1(t+\dt)}\mathrm{d}N_t + \underbrace{\frac{M_0(\dt)\rho_c(t)M_0^\dagger(\dt)}{p_0(\dt)}}_{\rho_0(t+\dt)}\qty(1-\mathrm{d}N_t).
+    \rho_c(t+\dt) = \underbrace{\frac{K_0(\dt)\rho_c(t)K_0^\dagger(\dt)}{p_0(\dt)}}_{\rho_0(t+\dt)}\qty(1-\mathrm{d}N_t) + \underbrace{\frac{K_1(\dt)\rho_c(t)K_1^\dagger(\dt)}{p_1(\dt)}}_{\rho_1(t+\dt)}\mathrm{d}N_t.
 \end{equation}
 One can develop this expression up to $\dt$ in the same way than in Section~\ref{sec:photodet} to find the SME, i.e Eq.~(\ref{eq:SMEphotodet}). We will ommit the $o(\dt)$ in the following to lighten notations.
 
 This new formulation is particularly interesting because the unnormalized expressions of evolved states (depending on each outcome) are
 \begin{equation}
-    \tilde{\rho}_0(t+\dt) = M_0(\dt)\tilde{\rho}_c(t)M_0^\dagger(\dt),\qquad \tilde{\rho}_1(t+\dt) = M_1(\dt)\tilde{\rho}_c(t)M_1^\dagger(\dt).
+    \tilde{\rho}_0(t+\dt) = K_0(\dt)\tilde{\rho}_c(t)K_0^\dagger(\dt),\qquad \tilde{\rho}_1(t+\dt) = K_1(\dt)\tilde{\rho}_c(t)K_1^\dagger(\dt).
 \end{equation}
 Explicitely, by using Eqs~(\ref{eq:defM0},\ref{eq:defM1}), we get
 \begin{equation}
     \tilde{\rho}_0(t+\dt) = \tilde{\rho}_c(t)-\frac{k}{2}\qty{c^\dagger c, \tilde{\rho}_c(t)}\dt - i\qty[H_S, \tilde{\rho}_c(t)]\dt,\qquad \tilde{\rho}_1(t+\dt) = kc\tilde{\rho}_c(t)c^\dagger \dt.
 \end{equation}
-These states are chosen respectively according to the probabilities $p_0$ and $p_1$. Moreover, we recall that $p_0(\dt) \gg p_1(\dt)$ in the infinitesimal limit and so the system evolves almost everytime according to the outcome 0. In the following, we will be interested into simulating SSE for simplicity and rapidity. Therefore, here are the conditional evolved states for each outcome
+The evolved system is in the state $\tilde{\rho}_0(t+\dt)$ with the probability $p_0(\dt)$ or in the state $\tilde{\rho}_1(t+\dt)$ with the probability $p_1(\dt)$. Moreover, we recall that $p_0(\dt) \gg p_1(\dt)$ in the infinitesimal limit and so the system evolves almost everytime according to the outcome 0, we call this the "no-jump" evolution. In the following, we will be interested into simulating SSEs for simplicity and rapidity. Therefore, here are the conditional evolved states for each outcome
 \begin{align}
-    \ket{\tilde{\psi}_0(t+\dt)} &= M_0(\dt)\ket{\tilde{\psi}_c(t)} = \qty[\mathbb{I}-\qty(k\frac{c^\dagger c}{2}+i H_S)\dt]\ket{\tilde{\psi}_c(t)},\\
-     \ket{\tilde{\psi}_1(t+\dt)} &= M_1(\dt)\ket{\tilde{\psi}_c(t)} = \sqrt{k\dt}c\ket{\tilde{\psi}_c(t)}.
+    \ket{\tilde{\psi}_0(t+\dt)} &= K_0(\dt)\ket{\tilde{\psi}_c(t)} = \qty[\mathbb{I}-\qty(k\frac{c^\dagger c}{2}+i H_S)\dt]\ket{\tilde{\psi}_c(t)},\\
+     \ket{\tilde{\psi}_1(t+\dt)} &= K_1(\dt)\ket{\tilde{\psi}_c(t)} = \sqrt{k\dt}c\ket{\tilde{\psi}_c(t)}.
 \end{align}
-As explained in~\cite{WM}, the Monte Carlo method consists in letting the state evolve according to the outcome 0 all the time unless a random moment appears and the evolution according to 1 is applied. To do so, we form the first order differential equation
+The Monte Carlo method~\cite{WM} consists in allowing the state to evolve using $K_0$ Kraus operator all the time, unless a jump occurs. Explicitely, the differential equation of no-jump evolution is
 \begin{equation}\label{eq:MC}
     \frac{\mathrm{d}}{\dt}\ket{\tilde{\psi}(t)} = -\qty(k\frac{c^\dagger c}{2}+i H_S)\ket{\tilde{\psi}(t)}.
 \end{equation}
-We pick a random number $R$ and solve the previous differential equation to determine the evolved state. The effect of the non-normalized differential equation is notably to diminish the value of the normalization with respect to time. Indeed,
+To determine when a jump occurs, we first need to pick a random number $R$ before the no-jump evolution. The effect of the non-normalized differential equation is notably to diminish the value of the normalization with respect to time. Indeed,
 \begin{equation}
     \mathrm{d}\braket{\tilde{\psi}(t)} = -k\expval{c^\dagger c}_t \dt,
 \end{equation}
-where we used the notation $\expval{c^\dagger c}_t = \bra{\tilde{\psi}(t)}(c^\dagger c)\ket{\tilde{\psi}(t)}$. Therefore, the evolution normalization of the state is explicitely impacted by the normalization we ommitted: $\mathbb{E}\qty[\mathrm{d}N_t]$. Indeed, this last equation proves that the square of the state's norm is diminishing linearly with respect to time. The Monte Carlo process uses this fact to solve Eq.~(\ref{eq:MC}) for a time $T$ such that $\braket{\tilde{\psi}(T)}=R$, this time $T$ becoming the "jump" time where we need to apply the evolution according to the outcome 1. The state is then normalized and we act like at the beginning: picking a new random number $R$, the no-jump evolution and so on. Note that applying the normalized evolution with outcome 1 is the same as applying the unnormalized evolution and then normalizing the state. 
+where we used the notation $\expval{c^\dagger c}_t = \bra{\tilde{\psi}(t)}(c^\dagger c)\ket{\tilde{\psi}(t)}$. Therefore, this last equation proves that the square of the state's norm is diminishing linearly with respect to time. The Monte Carlo process uses this fact to solve Eq.~(\ref{eq:MC}) for a time $T$ such that $\braket{\tilde{\psi}(T)}=R$. The time $T$ is the "jump" time at which we must apply the evolution using Kraus operator $K_1$. The state is then normalized and we act like at the beginning: picking a new random number $R$, the no-jump evolution and so on. Note that applying the normalized evolution with outcome 1 is the same as applying the unnormalized evolution and then normalizing the state. 
 
-\subsection{Homodyne}
+\subsection{Homodyne detection}
 Following the same concepts than in the photo-detection case, we can define the Kraus operators responsible for the evolution according to the homodyne measurement. In this sense, we define
 \begin{equation}
-    M_{\mathrm{d}y_t} = \mathbb{I} - iH_S\dt - \frac{k}{2}c^\dagger c\dt + \sqrt{k}c\mathrm{d}y_t,
+    K_{\mathrm{d}y_t} = \mathbb{I} - iH_S\dt - \frac{k}{2}c^\dagger c\dt + \sqrt{k}c\mathrm{d}y_t,
 \end{equation}
-with its adjoint $M^\dagger_{\mathrm{d}y_t}$. If we calculate the sum of POVM elements, we find
+with its adjoint $K^\dagger_{\mathrm{d}y_t}$. If we calculate the sum of POVM elements, we find
 \begin{equation}
-    \int M_J^\dagger M_J \mathrm{d}J \neq \mathbb{I}+o(\dt),
+    \int K_J^\dagger K_J \mathrm{d}J \neq \mathbb{I}+o(\dt),
 \end{equation}
-where we denoted $J=\mathrm{d}y_t$ for convenience. This integral should be understood by the sentence "we sum the POVM elements for every possible outcome $\mathrm{d}y_t$". Indeed, $M_J^\dagger M_J = \mathbb{I}+\sqrt{k}(ce^{-i\theta}+c^\dagger e^{i\theta})J+o(dt)$ is the reason why the normalization of POVM fails here. To obtain the correct normalization, one must calculate the integral according to the ostensible probability (see Section~\ref{sec:Linear}), thus
+where we denoted $J=\mathrm{d}y_t$ for convenience. This integral should be understood by the sentence "we sum the POVM elements for every possible outcome $\mathrm{d}y_t$". Indeed, $K_J^\dagger K_J = \mathbb{I}+\sqrt{k}(ce^{-i\theta}+c^\dagger e^{i\theta})J+o(dt)$ is the reason why the normalization of POVM fails here. To obtain the correct normalization, one must calculate the integral according to the ostensible probability (see Section~\ref{sec:Linear}), thus
 \begin{equation}
-    \int M_J^\dagger M_J p_\mathrm{ost}(J)\mathrm{d}J = \mathbb{I}+o(\dt).
+    \int K_J^\dagger K_J p_\mathrm{ost}(J)\mathrm{d}J = \mathbb{I}+o(\dt).
 \end{equation}
 This interpretation of "Kraus operator" is more general than the one initially introduced in the QMT section in the sense that the normalization is not respected according to the true probability $p_\mathrm{true}$. This reasoning about ostensible probability can be directly obtained by realizing that the unnormalized evolved state is
 \begin{equation}
-    \tilde{\rho}_c(t+\dt) = M_{\mathrm{d}y_t}\rho_c(t)M^\dagger_{\mathrm{d}y_t} = \breve{\rho}_c(t+\dt),
+    \tilde{\rho}_c(t+\dt) = K_{\mathrm{d}y_t}\rho_c(t)K^\dagger_{\mathrm{d}y_t} = \breve{\rho}_c(t+\dt),
 \end{equation}
-where $\breve{\rho}_c(t+\dt)$ is the solution of the unnormalized linear SME. In particular, we can derive it from Eq.~(\ref{eq:linhom}). Therefore, this justifies to employ the ostensible probability when dealing with such states.
+where $\breve{\rho}_c(t+\dt)$ is the solution of the unnormalized linear SME. In particular, we can derive it from Eq.~(\ref{eq:linhom}). Therefore, this justifies employing the ostensible probability when dealing with such states.
 
 \section{Simulations}
