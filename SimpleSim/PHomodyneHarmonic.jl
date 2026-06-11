@@ -30,16 +30,22 @@ Pmean_list = real.(homP.expect[1, :, :])
 Pmean = vec(sum(Pmean_list, dims=1)./Ntraj)
 linPmean = real.(lindP.expect[1, :])
 
-function plotting()
-    path = "HQ/"
+### Plots
 
-    quadPplot = plot(τlist, Pmean, label=L"\mathbb{E}[\langle\hat{x}_{\pi/2} (τ)\rangle]", xlabel=L"$\tau = kt$ (unitless)", ylabel="Mean value of quantum operators", legend=:topright)
-    plot!(quadPplot, τlist, linPmean, ls=:dash, lw=3, label=L"\langle\hat{x}_{\pi/2} (τ)\rangle_\mathrm{th}")
-    savefig(quadPplot, path*"Pquadrature.svg")
+path = "HQ/"
+mkpath(path)
 
-    ErrorQuadPplot = plot(τlist, abs.(linPmean-Pmean_list[end, :]), label="One trajectory-Lindblad", xlabel=L"$\tau = kt$ (unitless)", ylabel="Absolute difference", legend=:topright, color=palette[3], alpha=0.8)
-    plot!(ErrorQuadPplot, τlist, abs.(linPmean-Pmean), label="Averaged trajectories-Lindblad", color=palette[1])
-    savefig(ErrorQuadPplot, path*"PquadSingleError.svg")
+quadPplot = plot(τlist, Pmean, label=L"\mathbb{E}[\langle\hat{x}_{\pi/2} (τ)\rangle]", xlabel=L"$\tau = kt$ (unitless)", ylabel="Mean value of quantum operators", legend=:topright)
+plot!(quadPplot, τlist, linPmean, ls=:dash, lw=3, label=L"\langle\hat{x}_{\pi/2} (τ)\rangle_\mathrm{th}")
+
+idxs = round.(Int, range(1, Ntraj, 3))
+for (j,i) in enumerate(idxs)
+    plot!(quadPplot, τlist, Pmean_list[i, :], label="Trajectory n°$(i)", alpha=0.5, ls=:dot, zorders=j)
 end
 
-plotting()
+savefig(quadPplot, path*"Pquadrature.svg")
+
+
+ErrorQuadPplot = plot(τlist, abs.(linPmean-Pmean_list[end, :]), label="One trajectory-Lindblad", xlabel=L"$\tau = kt$ (unitless)", ylabel="Absolute difference", legend=:topright, color=palette[3], alpha=0.8)
+plot!(ErrorQuadPplot, τlist, abs.(linPmean-Pmean), label="Averaged trajectories-Lindblad", color=palette[1])
+savefig(ErrorQuadPplot, path*"PquadSingleError.svg")

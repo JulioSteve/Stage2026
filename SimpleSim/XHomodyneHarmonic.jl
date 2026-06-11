@@ -28,16 +28,18 @@ Xmean_list = real.(homX.expect[1, :, :])
 Xmean = vec(sum(Xmean_list, dims=1)./Ntraj)
 linXmean = real.(lindX.expect[1, :])
 
-function plotting()
-    path = "HQ/"
-    mkpath(path)
-    quadXplot = plot(τlist, Xmean, label=L"\mathbb{E}[\langle\hat{x}_0(τ)\rangle]", xlabel=L"$\tau = kt$ (unitless)", ylabel="Mean value of quantum operators", legend=:topright)
-    plot!(quadXplot, τlist, linXmean, ls=:dash, lw=3, label=L"\langle\hat{x}_0(τ)\rangle_\mathrm{th}")
-    savefig(quadXplot, path*"Xquadrature.svg")
 
-    ErrorQuadXplot = plot(τlist, abs.(linXmean-Xmean_list[end, :]), label="One trajectory-Lindblad", xlabel=L"$\tau = kt$ (unitless)", ylabel="Absolute difference", legend=:topright, color=palette[3], alpha=0.8)
-    plot!(ErrorQuadXplot, τlist, abs.(linXmean-Xmean), label="Averaged trajectories-Lindblad", color=palette[1])
-    savefig(ErrorQuadXplot, path*"XquadSingleError.svg")
+path = "HQ/"
+mkpath(path)
+
+quadXplot = plot(τlist, Xmean, label=L"\mathbb{E}[\langle\hat{x}_0(τ)\rangle]", xlabel=L"$\tau = kt$ (unitless)", ylabel="Mean value of quantum operators", legend=:topright)
+plot!(quadXplot, τlist, linXmean, ls=:dash, lw=3, label=L"\langle\hat{x}_0(τ)\rangle_\mathrm{th}")
+idxs = round.(Int, range(1, Ntraj, 3))
+for (j,i) in enumerate(idxs)
+    plot!(quadXplot, τlist, Xmean_list[i, :], label="Trajectory n°$(i)", alpha=0.5, ls=:dot, zorders=j)
 end
+savefig(quadXplot, path*"Xquadrature.svg")
 
-plotting()
+ErrorQuadXplot = plot(τlist, abs.(linXmean-Xmean_list[end, :]), label="One trajectory-Lindblad", xlabel=L"$\tau = kt$ (unitless)", ylabel="Absolute difference", legend=:topright, color=palette[3], alpha=0.8)
+plot!(ErrorQuadXplot, τlist, abs.(linXmean-Xmean), label="Averaged trajectories-Lindblad", color=palette[1])
+savefig(ErrorQuadXplot, path*"XquadSingleError.svg")
