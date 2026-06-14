@@ -44,19 +44,19 @@ function plotting()
     mkpath(path)
     quadXplot = plot(τlist, Xmean, label=L"\mathbb{E}[\langle\hat{x}_0(τ)\rangle]", xlabel=L"$\tau = kt$ (unitless)", ylabel="Mean value of quantum operators", legend=:topright)
     plot!(quadXplot, τlist, linXmean, ls=:dash, lw=3, label=L"\langle\hat{x}_0(τ)\rangle_\mathrm{th}")
-    savefig(quadXplot, path*"Xquadrature.svg")
+    savefig(quadXplot, path*"Xquadrature.pdf")
 
     ErrorQuadXplot = plot(τlist, abs.(linXmean-Xmean_list[end, :]), label="One trajectory-Lindblad", xlabel=L"$\tau = kt$ (unitless)", ylabel="Absolute difference", legend=:topright, color=palette[3], alpha=0.8)
     plot!(ErrorQuadXplot, τlist, abs.(linXmean-Xmean), label="Averaged trajectories-Lindblad", color=palette[1])
-    savefig(ErrorQuadXplot, path*"XquadSingleError.svg")
+    savefig(ErrorQuadXplot, path*"XquadSingleError.pdf")
 
     quadPplot = plot(τlist, Pmean, label=L"\mathbb{E}[\langle\hat{x}_{\pi/2} (τ)\rangle]", xlabel=L"$\tau = kt$ (unitless)", ylabel="Mean value of quantum operators", legend=:topright)
     plot!(quadPplot, τlist, linPmean, ls=:dash, lw=3, label=L"\langle\hat{x}_{\pi/2} (τ)\rangle_\mathrm{th}")
-    savefig(quadPplot, path*"Pquadrature.svg")
+    savefig(quadPplot, path*"Pquadrature.pdf")
 
     ErrorQuadPplot = plot(τlist, abs.(linPmean-Pmean_list[end, :]), label="One trajectory-Lindblad", xlabel=L"$\tau = kt$ (unitless)", ylabel="Absolute difference", legend=:topright, color=palette[3], alpha=0.8)
     plot!(ErrorQuadPplot, τlist, abs.(linPmean-Pmean), label="Averaged trajectories-Lindblad", color=palette[1])
-    savefig(ErrorQuadPplot, path*"PquadSingleError.svg")
+    savefig(ErrorQuadPplot, path*"PquadSingleError.pdf")
 
     open(path*"settings.txt", "w") do file
         println(file, "Ntraj = $(Ntraj)")

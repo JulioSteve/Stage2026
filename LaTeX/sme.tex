@@ -14,9 +14,9 @@ This chapter will start by a brief presentation of the state of the art. After, 
 \section{State of the art}
 This section aims to place the present work within the broader context of modern quantum physics. In the first chapter, we have introduced the fundamental concepts of Quantum Measurement Theory (QMT) and Open Quantum Systems (OQS), which provide the theoretical framework required to describe continuous quantum measurements.
 
-QMT links the quantum formalism to classical measurement outcomes. Early quantum mechanics was developed without a complete measurement theory, but Heisenberg \cite{Hei30}, Dirac \cite{Dir30}, von Neumann \cite{vN32} and Lüders \cite{Lud51} established the foundations of projective measurements. For a long time, these ideas were mainly of foundational interest, as experiments typically involved ensembles or destructive measurements. This framework was later extended to non-ideal measurements via Davies \cite{Dav76} and Kraus \cite{Kra83}, providing a general description of quantum measurement processes. In parallel, continuously monitored quantum systems were investigated, notably through quantum jump models \cite{SD81}. A major shift occurred with experiments on single quantum systems, especially the observation of quantum jumps in trapped ions \cite{CK85,NSD86,BHIW86}. This required a dynamical description of measurement-conditioned quantum states, leading to stochastic evolution equations and the quantum trajectory formalism \cite{DCM92,GPZ92,Car93}. Independently, Belavkin developed quantum filtering theory by extending classical control concepts to continuously measured quantum systems \cite{Bel88,BS92}, establishing a rigorous framework for quantum trajectories in open systems. These developments naturally led to quantum feedback control, where measurement results are used in real time to steer dynamics \cite{Bel83,Bel99,WM93c,Wis94}.
+QMT links the quantum formalism to classical measurement outcomes. Early quantum mechanics was developed without a complete measurement theory, but Heisenberg \cite{Hei30}, Dirac \cite{Dir30}, von Neumann \cite{vN32} and Lüders \cite{Lud51} established the foundations of projective measurements. For a long time, these ideas were mainly of foundational interest, as experiments typically involved ensembles or destructive measurements. This framework was later extended to non-ideal measurements by Davies \cite{Dav76} and Kraus \cite{Kra83}, providing a general description of quantum measurement processes. In parallel, continuously monitored quantum systems were investigated, notably through quantum jump models \cite{SD81}. A major shift occurred with experiments on single quantum systems, especially the observation of quantum jumps in trapped ions \cite{CK85,NSD86,BHIW86}. This required a dynamical description of measurement-conditioned quantum states, leading to stochastic evolution equations and the quantum trajectory formalism \cite{DCM92,GPZ92,Car93}. Independently, Belavkin developed quantum filtering theory by extending classical control concepts to continuously measured quantum systems \cite{Bel88,BS92}, establishing a rigorous framework for quantum trajectories in open systems. These developments naturally led to quantum feedback control, where measurement results are used in real time to steer dynamics \cite{Bel83,Bel99,WM93c,Wis94}.
 
-Beyond its fundamental interest, continuous quantum measurement is closely connected to several active research areas, including quantum parameter estimation~\cite{PARIS2009,Rossi2020,Albarelli2020} and quantum feedback control~\cite{Doherty2000,Rouchon2015} as mentionned in the last paragraph. These topics rely on the information extracted from measurement records and play a central role in modern applications. The relationships between these different research directions are illustrated in Fig.~\ref{fig:prefaceWM}, extracted from the preface of \textit{Wiseman and Milburn}'s Quantum Measurement and Control \cite{WM}. The diagram highlights how quantum measurement theory and open quantum systems provide the foundations for quantum trajectories, quantum feedback control, and their applications to quantum information processing.
+Beyond its fundamental interest, continuous quantum measurement is closely connected to several active research areas, including quantum parameter estimation~\cite{PARIS2009,Rossi2020,Albarelli2020} and quantum feedback control~\cite{Doherty2000,Rouchon2015}. These topics rely on the information extracted from measurement records and play a central role in modern applications. The relationships between these different research directions are illustrated in Fig.~\ref{fig:prefaceWM}, extracted from the preface of \textit{Wiseman and Milburn}'s Quantum Measurement and Control \cite{WM}. The diagram highlights how quantum measurement theory and open quantum systems provide the foundations for quantum trajectories, quantum feedback control, and their applications to quantum information processing.
 \begin{figure}[tbp]
     \centering
     \includegraphics[width=0.8\textwidth]{Images/Preface.png}
@@ -80,7 +80,7 @@ From a statistical perspective, the measurement outcome at time $t+\dt$ is a Ber
     \mathbb{E}\qty[\mathrm{d}N_t]=0\times p_0(t+\dt)+1\times p_1(t+\dt) = \expval{c^\dagger c}_t k\dt.
 \end{equation}
 \boldsection{Note that the expression of $\mathbb{E}\qty[\mathrm{d}N_t]$ is proportional to the expectation value $\expval{c^\dagger c}_t$. If we consider a system where $c$ is the annihilation operator, this proportionality means that we can experimentally access to the mean occupation number}. Therefore, the Poisson increment allows to write the differential conditional state $\mathrm{d}\rho_c(t+\dt)$ with respect to each possible outcome. In particular, $\mathrm{d}N_t=0$ means that the differential conditional state is $\mathrm{d}\rho_0(t)=\rho_0(t+\dt)-\rho_c(t)$, while $\mathrm{d}N_t=1$ means that $\mathrm{d}\rho_1(t)=\rho_1(t+\dt)-\rho_c(t)$. Consequently, 
-\begin{equation}
+\begin{equation}\label{eq:SMEwrtdN}
     \mathrm{d}\rho_c(t)=\mathrm{d}N_t\qty[\rho_1(t+\dt)-\rho_c(t)]+\qty(1-\mathrm{d}N_t)\qty[\rho_0(t+\dt)-\rho_c(t)].
 \end{equation}
 We can inject the results of Eqs.~(\ref{eq:rho0},\ref{eq:rho1}) in the last equation and by going back in the Schrödinger picture, we obtain
@@ -213,9 +213,9 @@ by replacing $\expval{c^\dagger c}_t$ by $\mu'$ in the photo-detection SME, i.e.
 In the simulations we present in the last section of this chapter, we could use these linear quantum trajectories. However, we chose to use a Monte Carlo method that will be introduced in the following section, also, we will use a non-linear solver available in the \verb|QuantumToolbox.jl| package.
 
 \section{Evolution in terms of Kraus operators}
-In the literature, one of the best solution to simulate the photo-detection process, which we developped in Section~\ref{sec:photodet}, is the so-called Monte Carlo method~\cite{WM}. Nevertheless, we need to use Kraus operators in order to find the expression needed in the Monte Carlo simulation. Let us tackle the photo-detection case at first. Indeed, the results of the QMT Section~\ref{sec:qmt} are going to be use hereafter.
+In the literature, one of the best solutions to simulate the photo-detection process, developed in Section~\ref{sec:photodet}, is the so-called Monte Carlo method~\cite{WM}. Nevertheless, we need to use Kraus operators in order to find the expression needed in the Monte Carlo simulation. In particular, the results of the QMT Section~\ref{sec:qmt} are going to be used hereafter.
 \subsection{Photo-detection}
-We define the Kraus operators yielding the result 0 as
+We define the Kraus operator yielding the result 0 as
 \begin{equation}\label{eq:defM0}
     K_0(\dt)=\mathbb{I}-\qty(k\frac{c^\dagger c}{2}+i H_S)\dt,
 \end{equation}
@@ -223,64 +223,95 @@ together with its adjoint $K_0^\dagger(\dt)$. For the result 1, we define
 \begin{equation}\label{eq:defM1}
     K_1(\dt) = \sqrt{k\dt}c,
 \end{equation}
-and its adjoint $K_1^\dagger(\dt)$. We recall that the POVM must respect 
+and its adjoint $K_1^\dagger(\dt)$. These two Kraus operators should yield the definition of a POVM. We recall that a POVM must respect $\sum_n \Pi_n = \Pi_0+\Pi_1=\mathbb{I}$. In particular with the Kraus operators, we have that $\Pi_n=K_n^\dagger K_n$. However, using the definitions of the Kraus operators proposed in Eqs.~(\ref{eq:defM0},\ref{eq:defM1}) we obtain  
 \begin{equation}
     K_0^\dagger(\dt) K_0(\dt) + K_1^\dagger(\dt) K_1(\dt) = \mathbb{I}+o(\dt).
 \end{equation}
-Indeed, this last equation is verified at fist order in $\dt$ using the definition of Kraus operators. Thus, the ensemble of Kraus operators is a valid POVM. We can look at the probabilities to find each outcome with respect to the Kraus operators formalism. We can show that
-\begin{equation}
-    p_0(\dt) = \Tr{K_0^\dagger(\dt)\rho_c(t) K_0(\dt)} = 1-k\expval{c^\dagger c}_t\dt + o(\dt).
-\end{equation}
-Also we calculate the probability of outcome 1, giving
-\begin{equation}
-    p_1(\dt) = \Tr{K_1^\dagger(\dt)\rho_c(t) K_1(\dt)} = k\expval{c^\dagger c}_t\dt + o(\dt).
-\end{equation}
-Therefore, we can calculate $p_0(\dt)+p_1(\dt)=1+o(\dt)$ as expected. One can observe from Eq.~(\ref{eq:avPoisson}) that $p_1(\dt) = \mathbb{E}\qty[\mathrm{d}N_t]$ in particular. We now rewrite the evolved conditional state with these Kraus operators and with the Poisson increment $\mathrm{d}N_t$ as
+Indeed, this last equation is verified at fist order in $\dt$ only, which is sufficient. Thus, these Kraus operators form a valid POVM. We can look at the probabilities to find each outcome in the Kraus formalism:
+\begin{align}
+    p_0(\dt) &= \Tr{K_0^\dagger(\dt)\rho_c(t) K_0(\dt)} = 1-k\expval{c^\dagger c}_t\dt + o(\dt) \\
+    p_1(\dt) &= \Tr{K_1^\dagger(\dt)\rho_c(t) K_1(\dt)} = k\expval{c^\dagger c}_t\dt + o(\dt).
+\end{align}
+Therefore, we can trivially find that $p_0(\dt)+p_1(\dt)=1+o(\dt)$. For the same reasons as aforementioned, the expected relation ($p_0+p_1=1$) is verified up to $\dt$, which is sufficient. Specifically, it is worthwhile to observe from Eq.~(\ref{eq:avPoisson}) that $p_1(\dt) = \mathbb{E}\qty[\mathrm{d}N_t]=\mathbb{P}\qty[\mathrm{d}N_t=1]$, which means that the event "applying Kraus operator $K_1$" is the same as the event "$\mathrm{d}N_t=1$". As a consequence, we can rewrite the evolved conditional state in analogy with the approach used to obtain Eq.~(\ref{eq:SMEwrtdN}) but with Kraus operators this time, giving
 \begin{equation}
     \rho_c(t+\dt) = \underbrace{\frac{K_0(\dt)\rho_c(t)K_0^\dagger(\dt)}{p_0(\dt)}}_{\rho_0(t+\dt)}\qty(1-\mathrm{d}N_t) + \underbrace{\frac{K_1(\dt)\rho_c(t)K_1^\dagger(\dt)}{p_1(\dt)}}_{\rho_1(t+\dt)}\mathrm{d}N_t.
 \end{equation}
-One can develop this expression up to $\dt$ in the same way than in Section~\ref{sec:photodet} to find the SME, i.e Eq.~(\ref{eq:SMEphotodet}). We will ommit the $o(\dt)$ in the following to lighten notations.
+This expression can be developed up to $\dt$, in the same way as in Section~\ref{sec:photodet}, to find the SME, i.e. Eq.~(\ref{eq:SMEphotodet}).
 
 This new formulation is particularly interesting because the unnormalized expressions of evolved states (depending on each outcome) are
 \begin{equation}
     \tilde{\rho}_0(t+\dt) = K_0(\dt)\tilde{\rho}_c(t)K_0^\dagger(\dt),\qquad \tilde{\rho}_1(t+\dt) = K_1(\dt)\tilde{\rho}_c(t)K_1^\dagger(\dt).
 \end{equation}
-Explicitely, by using Eqs~(\ref{eq:defM0},\ref{eq:defM1}), we get
+Explicitly, by using Eqs~(\ref{eq:defM0},\ref{eq:defM1}), we get
 \begin{equation}
     \tilde{\rho}_0(t+\dt) = \tilde{\rho}_c(t)-\frac{k}{2}\qty{c^\dagger c, \tilde{\rho}_c(t)}\dt - i\qty[H_S, \tilde{\rho}_c(t)]\dt,\qquad \tilde{\rho}_1(t+\dt) = kc\tilde{\rho}_c(t)c^\dagger \dt.
 \end{equation}
-The evolved system is in the state $\tilde{\rho}_0(t+\dt)$ with the probability $p_0(\dt)$ or in the state $\tilde{\rho}_1(t+\dt)$ with the probability $p_1(\dt)$. Moreover, we recall that $p_0(\dt) \gg p_1(\dt)$ in the infinitesimal limit and so the system evolves almost everytime according to the outcome 0, we call this the "no-jump" evolution. In the following, we will be interested into simulating SSEs for simplicity and rapidity. Therefore, here are the conditional evolved states for each outcome
+The evolved system is in the state $\tilde{\rho}_0(t+\dt)$ with probability $p_0(\dt)$ or in the state $\tilde{\rho}_1(t+\dt)$ with probability $p_1(\dt)$. Moreover, we give here that $p_0(\dt) \gg p_1(\dt)$ in the infinitesimal limit and so the system should evolve almost every time according to the outcome 0 (at best it should be verified in average). When the state evolves along the 0 outcome only, we call this the "no-jump" evolution. In the following, we will be interested into simulating SSEs for simplicity and rapidity. Therefore, here are the conditional evolved states for each outcome
 \begin{align}
     \ket{\tilde{\psi}_0(t+\dt)} &= K_0(\dt)\ket{\tilde{\psi}_c(t)} = \qty[\mathbb{I}-\qty(k\frac{c^\dagger c}{2}+i H_S)\dt]\ket{\tilde{\psi}_c(t)},\\
-     \ket{\tilde{\psi}_1(t+\dt)} &= K_1(\dt)\ket{\tilde{\psi}_c(t)} = \sqrt{k\dt}c\ket{\tilde{\psi}_c(t)}.
+     \ket{\tilde{\psi}_1(t+\dt)} &= K_1(\dt)\ket{\tilde{\psi}_c(t)} = \sqrt{k\dt}c\ket{\tilde{\psi}_c(t)}.\label{eq:evolK1}
 \end{align}
-The Monte Carlo method~\cite{WM} consists in allowing the state to evolve using $K_0$ Kraus operator all the time, unless a jump occurs. Explicitely, the differential equation of no-jump evolution is
+The Monte Carlo method~\cite{WM} consists in allowing the state to evolve using the Kraus operator $K_0$ all the time, unless a jump occurs. Explicitly, the differential equation of no-jump evolution is
 \begin{equation}\label{eq:MC}
-    \frac{\mathrm{d}}{\dt}\ket{\tilde{\psi}(t)} = -\qty(k\frac{c^\dagger c}{2}+i H_S)\ket{\tilde{\psi}(t)}.
+    \frac{\mathrm{d}}{\dt}\ket{\tilde{\psi}_0(t)} = -\qty(k\frac{c^\dagger c}{2}+i H_S)\ket{\tilde{\psi}_0(t)}.
 \end{equation}
-To determine when a jump occurs, we first need to pick a random number $R$ before the no-jump evolution. The effect of the non-normalized differential equation is notably to diminish the value of the normalization with respect to time. Indeed,
+To determine when a jump occurs, we first need to pick a random number $R$ before simulating the no-jump evolution. The effect of the non-normalized differential equation is notably to diminish the value of the normalization with respect to time. Indeed,
 \begin{equation}
-    \mathrm{d}\braket{\tilde{\psi}(t)} = -k\expval{c^\dagger c}_t \dt,
+    \mathrm{d}\braket{\tilde{\psi}_0(t)} = -k\expval{c^\dagger c}{\tilde{\psi}_0(t)} \dt.
 \end{equation}
-where we used the notation $\expval{c^\dagger c}_t = \bra{\tilde{\psi}(t)}(c^\dagger c)\ket{\tilde{\psi}(t)}$. Therefore, this last equation proves that the square of the state's norm is diminishing linearly with respect to time. The Monte Carlo process uses this fact to solve Eq.~(\ref{eq:MC}) for a time $T$ such that $\braket{\tilde{\psi}(T)}=R$. The time $T$ is the "jump" time at which we must apply the evolution using Kraus operator $K_1$. The state is then normalized and we act like at the beginning: picking a new random number $R$, the no-jump evolution and so on. Note that applying the normalized evolution with outcome 1 is the same as applying the unnormalized evolution and then normalizing the state. 
+The Monte Carlo process uses this equation to simulate the non-jump evolution up to a time $T$ such that $\braket{\tilde{\psi}_0(T)}=R$. Indeed, the state's norm progressively diminishes from $1$ (initially normalized state) to $R$ following the no-jump evolution. The time $T$ is the "jump" time at which we must apply the evolution using Eq.~(\ref{eq:evolK1}). The state is then normalized and we act again as in the beginning: picking a new random number $R$, the no-jump evolution, and so on. Note that applying the unnormalized evolution and then normalizing the state has the same effect as applying directly the normalized evolution. This last solution is the one \verb|QuantumToolbox.jl| employs in particular. 
 
 \subsection{Homodyne detection}
-Following the same concepts than in the photo-detection case, we can define the Kraus operators responsible for the evolution according to the homodyne measurement. In this sense, we define
+Following the same concepts than in the photo-detection case, we can define the Kraus operators responsible for the evolution according to the homodyne measuring process. In this sense, we define
 \begin{equation}
     K_{\mathrm{d}y_t} = \mathbb{I} - iH_S\dt - \frac{k}{2}c^\dagger c\dt + \sqrt{k}c\mathrm{d}y_t,
 \end{equation}
-with its adjoint $K^\dagger_{\mathrm{d}y_t}$. If we calculate the sum of POVM elements, we find
+with its adjoint $K^\dagger_{\mathrm{d}y_t}$. Indeed, if we calculate the sum of POVM elements, we find
 \begin{equation}
     \int K_J^\dagger K_J \mathrm{d}J \neq \mathbb{I}+o(\dt),
 \end{equation}
-where we denoted $J=\mathrm{d}y_t$ for convenience. This integral should be understood by the sentence "we sum the POVM elements for every possible outcome $\mathrm{d}y_t$". Indeed, $K_J^\dagger K_J = \mathbb{I}+\sqrt{k}(ce^{-i\theta}+c^\dagger e^{i\theta})J+o(dt)$ is the reason why the normalization of POVM fails here. To obtain the correct normalization, one must calculate the integral according to the ostensible probability (see Section~\ref{sec:Linear}), thus
-\begin{equation}
+where we denoted $J=\mathrm{d}y_t$ for convenience. This integral should be understood in the sense: "we sum the POVM elements over every possible outcome $\mathrm{d}y_t$ and over every possible trajectory". Indeed, the fact that $K_J^\dagger K_J = \mathbb{I}+\sqrt{k}(ce^{-i\theta}+c^\dagger e^{i\theta})J+o(dt)$ is the reason why the normalization of POVM fails here. Thus, to obtain the correct normalization, one must calculate the integral according to the ostensible probability (see Section~\ref{sec:Linear}), giving
+\begin{equation}\label{eq:sumPOVMK}
     \int K_J^\dagger K_J p_\mathrm{ost}(J)\mathrm{d}J = \mathbb{I}+o(\dt).
 \end{equation}
-This interpretation of "Kraus operator" is more general than the one initially introduced in the QMT section in the sense that the normalization is not respected according to the true probability $p_\mathrm{true}$. This reasoning about ostensible probability can be directly obtained by realizing that the unnormalized evolved state is
-\begin{equation}
+This involves a more general definition of Kraus operators than the one initially introduced in the QMT section. Indeed, it is different in the sense that the normalization is not respected according to the true probability $p_\mathrm{true}$. The unnormalized evolved state is 
+\begin{equation}\label{eq:evolKraus}
     \tilde{\rho}_c(t+\dt) = K_{\mathrm{d}y_t}\rho_c(t)K^\dagger_{\mathrm{d}y_t} = \breve{\rho}_c(t+\dt),
 \end{equation}
-where $\breve{\rho}_c(t+\dt)$ is the solution of the unnormalized linear SME. In particular, we can derive it from Eq.~(\ref{eq:linhom}). Therefore, this justifies employing the ostensible probability when dealing with such states.
+where $\breve{\rho}_c(t+\dt)$ is the solution of the unnormalized linear SME. This last equation is related to the use of $p_\mathrm{ost}$ to obtain Eq.~(\ref{eq:sumPOVMK}) because we have explained in the linear quantum trajectory section that $\mathbb{E}_{p_\text{ost}}\qty[\breve{\rho}_c(t)]=\rho(t)$. Indeed, the homodyne SME can be obtained again by averaging over every possible trajectories the conditional state evolution of Eq~(\ref{eq:evolKraus}).
 
 \section{Simulations}
+In this section, we will focus on two different systems under continuous measurement of their environment. The first system is a qubit (two-levels quantum system), while the second system is a harmonic oscillator (infinite levels). 
+
+% We will briefly expose the notations used in the qubit case in the following. The excited state is denoted as $\ket{e}$, while the ground state is denoted as $\ket{g}$. We are going to need the definitions of some operators, in particular 
+% \begin{equation}
+%     \sigma_z=\mqty(1 & 0 \\ 0 & -1)=\ketbra{e}-\ketbra{g},
+% \end{equation}
+% which is the Z-Pauli matrix. Moreover, we will use the qubit ladder operators:
+% \begin{equation}
+%     \sigma_+ = \mqty(0 & 1 \\ 0 & 0) = \ket{e}\bra{g},\qquad \sigma_- = \mqty(0 & 0 \\ 1 & 0) = \ket{g}\bra{e}.
+% \end{equation}
+\graphicspath{{../SimpleSim/}}
+
+\subsection{The qubit under photo-detection of its environment}
+blablabla
+
+
+\begin{figure}[b]
+    \centering
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{MCQ/Pop_10000.pdf}
+        \caption{Légende de la première image.}
+        \label{fig:gauche}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{MCQ/histo.pdf}
+        \caption{Légende de la deuxième image.}
+        \label{fig:droite}
+    \end{subfigure}
+    
+    \caption{Légende globale de l'ensemble de la figure.}
+    \label{fig:globale}
+\end{figure}

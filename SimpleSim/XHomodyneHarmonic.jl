@@ -25,21 +25,22 @@ lindX = mesolve(H, ρ0, τlist, [c(0)] ; e_ops=[quad(0)], progress_bar=Val(true)
 
 # Simulation outputs
 Xmean_list = real.(homX.expect[1, :, :])
-Xmean = vec(sum(Xmean_list, dims=1)./Ntraj)
-linXmean = real.(lindX.expect[1, :])
+Xmean = vec(sum(Xmean_list, dims=1)./Ntraj) # SME solution
+linXmean = real.(lindX.expect[1, :]) # Lindblad-ME solution
 
 
 path = "HQ/"
 mkpath(path)
 
-quadXplot = plot(τlist, Xmean, label=L"\mathbb{E}[\langle\hat{x}_0(τ)\rangle]", xlabel=L"$\tau = kt$ (unitless)", ylabel="Mean value of quantum operators", legend=:topright)
-plot!(quadXplot, τlist, linXmean, ls=:dash, lw=3, label=L"\langle\hat{x}_0(τ)\rangle_\mathrm{th}")
+quadXplot = plot(τlist, Xmean, label=L"\mathbb{E}_\mathrm{trajs}[\langle\hat{x}_0(\tau)\rangle]", xlabel=L"$\tau = kt$ (unitless)", ylabel=L"Mean $0$-quadrature $\propto \mathrm{Re}\{\rho_{eg}\}$", legend=:topright)
+
+plot!(quadXplot, τlist, linXmean, ls=:dash, lw=3, label=L"\langle\hat{x}_0(\tau)\rangle_\mathrm{th} = \sqrt{2}\mathrm{Re}\{\rho_{eg}\}")
 idxs = round.(Int, range(1, Ntraj, 3))
 for (j,i) in enumerate(idxs)
     plot!(quadXplot, τlist, Xmean_list[i, :], label="Trajectory n°$(i)", alpha=0.5, ls=:dot, zorders=j)
 end
-savefig(quadXplot, path*"Xquadrature.svg")
+savefig(quadXplot, path*"Xquadrature.pdf")
 
 ErrorQuadXplot = plot(τlist, abs.(linXmean-Xmean_list[end, :]), label="One trajectory-Lindblad", xlabel=L"$\tau = kt$ (unitless)", ylabel="Absolute difference", legend=:topright, color=palette[3], alpha=0.8)
 plot!(ErrorQuadXplot, τlist, abs.(linXmean-Xmean), label="Averaged trajectories-Lindblad", color=palette[1])
-savefig(ErrorQuadXplot, path*"XquadSingleError.svg")
+savefig(ErrorQuadXplot, path*"XquadSingleError.pdf")

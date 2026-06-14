@@ -38,10 +38,15 @@ end
 plot!(P, τlist, meantraj[1,:], label=L"\mathbb{E}[\langle \hat{n}\,(\tau)\rangle]", lw=2)
 plot!(P, τlist, n_th.(τlist), label=L"$\langle \hat{n}\,(\tau)\rangle$ (analytical)", lw=3, ls=:dash)
 plot!(P, τlist, abs.(n_th.(τlist)-meantraj[1,:]), title=L"|\mathbb{E}[\langle \hat{n}\,(\tau)\rangle]-\langle \hat{n}\,(\tau)\rangle|", color=palette[6], subplot=2, inset=(1, bbox(0.69, 0.45, 0.31, 0.31)), label=false)
-savefig(P, PATH*"Pop_$(Ntraj).svg")
+savefig(P, PATH*"Pop_$(Ntraj).pdf")
 
 all_jumps = vcat(sim.col_times...) # Every jump times are aligned in a 1D vertical vector
-Histo = histogram(all_jumps, bins=100, normalize=:pdf, label="Jump times", 
+Histo = histogram(all_jumps, bins=100, normalize=:pdf, label="Average jump times (normalized)", 
           xlabel=L"$\tau = kt$ (unitless)", ylabel="PDF", legend=:topright)
-plot!(Histo, τlist, exp.(-τlist), label="Analytical???", lw=3, ls=:dash)
-savefig(Histo, PATH*"histo.svg")
+
+τmax = τlist[end]
+# PDF analytique normalisée à 1 sur [0, τmax]
+Pth(τ) = exp(-τ) / (1 - exp(-τmax))
+
+plot!(Histo, τlist, Pth.(τlist), label="Analytical PDF", lw=3, ls=:dash)
+savefig(Histo, PATH*"histo.pdf")

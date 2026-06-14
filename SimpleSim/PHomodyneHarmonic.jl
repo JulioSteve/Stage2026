@@ -35,17 +35,17 @@ linPmean = real.(lindP.expect[1, :])
 path = "HQ/"
 mkpath(path)
 
-quadPplot = plot(τlist, Pmean, label=L"\mathbb{E}[\langle\hat{x}_{\pi/2} (τ)\rangle]", xlabel=L"$\tau = kt$ (unitless)", ylabel="Mean value of quantum operators", legend=:topright)
-plot!(quadPplot, τlist, linPmean, ls=:dash, lw=3, label=L"\langle\hat{x}_{\pi/2} (τ)\rangle_\mathrm{th}")
+quadPplot = plot(τlist, Pmean, label=L"\mathbb{E}_\mathrm{trajs}[\langle\hat{x}_{\pi/2}(\tau)\rangle]", xlabel=L"$\tau = kt$ (unitless)", ylabel=L"Mean $\frac{\pi}{2}$-quadrature $\propto \mathrm{Im}\{\rho_{eg}\}$", legend=:topright)
+plot!(quadPplot, τlist, linPmean, ls=:dash, lw=3, label=L"\langle\hat{x}_{\pi/2}(\tau)\rangle_\mathrm{th} = \sqrt{2}\mathrm{Im}\{\rho_{eg}\}")
 
 idxs = round.(Int, range(1, Ntraj, 3))
 for (j,i) in enumerate(idxs)
     plot!(quadPplot, τlist, Pmean_list[i, :], label="Trajectory n°$(i)", alpha=0.5, ls=:dot, zorders=j)
 end
 
-savefig(quadPplot, path*"Pquadrature.svg")
+savefig(quadPplot, path*"Pquadrature.pdf")
 
 
 ErrorQuadPplot = plot(τlist, abs.(linPmean-Pmean_list[end, :]), label="One trajectory-Lindblad", xlabel=L"$\tau = kt$ (unitless)", ylabel="Absolute difference", legend=:topright, color=palette[3], alpha=0.8)
 plot!(ErrorQuadPplot, τlist, abs.(linPmean-Pmean), label="Averaged trajectories-Lindblad", color=palette[1])
-savefig(ErrorQuadPplot, path*"PquadSingleError.svg")
+savefig(ErrorQuadPplot, path*"PquadSingleError.pdf")
