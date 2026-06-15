@@ -22,7 +22,7 @@ H = Ω*a'*a # Hamiltonian of the system (unitless)
 
 c_ops=[a]
 
-Ntraj = 5000
+Ntraj = 10000
 sim = mcsolve(H, ψ0, τlist, c_ops, e_ops=[a'*a], ntraj=Ntraj, progress_bar=Val(true), keep_runs_results=Val(true))
 trajs = real.(sim.expect[1,:,:])
 meantraj = sum(trajs, dims=1)./Ntraj

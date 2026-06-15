@@ -116,7 +116,7 @@ If we now form the difference quotient $\frac{\tilde{\rho}(t+\dt)-\tilde{\rho}(t
     \frac{\mathrm{d}\tilde{\rho}}{\dt}(t)=k\mathfrak{D}[c]\tilde{\rho}(t),
 \end{equation}
 where we defined the super-operator $\mathfrak{D}[\hat{O}]\bullet\equiv \hat{O}\bullet\hat{O}^\dagger-\frac{\qty{\hat{O}^\dagger\hat{O},\bullet}}{2}$ called the dissipator. Finally, by coming back into the Schrödinger representation, we find the so-called {Lindblad master equation}:
-\begin{equation}
+\begin{equation}\label{eq:LindbladME}
     \boxed{\frac{\mathrm{d}\rho}{\dt}(t)=-\frac{i}{\hbar}\qty[H_S, \rho(t)]+k\mathfrak{D}[c]\rho(t)}.
 \end{equation}
 The proof is straightforward, however one should pay attention to the compensation of complex exponential when calculating $U_0cU^\dagger_0$, using the ansatz $\tilde{c}(t)=ce^{-i\omega_0(t-t_0)}$. Note that since $\rho$ and $c$ are operators on $\mathcal{H}_S$, any commutator with $H_0$ simplifies into a commutator with $H_S$.

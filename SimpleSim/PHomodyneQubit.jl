@@ -16,27 +16,25 @@ quad(θ) = (σm*exp(-im*θ) + σm'*exp(im*θ))/√2
 ρ0 = ψ0*ψ0' # ρ0 = |ψ0><ψ0|, where |ψ0> = (|e>+|g>)/√2
 H = Ω*σz./2 # Hamiltonian of the system (unitless)
 
-meanpop(t) = (abs(α0)^2)*exp(-t)
-
 # Simulations
-Ntraj = 50
+Ntraj = 500
 
 homP = smesolve(H, ρ0, τlist, [], [c(π/2)] ; e_ops=[quad(π/2)], ntraj=Ntraj, progress_bar=Val(true), keep_runs_results=Val(true))
-lindP = mesolve(H, ρ0, τlist, [c(π/2)] ; e_ops=[quad(π/2)], progress_bar=Val(true))
+# lindP = mesolve(H, ρ0, τlist, [c(π/2)] ; e_ops=[quad(π/2)], progress_bar=Val(true))
 
 # Simulation outputs
 
 Pmean_list = real.(homP.expect[1, :, :])
 Pmean = vec(sum(Pmean_list, dims=1)./Ntraj)
-linPmean = real.(lindP.expect[1, :])
-
+# linPmean = real.(lindP.expect[1, :])
+quadth(τ) = -sin(Ω*τ)*exp(-τ/2)/√2
 ### Plots
 
 path = "HQ/"
 mkpath(path)
 
 quadPplot = plot(τlist, Pmean, label=L"\mathbb{E}_\mathrm{trajs}[\langle\hat{x}_{\pi/2}(\tau)\rangle]", xlabel=L"$\tau = kt$ (unitless)", ylabel=L"Mean $\frac{\pi}{2}$-quadrature $\propto \mathrm{Im}\{\rho_{eg}\}$", legend=:topright)
-plot!(quadPplot, τlist, linPmean, ls=:dash, lw=3, label=L"\langle\hat{x}_{\pi/2}(\tau)\rangle_\mathrm{th} = \sqrt{2}\mathrm{Im}\{\rho_{eg}\}")
+plot!(quadPplot, τlist, quadth.(τlist), ls=:dash, lw=3, label=L"\langle\hat{x}_{\pi/2}(\tau)\rangle_\mathrm{th} = \sqrt{2}\mathrm{Im}\{\rho_{eg}\}")
 
 idxs = round.(Int, range(1, Ntraj, 3))
 for (j,i) in enumerate(idxs)
@@ -46,6 +44,6 @@ end
 savefig(quadPplot, path*"Pquadrature.pdf")
 
 
-ErrorQuadPplot = plot(τlist, abs.(linPmean-Pmean_list[end, :]), label="One trajectory-Lindblad", xlabel=L"$\tau = kt$ (unitless)", ylabel="Absolute difference", legend=:topright, color=palette[3], alpha=0.8)
-plot!(ErrorQuadPplot, τlist, abs.(linPmean-Pmean), label="Averaged trajectories-Lindblad", color=palette[1])
+ErrorQuadPplot = plot(τlist, abs.(quadth.(τlist)-Pmean_list[end, :]), label="One trajectory-Lindblad", xlabel=L"$\tau = kt$ (unitless)", ylabel="Absolute difference", legend=:topright, color=palette[3], alpha=0.8)
+plot!(ErrorQuadPplot, τlist, abs.(quadth.(τlist)-Pmean), label="Averaged trajectories-Lindblad", color=palette[1])
 savefig(ErrorQuadPplot, path*"PquadSingleError.pdf")

@@ -5,21 +5,21 @@ In the previous chapter, we went through the steps leading to the Lindblad maste
 In Chapter I, we have developed the input-output formalism in which the system $S$ interacts sequentially in time with harmonic oscillators. Indeed, at each time the environment is represented by an harmonic oscillator represented by the annihilation operator $B_t$. This operator combines all environmental frequency modes by construction, as defined in Eq.~(\ref{eq:inputmodes}). A fundamental property we have explained is that these operators are mutually uncorrelated. Consequently, the environment is ``refreshed'' after each evolution, ensuring no memory effects or temporal dependence of environmental operators. Therefore, initially the system $S$ couples to $B_t$ at time $t$, then the total system evolves according to the Lindblad master equation over the period of time $\dt$. Immediately after this evolution, at time $t+\dt$, the system uncouples from $B_t$ to couple with a fresh $B_{t+\dt}$, evolving again, and so forth. In the following, we will go one step further by measuring the environment after each coupled evolution step, as schematized in Figure~\ref{fig:scheme}. 
 
 This chapter will start by a brief presentation of the state of the art. After, two kinds of measurement will be presented: the photo-detection and the homodyne detection. After presenting these two processes, we will tackle the notion of linear quantum trajectories and also the Kraus operators formalism. Finally, we will present a section of numerical simulations to illustrate the different measurement schemes.
-\begin{figure}[tbp]
+
+\section{State of the art}
+This section aims to place the present work within the broader context of modern quantum physics. In the first chapter, we have introduced the fundamental concepts of Quantum Measurement Theory (QMT) and Open Quantum Systems (OQS), which provide the theoretical framework required to describe continuous quantum measurements.
+\begin{figure}[tb]
     \centering
     \includegraphics[width=\textwidth]{Images/Scheme.pdf}
     \caption{Scheme of continuous monitoring. In the first place the total system evolves from time $t$ to $t+\dt$ according to the Lindblad master equation (denoted as $\mathfrak{L}$). We then measure the observable $\hat{M}$ on the total state and we denote the outcome as $m$. Then, by tracing out the environment, we find $\rho_c(t+\dt)$. To form the next total system $\bm{\varrho}_c(t+\dt)$, the system couples instantaneously with the next temporal mode $B_{t+\dt}$, and so on. The process is repeated until the end of the monitoring. Note that before applying the partial trace, the system state is entangled with the environmental state due to the dynamics, this entanglement is represented by a gradient of color on the scheme. Moreover, it is important to realize that the index $c$ at $t+\dt$ has been updated and includes the series of measurements up to time $t+\dt$ (and thus $m$ obtained at time $t$ in particular).}\label{fig:scheme}
 \end{figure}
-
-\section{State of the art}
-This section aims to place the present work within the broader context of modern quantum physics. In the first chapter, we have introduced the fundamental concepts of Quantum Measurement Theory (QMT) and Open Quantum Systems (OQS), which provide the theoretical framework required to describe continuous quantum measurements.
 
 QMT links the quantum formalism to classical measurement outcomes. Early quantum mechanics was developed without a complete measurement theory, but Heisenberg \cite{Hei30}, Dirac \cite{Dir30}, von Neumann \cite{vN32} and Lüders \cite{Lud51} established the foundations of projective measurements. For a long time, these ideas were mainly of foundational interest, as experiments typically involved ensembles or destructive measurements. This framework was later extended to non-ideal measurements by Davies \cite{Dav76} and Kraus \cite{Kra83}, providing a general description of quantum measurement processes. In parallel, continuously monitored quantum systems were investigated, notably through quantum jump models \cite{SD81}. A major shift occurred with experiments on single quantum systems, especially the observation of quantum jumps in trapped ions \cite{CK85,NSD86,BHIW86}. This required a dynamical description of measurement-conditioned quantum states, leading to stochastic evolution equations and the quantum trajectory formalism \cite{DCM92,GPZ92,Car93}. Independently, Belavkin developed quantum filtering theory by extending classical control concepts to continuously measured quantum systems \cite{Bel88,BS92}, establishing a rigorous framework for quantum trajectories in open systems. These developments naturally led to quantum feedback control, where measurement results are used in real time to steer dynamics \cite{Bel83,Bel99,WM93c,Wis94}.
 
 Beyond its fundamental interest, continuous quantum measurement is closely connected to several active research areas, including quantum parameter estimation~\cite{PARIS2009,Rossi2020,Albarelli2020} and quantum feedback control~\cite{Doherty2000,Rouchon2015}. These topics rely on the information extracted from measurement records and play a central role in modern applications. The relationships between these different research directions are illustrated in Fig.~\ref{fig:prefaceWM}, extracted from the preface of \textit{Wiseman and Milburn}'s Quantum Measurement and Control \cite{WM}. The diagram highlights how quantum measurement theory and open quantum systems provide the foundations for quantum trajectories, quantum feedback control, and their applications to quantum information processing.
 \begin{figure}[tbp]
     \centering
-    \includegraphics[width=0.8\textwidth]{Images/Preface.png}
+    \includegraphics[width=0.52\textwidth]{Images/Preface.png}
     \caption{Conceptual map of the main topics. Quantum Measurement Theory and Open Quantum Systems form the basis of quantum trajectories, which in turn connect to quantum feedback control and applications in quantum information processing. Quantum parameter estimation and state-based feedback control are closely related research directions. Extracted from the preface of \textit{Wiseman and Milburn}'s Quantum Measurement and Control \cite{WM}.}\label{fig:prefaceWM}
 \end{figure}
 
@@ -280,38 +280,3 @@ This involves a more general definition of Kraus operators than the one initiall
 \end{equation}
 where $\breve{\rho}_c(t+\dt)$ is the solution of the unnormalized linear SME. This last equation is related to the use of $p_\mathrm{ost}$ to obtain Eq.~(\ref{eq:sumPOVMK}) because we have explained in the linear quantum trajectory section that $\mathbb{E}_{p_\text{ost}}\qty[\breve{\rho}_c(t)]=\rho(t)$. Indeed, the homodyne SME can be obtained again by averaging over every possible trajectories the conditional state evolution of Eq~(\ref{eq:evolKraus}).
 
-\section{Simulations}
-In this section, we will focus on two different systems under continuous measurement of their environment. The first system is a qubit (two-levels quantum system), while the second system is a harmonic oscillator (infinite levels). 
-
-% We will briefly expose the notations used in the qubit case in the following. The excited state is denoted as $\ket{e}$, while the ground state is denoted as $\ket{g}$. We are going to need the definitions of some operators, in particular 
-% \begin{equation}
-%     \sigma_z=\mqty(1 & 0 \\ 0 & -1)=\ketbra{e}-\ketbra{g},
-% \end{equation}
-% which is the Z-Pauli matrix. Moreover, we will use the qubit ladder operators:
-% \begin{equation}
-%     \sigma_+ = \mqty(0 & 1 \\ 0 & 0) = \ket{e}\bra{g},\qquad \sigma_- = \mqty(0 & 0 \\ 1 & 0) = \ket{g}\bra{e}.
-% \end{equation}
-\graphicspath{{../SimpleSim/}}
-
-\subsection{The qubit under photo-detection of its environment}
-blablabla
-
-
-\begin{figure}[b]
-    \centering
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{MCQ/Pop_10000.pdf}
-        \caption{Légende de la première image.}
-        \label{fig:gauche}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{MCQ/histo.pdf}
-        \caption{Légende de la deuxième image.}
-        \label{fig:droite}
-    \end{subfigure}
-    
-    \caption{Légende globale de l'ensemble de la figure.}
-    \label{fig:globale}
-\end{figure}
