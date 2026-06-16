@@ -78,7 +78,7 @@ Therefore in our case ($\alpha=\beta=\sqrt{2}$), we have that the dimensionless 
 \end{equation}
 with the initial condition $\rho_{ee}^\mathrm{no-jump}(0)=\frac{1}{2}$ as expected.
 
-\subsection{The harmonic oscillator under photo-detection of its environment}
+\subsection{The harmonic oscillator under photo-detection of its environment}\label{sec:MCH}
 
 This simulation is embedded within the \verb|MCHarm.jl| program with the same function \verb|mcsolve|, as in the last subsection. The initial state is $\ket{\psi(0)}=\ket{\alpha_0}$, where $\alpha_0$=2. This state is a coherent state~\cite{Barnett}, we define it using the Fock states $\qty{n}_{n\in\mathbb{N}}$ as
 \begin{equation}\label{eq:coherentfock}
@@ -151,10 +151,9 @@ The mean population can be simply evaluated thanks to $\expval{\hat{n}}{\beta} =
 the right hand equation being simply the same as the left one with the dimensionless conversion $kt=\tau$ (along with the fact that $t_0=0$). If we now compare this result with the unconditional evolution in Eq.~(\ref{eq:uncondMCH}), we realize that they are exactly the same. This result explains why the errors between the average curve, the unconditional curve and the no-jump curve is so small. We seem to have find an initial system which is not bothered by the photo-detection measurement of its environment. Obviously, the system's population still jumps to different levels as the Figure~\ref{fig:MCHhist} shows, so their is still a tiny difference between the average conditional curve and the unconditional curve. 
 
 \subsection{The qubit under homodyne detection of its environment}
-
 For the homodyne measuring process we simulate the evolution of the conditional state with the function \verb|smesolve| from \verb|QuantumToolbox.jl|. The Hamiltonians and initial states are the same for each system but we chose to work with density matrices in the programs (here \verb|XHomodyneQubit.jl| and \verb|PHomodyneQubit.jl|) for demonstrative purpose. 
 
-In the qubit case, one quickly realizes that the $0$ and $\pi/2$ quadratures are interesting operators to measure because they are linked to the correlation of the state. To show this, we need to work on the expression of $\expval{\sigma_\theta} = \mathrm{Tr}\qty[\rho(t)\sigma_\theta]$ with a general density matrix $\rho$, in which we define the qubit's quadrature operator by  
+In the qubit case, one quickly realizes that the $0$ and $\pi/2$ quadratures are interesting operators to measure since they are linked to the correlation of the state. To show this, we need to work on the expression of $\expval{\sigma_\theta} = \mathrm{Tr}\qty[\rho(t)\sigma_\theta]$ with a general density matrix $\rho$, in which we define the qubit's quadrature operator by  
 \begin{equation}
     \sigma_\theta = \frac{\sigma_- e^{-i\theta} + \sigma_+ e^{i\theta}}{\sqrt{2}}.
 \end{equation}
@@ -162,18 +161,34 @@ This expression can be developed to let the correlations appear explicitly, yiel
 \begin{equation}
     \expval{\sigma_\theta} = \frac{\rho_{eg} e^{-i\theta} + \rho_{ge} e^{i\theta}}{\sqrt{2}} = \abs{\rho_{eg}}\frac{e^{i(\varphi-\theta)}+e^{i(\theta-\varphi)}}{\sqrt{2}},
 \end{equation}
-where we used the exponential notation for the correlations (complex scalars). In particular, since $\rho_{ge}=\rho_{eg}^*$ we can write that $\rho_{eg}=\abs{\rho_{eg}}e^{i\varphi}$ and that $\rho_{ge}=\abs{\rho_{eg}}e^{-i\varphi}$. We can recognize the expression of a cosinus, hence
+where we used the exponential notation for the correlations (which are complex scalars). In particular, since $\rho_{ge}=\rho_{eg}^*$ we can write that $\rho_{eg}=\abs{\rho_{eg}}e^{i\varphi}$ and $\rho_{ge}=\abs{\rho_{eg}}e^{-i\varphi}$. We can recognize the expression of a cosinus, explicitly
 \begin{equation}
     \expval{\sigma_\theta} = \sqrt{2} \abs{\rho_{eg}} \mathrm{cos}\qty(\varphi-\theta).
 \end{equation}
-In particular, the aforementioned quadratures are therefore
+To summarize, the aforementioned quadratures are therefore
 \begin{equation}
     \expval{\sigma_0} = \sqrt{2} \abs{\rho_{eg}} \mathrm{cos}\qty(\varphi)=\sqrt{2}\mathrm{Re}\qty{\rho_{eg}}, \quad \expval{\sigma_{\pi/2}} = \sqrt{2} \abs{\rho_{eg}} \mathrm{sin}\qty(\varphi)=\sqrt{2}\mathrm{Im}\qty{\rho_{eg}}.
 \end{equation}
-The simulations yield the graphs in Figure~\ref{fig:HQglobale} where we can compare the averaged quadratures with the analytical unconditional quadratures. To find the expressions of these analytical curves, we used the OQS theory~\cite{Breuer}, which gives
+The simulations yield the graphs in Figure~\ref{fig:HQglobale} where we can compare the averaged quadratures with the analytical unconditional quadratures. To find the expressions of these analytical curves (one per quadrature), we used the OQS theory~\cite{Breuer}, which gives
 \begin{equation}
-    \rho_{eg}(t) = \rho_{eg}(0)e^{-\qty(\frac{k}{2}+i\omega_0)t}
+    \rho_{eg}(t) = \rho_{eg}(t_0)e^{-\qty(\frac{k}{2}+i\omega_0)(t-t_0)}.
 \end{equation}
+Expanding the complex exponential with the Euler formula gives
+\begin{equation}
+    \rho_{eg}(t) = \rho_{eg}(t_0)e^{-\frac{k(t-t_0)}{2}}\qty{\mathrm{cos}\qty[\omega_0 (t-t_0)]-i\mathrm{sin}\qty[\omega_0 (t-t_0)]}.
+\end{equation}
+Hence in dimensionless units (and with the initial condition $t_0=0$),
+\begin{equation}
+    \rho_{eg}(\tau) = \rho_{eg}(0)e^{-\frac{\tau}{2}}\qty[\mathrm{cos}\qty(\Omega\tau)-i\mathrm{sin}\qty(\Omega\tau)].
+\end{equation}
+The initial state being the density matrix built from $\ket{\psi(0)}=\frac{\ket{e}+\ket{g}}{\sqrt{2}}$, it gives
+\begin{equation}
+    \begin{cases}
+        \sqrt{2}\mathrm{Re}\qty{\rho_{eg}(\tau)} = \frac{e^{-\frac{k\tau}{2}}}{\sqrt{2}}\mathrm{cos}(\Omega\tau)\\
+        \sqrt{2}\mathrm{Im}\qty{\rho_{eg}(\tau)} = -\frac{e^{-\frac{k\tau}{2}}}{\sqrt{2}}\mathrm{sin}(\Omega\tau)
+    \end{cases}.
+\end{equation}
+This system of equation are giving the dashed blue curves on graphs of Figure~\ref{fig:HQglobale}, while the averaged trajectories are the two solid orange curves. 
 
 \begin{figure}[h]
     \centering
@@ -195,24 +210,95 @@ The simulations yield the graphs in Figure~\ref{fig:HQglobale} where we can comp
     \label{fig:HQglobale}
 \end{figure}
 
-blablabla
+For consistency, we plot the absolute difference between a single trajectory and the unconditional evolution (solid grey curve), and the absolute difference between the averaged trajectories and the unconditional trajectory (solid orange curve) present on Figure~\ref{fig:HQerrglobale} for each quadrature. These graphs emphasize the fact that the averaged trajectory coincides with the unconditional Lindblad master equation trajectory. It will be put in contrast with the following results in the case of the harmonic oscillator instead of the qubit.
 
 \begin{figure}[h]
     \centering
     \begin{subfigure}[t]{0.6\textwidth}
         \centering
         \includegraphics[width=\textwidth]{HQ/XquadSingleError.pdf}
-        \caption{The evolution of $\sqrt{2}\mathrm{Re}\qty{\rho_{eg}}$ of the qubit with respect to dimensionless time $\tau$ compared to the unconditional evolution of the same quantity.}
+        \caption{Absolute difference between a single trajectory or the averaged trajectories with the unconditional trajectory for the $0$ quadrature (proportional to the real part of $\rho_{eg}$).}
         \label{fig:HQXquaderr}
     \end{subfigure}
     \\
     \begin{subfigure}[t]{0.6\textwidth}
         \centering
         \includegraphics[width=\textwidth]{HQ/PquadSingleError.pdf}
-        \caption{The evolution of $\sqrt{2}\mathrm{Im}\qty{\rho_{eg}}$ of the qubit with respect to dimensionless time $\tau$ compared to the unconditional evolution of the same quantity.}
+        \caption{Absolute difference between a single trajectory or the averaged trajectories with the unconditional trajectory for the $\pi/2$ quadrature (proportional to the imaginary part of $\rho_{eg}$).}
         \label{fig:HQPquaderr}
     \end{subfigure}
     
-    \caption{The evolution of two qubit quadratures obtained by simulating continuous homodyne detection of the qubit's environment. }
+    \caption{Graphs highlighting the convergence of averaged trajectories towards the unconditional trajectory (compared to a single trajectory) for the qubit under homodyne measurement of its environment.}
     \label{fig:HQerrglobale}
 \end{figure}
+\newpage
+\subsection{The harmonic oscillator under homodyne detection of its environment}
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}[t]{0.6\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{HH/Xquadrature.pdf}
+        \caption{The evolution of $\sqrt{2}\mathrm{Re}\qty{\rho_{eg}}$ of the qubit with respect to dimensionless time $\tau$ compared to the unconditional evolution of the same quantity.}
+        \label{fig:HHXquad}
+    \end{subfigure}
+    \\
+    \begin{subfigure}[t]{0.6\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{HH/Pquadrature.pdf}
+        \caption{The evolution of $\sqrt{2}\mathrm{Im}\qty{\rho_{eg}}$ of the qubit with respect to dimensionless time $\tau$ compared to the unconditional evolution of the same quantity.}
+        \label{fig:HHPquad}
+    \end{subfigure}
+    
+    \caption{The evolution of two qubit quadratures obtained by simulating continuous homodyne detection of the qubit's environment. }
+    \label{fig:HHglobale}
+\end{figure}
+The case of the harmonic oscillator is similar to the last one, we only change the Hamiltonian and the initial system to be a coherent density matrix, in analogy of the settings in Section~\ref{sec:MCH} but with the density matrix formalism (for demonstrative purpose only). These steps are encoded in the program named \verb|HomodyneHarmonic.jl|. Unlike the previous cases, we don't plot some single trajectories because they are extremely close to the unconditional/averaged trajectories, this is highlighted in the error plots of Figure~\ref{fig:HHerrglobale}. Indeed, compared to the Figure~\ref{fig:HQerrglobale}, we observe a difference in the order of magnitude of errors (the qubit single-trajectory errors are around $10^{-1}$ to $10^{-2}$, while for the harmonic oscillator they are around $10^{-4}$).\newpage
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}[t]{0.6\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{HH/XquadSingleError.pdf}
+        \caption{Absolute difference between a single trajectory or the averaged trajectories with the unconditional trajectory for the $0$ quadrature.}
+        \label{fig:HHXquaderr}
+    \end{subfigure}
+    \\
+    \begin{subfigure}[t]{0.6\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{HH/PquadSingleError.pdf}
+        \caption{Absolute difference between a single trajectory or the averaged trajectories with the unconditional trajectory for the $\pi/2$ quadrature.}
+        \label{fig:HHPquaderr}
+    \end{subfigure}
+    
+    \caption{Graphs highlighting the convergence of averaged trajectories towards the unconditional trajectory (compared to a single trajectory) for the harmonic oscillator under homodyne measurement of its environment.}
+    \label{fig:HHerrglobale}
+\end{figure}
+
+To obtain the analytical expression for the unconditional trajectory, we need an important result of OQS theory: a coherent state stays coherent under the Lindblad master equation evolution~\cite{Breuer}. The expression of the state at time $t$ is
+\begin{equation}
+    \alpha(t) = e^{-i\qty(i\omega_0+\frac{k}{2})(t-t_0)} \alpha(t_0).
+\end{equation}
+By defining the quadrature operator of the harmonic oscillator as
+\begin{equation}
+    a_\theta = \frac{ae^{-i\theta}+a^\dagger e^{i\theta}}{\sqrt{2}},
+\end{equation}
+we can analytically calculate the mean value of this operator. That is to say,
+\begin{equation}
+    \expval{a_\theta}{\alpha(t)} =  \frac{\expval{a}{\alpha(t)}e^{-i\theta}+\expval{a^\dagger}{\alpha(t)} e^{i\theta}}{\sqrt{2}}.
+\end{equation}
+The fundamental relation $a\ket{\alpha}=\alpha\ket{\alpha}$ allows to simplify the previous equation into
+\begin{equation}
+    \expval{a_\theta(t)} = \frac{\alpha(t)e^{-i\theta}+\alpha(t)^* e^{i\theta}}{\sqrt{2}} = \abs{\alpha(t_0)}\frac{e^{-i\qty[\omega_0(t-t0)+\theta]}+e^{i\qty[\omega_0(t-t0)+\theta]}}{\sqrt{2}}e^{-\frac{k(t-t_0)}{2}}.
+\end{equation}
+Converting once again to dimensionless units and by recognizing the expression of a cosinus, we obtain
+\begin{equation}
+    \expval{a_\theta(\tau)} = \sqrt{2}\abs{\alpha_0}e^{-\frac{\tau}{2}}\mathrm{cos}\qty(\Omega\tau+\theta).
+\end{equation}
+Since $\alpha_0=2$, the dashed blue curves present respectively in Figure~\ref{fig:HHXquad} and Figure~\ref{fig:HHPquad} are simply
+\begin{equation}
+    \begin{cases}
+        \expval{a_0(\tau)} = 2\sqrt{2}e^{-\frac{\tau}{2}}\mathrm{cos}\qty(\Omega\tau)\\
+        \expval{a_{\pi/2}(\tau)} = -2\sqrt{2}e^{-\frac{\tau}{2}}\mathrm{sin}\qty(\Omega\tau)
+    \end{cases}.
+\end{equation}
+
