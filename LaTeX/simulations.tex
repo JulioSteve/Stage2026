@@ -236,15 +236,15 @@ The fundamental relation $a\ket{\alpha}=\alpha\ket{\alpha}$ allows to simplify t
 \begin{equation}
     \expval{a_\theta(t)} = \frac{\alpha(t)e^{-i\theta}+\alpha(t)^* e^{i\theta}}{\sqrt{2}} = \abs{\alpha(t_0)}\frac{e^{-i\qty[\omega_0(t-t0)+\theta]}+e^{i\qty[\omega_0(t-t0)+\theta]}}{\sqrt{2}}e^{-\frac{k(t-t_0)}{2}}.
 \end{equation}
-Converting once again to dimensionless units and by recognizing the expression of a cosinus, we obtain
+By recognizing the expression of a cosinus, we obtain
 \begin{equation}
-    \expval{a_\theta(\tau)} = \sqrt{2}\abs{\alpha_0}e^{-\frac{\tau}{2}}\mathrm{cos}\qty(\Omega\tau+\theta).
+    \expval{a_\theta(t)} = \sqrt{2}\abs{\alpha_0}e^{-\frac{k t}{2}}\mathrm{cos}\qty(\omega_0 t+\theta).
 \end{equation}
 Since $\alpha_0=2$, the dashed blue curves present respectively in Figure~\ref{fig:HHXquad} and Figure~\ref{fig:HHPquad} are simply
 \begin{equation}
     \begin{cases}
-        \expval{a_0(\tau)} = 2\sqrt{2}e^{-\frac{\tau}{2}}\mathrm{cos}\qty(\Omega\tau)\\
-        \expval{a_{\pi/2}(\tau)} = -2\sqrt{2}e^{-\frac{\tau}{2}}\mathrm{sin}\qty(\Omega\tau)
+        \expval{a_0(t)} = 2\sqrt{2}e^{-\frac{k t}{2}}\mathrm{cos}\qty(\omega_0 t)\\
+        \expval{a_{\pi/2}(t)} = -2\sqrt{2}e^{-\frac{k t}{2}}\mathrm{sin}\qty(\omega_0 t)
     \end{cases}.
 \end{equation}
 
