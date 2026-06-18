@@ -1,11 +1,11 @@
 \section[Open quantum systems]{Open Quantum Systems (OQS)}\label{OQS}
 \setlength{\parskip}{2mm}\setlength{\parindent}{6mm}
-In the previous part, we saw that one can fully describe a system, observables, states and their evolution. However, this description applies to the ideal case where the quantum system is considered isolated from any external interaction. Instead, in the OQS theory systems interact locally with an environment, which itself interacts with a wider environment, etc\ldots To avoid considering infinite chains of interaction, the theory truncates the environment to a local vicinity of the system. Thus, we approximate the total system $T$ as a closed quantum system, within which the quantum system of interest $S$ is called an open quantum system. Moreover, as explained $S$ couples with its environment $E$, thus giving rise to a dynamical regime distinct from that of closed quantum systems.
+In the previous part, we saw that one can fully describe a system, observables, states and their evolution. However, this description applies to the ideal case where the quantum system is considered isolated from any external interaction. Instead, in the OQS theory systems interact locally with an environment, which itself interacts with a wider environment, etc\ldots To avoid considering infinite chains of interaction, the theory truncates the environment to a local vicinity of the system. Thus, we approximate the total system $T$ as a closed quantum system, within which the quantum system of interest $S$ is called an open quantum system. Moreover, the coupling between the system $S$ and its environment $E$ induces a dynamical regime that differs fundamentally from that of closed quantum systems.
 
 \subsection{Building the formalism}
 We will present here a derivation of the Lindblad master equation using the \textit{input-output formalism}~\cite{Albarelli,GardinerCollett}. This derivation can alternatively be carried out using a microscopic approach~\cite{Breuer}. Since a full derivation of the input-output formalism is mathematically challenging, we will only provide its key equations and their physical meaning.
 
-As seen in Section~\ref{sec:multipartite}, the Hilbert space of the total system is divided into $\mathcal{H}_T=\mathcal{H}_S\otimes\mathcal{H}_E$. We consider as initial state a factorized state: $\rho_T=\rho_S\otimes\rho_E$. From now on we will use a typographic convention where $\rho_T\equiv\bm{\varrho}$ and $\rho_S\equiv\rho$, such that the last assumption rewrites $\bm{\varrho}=\rho\otimes\rho_E$. The system Hamiltonian $H_S$ depends on which physical system is studied and is left free. Instead, the environment is chosen as a collection of quantum harmonic oscillators, the environment Hamiltonian being thus defined by
+As seen in Section~\ref{sec:multipartite}, the Hilbert space of the total system is divided into $\mathcal{H}_T=\mathcal{H}_S\otimes\mathcal{H}_E$. We consider as initial state a factorized state: $\rho_T=\rho_S\otimes\rho_E$. From now on we will use a typographic convention where $\rho_T\equiv\bm{\varrho}$ and $\rho_S\equiv\rho$, such that the last assumption rewrites $\bm{\varrho}=\rho\otimes\rho_E$. The system Hamiltonian $H_S$ depends on which physical system is studied and is left free until it is time-independent. Instead, the environment is chosen as a collection of quantum harmonic oscillators, the environment Hamiltonian being thus defined by
 \begin{equation}\label{eq:EHamiltonian}
     H_E=\int_0^{+\infty} \hbar\omega b^\dagger_\omega b_\omega\mathrm{d}\omega,
 \end{equation}
@@ -26,9 +26,9 @@ in which we used the following notation: for any operator $O(t)$ we denote by $\
 
 Before calculating explicitly the expression of $\tilde{H}_I$, we need to make some assumptions which are listed below.
 \begin{itemize}
-    \item The \textit{first Markovian assumption} we consider the interaction strength to be constant in a (large) bandwidth $\mathcal{W}=\qty[\omega_0-\theta; \omega_0+\theta]$ ($\omega_0$ is the natural frequency of $S$), so that $\forall \omega\in\mathcal{W},\quad k(\omega)= k$. The coupling strength is considered negligible outside of $\mathcal{W}$.
-    \item The system operator acquires a time-dependent phase in the interaction picture: $\tilde{c}(t)=ce^{-i\omega_0 (t-t_0)}$. This ansatz is motivated by the explicit form of operators in the interaction picture when considering elementary systems~\cite{Albarelli}.
-    \item We assume that $k\ll\omega_0$, which establishes $\tau=\frac{1}{k}$ as the dominant timescale for the dynamics. 
+    \item For the \textit{first Markovian assumption} we consider the interaction strength to be constant in a (large) bandwidth $\mathcal{W}=\qty[\omega_0-\theta; \omega_0+\theta]$ ($\omega_0$ is the natural frequency of $S$), so that $\forall \omega\in\mathcal{W},\quad k(\omega)= k$. The coupling strength is considered negligible outside of $\mathcal{W}$.
+    \item The system operator acquires a time-dependent phase in the interaction picture: $\tilde{c}(t)=ce^{-i\omega_0 (t-t_0)}$. This ansatz is motivated by the expression of the system's Hamiltonian in the interaction picture when considering elementary systems~\cite{Albarelli} (two-levels quantum system or harmonic oscillator for example). The ansatz is equivalent to $\qty[c,H_S]\propto c$.
+    \item We assume that $k\ll\omega_0$, which establishes $\tau=\frac{1}{k}$ as the dominant timescale, dictating the slow non-unitary dynamics of the system.
 \end{itemize}
 We can now express the interaction Hamiltonian in the interaction picture by
 \begin{equation}\label{eq:H_Ipicture}
@@ -38,7 +38,7 @@ in which we defined the input field operator $b_t$ as
 \begin{equation}\label{eq:inputmodes}
     b_t = \frac{1}{\sqrt{2\pi}}\int_\mathcal{W} b_\omega e^{-i(\omega-\omega_0)(t-t_0)}\mathrm{d}\omega.
 \end{equation}
-To characterize the environmental operators $b_t$, we can compute their canonical commutation relation: 
+To characterize the environmental operators $b_t$, we can compute the canonical commutation relation
 \begin{equation}\label{eq:btCCR}
     \qty[b_t,b_{t'}^\dagger] = \frac{1}{\sqrt{2\pi}}\int_{-\theta}^{\theta}e^{-i\omega(t-t')}\mathrm{d}\omega= \delta(t-t').
 \end{equation}
@@ -68,11 +68,11 @@ If we now define a set of bosonic operators $B_t$ such that $B_t=b_t\sqrt{\mathr
 \begin{equation}
     \qty[B_t,B_t^\dagger]=\mathbb{I},
 \end{equation}
-which is the canonical commutation relation of creation/annihilation bosonic operators\footnote{In the input-output formalism, the annihilation operator acts on its Fock basis as $B_t\ket{n}_t=\sqrt{n}\ket{n-1}_t$ (with the vacuum condition $B_t\ket{0}_t=0$), whereas the adjoint (creation operator) acts as $B_t\ket{n}_t=\sqrt{n+1}\ket{n+1}_t$.}. Since $\qty{B_t}_{t\in\mathbb{R}}$ forms an infinite set of proper annihilation operators, the environment can be modeled as a continuous collection of quantum harmonic oscillators. In this framework, at any time $t$, the system couples to the corresponding temporal bosonic mode defined by $B_t$. After evolving over the infinitesimal duration $\dt$, the system decouples from the mode at $t$ and interacts with the next mode at $t+\dt$.
+which is the canonical commutation relation of creation/annihilation bosonic operators\footnote{In the input-output formalism, the annihilation operator acts on its Fock basis as $B_t\ket{n}_t=\sqrt{n}\ket{n-1}_t$ (with the vacuum condition $B_t\ket{0}_t=0$), whereas the adjoint (creation operator) acts as $B_t^\dagger\ket{n}_t=\sqrt{n+1}\ket{n+1}_t$.}. Since $\qty{B_t}_{t\in\mathbb{R}}$ forms an infinite set of proper annihilation operators, the environment can be modeled as a continuous collection of quantum harmonic oscillators. In this framework, at any time $t$, the system couples to the corresponding temporal bosonic mode defined by $B_t$. After evolving over the infinitesimal duration $\dt$, the system decouples from the mode at $t$ and interacts with the next mode at $t+\dt$.
 
 We now make use of one more assumption to derive the evolution of the state $\rho(t)$ of the open quantum system $S$.
 \begin{itemize}
-    \item The \textit{Born-Markov approximation}: at each time $t$, the total state $\bm{\varrho}(t)$ is a factorized state with the ``same'' reduced state for the environment, explicitly
+    \item The \textit{Born-Markov approximation}: at each time $t$, the total state $\bm{\varrho}(t)$ is a factorized state with the ``same'' reduced state for the environment, 
     \begin{equation}
         \forall t\in\mathbb{R},\quad\tilde{\bm{\varrho}}(t)=\tilde{\rho}(t)\otimes \nu_t,
     \end{equation}
@@ -101,7 +101,7 @@ The subtlety here is that the unitary evolution operator scales with $\sqrt{\dt}
     U_I(t+\dt,t)\approx\mathbb{I}\otimes\mathbb{I}+\qty(c\otimes B_t^\dagger-c^\dagger\otimes B_t)\sqrt{k\dt}+\\
     \qty(c^{\dagger 2}\otimes B_t^2 + c^2\otimes B_t^{\dagger 2}-c c^\dagger\otimes B_t^\dagger B_t - c^\dagger c\otimes B_t B_t^\dagger)\frac{k\dt}{2}.
 \end{multline}
-We can now rewrite the evolution of $\tilde{\bm{\varrho}}$ during the infinitesimal time $\dt$, i.e.~Eq.~(\ref{eq:rhoTevol}), using the previous expansion:
+We can now rewrite the evolution of $\tilde{\bm{\varrho}}$ during the infinitesimal time $\dt$, given by Eq.~(\ref{eq:rhoTevol}), using the previous expansion:
 \begin{multline}\label{eq:expansion}
     \tilde{\bm{\varrho}}(t+\dt)\approx \qty[\tilde{\rho}(t)\otimes\ketbra{0}_t]\times 1
     +\qty[\tilde{\rho}(t) c^\dagger\otimes\ketbra{0}{1}_t+\mathrm{h.c.}]\times\sqrt{k\dt}\\
@@ -111,12 +111,12 @@ where ``h.c.'' stands for hermitian conjugate of the last term. We can now apply
 \begin{equation*}
     \tilde{\rho}(t+\dt)=\tilde{\rho}(t)+k\qty[c\tilde{\rho}(t)c^\dagger - \frac{c^\dagger c\tilde{\rho}(t)+\tilde{\rho}(t)c^\dagger c}{2}]\dt.
 \end{equation*}
-If we now form the difference quotient $\frac{\tilde{\rho}(t+\dt)-\tilde{\rho}(t)}{dt}$, in the infinitesimal limit, we find the differential equation followed by the state $\rho$ at all time, i.e
+If we now form the difference quotient $\frac{\tilde{\rho}(t+\dt)-\tilde{\rho}(t)}{dt}$, in the infinitesimal limit, we find the differential equation followed by the state $\tilde{\rho}$ at all time,
 \begin{equation}
     \frac{\mathrm{d}\tilde{\rho}}{\dt}(t)=k\mathfrak{D}[c]\tilde{\rho}(t),
 \end{equation}
-where we defined the super-operator $\mathfrak{D}[\hat{O}]\bullet\equiv \hat{O}\bullet\hat{O}^\dagger-\frac{\qty{\hat{O}^\dagger\hat{O},\bullet}}{2}$ called the dissipator. Finally, by coming back into the Schrödinger representation, we find the so-called {Lindblad master equation}:
+where we defined the super-operator $\mathfrak{D}[\hat{O}]\bullet\equiv \hat{O}\bullet\hat{O}^\dagger-\frac{\qty{\hat{O}^\dagger\hat{O},\bullet}}{2}$, called the dissipator. Finally, by coming back into the Schrödinger representation, we find the so-called {Lindblad master equation}:
 \begin{equation}\label{eq:LindbladME}
     \boxed{\frac{\mathrm{d}\rho}{\dt}(t)=-\frac{i}{\hbar}\qty[H_S, \rho(t)]+k\mathfrak{D}[c]\rho(t)}.
 \end{equation}
-The proof is straightforward, however one should pay attention to the compensation of complex exponential when calculating $U_0cU^\dagger_0$, using the ansatz $\tilde{c}(t)=ce^{-i\omega_0(t-t_0)}$. Note that since $\rho$ and $c$ are operators on $\mathcal{H}_S$, any commutator with $H_0$ simplifies into a commutator with $H_S$.
+The proof is straightforward, however one should pay attention to the compensation of complex exponential when calculating $U_0cU^\dagger_0$, using the ansatz $\tilde{c}(t)=ce^{-i\omega_0(t-t_0)}$. Note that since $\rho$ and $c$ are operators of $\mathcal{H}_S$, any commutator with $H_0$ simplifies into a commutator with $H_S$, since trivially $\qty[\hat{O}_S,H_E]=0$ for any operator $\hat{O}_S$ of the system $S$.
