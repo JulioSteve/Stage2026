@@ -1,18 +1,20 @@
+\appendix
+\setlength{\parskip}{2mm}\setlength{\parindent}{6mm}
+\renewcommand{\thesubsection}{\thesection.\alph{subsection}\char41}
+\numberwithin{equation}{section}
+\renewcommand{\theequation}{\thechapter.~\arabic{equation}}
 \chapter{Representations of quantum mechanics}\label{ann:pictures}
-\section*{Brief complement of quantum mechanics}
-An average is defined in quantum mechanics by
+In quantum mechanics we define the expectation value of an operator $O$ by
 \begin{align*}
     \expval{O}_\psi&=\expval{O}{\psi},\\
-    \expval{O}_\rho&=\Tr{\rho O},
+    \expval{O}_\rho&=\Tr{\rho O}.
 \end{align*}
-where the subscripts $\ket{\psi}$ and $\rho$ refer respectively to the representation of pure states or
-to density matrix more general formalism. 
 \section{Schrödinger and Heisenberg pictures}
 In the Schrödinger picture we saw that $\ket{\psi(t)}=U(t)\ket{\psi}$, where $U(t)=e^{-\frac{i}{\hbar}Ht}$ in the case of a time-independent Hamiltonian with $t_0=0$. Nevertheless, the following results can be derived in the general case of a time dependent Hamiltonian,~\cite{Breuer}. Considering the average value of an observable $A_S(t)$ in the Schrödinger picture (in this picture, the time-dependence of an observable can only be explicit), we find
 \begin{align}
     \expval{A(t)} &= \expval{A_S(t)}{\psi(t)}\nonumber\\
     &= \expval{U^\dagger(t,t_0)A_S(t)U(t,t_0)}{\psi(t_0)}\\
-    &= \expval{A_H(t)}{\psi}_H.
+    &= \expval{A_H(t)}.
 \end{align}
 This calculation naturally reveals the Heisenberg representation of observables and states. Indeed, we have that $\ket{\psi(t_0)}_S\equiv\ket{\psi}_H$ which links both pictures at the initial time $t_0$. Furthermore, we can link both representation at all time by calculating the evolution of an observable in the Heisenberg picture:
 \begin{equation}
@@ -22,7 +24,7 @@ This equation leads to the famous \textit{Ehrenfest theorem} analogous in quantu
 \begin{equation}
     \boxed{\dert{\expval{A}}=\frac{i}{\hbar}\expval{\qty[H(t),A(t)]}+\expval{\derpart{A}}}.
 \end{equation}
-We observe that if the observable doesn't depend explicitly on time, then the dynamics of the operator is fully described in the Heisenberg picture.
+We observe that if the observable does not depend on time explicitly (the second term is 0 in the last equations), then the dynamics of the operator is fully described in the Heisenberg picture.
 
 \section{Interaction picture}
 As mentioned in the Section~\ref{OQS}, we can represent the coupling between $S$ and $E$ with an interaction Hamiltonian such that
@@ -33,7 +35,7 @@ From now on, we denote the state of the total system as $\bm{\varrho}$. Knowing 
 \begin{equation}\label{eq:evolrhoU}
     \bm{\varrho}(t) = U(t,t_0)\bm{\varrho}(t_0)U^\dagger(t,t_0).
 \end{equation}
-The evolution operator $U$ is the solution of the Schrödinger equation for the total system $T$. We know from Section~\ref{Ii1} that we can write the solution of the Schrödinger equation when having a time-independent Hamiltonian as an exponential. However here, the total Hamiltonian $H_T$ is obviously time-dependent (only $H_0$ is assumed constant in time). Nevertheless, a unitary solution still exists in this case~\cite{Breuer}: the free system (dynamically governed by $H_0$) follows unitary dynamics described by $U_0(t,t_0)=e^{-\frac{i}{\hbar}H_0 (t-t_0)}$. Thus, we can define the interaction unitary operator $U_I$ as
+The evolution operator $U$ is the solution of the Schrödinger equation for the total system $T$. We know from Section~\ref{Ii1} that we can write the solution of the Schrödinger equation as an exponential when dealing with a time-independent Hamiltonian. However here, the total Hamiltonian $H_T$ is obviously time-dependent (only $H_0$ is assumed constant in time). Nevertheless, a unitary solution still exists~\cite{Breuer} and is denoted by $U$ hereafter. the free system, governed by $H_0$, follows an unitary dynamics described by $U_0(t,t_0)=e^{-\frac{i}{\hbar}H_0 (t-t_0)}$. Thus, we can define the interaction unitary operator $U_I$ as
 \begin{align}
     U_I(t,t_0) &= U_0^\dagger(t,t_0)U(t,t_0)\\
     \Leftrightarrow U(t,t_0) &= U_0(t,t_0)U_I(t,t_0)\label{eq:Utotal}
@@ -61,11 +63,11 @@ In the end, we find the results used in the main part of this document:
 \begin{equation}
     \boxed{\tilde{\bm{\varrho}}(t)=U_I(t,t_0)\bm{\varrho}(t_0)U_I^\dagger(t,t_0)= U^\dagger_0(t,t_0)\bm{\varrho}(t)U_0(t,t_0)}.
 \end{equation}
-By working on the Liouville-von Neumann equation, one can show that by jumping into the interaction picture the dynamics do not depend anymore on the free Hamiltonian $H_0$:
+By working on the Liouville-von Neumann equation, one can show that by jumping into the interaction picture the dynamics depends on another Hamiltonian:
 \begin{equation}
     \qty(\dert{\bm{\varrho}}=-\frac{i}{\hbar}\qty[H_T,\bm{\varrho}])\Leftrightarrow\qty(\dert{\tilde{\bm{\varrho}}}=-\frac{i}{\hbar}\qty[\tilde{H}_I,\tilde{\bm{\varrho}}]),
 \end{equation}
-where $\tilde{H}_I=U_0^\dagger(t,t_0)H_I U_0(t,t_0)$ as defined. It is thus usual to work in this representation to get rid of free dynamics terms, and then jump back to the Schrödinger picture to recover the proper dynamics of the system.
+where $\tilde{H}_I=U_0^\dagger(t,t_0)H_I U_0(t,t_0)$. It is thus usual to work in this representation to get rid of free dynamics terms, and then jump back to the Schrödinger picture to recover the proper dynamics of the system.
 \subsubsection{Further discussion}
 We used in Eq.~(\ref{eq:rhoTevol}) the following approximation: $U_I(t+\dt,t)\approx e^{-\frac{i}{\hbar}\tilde{H}_I(t)\dt}$, and we would like to explain it here. 
 As seen in Eq.~(\ref{eq:rhoIS}), a state evolves in the interaction picture with a relation depending on $U_I$, which has been defined as $U_I=U_0^\dagger U$. It is possible to show from this definition that $U_I$ is subject to the following differential equation
