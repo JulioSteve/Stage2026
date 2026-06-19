@@ -87,7 +87,7 @@ As explained in the last subsection, the PDF in Figure~\ref{fig:MCHhist} is the 
 
 The unconditional mean population is given by 
 \begin{equation}\label{eq:uncondMCH}
-    \expval{\hat{n}(\tau)}=\expval{\hat{n}(0)}e^{-\tau} = \abs{\alpha_0}^2 e^{-\tau}.
+    \expval{\hat{n}(t)}=\expval{\hat{n}(0)}e^{-k t} = \abs{\alpha_0}^2 e^{-k t}.
 \end{equation}
 This evolution is represented by the dash-curve labeled by ``$\expval{\hat{n}(\tau)}$ (analytical)'' in Figure~\ref{fig:MCHpop}. Moreover, we represent some single trajectories with dotted lines, which coincide with the unconditional dynamics in the case of a coherent initial state. To obtain the simulation curve, we averaged 10,000 trajectories and we see that, as expected, the average evolution curve superposes with the unconditional evolution. However, compared to the qubit case, we see that the errors (present in the inset of Figure~\ref{fig:MCHpop}) are way more small (around $10^{-6}$ order of magnitude compared to $10^{-3}$ at worst). To have a hint on why the error is so low in this case, we might want to calculate the no-jump mean population evolution.
 
@@ -115,7 +115,7 @@ which will be used t\begin{figure}[tb]
     
     \caption{Results obtained from the Monte Carlo simulation of a harmonic oscillator under continuous photo-detection of its environment. }
     \label{fig:MCHglobale}
-\end{figure}o calculate $\expval{\hat{n}}{\psi_0(\tau)}$ after some steps. To do so, we might want to express this evolved state as a coherent state before any calculation. Indeed,
+\end{figure}o calculate $\expval{\hat{n}}{\psi_0(t)}$ after some steps. To do so, we might want to express this evolved state as a coherent state before any calculation. Indeed,
 \begin{equation}
     \ket{\tilde{\psi}_0(t)} = e^{\gamma(t) a^\dagger a}\ket{\alpha_0},
 \end{equation}
@@ -171,8 +171,8 @@ Expanding the complex exponential with the Euler formula gives
 The initial state being the density matrix built from $\ket{\psi(0)}=\frac{\ket{e}+\ket{g}}{\sqrt{2}}$, it gives
 \begin{equation}
     \begin{cases}
-        \sqrt{2}\mathrm{Re}\qty{\rho_{eg}(\tau)} = \frac{e^{-\frac{k\tau}{2}}}{\sqrt{2}}\mathrm{cos}(\Omega\tau)\\
-        \sqrt{2}\mathrm{Im}\qty{\rho_{eg}(\tau)} = -\frac{e^{-\frac{k\tau}{2}}}{\sqrt{2}}\mathrm{sin}(\Omega\tau)
+        \sqrt{2}\mathrm{Re}\qty{\rho_{eg}(t)} = \frac{e^{-\frac{k t}{2}}}{\sqrt{2}}\mathrm{cos}(\omega_0 t)\\
+        \sqrt{2}\mathrm{Im}\qty{\rho_{eg}(t)} = -\frac{e^{-\frac{k t}{2}}}{\sqrt{2}}\mathrm{sin}(\omega_0 t)
     \end{cases}.
 \end{equation}
 This system of equation give the dashed blue curves on graphs of Figure~\ref{fig:HQglobale}, while the averaged trajectories are the two solid orange curves.\newpage
