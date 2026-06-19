@@ -4,8 +4,9 @@ theme(:dao)
 palette = theme_palette(:dao)
 
 
-Ω = 10 # Ω=ω0/k the ratio between natural frequency of the system ω0 and the couplign constant k. Weak coupling implies Ω>>1.
-dτ = 2π/(50*Ω) # By definition T0=2π/ω0 and to work unitless: kT0=2πk/ω0. We choose to take 50 points per oscillation.
+Ω = 10 # Ω=ω0/k the ratio between natural frequency of the system ω0 and the coupling constant k. Weak coupling implies Ω>>1.
+dτ = 2π/(3000*Ω) # By definition T0=2π/ω0 and to work unitless: kT0=2πk/ω0. We choose to take 3000 points per oscillation.
+# We choose a smaller dτ to reduce the numerical errors. The stochastic solver is greatly impacted (precision and convergence) by the size of dτ.
 τlist = 0:dτ:10
 
 σm = sigmam()

@@ -20,7 +20,7 @@ H = Ω*σz/2 # unitless Hamiltonian
 c_ops = [σm]
 
 Ntraj = 10000
-sim = mcsolve(H, ψ0, τlist, c_ops, e_ops=[Pe], ntraj=Ntraj, progress_bar=Val(true), keep_runs_results=Val(true))
+sim = mcsolve(H, ψ0, τlist, c_ops, e_ops=[Pe], ntraj=Ntraj, progress_bar=Val(true), keep_runs_results=Val(true), reltol=1e-15, abstol=1e-15)
 trajs = real.(sim.expect[1,:,:])
 meantraj = sum(trajs, dims=1)./Ntraj
 

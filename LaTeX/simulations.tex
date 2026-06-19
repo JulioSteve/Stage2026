@@ -3,7 +3,7 @@ In this section, we will focus on two different systems under continuous measure
 
 Before looking at the diverse simulations, we want to explain the conversion into dimensionless variables we will use for our simulations. By considering the Lindblad master equation, Eq.~(\ref{eq:LindbladME}), we can introduce a dimensionless time $\tau=kt$ such that this equation rewrites as
 \begin{equation}
-    \frac{\mathrm{d}\rho(t)}{\mathrm{d}\tau} = -\frac{i}{k}\qty[H_S,\rho(t)] + \mathfrak{D}[c]\rho(t). 
+    \frac{\mathrm{d}\rho(\tau)}{\mathrm{d}\tau} = -\frac{i}{k}\qty[H_S,\rho(t)] + \mathfrak{D}[c]\rho(\tau). 
 \end{equation}
 In any of the following cases (simulating a qubit or a harmonic oscillator), the Hamiltonian $H_S$ is proportional to the natural frequency of the system denoted as $\omega_0$. Hence, the first term of the Lindblad master equation yields the dimensionless frequency $\frac{\omega_0}{k}$. To respect the weak-coupling condition, it must verify $\omega_0\gg k$, so, in the simulation we chose to set it to $\frac{\omega_0}{k}=10$. We know from OQS theory that after some oscillations, the system reaches the stationary state. Thus, our simulations will span over $\tau\in\qty[0,10]$ to be close enough to the stationary state at the end. This reasoning stands for SME simulations because we know that the average over every possible trajectories gives back the Lindblad unconditional evolution. We precise that the environments of the following systems are always at the zero-temperature limit, i.e., we consider the vacuum state of the environmental oscillator at each time $\ketbra{0}_t$. 
 
@@ -26,12 +26,12 @@ The simulation of a qubit under photo-detection of its environment is realized b
         \label{fig:MCQhist}
     \end{subfigure}
     
-    \caption{Results obtained from the Monte Carlo simulation of a qubit under continuous photo-detection of its environment. }
+    \caption{Results obtained from the Monte Carlo simulation of a qubit under continuous photo-detection of its environment. Numerical settings: $\mathrm{d}\tau=\frac{2\pi k}{50\omega_0}\approx 0.0126$, $N_\mathrm{trajs}=10,000$, tolerance of the solver: $10^{-15}$.}
     \label{fig:MCQglobale}
 \end{figure}\newpage
 
 To work with the qubit, we briefly detail the notations and operators used in the description of two-level systems. Firstly, the eigenstates of the Hilbert space $\mathcal{H}_S$ are denoted as $\ket{e}=\mqty(1 \\ 0)$ and $\ket{g}=\mqty(0 \\ 1)$, where $e$ is the excited state and $g$ is the ground state of the qubit. Secondly, the three Pauli matrices that form (together with the identity $\mathbb{I}$) an eigenbasis of $\mathcal{H}_S$ are denoted as $\sigma_x=\mqty(0 & 1 \\ 1 & 0),\quad \sigma_y=\mqty(0 & -i \\ i & 0),\quad \sigma_z=\mqty(1 & 0 \\ 0 & -1)$.
-We will also use the ladder operators $\sigma_- =\mqty(0 & 0 \\ 1 & 0),\quad \sigma_+ = \mqty(0 & 1 \\ 0 & 0)$, which act respectively as a lowering and a raising operator, inducing transitions from the excited to the ground state and vice-versa. Notice that in a two-levels system, the density matrix is simply $\rho = \mqty(\rho_{ee} & \rho_{eg} \\ \rho_{ge} & \rho_{gg})$, where $\rho_{ee}$ and $\rho_{gg}$ are respectively the excited and ground populations, and where $\rho_{eg}$ and $\rho_{ge}$ are the correlations. Notice that the definition of a density matrix, see Section~\ref{sec:purity}, implies that $\rho_{ee}+\rho_{gg}=1$, that $\rho_{ge}=\rho_{eg}^*$, and that $\rho_{ee}\rho_{gg}\geq \abs{\rho_{eg}}^2$ in particular.
+We will also use the ladder operators $\sigma_- =\mqty(0 & 0 \\ 1 & 0),\quad \sigma_+ = \mqty(0 & 1 \\ 0 & 0)$, which act respectively as a lowering and a raising operator, inducing transitions from the excited to the ground state and vice-versa. Notice that in a two-levels system, the density matrix is simply $\rho = \mqty(\rho_{ee} & \rho_{eg} \\ \rho_{ge} & \rho_{gg})$, where $\rho_{ee}$ and $\rho_{gg}$ are respectively the excited and ground populations, and where $\rho_{eg}$ and $\rho_{ge}$ are the coherences. Notice that the definition of a density matrix, see Section~\ref{sec:purity}, implies that $\rho_{ee}+\rho_{gg}=1$, that $\rho_{ge}=\rho_{eg}^*$, and that $\rho_{ee}\rho_{gg}\geq \abs{\rho_{eg}}^2$ in particular.
 
 
 In the case of the qubit, the no-jump evolution Eq~(\ref{eq:MC}) becomes
@@ -44,17 +44,17 @@ where $H_S = \frac{\omega_0}{2}\sigma_z$. In anticipation of the simulation, we 
 \end{equation}
 This PDF is actually independent of the system choice and will be the same for the harmonic oscillator. This is straightforward to show when replacing the generic $c$ operator by the annihilation operator $a$, and by knowing that $\expval{\hat{n}(\tau)}=\expval{a^\dagger a}(\tau)=\expval{n(0)}e^{-\tau}$~\cite{Breuer}.
 
-The average excited population of every simulated trajectories is compared to the unconditional evolution of the excited population in Figure~\ref{fig:MCQpop}. We have simulated 10,000 trajectories to obtain this graph within the \verb|MCQubit.jl| program (all the programs are available on the GitHub repository {\color{red} LIEN}). In this program, we chose to set the initial state as $\ket{\psi(\tau=0)}=\frac{\ket{e}+\ket{g}}{\sqrt{2}}$, and we can observe that the excited population is indeed 0.5 at the beginning on Figure~\ref{fig:MCQpop}. As expected, the average of the 10,000 trajectories follows the unconditional trajectory. The error inset plot in Figure~\ref{fig:MCQpop} is showing that the difference between these two curves is small enough to consider the result valid. We expect the difference to decrease as the number of trajectory increases. Ideally, we should find exactly the same curves as the number of trajectory tends to infinity. 
+The average excited population of every simulated trajectories is compared to the unconditional evolution of the excited population in Figure~\ref{fig:MCQpop}. We have simulated 10,000 trajectories to obtain this graph within the \verb|MCQubit.jl| program. All the programs are available on the GitHub repository \href{https://github.com/JulioSteve/ContinuousMeasurements}{JulioSteve/\allowbreak ContinuousMeasurements}. In this program, we chose to set the initial state as $\ket{\psi(\tau=0)}=\frac{\ket{e}+\ket{g}}{\sqrt{2}}$, and we can observe that the excited population is indeed 0.5 at the beginning on Figure~\ref{fig:MCQpop}. As expected, the average of the 10,000 trajectories follows the unconditional trajectory. The error inset plot in Figure~\ref{fig:MCQpop} is showing that the difference between these two curves is small enough to consider the result valid. We expect the difference to decrease as the number of trajectory increases. Ideally, we should find exactly the same curves as the number of trajectory tends to infinity. 
 
 Moreover, some single trajectories are plotted on this figure to show their behavior. Theoretically, it is possible that a trajectory never jumps because of the superposition of states initially set. Indeed, if the random number $R$ picked is very small, the system might have time to purify to the ground state before the norm diminishes enough. Specifically, we know that SMes conserve the purity of states and we can observe that the final excited population is 0, meaning that the final state is $\ket{g}$. Hence, the norm is 1 at the end and obviously cannot be smaller than $R$. This reasoning seems to imply a competition between the environmental decoherence governed by the Lindblad master equation and the state purification induced by the continuous monitoring.
 
-Furthermore, the curve labeled ``$\rho_{ee}(\tau)$ no-jump (analytical)'' is the evolution of the state without never jumping. To reach the analytical expression of this evolution, we simply have to solve Eq.~(\ref{eq:MCphotodet}). For a generic superposition $\ket{\psi(\tau)}=\alpha\ket{e}+\beta\ket{g}$, we find
+Furthermore, the curve labeled ``$\rho_{ee}(\tau)$ no-jump (analytical)'' is the evolution of the state without never jumping. To reach the analytical expression of this evolution, we simply have to solve Eq.~(\ref{eq:MCphotodet}). For a generic superposition $\ket{\psi(0)}=\alpha\ket{e}+\beta\ket{g}$, we find
 \begin{equation}
-    \ket{\tilde{\psi}_0(t)} = \alpha e^{-i\frac{\omega_0}{2}(t-t_0)}e^{-\frac{k}{2}(t-t_0)}\ket{e} + \beta e^{i\frac{\omega_0}{2}(t-t_0)}\ket{g}.
+    \ket{\tilde{\psi}_0(t)} = \alpha e^{-i\frac{\omega_0}{2} t}e^{-\frac{k}{2} t}\ket{e} + \beta e^{i\frac{\omega_0}{2} t}\ket{g}.
 \end{equation}
 We can then calculate the square of the state's norm in order to obtain the expression of the mean excited population within the no-jump evolution. We easily find that
 \begin{equation}
-    \braket{\tilde{\psi}_0(t)} = \abs{\alpha}^2e^{-k(t-t_0)}+\abs{\beta}^2 \quad\Longrightarrow\quad \abs{\braket{e}{{\psi_0(t)}}}^2 = \frac{1}{1+(\abs{\beta}^2/\abs{\alpha}^2) e^{k(t-t_0)}}.
+    \braket{\tilde{\psi}_0(t)} = \abs{\alpha}^2e^{-k t}+\abs{\beta}^2 \quad\Longrightarrow\quad \abs{\braket{e}{{\psi_0(t)}}}^2 = \frac{1}{1+(\abs{\beta}^2/\abs{\alpha}^2) e^{k t}}.
 \end{equation}
 Therefore in our case ($\alpha=\beta=\sqrt{2}$), we have that the no-jump evolution is given by
 \begin{equation}
@@ -64,7 +64,7 @@ with the initial condition $\rho_{ee}^\mathrm{no-jump}(0)=\frac{1}{2}$ as expect
 
 \subsection{The harmonic oscillator under photo-detection of its environment}\label{sec:MCH}
 
-This simulation is embedded within the \verb|MCHarm.jl| program with the same function \verb|mcsolve|, as in the last subsection. The initial state is $\ket{\psi(0)}=\ket{\alpha_0}$. This state is a coherent state~\cite{Barnett} with the numerical choice $\alpha_0=2$. Choosing a coherent state is a limit-case where the impact of the continuous measurement has no real impact on the dynamics. We will show this in the case of the photo-detection by proving that the no-jump trajectory coincides with the unconditional evolution. Indeed, The relation between coherent states and the Fock states $\qty{n}_{n\in\mathbb{N}}$ will be used in the following. Explicitly,
+This simulation is embedded within the \verb|MCHarm.jl| program with the same function \verb|mcsolve|, as in the last subsection. We consider as  initial state is $\ket{\psi(0)}=\ket{\alpha_0}$. This state is a coherent state~\cite{Barnett} with the choice $\alpha_0=2$. Choosing a coherent state is a limit-case where the impact of the photo-detection measurement has no real impact on the dynamics. We will show this by proving that the no-jump trajectory coincides with the unconditional evolution. In the following, we will make use of the relation between coherent states and Fock states $\qty{\ket{n}}_n$, namely
 \begin{equation}\label{eq:coherentfock}
     \ket{\alpha_0} = e^{-\frac{\abs{\alpha_0}^2}{2}}\sum_{n=0}^{+\infty} \frac{\alpha_0^n}{\sqrt{n!}}\ket{n}.
 \end{equation}
@@ -80,7 +80,7 @@ This evolution is represented by the dash-curve labeled by ``$\expval{\hat{n}(\t
 
 By solving Eq.~(\ref{eq:MCharmUNITS}), we find
 \begin{equation}
-    \ket{\tilde{\psi}_0(t)} = e^{-i\omega_0a^\dagger a (t-t_0)}e^{-\frac{ka^\dagger a}{2} (t-t_0)}\ket{\alpha_0},
+    \ket{\tilde{\psi}_0(t)} = e^{-i\omega_0a^\dagger a  t}e^{-\frac{ka^\dagger a}{2}  t}\ket{\alpha_0},
 \end{equation}
 which will be used t\begin{figure}[tb]
     \centering
@@ -98,19 +98,19 @@ which will be used t\begin{figure}[tb]
         \label{fig:MCHhist}
     \end{subfigure}
     
-    \caption{Results obtained from the Monte Carlo simulation of a harmonic oscillator under continuous photo-detection of its environment. }
+    \caption{Results obtained from the Monte Carlo simulation of a harmonic oscillator under continuous photo-detection of its environment. Numerical settings: $\mathrm{d}\tau=\frac{2\pi k}{50\omega_0}\approx 0.0126$, $N_\mathrm{trajs}=5,000$, tolerance of the solver: $10^{-15}$, operators dimension: $36$.}
     \label{fig:MCHglobale}
 \end{figure}o calculate $\expval{\hat{n}}{\psi_0(t)}$ after some steps. To do so, we might want to express this evolved state as a coherent state before any calculation. Indeed,
 \begin{equation}
     \ket{\tilde{\psi}_0(t)} = e^{\gamma(t) a^\dagger a}\ket{\alpha_0},
 \end{equation}
-where we used $\gamma(t)=-(i\omega_0+\frac{k}{2})(t-t_0)$ as a shorthand notation. By virtue of Eq.~(\ref{eq:coherentfock}), this state can be expressed as
+where we used $\gamma(t)=-(i\omega_0+\frac{k}{2}) t$ as a shorthand notation. By virtue of Eq.~(\ref{eq:coherentfock}), this state can be expressed as
 \begin{equation}
     \ket{\tilde{\psi}_0(t)} = e^{-\frac{\abs{\alpha_0}^2}{2}}\sum_{n=0}^{+\infty} \frac{\alpha_0^n}{\sqrt{n!}}e^{\gamma(t) a^\dagger a}\ket{n} = e^{-\frac{\abs{\alpha_0}^2}{2}}\sum_{n=0}^{+\infty} \frac{\qty(\alpha_0 e^{\gamma(t)})^n}{\sqrt{n!}}\ket{n}.
 \end{equation}
 To force the apparition of a coherent state in the last expression, we set
 \begin{equation} 
-    \alpha(t)=\alpha_0 e^{\gamma(t)}=\alpha_0 e^{-i\omega_0(t-t_0)}e^{-\frac{k}{2} (t-t_0)}. 
+    \alpha(t)=\alpha_0 e^{\gamma(t)}=\alpha_0 e^{-i\omega_0 t}e^{-\frac{k}{2}  t}. 
 \end{equation}
 Using the calculation trick of multiplying a term by its inverse, we eventually find
 \begin{equation}
@@ -118,20 +118,20 @@ Using the calculation trick of multiplying a term by its inverse, we eventually 
 \end{equation}
 This state is easy to normalize since $\braket{\beta}=1$ for any coherent state $\ket{\beta}$. Therefore, we proved that starting with a coherent state $\ket{\alpha_0}$ assures that
 \begin{equation}
-    \ket{\psi_0(t)} = \ket{\alpha(t)} = \ket{\alpha_0 e^{-i\omega_0(t-t_0)}e^{-\frac{k}{2} (t-t_0)}}.
+    \ket{\psi_0(t)} = \ket{\alpha(t)} = \ket{\alpha_0 e^{-i\omega_0 t}e^{-\frac{k}{2}  t}}.
 \end{equation}
 The mean population can be simply evaluated thanks to $\expval{\hat{n}}{\beta} = \abs{\beta}^2$ for any coherent state $\ket{\beta}$. This relation implies that
 \begin{equation}
-    \expval{\hat{n}}{\psi_0(t)} = \abs{\alpha_0}^2 e^{-k(t-t_0)}.
+    \expval{\hat{n}}{\psi_0(t)} = \abs{\alpha_0}^2 e^{-k t}.
 \end{equation}
-If we now compare this result with the unconditional evolution in Eq.~(\ref{eq:uncondMCH}), we realize that they are exactly the same. This result explains why the errors between the average curve, the unconditional curve and the no-jump curve are so small. We seem to have found an initial state which is not bothered by the photo-detection measurement of its environment as anticipated in the introduction of this subsection. 
+If we now compare this result with the unconditional evolution in Eq.~(\ref{eq:uncondMCH}), we realize that they are exactly the same. This result explains why the errors between the average curve, the unconditional curve and the no-jump curve are so small. We have found an initial state which is not bothered by the photo-detection measurement of its environment as anticipated in the introduction of this subsection. 
 
 We open here a brief parenthesis about the histogram analytical curve. As explained in the last subsection, the PDF in Figure~\ref{fig:MCHhist} is the same as in the case of a qubit, see Eq.~(\ref{eq:PDF}). Therefore, this figure is very similar to the Figure~\ref{fig:MCQpop} as expected. Indeed, the average over all trajectories of the jump times must give the unconditional PDF (which is thus the same for both systems).
 
 \subsection{The qubit under homodyne detection of its environment}
 For the homodyne measuring process we simulate the evolution of the conditional state with the function \verb|smesolve| from \verb|QuantumToolbox.jl|. The Hamiltonians and initial states are the same for each system but we chose to work with density matrices in the programs (here \verb|XHomodyneQubit.jl| and \verb|PHomodyneQubit.jl|) for demonstrative purpose. 
 
-In the qubit case, one quickly realizes that the $0$ and $\pi/2$ quadratures are interesting operators to measure since they are linked to the correlation of the state. To show this, we need to work on the expression of $\expval{\sigma_\theta} = \mathrm{Tr}\qty[\rho(t)\sigma_\theta]$ with a general density matrix $\rho$, in which we define the qubit's quadrature operator by  
+In the qubit case, one quickly realizes that the $0$ and $\pi/2$ quadratures are interesting operators to measure since they are linked to the coherences of the state. To show this, we need to work on the expression of $\expval{\sigma_\theta} = \mathrm{Tr}\qty[\rho(t)\sigma_\theta]$ with a general density matrix $\rho$, in which we define the qubit's quadrature operator by  
 \begin{equation}
     \sigma_\theta = \frac{\sigma_- e^{-i\theta} + \sigma_+ e^{i\theta}}{\sqrt{2}}.
 \end{equation}
@@ -149,11 +149,11 @@ To summarize, the aforementioned quadratures are therefore
 \end{equation}
 The simulations yield the graphs in Figure~\ref{fig:HQglobale} where we can compare the averaged quadratures with the analytical unconditional quadratures. To find the expressions of these analytical curves (one per quadrature), we used the OQS theory~\cite{Breuer}, which gives
 \begin{equation}
-    \rho_{eg}(t) = \rho_{eg}(t_0)e^{-\qty(\frac{k}{2}+i\omega_0)(t-t_0)}.
+    \rho_{eg}(t) = \rho_{eg}(0)e^{-\qty(\frac{k}{2}+i\omega_0) t}.
 \end{equation}
 Expanding the complex exponential with the Euler formula gives
 \begin{equation}
-    \rho_{eg}(t) = \rho_{eg}(t_0)e^{-\frac{k(t-t_0)}{2}}\qty{\mathrm{cos}\qty[\omega_0 (t-t_0)]-i\mathrm{sin}\qty[\omega_0 (t-t_0)]}.
+    \rho_{eg}(t) = \rho_{eg}(0)e^{-\frac{k t}{2}}\qty{\mathrm{cos}\qty[\omega_0  t]-i\mathrm{sin}\qty[\omega_0  t]}.
 \end{equation}
 The initial state being the density matrix built from $\ket{\psi(0)}=\frac{\ket{e}+\ket{g}}{\sqrt{2}}$, it gives
 \begin{equation}
@@ -162,7 +162,7 @@ The initial state being the density matrix built from $\ket{\psi(0)}=\frac{\ket{
         \sqrt{2}\mathrm{Im}\qty{\rho_{eg}(t)} = -\frac{e^{-\frac{k t}{2}}}{\sqrt{2}}\mathrm{sin}(\omega_0 t)
     \end{cases}.
 \end{equation}
-This system of equation give the dashed blue curves on graphs of Figure~\ref{fig:HQglobale}, while the averaged trajectories are the two solid orange curves. For consistency, we plot the absolute difference between a single trajectory and the unconditional evolution (solid grey curve), and the absolute difference between the averaged trajectories and the unconditional trajectory (solid orange curve) present on Figure~\ref{fig:HQerrglobale} for each quadrature. These graphs emphasize the fact that the averaged trajectory coincides with the unconditional Lindblad master equation trajectory. It will compared with the following results in the case of the harmonic oscillator instead of the qubit.
+This system of equation give the dashed blue curves on graphs of Figure~\ref{fig:HQglobale}, while the averaged trajectories are the two solid orange curves. For consistency, we plot the absolute difference between a single trajectory and the unconditional evolution (solid grey curve), and the absolute difference between the averaged trajectories and the unconditional trajectory (solid orange curve) present on Figure~\ref{fig:HQerrglobale} for each quadrature. These graphs emphasize the fact that the averaged trajectory coincides with the unconditional Lindblad master equation trajectory. It will compared with the results in the case of the harmonic oscillator.
 \begin{figure}[h]
     \centering
     \begin{subfigure}[t]{0.55\textwidth}
@@ -179,7 +179,7 @@ This system of equation give the dashed blue curves on graphs of Figure~\ref{fig
         \label{fig:HQPquad}
     \end{subfigure}
     
-    \caption{The evolution of two qubit quadratures obtained by simulating continuous homodyne detection of the qubit's environment. }
+    \caption{The evolution of qubit's quadratures obtained by simulating continuous homodyne detection of the qubit's environment. Numerical settings: $\mathrm{d}\tau=\frac{2\pi k}{3000\omega_0}\approx 0.0002$, $N_\mathrm{trajs}=500$, absolute tolerance of the solver: $0.001$, relative tolerance of the solver: $0.002$.}
     \label{fig:HQglobale}
 \end{figure}
 \newpage
@@ -199,15 +199,15 @@ This system of equation give the dashed blue curves on graphs of Figure~\ref{fig
         \label{fig:HQPquaderr}
     \end{subfigure}
     
-    \caption{Graphs highlighting the convergence of averaged trajectories towards the unconditional trajectory, compared to a single trajectory, for the qubit under homodyne measurement of its environment.}
+    \caption{Graphs highlighting the convergence of averaged trajectories towards the unconditional trajectory, compared to a single trajectory, for the qubit under homodyne measurement of its environment. }
     \label{fig:HQerrglobale}
 \end{figure}
 \subsection{The harmonic oscillator under homodyne detection of its environment}
 The case of the harmonic oscillator is similar to the last one numerically. We only change the Hamiltonian and the initial system to be a coherent density matrix, in analogy of the settings of Section~\ref{sec:MCH} but with the density matrix formalism (for demonstrative purpose only). These steps are encoded in the program named \verb|HomodyneHarmonic.jl|. Unlike the previous cases, we don't plot some single trajectories because they are extremely close to the unconditional/averaged trajectories, this is highlighted in the error plots of Figure~\ref{fig:HHerrglobale}. Indeed, compared to the Figure~\ref{fig:HQerrglobale}, we observe a difference in the order of magnitude of errors (the qubit single-trajectory errors are around $10^{-1}$ to $10^{-2}$, while for the harmonic oscillator they are around $10^{-4}$ to $10^{-5}$). At this state of the research, we expect to find an argument like in the photo-detection case on the harmonic oscillator, where we have shown that the no-jump trajectory coincides with the unconditional one.
 
-Firstly, to obtain the analytical expression for the unconditional trajectory, we need an important result of OQS theory: a coherent state stays coherent under the Lindblad master equation evolution~\cite{Breuer}. The expression of the state at time $t$ is
+Firstly, to obtain the analytical expression for the unconditional trajectory, we need an important result of OQS theory: a coherent state stays coherent under the considered Lindblad master equation evolution~\cite{Breuer} (thermal noise, here in particular we work with the 0-temperature limit case). The expression of the state at time $t$ is
 \begin{equation}
-    \alpha(t) = e^{-\qty(i\omega_0+\frac{k}{2})(t-t_0)} \alpha(t_0).
+    \alpha(t) = e^{-\qty(i\omega_0+\frac{k}{2}) t} \alpha(0).
 \end{equation}
 By defining the quadrature operator of the harmonic oscillator as
 \begin{equation}
@@ -219,7 +219,7 @@ we can analytically calculate the mean value of this operator. Explicitly,
 \end{equation}
 The fundamental relation $a\ket{\alpha}=\alpha\ket{\alpha}$ allows to simplify the previous equation into
 \begin{equation}
-    \expval{a_\theta(t)} = \frac{\alpha(t)e^{-i\theta}+\alpha(t)^* e^{i\theta}}{\sqrt{2}} = \abs{\alpha(t_0)}\frac{e^{-i\qty[\omega_0(t-t0)+\theta]}+e^{i\qty[\omega_0(t-t0)+\theta]}}{\sqrt{2}}e^{-\frac{k(t-t_0)}{2}}.
+    \expval{a_\theta(t)} = \frac{\alpha(t)e^{-i\theta}+\alpha(t)^* e^{i\theta}}{\sqrt{2}} = \abs{\alpha(0)}\frac{e^{-i\qty[\omega_0(t-t0)+\theta]}+e^{i\qty[\omega_0(t-t0)+\theta]}}{\sqrt{2}}e^{-\frac{k t}{2}}.
 \end{equation}
 By recognizing the expression of a cosinus, we obtain
 \begin{equation}
@@ -238,22 +238,22 @@ Since $\alpha_0=2$, the dashed blue curves present respectively in Figure~\ref{f
     \begin{subfigure}[t]{0.55\textwidth}
         \centering
         \includegraphics[width=\textwidth]{HH/Xquadrature.pdf}
-        \caption{The evolution of $\sqrt{2}\mathrm{Re}\qty{\rho_{eg}}$ of the qubit with respect to dimensionless time $\tau$ compared to the unconditional evolution of the same quantity.}
+        \caption{The evolution of the $0$-quadrature of the harmonic oscillator with respect to dimensionless time $\tau$ compared to the unconditional evolution of the same quantity.}
         \label{fig:HHXquad}
     \end{subfigure}
     \\
     \begin{subfigure}[t]{0.55\textwidth}
         \centering
         \includegraphics[width=\textwidth]{HH/Pquadrature.pdf}
-        \caption{The evolution of $\sqrt{2}\mathrm{Im}\qty{\rho_{eg}}$ of the qubit with respect to dimensionless time $\tau$ compared to the unconditional evolution of the same quantity.}
+        \caption{The evolution of the $\pi/2$-quadrature of the harmonic oscillator with respect to dimensionless time $\tau$ compared to the unconditional evolution of the same quantity.}
         \label{fig:HHPquad}
     \end{subfigure}
     
-    \caption{The evolution of two qubit quadratures obtained by simulating continuous homodyne detection of the qubit's environment. }
+    \caption{The evolution of the harmonic oscillator's quadratures obtained by simulating continuous homodyne detection of the qubit's environment. Numerical settings: $\mathrm{d}\tau=\frac{2\pi k}{3000\omega_0}\approx 0.0002$, $N_\mathrm{trajs}=500$, absolute tolerance of the solver: $0.001$, relative tolerance of the solver: $0.002$, operators dimension: 36.}
     \label{fig:HHglobale}
 \end{figure}
 
-These last result justifies the fact that the averaged trajectory coincides with the unconditional one as expected. However, at this state of the work, we were not able to comment on the reason why the single trajectories seem to be extremely close to the unconditional trajectory. The first reason could be that, they are not exactly depicted by the same equation (which was the case for the environmental photo-detection with a coherence state). This argument can be based on the fact that the errors in Figure~\ref{fig:HHerrglobale} are way higher than the errors of the photo-detection case, i.e., Figure~\ref{fig:MCHpop} (purple inset). Nevertheless, the results of the error plot could come from a numerical issue that we did not spot yet. 
+These last results justify the fact that the averaged trajectory coincides with the unconditional one as expected. However, at this state of the work, we are not able to comment on the reason why the single trajectories seem to be extremely close to the unconditional trajectory. A possibility is that they are not exactly depicted by the same equation (which instead was the case for the environmental photo-detection with a coherent state). This argument can be based on the fact that the errors in Figure~\ref{fig:HHerrglobale} are way higher than the errors of the photo-detection case, i.e., Figure~\ref{fig:MCHpop} (purple inset). Nevertheless, the results of the error plot could come from a numerical issue that we did not spot yet. 
 
 \begin{figure}[h]
     \centering

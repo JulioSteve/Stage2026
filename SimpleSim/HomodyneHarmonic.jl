@@ -4,10 +4,10 @@ theme(:dao)
 palette = theme_palette(:dao)
 cd("/home/julio/Desktop/GitHub/Stage2026/SimpleSim/")
 
-Ω = 10 # Ω=ω0/k the ratio between natural frequency of the system ω0 and the couplign constant k. Weak coupling implies Ω>>1.
-dτ = 2π/(50*Ω)/10 # By definition T0=2π/ω0 and to work unitless: kT0=2πk/ω0. We choose to take 500 points per oscillation.
+Ω = 10 # Ω=ω0/k the ratio between natural frequency of the system ω0 and the coupling constant k. Weak coupling implies Ω>>1.
+dτ = 2π/(1000*Ω) # By definition T0=2π/ω0 and to work unitless: kT0=2πk/ω0. We choose to take 3000 points per oscillation.
+# We choose a smaller dτ to reduce the numerical errors. The stochastic solver is greatly impacted (precision and convergence) by the size of dτ.τlist = 0:dτ:10
 τlist = 0:dτ:10
-
 α0 = 2.0 # complex number to define the initial coherent state: a|α>=α|α>
 Ncut = abs(α0)^2+4*abs(α0) # Upper bound μ+4σ of initial coherent state distribution.
 prct = 200 # POURCENTAGE DE TRONCATURE EN PLUS

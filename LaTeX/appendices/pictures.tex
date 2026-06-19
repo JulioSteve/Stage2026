@@ -4,12 +4,13 @@
 \numberwithin{equation}{section}
 \renewcommand{\theequation}{\thechapter.~\arabic{equation}}
 \chapter{Representations of quantum mechanics}\label{ann:pictures}
-In quantum mechanics we define the expectation value of an operator $O$ by
+\section{Schrödinger and Heisenberg pictures}
+Before looking at the different pictures we will use throughout this work, we need to introduce the definition of the expectation value of an operator $O$. Depending on the purity of the state, it is defined as
 \begin{align*}
     \expval{O}_\psi&=\expval{O}{\psi},\\
     \expval{O}_\rho&=\Tr{\rho O}.
 \end{align*}
-\section{Schrödinger and Heisenberg pictures}
+
 In the Schrödinger picture we saw that $\ket{\psi(t)}=U(t)\ket{\psi}$, where $U(t)=e^{-\frac{i}{\hbar}Ht}$ in the case of a time-independent Hamiltonian with $t_0=0$. Nevertheless, the following results can be derived in the general case of a time dependent Hamiltonian,~\cite{Breuer}. Considering the average value of an observable $A_S(t)$ in the Schrödinger picture (in this picture, the time-dependence of an observable can only be explicit), we find
 \begin{align}
     \expval{A(t)} &= \expval{A_S(t)}{\psi(t)}\nonumber\\
@@ -18,9 +19,9 @@ In the Schrödinger picture we saw that $\ket{\psi(t)}=U(t)\ket{\psi}$, where $U
 \end{align}
 This calculation naturally reveals the Heisenberg representation of observables and states. Indeed, we have that $\ket{\psi(t_0)}_S\equiv\ket{\psi}_H$ which links both pictures at the initial time $t_0$. Furthermore, we can link both representation at all time by calculating the evolution of an observable in the Heisenberg picture:
 \begin{equation}
-    \boxed{\dert{A_H} = \frac{i}{\hbar}\left[H_{H},A_{H}\right] + \derpart{A_S}\label{eq:HSlink}}.
+    \boxed{\dert{A_H} = \frac{i}{\hbar}\left[H_{H},A_{H}\right] + \derpart{A_H}\label{eq:HSlink}},
 \end{equation}
-We observe that if the observable does not depend on time explicitly (the second term is 0 in the last equations), then the dynamics of the operator is fully described in the Heisenberg picture.
+where $\derpart{A_H(t)}=U^\dagger(t,t_0)\derpart{A_S(t)}U(t,t_0)$. We observe that if the observable does not depend on time explicitly (the second term is 0 in the last equations), then the dynamics of the operator is fully described in the Heisenberg picture.
 
 \section{Interaction picture}
 As mentioned in the Section~\ref{OQS}, we can represent the coupling between $S$ and $E$ with an interaction Hamiltonian such that
