@@ -5,12 +5,12 @@ palette = theme_palette(:dao)
 cd("/home/julio/Desktop/GitHub/Stage2026/SimpleSim/")
 
 Ω = 10 # Ω=ω0/k the ratio between natural frequency of the system ω0 and the couplign constant k. Weak coupling implies Ω>>1.
-dτ = 2π/(50*Ω) # By definition T0=2π/ω0 and to work unitless: kT0=2πk/ω0. We choose to take 50 points per oscillation.
+dτ = 2π/(50*Ω)/10 # By definition T0=2π/ω0 and to work unitless: kT0=2πk/ω0. We choose to take 500 points per oscillation.
 τlist = 0:dτ:10
 
 α0 = 2.0 # complex number to define the initial coherent state: a|α>=α|α>
 Ncut = abs(α0)^2+4*abs(α0) # Upper bound μ+4σ of initial coherent state distribution.
-prct = 50 # POURCENTAGE DE TRONCATURE EN PLUS
+prct = 200 # POURCENTAGE DE TRONCATURE EN PLUS
 factor = 1.0+prct/100
 Ncut = Int(ceil(Ncut*factor)) # We take +prct% of the maximal population and round it to the upper value
 
@@ -23,7 +23,7 @@ H = Ω*a'*a # Hamiltonian of the system (unitless)
 meanpop(t) = (abs(α0)^2)*exp(-t)
 
 # Simulations
-Ntraj = 50
+Ntraj = 100
 homX = smesolve(H, ρ0, τlist, [], [c(0)] ; e_ops=[quad(0)], ntraj=Ntraj, progress_bar=Val(true), keep_runs_results=Val(true))
 # lindX = mesolve(H, ρ0, τlist, [c(0)] ; e_ops=[quad(0)], progress_bar=Val(true))
 

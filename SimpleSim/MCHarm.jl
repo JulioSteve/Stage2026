@@ -12,7 +12,7 @@ dτ = 2π/(50*Ω) # By definition T0=2π/ω0 and to work unitless: kT0=2πk/ω0.
 
 α0 = 2.0 # complex number to define the initial coherent state: a|α>=α|α>
 Ncut = abs(α0)^2+4*abs(α0) # Upper bound μ+4σ of initial coherent state distribution.
-prct = 50 # POURCENTAGE DE TRONCATURE EN PLUS
+prct = 200 # POURCENTAGE DE TRONCATURE EN PLUS
 factor = 1.0+prct/100
 Ncut = Int(ceil(Ncut*factor)) # We take +prct% of the maximal population and round it to the upper value
 
@@ -22,8 +22,8 @@ H = Ω*a'*a # Hamiltonian of the system (unitless)
 
 c_ops=[a]
 
-Ntraj = 10000
-sim = mcsolve(H, ψ0, τlist, c_ops, e_ops=[a'*a], ntraj=Ntraj, progress_bar=Val(true), keep_runs_results=Val(true))
+Ntraj = 5_000
+sim = mcsolve(H, ψ0, τlist, c_ops, e_ops=[a'*a], ntraj=Ntraj, progress_bar=Val(true), keep_runs_results=Val(true), reltol=1e-15, abstol=1e-15)
 trajs = real.(sim.expect[1,:,:])
 meantraj = sum(trajs, dims=1)./Ntraj
 
