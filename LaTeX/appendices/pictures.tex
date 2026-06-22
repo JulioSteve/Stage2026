@@ -19,9 +19,9 @@ In the Schrödinger picture we saw that $\ket{\psi(t)}=U(t)\ket{\psi}$, where $U
 \end{align}
 This calculation naturally reveals the Heisenberg representation of observables and states. Indeed, we have that $\ket{\psi(t_0)}_S\equiv\ket{\psi}_H$ which links both pictures at the initial time $t_0$. Furthermore, we can link both representation at all time by calculating the evolution of an observable in the Heisenberg picture:
 \begin{equation}
-    \boxed{\dert{A_H} = \frac{i}{\hbar}\left[H_{H},A_{H}\right] + \derpart{A_H}\label{eq:HSlink}},
+    \boxed{\dert{A_H} = \frac{i}{\hbar}\left[H_{H},A_{H}\right] + \qty(\derpart{A_S})_H\label{eq:HSlink}},
 \end{equation}
-where $\derpart{A_H(t)}=U^\dagger(t,t_0)\derpart{A_S(t)}U(t,t_0)$. We observe that if the observable does not depend on time explicitly (the second term is 0 in the last equations), then the dynamics of the operator is fully described in the Heisenberg picture.
+where $(\derpart{A_S})_H=U^\dagger(t,t_0)\derpart{A_S(t)}U(t,t_0)$. We observe in particular that if the observable does not depend explicitly on time, the last term is zero.
 
 \section{Interaction picture}
 As mentioned in the Section~\ref{OQS}, we can represent the coupling between $S$ and $E$ with an interaction Hamiltonian such that
